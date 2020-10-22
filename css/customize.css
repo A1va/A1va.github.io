@@ -1,0 +1,5 @@
+/* 自定义字体 */
+@font-face {
+    font-family: 'sleek';
+    src: url('https://cdn.jsdelivr.net/gh/orduster/cdn/fonts/sleek.woff2');
+}
