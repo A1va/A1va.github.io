@@ -3,7 +3,7 @@
   <entry>
     <title>C1-布尔逻辑</title>
     <url>/post/5b231705/</url>
-    <content><![CDATA[<h1 id="布尔逻辑-Boolean-Logic"><a href="#布尔逻辑-Boolean-Logic" class="headerlink" title="[布尔逻辑 Boolean Logic]"></a>[布尔逻辑 Boolean Logic]</h1><p><code>And</code>/<code>Or</code>/<code>Not</code>算子都可以只用<strong>Nand</strong>或<strong>Nor</strong>函数来构建（可以单纯用Nand也可以单纯用Nor）</p>
+    <content><![CDATA[<h1 id="布尔逻辑-Boolean-Logic"><a href="#布尔逻辑-Boolean-Logic" class="headerlink" title="[布尔逻辑 Boolean Logic]"></a>[布尔逻辑 Boolean Logic]</h1><p>And/Or/Not算子都可以只用<strong>Nand</strong>或<strong>Nor</strong>函数来构建（可以单纯用Nand也可以单纯用Nor）</p>
 <p><code>Nand</code>: 只有1-1为0，其他情况(0-0, 0-1, 1-0)均为1（Not And）</p>
 <p><code>Nor</code>:   只有0-0为1，其他情况(0-1, 1-0, 1-1)均为0（Not Or）</p>
 <a id="more"></a>
@@ -242,7 +242,7 @@
 
 
 <p>DMux和Mux的区别：</p>
-<p><img src="../images/C1-%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91.assets/v2-bb3f9b6f59a92fd0ede6b40bfb72332b_720w.jpg" alt="DMux &amp; Mux"></p>
+<p><img src="/post/5b231705/v2-bb3f9b6f59a92fd0ede6b40bfb72332b_720w.jpg" alt="DMux &amp; Mux"></p>
 ]]></content>
       <categories>
         <category>Computer Architecture</category>
