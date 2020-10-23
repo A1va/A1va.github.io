@@ -1,0 +1,505 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>nand2tetis C5-计算机体系结构 | Alva</title><meta name="keywords" content="Memory,nand2tetris,HDL,CPU"><meta name="author" content="Alva"><meta name="copyright" content="Alva"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="nand2tetris第五章节的知识笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nand2tetis C5-计算机体系结构">
+<meta property="og:url" content="https://a1va.github.io/post/881a6736/index.html">
+<meta property="og:site_name" content="Alva">
+<meta property="og:description" content="nand2tetris第五章节的知识笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2020-10-23T13:18:51.000Z">
+<meta property="article:modified_time" content="2020-10-23T13:39:36.001Z">
+<meta property="article:author" content="Alva">
+<meta property="article:tag" content="Memory">
+<meta property="article:tag" content="nand2tetris">
+<meta property="article:tag" content="HDL">
+<meta property="article:tag" content="CPU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="https://a1va.github.io/post/881a6736/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.2.0',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Alva","link":"链接: ","source":"来源: Alva","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2020-10-23 21:39:36'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {
+  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }
+})()</script><link rel="stylesheet" href="/css/customize.css"><meta name="generator" content="Hexo 5.2.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/images/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">12</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">15</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">2</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-Computer-Architecture"><span class="toc-number">1.</span> <span class="toc-text">[计算机体系结构 Computer Architecture]</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="toc-number">1.0.1.</span> <span class="toc-text">[背景知识]</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%AD%98%E5%82%A8%E7%A8%8B%E5%BA%8F%E6%A6%82%E5%BF%B5"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">1. 存储程序概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%86%AF%C2%B7%E8%AF%BA%E4%BC%8A%E6%9B%BC%E7%BB%93%E6%9E%84"><span class="toc-number">1.0.1.2.</span> <span class="toc-text">2.冯·诺伊曼结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%86%85%E5%AD%98"><span class="toc-number">1.0.1.3.</span> <span class="toc-text">3. 内存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E4%B8%AD%E5%A4%AE%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-number">1.0.1.4.</span> <span class="toc-text">4. 中央处理器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.0.1.5.</span> <span class="toc-text">5. 寄存器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA"><span class="toc-number">1.0.1.6.</span> <span class="toc-text">6.输入输出</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hack-%E7%A1%AC%E4%BB%B6%E5%B9%B3%E5%8F%B0%E8%A7%84%E8%8C%83%E8%AF%A6%E8%BF%B0"><span class="toc-number">1.0.2.</span> <span class="toc-text">Hack 硬件平台规范详述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%A6%82%E8%BF%B0"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">1.概述</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.0.3.</span> <span class="toc-text">[实现]</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Memory%EF%BC%9A"><span class="toc-number">1.0.3.1.</span> <span class="toc-text">Memory：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CPU"><span class="toc-number">1.0.3.2.</span> <span class="toc-text">CPU</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.0.3.2.1.</span> <span class="toc-text">指令格式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%A3%E7%A0%81%E6%8C%87%E4%BB%A4"><span class="toc-number">1.0.3.2.2.</span> <span class="toc-text">解码指令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#C-%E6%8C%87%E4%BB%A4%E7%9A%84%E8%A7%A3%E7%A0%81"><span class="toc-number">1.0.3.2.3.</span> <span class="toc-text">C-指令的解码</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Alva</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">nand2tetis C5-计算机体系结构</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-10-23T13:18:51.000Z" title="发表于 2020-10-23 21:18:51">2020-10-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-10-23T13:39:36.001Z" title="更新于 2020-10-23 21:39:36">2020-10-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Computer-Architecture/">Computer Architecture</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="计算机体系结构-Computer-Architecture"><a href="#计算机体系结构-Computer-Architecture" class="headerlink" title="[计算机体系结构 Computer Architecture]"></a>[计算机体系结构 Computer Architecture]</h1><p>本章涵盖“硬件”部分中最难啃的内容。将第1~3章构建的所有芯片整合并集成一台通用计算机Hack。</p>
+<p>Hack优点：</p>
+<ol>
+<li>通过前面构建的芯片可以几小时构建完成。</li>
+<li>Hack计算机的体系结构足以描述任何数字计算机的关键操作原理和硬件组成。</li>
+</ol>
+<p><strong>This chapter is more Complicated than previous.</strong></p>
+<h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><h4 id="1-存储程序概念"><a href="#1-存储程序概念" class="headerlink" title="1. 存储程序概念"></a>1. 存储程序概念</h4><p>​        一个由有限硬件组件构成的计算机却可以执行无限的任务队列，其实都是<strong>“存储程序(stored program)”</strong>概念的硕果。计算机基于固定的硬件平台，能够执行固定的指令集。同时，这些指令能够被当成构建模块，组成任意的程序。而且，这些程序的逻辑被存储到计算机的<strong>存储设备(memory)</strong>里，跟数据一样，成为所谓的<strong>“软件(software)”</strong>。</p>
+<h4 id="2-冯·诺伊曼结构"><a href="#2-冯·诺伊曼结构" class="headerlink" title="2.冯·诺伊曼结构"></a>2.冯·诺伊曼结构</h4><p>​        存储系统概念最著名的是<strong>通用图灵机(1936)</strong>和<strong>冯·诺伊曼机(1945)</strong>。</p>
+<p>​        图灵机描述虚拟的简单计算机的抽象机，主要用来分分析计算机的逻辑结构。相比之下，冯·诺伊曼机是实际应用型的体系结构，是今天所有计算机结构的基础。</p>
+<p><img src="/post/881a6736/image-20200830133841248.png" alt="冯·诺伊曼机"></p>
+<p>​        冯·诺伊曼体系结构的基础是一个<strong>中央处理单元(CPU, Central Processing Unit)</strong>，它与<strong>记忆设备(memory device)</strong>即<strong>广义的内存</strong>进行交互，负责从<strong>输入设备(input device)</strong>接收数据，向<strong>输出设备(output device)</strong>发送数据。体系结构的核心是存储程序的概念：计算机内存不仅存储着要进行操作的数据，还存储着指示计算机运行的指令。</p>
+<p>​        广义的内存代表任何具有存储功能的设备和组件。</p>
+<p><img src="/post/881a6736/image-20200901111929066.png" alt="DataBus、AddressBus、ControlBus"></p>
+<p>​        Data、Address、Control这三部分的每一段信息都由电线实现，通过一组公共总线。公共电线分别有数据总线、地址总线、控制总线。</p>
+<p>​        首先是数据总线和<code>ALU</code>的交互，输入数据进行算术运算或逻辑运算，得出结果再输出到数据总线，然后到<strong>内存(memory)</strong>或<strong>寄存器(registers)</strong>。</p>
+<p>​        控制总线。<code>ALU</code>需要知道它每次运行的是什么操作，所以它必须从控制总线中重新获取信息，指定它所要进行的操作类型。通过条件分支或循环条件决定下一个指令是什么？这种控制通过控制位(sel)实现, 所以我们需要从<code>ALU</code>中获取控制信息反馈到控制系统的其他部分。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">————</th>
+<th style="text-align:center">CPU中的ALU</th>
+<th style="text-align:center">CPU中的Registers</th>
+<th style="text-align:center">内存Memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">数据总线</td>
+<td style="text-align:center">往<code>ALU</code>输入数据进行算术运算 / 逻辑运算，<code>ALU</code>输出运算结果，再反馈到其它</td>
+<td style="text-align:center">读写</td>
+<td style="text-align:center">读写</td>
+</tr>
+<tr>
+<td style="text-align:center">地址总线</td>
+<td style="text-align:center">————</td>
+<td style="text-align:center">间接寻址到RAM或者跳到一个ROM地址</td>
+<td style="text-align:center">下图一和图二</td>
+</tr>
+<tr>
+<td style="text-align:center">控制总线</td>
+<td style="text-align:center">往<code>ALU</code>输入控制位(sel)决定<code>ALU</code>将要进行的运算操作类型；通过条件分支或循环条件决定下一个指令，获取控制信息反馈到控制系统的其他部分。</td>
+<td style="text-align:center">反馈到控制系统的其他部分</td>
+<td style="text-align:center">反馈到控制系统的其他部分</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src="/post/881a6736/image-20200901145605717.png" alt="dataMemory"></p>
+<p>​        根据地址得到需要操作的数据块，并对其进行读写操作。</p>
+<p><img src="/post/881a6736/image-20200901145738663.png" alt="programMemory"></p>
+<p>​        需要将下一个程序指令的地址输入到<strong>程序内存</strong>，因为这是我们使用程序指令的地方，放置地址后，从那里得到指令，也可能是数字。程序内存中的指令告诉系统的其他部分该做什么，所以我们需要从下一个指令中获取信息，也即从程序内存的数据输出，并将其输入到控制总线。</p>
+<h4 id="3-内存"><a href="#3-内存" class="headerlink" title="3. 内存"></a>3. 内存</h4><p>​        冯·诺伊曼机的内存中存有两种类型的信息：<strong>数据项(data items)</strong> 和 <strong>程序指令(programing instructioins)</strong>。采用不同方式处理两种信息，并被分别存储到不同的内存区，尽管功能不同，但都以二进制数形式存储在具有通用结构的<strong>随机存取器(RAM)</strong>。一个单独的字（一个数据项或者一条指令）通过它的地址指定。</p>
+<ul>
+<li>数据内存        高级程序操纵的抽象组件，例如变量、数组和对象。这些数据抽象被翻译成机器语言后，变成一连串的二进制数，存储在数据内存。通过指定的地址进行读写操作。</li>
+<li>指令内存        高级指令 如上类似处理，并被存储在指令内存。计算机每一步操作，CPU从指令中取出一个字，对其进行解码，从而执行指定的指令，然后计算下一条将要执行的指令。<ul>
+<li>指令内存中的指令格式遵守机器语言的规则。</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-中央处理器"><a href="#4-中央处理器" class="headerlink" title="4. 中央处理器"></a>4. 中央处理器</h4><p>​        CPU是计算机体系的核心，负责执行已被加载到指令内存的指令。CPU通过使用三个主要的硬件执行指令：<strong>算术逻辑单元(ALU, Arithmetic-Logic Unit)</strong>，一组<strong>寄存器(registers)</strong>和<strong>控制单元(control unit)</strong>。</p>
+<ul>
+<li><strong>算术逻辑单元（ALU）</strong>        ALU 负责执行计算机中所有底层的算术操作和逻辑操作。</li>
+<li><strong>寄存器（Registers）</strong>          CPU 的设计是为了能够快速地执行简单计算。与运算相关的数据暂存到高速寄存器，远比从内存搬进搬出快得多。</li>
+<li><strong>控制单元（Control Unit）</strong> 计算机指令用二进制数表示，通常具有16、32或64位宽。在指令可被执行之前，要对其进行解码，指令包含的信息向不同的硬件（ALU，寄存器，内存）发送信号，指使它们如何执行指令。指令解码过程是通过某些<strong>控制单元</strong>完成的。这些控制单元还负责决定下一条读取和执行哪一条指令。</li>
+</ul>
+<h4 id="5-寄存器"><a href="#5-寄存器" class="headerlink" title="5. 寄存器"></a>5. 寄存器</h4><p>​        内存访问是很慢的过程。当<code>CPU</code>被指示去取内存中地址<code>j</code>的内容时，会连续发生以下操作：</p>
+<p>​            (a)  <code>j</code>从<code>CPU</code>传到<code>RAM</code>;</p>
+<p>​            (b)  <code>RAM</code>的<strong>直接访问逻辑(direct-access logic)</strong>选中地址为<code>j</code>的寄存器;</p>
+<p>​            (c)  <code>RAM[j]</code>的内容传回到<code>CPU</code>;</p>
+<p>​        寄存器也能提供同样的数据访问功能， 但没有开会的数据传递和寻址开销。</p>
+<ul>
+<li><p>寄存器位于<code>CPU</code>内部，所以对它们的访问几乎可以瞬间完成</p>
+</li>
+<li><p>与数百万个内存单元相比，寄存器数量非常少，机器语言指令可以使用短短几个位就能指定要操作的寄存器在什么位置，指令格式也会更短。</p>
+<p>​    </p>
+<p>不同的目的，不同的<code>CPU</code>采用不同数量、不同类型的寄存器。</p>
+</li>
+<li><p><strong>数据寄存器(Data registers)</strong>        为<code>CPU</code>提供短期记忆(memory)服务。例如计算<code>(a+b)*c</code>，必须先计算<code>(a+b)</code>的值并储存，可以暂存<code>(a+b)</code>到数据寄存器。</p>
+</li>
+<li><p><strong>寻址寄存器(Addressing registers)</strong>   为了进行读写，<code>CPU</code>必须连续访问内存中的数据。这样我们必须确定被访问的<strong>内存字(word)</strong>所在的内存地址。由上条指令得出的地址，地址会被存储在<strong>寻址寄存器</strong>。</p>
+</li>
+<li><p><strong>程序计数寄存器(Program counter register)</strong>  执行程序时，<code>CPU</code>必须总是知道下一条指令在指令内存中的地址，地址保存在<strong>程序计数寄存器(PC, Program Counter)</strong>中。<code>CPU</code>通过两种方式更新<code>PC</code>的内容：</p>
+<ul>
+<li>如果当前指令存在需要执行的<code>goto n</code>命令，则<code>CPU</code>将<code>PC</code>置为<code>n</code>；</li>
+<li>否则，<code>PC</code>增1以便指针指向程序中的下一条指令。</li>
+</ul>
+</li>
+</ul>
+<h4 id="6-输入输出"><a href="#6-输入输出" class="headerlink" title="6.输入输出"></a>6.输入输出</h4><p>​        计算机使用一组<strong>输入输出(I/O)设备</strong>来与其外部环境进行交互。<strong>不考虑</strong>设备本身的构造，每个设备代表一块独立的机器，需要相关的工程知识；CSer设计不同方案将不同外设的<strong>物理细节封装</strong>，让计算机以相同的方式对它们进行操作，其中最简单的实现技巧之一就是<strong>I/O映像(memory-mapped I/O)</strong>。</p>
+<p>​        I/O映像的基本思想是：创建I/O设备的二进制仿真，使其对于<code>CPU</code>而言，“看上去”就像普通的内存段。</p>
+<h3 id="Hack-硬件平台规范详述"><a href="#Hack-硬件平台规范详述" class="headerlink" title="Hack 硬件平台规范详述"></a>Hack 硬件平台规范详述</h3><h4 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h4><p>​        Hack平台是16-位冯·诺伊曼机，一个<code>CPU</code>、两个独立的内存模块（指令内存和数据内存）和两个内存映像I/O设备（屏幕和键盘）。</p>
+<p>​        Hack计算机执行位于指令内存中的程序。指令内存是只读设备，可以用ROM芯片实现。加载新的程序意味着要替换整个ROM芯片。HACK平台的硬件仿真器提供了<strong>加载文本文件</strong>的方法，文本文件包含用<strong>Hack机器语言</strong>编写的程序（从新在开始，<strong>分别用RAM和ROM来指代Hack的数据内存和指令内存</strong>）。因此两个独立的内存模块为：RAM和ROM。</p>
+<p>​        Hack的CPU由<strong>ALU</strong>和三个分别称为<strong>数据寄存器(D, data regiter)</strong>、<strong>地址寄存器(A, address register)</strong>、<strong>程序计数器(PC, program counter)</strong>的寄存器组成。</p>
+<p><img src="/post/881a6736/image-20200902144121386.png" alt="The Hack Computer"></p>
+<p>……省略约3000字，请仔细看书🤣</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="[实现]"></a>[实现]</h3><ul>
+<li><strong>Memory</strong>：内存，包括数据内存和指令内存，屏幕内存映像和键盘内存映像</li>
+<li><strong>CPU</strong>：包含A寄存器，D寄存器，ALU，PC程序计数器</li>
+<li><strong>Computer</strong>：完整的一个计算机平台。运行在仿真平台上</li>
+</ul>
+<h4 id="Memory："><a href="#Memory：" class="headerlink" title="Memory："></a>Memory：</h4><p>输入管脚：<code>in[16]</code>, <code>load</code>,<code>address[15]</code><br>输出管脚：<code>out[16]</code><br>Memory芯片主要由三个底层芯片构建：RAM16K，Screen，KeyBoard。同时我们必须通过这三个底层芯片来实现一个统一的逻辑地址空间，这个空间从地址0到24567。</p>
+<ul>
+<li>构建这个连续的地址空间的方法我们可以参考之前第三章由小RAM构建大RAM的方法。</li>
+<li>内存的功能首先能够根据<code>address</code>选定需要进行操作的单元。</li>
+<li>然后将<code>load</code>信号给指定的内存单元。根据<code>load</code>信号判断是进行写入还是继续保持。</li>
+<li>下面进行地址连线：（注意此地址只有15位 -&gt; address[15]）<ul>
+<li>RAM16K:  (0~16383) -&gt; (<strong>0</strong>00 0000 0000 0000) ~ ‭(<strong>0</strong>11 1111 1111 1111‬)</li>
+<li>Screen:  (16384~24575) -&gt; (<strong>10</strong>0 0000 0000 0000) ~ ‭(<strong>10</strong>1 1111 1111 1111‬)</li>
+<li>Keyboard: 24576 -&gt; (<strong>11</strong>0 0000 0000 0000)</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><p>首先根据地址进行判断<strong>(00, 01, 10, 11)</strong>，应该将控制信号发送给<code>RAM</code>, <code>Screen</code>, <code>Keyboard</code>中的哪个地址空间。可以使用 <code>DMux</code>解复用 实现‬（将一个地址分发到不同的芯片）。</p>
+<ol>
+<li>由地址的第15位选择输出，区分出 <strong>RAM(0)</strong> 和 <strong>内存映射区(1)</strong>, 实际输出还是load = (0/1).</li>
+<li>再由 <strong>内存映射区(1)</strong> 对应地址的第14位进行选择，区分出 <strong>Screen(0)</strong> 和 <strong>Keyboard(1)</strong>, 实际输出还是load = (0/1)</li>
+</ol>
+<ul>
+<li>由于所给出的地址空间不会超过<code>110 0000 0000 0000</code>‬，所以我们只需要进行一次判断就可以了，而不用考虑后面13位的判断。</li>
+</ul>
+</li>
+<li><p>然后将输入数据<code>in</code>，由<code>上个步骤</code>得出的<strong>控制信号</strong>和<strong>片内选择地址(RAM: 0~14bit, Screen: 0~13bit, Keboard: 1bit)</strong>给对应的芯片处理即可。Screen和Keyboard芯片都是内置好的，因此直接调用接口即可。</p>
+</li>
+</ol>
+<h4 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h4><p>输入管脚：<code>inM[16]</code>, <code>instruction[16]</code>, <code>reset</code><br>输出管脚：<code>outM[16]</code>, <code>writeM</code>, <code>addressM[15]</code>, <code>pc[15]</code><br>CPU实现的一种推荐方案：</p>
+<p><img src="/post/881a6736/image-20200903101409828.png" alt="CPU-inplement"></p>
+<ol>
+<li>ALU</li>
+<li>三个寄存器：A-Register、D-Register、PC</li>
+<li>两个Mux（多路复用器）</li>
+<li>利用输入的指令的规范逻辑完善<code>c</code>标签（不同芯片的控制位）的逻辑，即可实现CPU</li>
+</ol>
+<p><img src="/post/881a6736/image-20200903155249111.png" alt="decode"></p>
+<p>​        对指令解码的逻辑，对MSB(0/1)进行区分A-指令和C-指令，提取出另外的15-bit。A-指令保存在<code>A Register</code>，C-指令还需继续解码。</p>
+<p><img src="/post/881a6736/image-20200903161122686.png" alt="ALU-input"></p>
+<p>​    ALU的数据输入：D-register、A-register/M-register</p>
+<p>​    ALU根据<code>comp</code>域 <strong>控制</strong>输入<strong>执行</strong>哪一个运算函数。</p>
+<p><img src="/post/881a6736/image-20200903161304535.png" alt="ALU-output"></p>
+<p>​    ALU数据输出：D-register，A-register，M-register</p>
+<p>​    ALU根据<code>dest</code>域 <strong>控制</strong>输出<strong>写入</strong>哪些寄存器</p>
+<p><img src="/post/881a6736/image-20200903161840894.png" alt="reset"></p>
+<p>​    计算机已经载入了程序，当按下<code>reset</code>，程序开始运行，重启也可。<strong>(PC=0)</strong></p>
+<p><img src="/post/881a6736/image-20200903162246778.png" alt="jump-control"></p>
+<p>​    PC概念：总是发送下一个指令的地址；由指令的<code>jump</code>域控制PC的输出</p>
+<ul>
+<li>开始/重启程序的执行，<code>reset = 1, PC = 0</code></li>
+<li>程序不跳转，<code>jump = (000), PC++</code></li>
+<li>程序无条件跳转，<code>jump = (111), PC = A</code></li>
+<li>程序有条件跳转（判断条件是否满足再跳转），<code>jump = 1~3个1, PC = A</code></li>
+</ul>
+<p><img src="/post/881a6736/image-20200903163053983.png" alt="jump-implement"></p>
+<p>​    PC的实现：</p>
+<ul>
+<li><code>reset</code>是否为1？</li>
+<li><code>load</code>由<code>jump</code>域的3-bits和<strong>ALU的控制输出(ZR、NG)</strong>决定</li>
+<li><code>load = 1, PC = A; load = 0, PC++</code></li>
+</ul>
+<p><img src="/post/881a6736/image-20200903163656399.png" alt="ZR-NG"></p>
+<p>​    <strong>ALU的控制输出(ZR、NG)</strong>: 输出是0时，<code>ZR = 1</code>、输出是负数时，<code>NG = 1</code></p>
+<h5 id="指令格式"><a href="#指令格式" class="headerlink" title="指令格式"></a>指令格式</h5><p>对指令进行<strong>解码</strong>，需要回顾一下第四章规范的指令格式：<br><strong>A-指令</strong>：</p>
+<script type="math/tex; mode=display">
+0vvv~~vvvv~~vvvv~~vvvv</script><p><code>MSB</code>: 0，其余15位表示地址值，存入<code>A Register</code>.</p>
+<p> <strong>C-指令</strong>：</p>
+<script type="math/tex; mode=display">
+111a~~c_1c_2c_3c_4~~c_5c_6d_1d_2~~d_3j_1j_2j_3</script><ul>
+<li><p><code>MSB</code>: 1，紧接着的两位无意义；</p>
+</li>
+<li><p><code>a</code>位域：控制与<code>D Register</code>进行计算的是<code>A Register</code>还是<code>M Register</code>；</p>
+</li>
+<li><code>comp</code>域：控制运算操作和逻辑操作，具体参考图4.3；</li>
+<li><code>dest</code>域：控制目标存储位置，<strong>d~1~</strong>控制是否将ALU的计算结果存入<code>A Register</code>中，<strong>d~2~</strong>控制是否存入<code>D Register</code>中，<strong>d~3~</strong>控制是否存入<code>M Register</code>中;</li>
+<li><code>jump</code>域：控制（有条件/无条件）跳转。</li>
+</ul>
+<h5 id="解码指令"><a href="#解码指令" class="headerlink" title="解码指令"></a>解码指令</h5><p>​        如果是A-指令，那么无论如何都要将地址加载到A寄存器中；如果是C-指令，则需要考虑<strong>d~1~</strong>，是否(1/0)需要将ALU的计算结果保存在A寄存器中。</p>
+<p><img src="/post/881a6736/image-20200903110412596.png" alt="A-Instruction"></p>
+<p>​        不妨暂时将第一个Mux的控制位记为<strong>c~m~</strong>，将A寄存器的控制位记作<strong>c~a~</strong>。</p>
+<p>​        <strong>c~m~</strong>用于区分<strong>A</strong>-指令<strong>(0-vvv)</strong>和<strong>C</strong>-指令<strong>(111-)</strong>；<strong>c~a~</strong>用于控制是否写入<code>A Register</code>.</p>
+<p>那么我们可以得到真值表：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th style="text-align:center">Instruction[15]</th>
+<th style="text-align:center">d~1~</th>
+<th style="text-align:center">c~m~</th>
+<th style="text-align:center">c~a~</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A-instruction</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td>A-instruction</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td>C-instruction</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td>C-instruction</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>由真值表我们可以得到控制位<strong>c~m~</strong>和<strong>c~a~</strong>的公式：</p>
+<script type="math/tex; mode=display">
+c_m~=~\overline{Instruction[15]},~c_a~=~\overline{Instruction[15]·\overline{d_1}}~=~Or(\overline{Instruction[15]}, d1)</script><p>对于A-指令以上的工作就已经足够了。而对于C-指令我们还需要做其他的工作。</p>
+<h5 id="C-指令的解码"><a href="#C-指令的解码" class="headerlink" title="C-指令的解码"></a>C-指令的解码</h5><p>​        C指令的d~1~位已经被解析完了，接下来从左向右开始解码。</p>
+<ul>
+<li><strong><em>a</em></strong>是控制选择<strong>A/M</strong>的控制位，所以它应该在第二个Mux，注意要与<code>MSB</code><strong>取与</strong>操作，确保为C-指令。</li>
+</ul>
+<p><img src="/post/881a6736/image-20200903153107852.png" alt="A/M-Register"></p>
+<ul>
+<li><strong>d~2~</strong>是控制计算结果是否保存在<code>D Register</code>中的，所以它与<code>MSB</code><strong>取与</strong>操作后，作为控制信号给<code>D Register</code>；</li>
+</ul>
+<p><img src="/post/881a6736/image-20200903154017004.png" alt="DRegister-C"></p>
+<ul>
+<li><strong>c~1~~c~6~</strong>是控制ALU的运算函数的，所以它们应该作为ALU的控制位，<code>comp</code>域对应ALU的运算函数。</li>
+</ul>
+<p><img src="/post/881a6736/image-20200903153824368.png" alt="ALU-c"></p>
+<ul>
+<li><strong>d~3~</strong>是控制计算结果是否保存在<code>M Register</code>中的，所以它作为输出与<code>MSB</code><strong>取与</strong>操作后，输出给writeM；</li>
+</ul>
+<p><img src="/post/881a6736/image-20200903154052424.png" alt="MRegister-C"></p>
+<ul>
+<li><strong><em>j</em>~1~, <em>j</em>~2~, <em>j</em>~3~</strong>是控制跳转的，总体上来看，只有两种现象，一种是顺序执行，即PC+1；另一种是跳转到地址为<code>A Register</code>中的地址单元。根据课本给出的编码：</li>
+</ul>
+<p><img src="/post/881a6736/image-20200903154135073.png" alt="jump-region"></p>
+<p>​        究竟是否需要跳转，要根据ALU的计算结果进行判断。</p>
+<p>​        ALU有两个<strong>控制</strong>输出信号：<strong>zr</strong>（当计算结果等于0时为1）对应 <strong>j~1~</strong>，<strong>ng</strong>（当计算结果小于0时为1）对应 <strong>j~2~</strong>；所以我们可以推出：$\overline{ng~+~zr}$（当计算结果大于0时为1）对应 <strong>j~3~</strong></p>
+<p>​        结合<code>jump</code>域和ALU的输出结果，可以得到如下真值表：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">(j~1~&amp;ng) Or (j~2~&amp;zr) Or (j~3~&amp; $\overline{ng~+~zr}$)</th>
+<th style="text-align:center">load</th>
+<th style="text-align:center">inc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Alva</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://a1va.github.io/post/881a6736/">https://a1va.github.io/post/881a6736/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://A1va.github.io" target="_blank">Alva</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Memory/">Memory</a><a class="post-meta__tags" href="/tags/nand2tetris/">nand2tetris</a><a class="post-meta__tags" href="/tags/HDL/">HDL</a><a class="post-meta__tags" href="/tags/CPU/">CPU</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/feff5e0b/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">nand2tetis C7-汇编编译器</div></div></a></div><div class="next-post pull-right"><a href="/post/dd2b6294/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">nand2tetis C4-机器语言</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/5b231705/" title="nand2tetis C1-布尔逻辑"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-22</div><div class="title">nand2tetis C1-布尔逻辑</div></div></a></div><div><a href="/post/e4fb99f5/" title="nand2tetis C2-布尔算法"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-23</div><div class="title">nand2tetis C2-布尔算法</div></div></a></div><div><a href="/post/778f3b2f/" title="nand2tetis C3-时序逻辑"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-23</div><div class="title">nand2tetis C3-时序逻辑</div></div></a></div><div><a href="/post/17d0af8c/" title="Q&A:RAM & ROM & Memory"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-23</div><div class="title">Q&A:RAM & ROM & Memory</div></div></a></div><div><a href="/post/35e94e02/" title="nand2tetis C8-虚拟机Ⅱ程序控制"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-23</div><div class="title">nand2tetis C8-虚拟机Ⅱ程序控制</div></div></a></div><div><a href="/post/dd2b6294/" title="nand2tetis C4-机器语言"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-23</div><div class="title">nand2tetis C4-机器语言</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></article></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 By Alva</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my blog!</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  var script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    const initData = {
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'en',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail'.split(','))
+    }
+
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/js/customize.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script></div></body></html>
