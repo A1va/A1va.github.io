@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>C1-布尔逻辑</title>
+    <title>Hello World</title>
+    <url>/post/4a17b156/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<a id="more"></a>
+<!-- 
+hexo-generator-index從 2.0.0 開始，已經支持文章置頂功能。
+你可以直接在文章的front-matter區域裏添加sticky: 1屬性來把這篇文章置頂。
+數值越大，置頂的優先級越大。 
+-->
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>nand2tetis C1-布尔逻辑</title>
     <url>/post/5b231705/</url>
     <content><![CDATA[<h1 id="布尔逻辑-Boolean-Logic"><a href="#布尔逻辑-Boolean-Logic" class="headerlink" title="[布尔逻辑 Boolean Logic]"></a>[布尔逻辑 Boolean Logic]</h1><p><strong>And/Or/Not</strong>算子都可以只用<strong>Nand</strong>或<strong>Nor</strong>函数来构建（可以单纯用Nand也可以单纯用Nor）</p>
 <p><code>Nand</code>: 只有1-1为0，其他情况(0-0, 0-1, 1-0)均为1（Not And）</p>
@@ -267,23 +287,109 @@ a~=~in·\overline{sel},~b~=~in·sel</script><h3 id="多位逻辑门"><a href="#�
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/post/4a17b156/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<a id="more"></a>
-<!-- 
-hexo-generator-index從 2.0.0 開始，已經支持文章置頂功能。
-你可以直接在文章的front-matter區域裏添加sticky: 1屬性來把這篇文章置頂。
-數值越大，置頂的優先級越大。 
--->
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+    <title>nand2tetis C2-布尔算法</title>
+    <url>/post/e4fb99f5/</url>
+    <content><![CDATA[<h1 id="布尔算法运算-Boolean-Arithmetic"><a href="#布尔算法运算-Boolean-Arithmetic" class="headerlink" title="[布尔算法运算 Boolean Arithmetic]"></a>[布尔算法运算 Boolean Arithmetic]</h1><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><p>两个<code>n-</code>位数字二进制加法的计算机硬件可以由三位加法的逻辑门构建而成。（两个计算位加上一个进位）</p>
+<p><strong>在4-位二进制系统中的有符号数的2-补码表示</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>正数</th>
+<th>负数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 – 0000</td>
+<td></td>
+</tr>
+<tr>
+<td>1 – 0001</td>
+<td>1111 – (-1)</td>
+</tr>
+<tr>
+<td>2 – 0010</td>
+<td>1110 – (-2)</td>
+</tr>
+<tr>
+<td>3 – 0011</td>
+<td>1101 – (-3)</td>
+</tr>
+<tr>
+<td>4 – 0100</td>
+<td>1100 – (-4)</td>
+</tr>
+<tr>
+<td>5 – 0101</td>
+<td>1011 – (-5)</td>
+</tr>
+<tr>
+<td>6 – 0110</td>
+<td>1010 – (-6)</td>
+</tr>
+<tr>
+<td>7 – 0111</td>
+<td>1001 – (-7)</td>
+</tr>
+<tr>
+<td></td>
+<td>1000 – (-8)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>计算<code>-x</code>原理：</p>
+<script type="math/tex; mode=display">
+2^n-x = 1 + (2^n-1)-x</script><p>由此可知，用补码表示<code>n-</code>位二进制系统有如下属性：</p>
+<ul>
+<li>系统能对所有<strong>2^n^</strong>个有符号数进行编码，最大的数(0111)和最小的数(1000)分别为<strong>(2^n-1^-1)</strong>和<strong>(-2^n-1^)</strong>.</li>
+<li>所有正整数的编码的首位是0.</li>
+<li>所有负整数的编码的首位是1.</li>
+<li><em>为了通过<code>x</code>的编码获得<code>-x</code>的编码，所有最右边的0和从左边起的第一个1保持不变，然后将剩余的位取反。</em>等价的捷径就是，<strong>对<code>x</code>的所有的位取反，然后加上1，这个方案更容易在硬件中实现.</strong></li>
+</ul>
+<p>这种表示法有个特别吸引人的特征：<strong>任何两个用补码表示的有符号数的加法和与正数的加法完全相同</strong>。</p>
+<p>eg: </p>
+<p>1.加法(-2) + (-3)</p>
+<p>使用补码(<code>4-</code>位)表示：(1110)₂ + (1101)₂  = (1011)₂  ，(丢掉溢出位)</p>
+<p>正好是-5的补码.</p>
+<p><strong>我们不用去关心这些代码表示的数字（正数还是负数）</strong></p>
+<p>2.减法可以看成<code>x - y = x + (-y)</code>，补码表示中，计算<code>-y</code>：所有位取反再加1</p>
+<p><strong>以上意味着能用单一芯片（成为算术逻辑单元ALU，ALU即<code>Arithmetic Logical Unit</code>）将硬件执行的所有基本算术操作和逻辑操作封装起来</strong>.</p>
+<h3 id="规范详述"><a href="#规范详述" class="headerlink" title="[规范详述]"></a>[规范详述]</h3><ol>
+<li>加法器(Adders)<ul>
+<li><strong>半加器</strong>(Half-Adders)</li>
+<li><strong>全加器</strong>(Full-Adders)</li>
+<li><strong>加法器</strong>(Adders)</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><strong>半加器</strong>(Half-Adders)：用来进行<code>2-</code>位二进制数的加法.</li>
+</ul>
+<p><img src="/post/e4fb99f5/image-20200816222258242.png" alt="image-20200816222258242" style="zoom:80%;"></p>
+<ul>
+<li><strong>全加器</strong>(Full-Adders)：用来进行<code>3-</code>位二进制数加法.  </li>
+</ul>
+<p><img src="/post/e4fb99f5/image-20200816223202065.png" alt="image-20200816223202065" style="zoom:80%;"></p>
+<ul>
+<li><strong>加法器</strong>(Adders)：用来进行两个<code>n-</code>位加法.(图为16位)</li>
+</ul>
+<p><img src="/post/e4fb99f5/image-20200816222654606.png" alt="image-20200816222654606" style="zoom:80%;"></p>
+<ul>
+<li><strong>增量器</strong>(incrementer)：用来对指定的数字加1.</li>
+</ul>
+<p><img src="/post/e4fb99f5/image-20200816223012624.png" alt="image-20200816223012624" style="zoom:80%;"></p>
+<h3 id="算术逻辑单元-ALU"><a href="#算术逻辑单元-ALU" class="headerlink" title="算术逻辑单元(ALU)"></a>算术逻辑单元(ALU)</h3><p><img src="/post/e4fb99f5/image-20200817143329826.png" alt="image-20200817143329826" style="zoom:80%;"></p>
+<p>Hack的ALU计算一组固定的函数<code>out = f(x, y)</code>，这里<code>x</code>和<code>y</code>是芯片的两个<code>16-</code>位输入，<code>out</code>是芯片的<code>16-</code>位输出，该函数表由18个固定函数组成，通过设置六个称为控制位(control bits)的输入位来告诉ALU用哪一个函数来进行何种函数计算。</p>
+<p>ALU可以对2^6^=64个不同的函数进行操作。</p>
 ]]></content>
+      <categories>
+        <category>Computer Architecture</category>
+      </categories>
+      <tags>
+        <tag>nand2tetris</tag>
+        <tag>HDL</tag>
+      </tags>
   </entry>
 </search>
