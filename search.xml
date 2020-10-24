@@ -1,6 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Q&amp;A:RAM &amp; ROM &amp; Memory</title>
+    <url>/post/17d0af8c/</url>
+    <content><![CDATA[<h1 id="RAM为什么是随机存储？"><a href="#RAM为什么是随机存储？" class="headerlink" title="RAM为什么是随机存储？"></a>RAM为什么是随机存储？</h1><p>​        <strong>”随机“强调的是存取数据所花的时间与目标数据所在的物理位置无关</strong>。这是由RAM的结构决定的，RAM使用<strong>存储阵列</strong>来存储数据，只要给出<strong>行地址</strong>和<strong>列地址</strong>，就能<strong>确定目标数据</strong>，这一过程<strong>与目标数据所处的物理位置无关</strong>。</p>
+<p>​        与“随机存取“相对的，是<strong>“串行访问”</strong>，指<strong>存取数据所花的时间与目标数据所在的物理位置有关</strong>。串行访问里面又分为<strong>顺序存取</strong>和<strong>直接存取</strong>。<strong>顺序存取如磁带</strong>，要想访问一个某一存储单元，<strong>必须先访问该单元前面的单元</strong>，（所以就有了听歌时倒磁带的痛苦经历）。<strong>直接存取如磁盘</strong>，磁头可以直接定位到目标存储单元，<strong>不需访问该单元前面的单元</strong>。需要注意的是，即使是直接定位，定位磁头所花的时间也是不同的，比如磁头当前在磁道0，定位到磁道2和磁道10000的时间肯定不同，所以存取数据所花的时间与目标数所在的物理位置仍然有关。</p>
+<h1 id="明明可以往硬盘里写数据，为什么叫ROM呢？"><a href="#明明可以往硬盘里写数据，为什么叫ROM呢？" class="headerlink" title="明明可以往硬盘里写数据，为什么叫ROM呢？"></a>明明可以往硬盘里写数据，为什么叫ROM呢？</h1><p>​        首先，<strong>硬盘 ≠ ROM.</strong></p>
+<p>​        在符合冯.诺依曼架构的计算机中，只读储存器ROM是相对于随机存储器RAM而存在的，<strong>所有的预程序从ROM读出存储在RAM上，工作时程序均在RAM中运行</strong>，而不是在ROM上，所以我们叫它只读储存器，<strong>运行在RAM中的数据在断电前会保存在可多次擦写的外储存器上，外储存器才是硬盘</strong>。</p>
+<p>​        简而言之，对于计算机而言，从严格意义来讲<strong>ROM是用来存储输入输出系统</strong>，即<strong>BIOS</strong>，而<strong>硬盘叫外储存器，用来存放操作系统软件以及程序与数据</strong>。</p>
+<p>​        对于手机而言，设定的Linux内核会<strong>从磁盘中划分一部分储存空间作为ROM区，用于开机时读取到RAM的映像，而ROM区域和程序以及数据存储区域共用一个介质</strong>，所以厂家为了简单宣传，会把整个ROM大小作为外储存器大小去宣传，但这个和PC是有一定区别的。</p>
+<p>​        所以，<strong>这也从结构上顺便解释了为什么安卓手机抑或Linux系统不容易中毒的原因，因为系统作为ROM中的单纯映像，不授权的话是无法写入的</strong>，而Windows在外储存器以软件形式存在，且分界不明显，同时使用微内核结构桥接比较多，虽然方便更改系统配置但是对不熟悉者安全度低。</p>
+<h1 id="EEPROM是一种“只读存储器”，为什么要对其进行写操作？"><a href="#EEPROM是一种“只读存储器”，为什么要对其进行写操作？" class="headerlink" title="EEPROM是一种“只读存储器”，为什么要对其进行写操作？"></a>EEPROM是一种“只读存储器”，为什么要对其进行写操作？</h1><p>EEPROM的首字母缩写具有随着技术的发展而发展的历史。</p>
+<p><strong>ROM</strong>：只读存储器。写在工厂。</p>
+<p><strong>PROM</strong>：可编程只读存储器，但可由用户编程（一次）。真正的一次性可编程，永远可读的存储器。弄错了，就丢了芯片。</p>
+<p><strong>EPROM</strong>：可擦可编程只读存储器。可以写入多次，擦出需要使用紫外线照射。有点麻烦，但非常有用。</p>
+<p><strong>EEPROM</strong>：电可擦可编程只读存储器。可以写入多次，通过编程电压进行修改。</p>
+<p>​        所以，为什么在可写时将其称为eepROm？我怀疑，答案是，与<strong>RAM</strong>（随机存取存储器）不同，它在电源关闭时会保存其内容，因此，其行为更像<strong>ROM</strong>。</p>
+<p>​        后来推出的<strong>闪存(Flash Memory)</strong>技术，它是一种广义上的EEPROM，手机上的eMMC和UFS都属于闪存技术，因此闪存也被人们称为ROM。</p>
+<h1 id="「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？"><a href="#「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？" class="headerlink" title="「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？"></a>「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？</h1><p>​        在计算机专业领域，“内存”的全称是“内部储存器”，用于在运行时储存信息，CPU可以直接寻址，区别于永久保存数据、CPU仅通过硬件控制器读取数据的“外部储存器”。<strong>这两者是从计算机架构的角度说的</strong>。在通常语境下，“内存”只有主板上插的内存条一种，<strong>内存就成了“主板上的RAM”的代称</strong>。</p>
+<p>​        RAM是Random Access Memory，随机访问储存器，特点是断电失效，可以直接通过电流刷新数据。现在一般只有内存条（DRAM）和CPU缓存（SRAM）使用这类芯片。</p>
+<p>​        对应的ROM是Read-Only Memory，只读储存器，最开始的ROM真的是只读，不可写入，包括半导体ROM和CD-ROM，后来出现了紫外线擦除的EPROM，电擦除的EEPROM。</p>
+<p>​        <strong>RAM和ROM是从技术实现的角度说的</strong>。</p>
+<p>​        U盘、固态硬盘、手机固件使用的闪存芯片也是一种EEPROM，它依然是先擦除再写入，和RAM有原理上的区别。所以<strong>手机广告上的2G RAM + 16G ROM是正确的用法</strong>。（不要纠结flash到底是不是EEPROM了，它确实符合EEPROM定义，写入是通过电擦除-再写入实现的，不过EEPROM一般专指可以按字节擦除的那种，flash是按块擦除）</p>
+<p>​        智能手机的组成和电脑一样，所以<strong>依据部件功能继承了电脑的称呼</strong>。不过硬盘换成了闪存芯片，所以手机里履行硬盘职能的部件可以被称作“闪存”。</p>
+<p>​        内存和ROM混淆<strong>我认为</strong>来自于安卓系统（或者更早的塞班，我没用过），安卓文件管理器把手机空间分为“内部储存”和“SD卡”，这里的“内部储存”指的是ROM，但是也简称为“内存”。为了和这个“内存”做区别，RAM就变成了运行内存，“运存”。</p>
+<p>所以对应关系如下：<br><strong>电脑：内存－硬盘</strong><br><strong>手机：RAM－ROM</strong><br>　　　<strong>内存－闪存</strong><br>　　　<strong>运存－内存</strong></p>
+<p>​        至于把手机的“内存”又迁移回电脑上，指代硬盘，只能说误会久矣…</p>
+]]></content>
+      <categories>
+        <category>内存布局</category>
+      </categories>
+      <tags>
+        <tag>RAM</tag>
+        <tag>ROM</tag>
+        <tag>Memory</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Stack&amp;Heap</title>
+    <url>/post/e5494597/</url>
+    <content><![CDATA[<h1 id="栈（Stack）和堆（Heap）"><a href="#栈（Stack）和堆（Heap）" class="headerlink" title="栈（Stack）和堆（Heap）"></a>栈（Stack）和堆（Heap）</h1><p>​        目前来说我们知道怎么去声明一个基础类型的变量，比如int，float，等等。以及复杂数据类型数组和结构，声明它们的时候C会把这些变量放在栈上。<strong>每个线程都有一个栈，而程序通常只有一个堆</strong>。</p>
+<h3 id="栈（Stack）"><a href="#栈（Stack）" class="headerlink" title="栈（Stack）"></a>栈（Stack）</h3><p>  什么是栈？它是内存中一块特殊的区域，<strong>用于保存在函数中声明的零时变量</strong>（其中也包括<code>main()</code>函数）。栈是LIFO(Last in First Out 后进先出)的数据结构，进出操作是由CPU来管理和优化的。<strong>调用函数时就会使用栈。</strong>每当函数声明了一个变量，该变量就会被<strong>推入(Pushed)</strong>栈中。每当函数退出时，所有的变量都会被函数推出栈，并被<strong>释放掉(Free)</strong>。一旦变量被释放，该内存区域就可以被其他栈变量使用。<br>  使用栈的优势是它会为你管理内存，而不需要你手动去分配或者释放内存。更进一步说，由于CPU可以有效地管理栈内存，所以从栈中读写变量是很快的。<br>  理解栈的关键是需要知道函数什么时候退出，此时栈中所有的变量被推出，因此<strong>栈变量是局部的</strong>（也就是局部变量）。C中经常出现的一个错误就是，在函数返回以后去访问函数内部中栈变量。<br>  如果使用太多的栈空间会导致溢出，比如在使用递归的时候，该函数使用了太多的局部变量在递归过程中就有可能造成<strong>栈溢出</strong>。</p>
+<blockquote>
+<p>总结</p>
+<ul>
+<li>栈是LIFO数据结构；</li>
+<li>CPU管理内存，而不需要手动去管理。正是因为这个原因从栈中读写变量<strong>很快</strong>的；</li>
+<li>栈变量是局部的（也就是局部变量）；</li>
+<li>栈的容量会随着函数的Push和Pop变化；</li>
+</ul>
+</blockquote>
+<h3 id="堆（Heap）"><a href="#堆（Heap）" class="headerlink" title="堆（Heap）"></a>堆（Heap）</h3><p>  堆也是内存中一块特定区域，但是CPU并不会自动管理相关的操作，而且它的空间大小会有一定的浮动。在堆上分配内存的时候，在C中使用<code>malloc()</code>和<code>calloc()</code>函数。在不需要堆上这块内存之后，需要使用<code>free()</code>函数释放掉它。<strong>如果不释放的话就会造成内存泄漏</strong>，这块内存就会被闲置。<br>  和栈不同之处在于，<strong>堆内存数据的读写速度会比栈慢</strong>。</p>
+<h3 id="栈（Stack）和堆（Heap）的差异"><a href="#栈（Stack）和堆（Heap）的差异" class="headerlink" title="栈（Stack）和堆（Heap）的差异"></a>栈（Stack）和堆（Heap）的差异</h3><h4 id="配置堆栈大小"><a href="#配置堆栈大小" class="headerlink" title="配置堆栈大小"></a>配置堆栈大小</h4><p>  堆的大小在程序启动时分配，数值在不同操作系统中可能有所不同。<br>  在Cocoa中想要修改线程的栈大小的话，可以使用<code>NSThread</code>的实例方法<code>setStackSize:</code>，如果使用POSIX线程技术创建的线程的话，想要设置栈大小的话使用<code>pthread_attr_setstacksize</code>函数。</p>
+<blockquote>
+<p>⚠️如果要设置栈大小就必须要在创建线程之前完成。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 第一种</span></span><br><span class="line">NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(backgroudMethod:) object:nil];</span><br><span class="line">[thread setStackSize:<span class="number">1024</span>];</span><br><span class="line">[thread start];</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 第二种</span></span><br><span class="line"><span class="keyword">pthread_attr_t</span> attr;</span><br><span class="line"><span class="keyword">pthread_t</span> posix_tread_id;</span><br><span class="line"><span class="keyword">int</span> returnVal;</span><br><span class="line">returnVal = pthread_attr_init(&amp;attr);</span><br><span class="line">returnVal = pthread_attr_setstacksize(&amp;attr, <span class="number">1024</span>);  <span class="comment">// 在创建线程前设置堆栈大小</span></span><br><span class="line"><span class="keyword">char</span> *data;</span><br><span class="line">data = <span class="string">&quot;To ensure that a thread knows what work to do&quot;</span>;</span><br><span class="line"><span class="keyword">int</span> thread_error = pthread_create(&amp;posix_tread_id, &amp;attr, posix_thread_mainroutine, data);</span><br></pre></td></tr></table></figure>
+<h4 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h4><p>  栈是和线程相关联的，意思就是说当线程退出时，栈被回收。而堆通常是在启动程序时分配，当程序退出之后被回收。</p>
+<h3 id="什么时候使用栈什么时候使用堆"><a href="#什么时候使用栈什么时候使用堆" class="headerlink" title="什么时候使用栈什么时候使用堆"></a>什么时候使用栈什么时候使用堆</h3><ul>
+<li>需要申请较大内存空间（比如struct，array之类的），而且需要该变量存在较长时间，就是将该变量放在<strong>堆</strong>中；</li>
+<li>如果需要动态修改struct或者array的大小，将该变量放在<strong>堆</strong>上。使用<code>malloc()</code>，<code>calloc()</code>，<code>realloc()</code>和<code>free()</code>等函数来管理内存；</li>
+<li>如果使用相对较小的变量，并且只在函数中使用它们，此时该变量就存在于栈上。这样做会更快而且更简单。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>内存布局</category>
+      </categories>
+      <tags>
+        <tag>stack</tag>
+        <tag>heap</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C语言内存布局</title>
     <url>/post/908b7180/</url>
     <content><![CDATA[<h1 id="C语言程序的内存布局"><a href="#C语言程序的内存布局" class="headerlink" title="C语言程序的内存布局"></a>C语言程序的内存布局</h1><h3 id="内存布局"><a href="#内存布局" class="headerlink" title="内存布局"></a>内存布局</h3><ul>
@@ -44,80 +115,9 @@
         <category>内存布局</category>
       </categories>
       <tags>
+        <tag>stack</tag>
+        <tag>heap</tag>
         <tag>memory layout</tag>
-        <tag>stack</tag>
-        <tag>heap</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Stack&amp;Heap</title>
-    <url>/post/e5494597/</url>
-    <content><![CDATA[<h1 id="栈（Stack）和堆（Heap）"><a href="#栈（Stack）和堆（Heap）" class="headerlink" title="栈（Stack）和堆（Heap）"></a>栈（Stack）和堆（Heap）</h1><p>​        目前来说我们知道怎么去声明一个基础类型的变量，比如int，float，等等。以及复杂数据类型数组和结构，声明它们的时候C会把这些变量放在栈上。<strong>每个线程都有一个栈，而程序通常只有一个堆</strong>。</p>
-<h3 id="栈（Stack）"><a href="#栈（Stack）" class="headerlink" title="栈（Stack）"></a>栈（Stack）</h3><p>  什么是栈？它是内存中一块特殊的区域，<strong>用于保存在函数中声明的零时变量</strong>（其中也包括<code>main()</code>函数）。栈是LIFO(Last in First Out 后进先出)的数据结构，进出操作是由CPU来管理和优化的。<strong>调用函数时就会使用栈。</strong>每当函数声明了一个变量，该变量就会被<strong>推入(Pushed)</strong>栈中。每当函数退出时，所有的变量都会被函数推出栈，并被<strong>释放掉(Free)</strong>。一旦变量被释放，该内存区域就可以被其他栈变量使用。<br>  使用栈的优势是它会为你管理内存，而不需要你手动去分配或者释放内存。更进一步说，由于CPU可以有效地管理栈内存，所以从栈中读写变量是很快的。<br>  理解栈的关键是需要知道函数什么时候退出，此时栈中所有的变量被推出，因此<strong>栈变量是局部的</strong>（也就是局部变量）。C中经常出现的一个错误就是，在函数返回以后去访问函数内部中栈变量。<br>  如果使用太多的栈空间会导致溢出，比如在使用递归的时候，该函数使用了太多的局部变量在递归过程中就有可能造成<strong>栈溢出</strong>。</p>
-<blockquote>
-<p>总结</p>
-<ul>
-<li>栈是LIFO数据结构；</li>
-<li>CPU管理内存，而不需要手动去管理。正是因为这个原因从栈中读写变量<strong>很快</strong>的；</li>
-<li>栈变量是局部的（也就是局部变量）；</li>
-<li>栈的容量会随着函数的Push和Pop变化；</li>
-</ul>
-</blockquote>
-<h3 id="堆（Heap）"><a href="#堆（Heap）" class="headerlink" title="堆（Heap）"></a>堆（Heap）</h3><p>  堆也是内存中一块特定区域，但是CPU并不会自动管理相关的操作，而且它的空间大小会有一定的浮动。在堆上分配内存的时候，在C中使用<code>malloc()</code>和<code>calloc()</code>函数。在不需要堆上这块内存之后，需要使用<code>free()</code>函数释放掉它。<strong>如果不释放的话就会造成内存泄漏</strong>，这块内存就会被闲置。<br>  和栈不同之处在于，<strong>堆内存数据的读写速度会比栈慢</strong>。</p>
-<h3 id="栈（Stack）和堆（Heap）的差异"><a href="#栈（Stack）和堆（Heap）的差异" class="headerlink" title="栈（Stack）和堆（Heap）的差异"></a>栈（Stack）和堆（Heap）的差异</h3><h4 id="配置堆栈大小"><a href="#配置堆栈大小" class="headerlink" title="配置堆栈大小"></a>配置堆栈大小</h4><p>  堆的大小在程序启动时分配，数值在不同操作系统中可能有所不同。<br>  在Cocoa中想要修改线程的栈大小的话，可以使用<code>NSThread</code>的实例方法<code>setStackSize:</code>，如果使用POSIX线程技术创建的线程的话，想要设置栈大小的话使用<code>pthread_attr_setstacksize</code>函数。</p>
-<blockquote>
-<p>⚠️如果要设置栈大小就必须要在创建线程之前完成。</p>
-</blockquote>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 第一种</span></span><br><span class="line">NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(backgroudMethod:) object:nil];</span><br><span class="line">[thread setStackSize:<span class="number">1024</span>];</span><br><span class="line">[thread start];</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 第二种</span></span><br><span class="line"><span class="keyword">pthread_attr_t</span> attr;</span><br><span class="line"><span class="keyword">pthread_t</span> posix_tread_id;</span><br><span class="line"><span class="keyword">int</span> returnVal;</span><br><span class="line">returnVal = pthread_attr_init(&amp;attr);</span><br><span class="line">returnVal = pthread_attr_setstacksize(&amp;attr, <span class="number">1024</span>);  <span class="comment">// 在创建线程前设置堆栈大小</span></span><br><span class="line"><span class="keyword">char</span> *data;</span><br><span class="line">data = <span class="string">&quot;To ensure that a thread knows what work to do&quot;</span>;</span><br><span class="line"><span class="keyword">int</span> thread_error = pthread_create(&amp;posix_tread_id, &amp;attr, posix_thread_mainroutine, data);</span><br></pre></td></tr></table></figure>
-<h4 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h4><p>  栈是和线程相关联的，意思就是说当线程退出时，栈被回收。而堆通常是在启动程序时分配，当程序退出之后被回收。</p>
-<h3 id="什么时候使用栈什么时候使用堆"><a href="#什么时候使用栈什么时候使用堆" class="headerlink" title="什么时候使用栈什么时候使用堆"></a>什么时候使用栈什么时候使用堆</h3><ul>
-<li>需要申请较大内存空间（比如struct，array之类的），而且需要该变量存在较长时间，就是将该变量放在<strong>堆</strong>中；</li>
-<li>如果需要动态修改struct或者array的大小，将该变量放在<strong>堆</strong>上。使用<code>malloc()</code>，<code>calloc()</code>，<code>realloc()</code>和<code>free()</code>等函数来管理内存；</li>
-<li>如果使用相对较小的变量，并且只在函数中使用它们，此时该变量就存在于栈上。这样做会更快而且更简单。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>内存布局</category>
-      </categories>
-      <tags>
-        <tag>stack</tag>
-        <tag>heap</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Q&amp;A:RAM &amp; ROM &amp; Memory</title>
-    <url>/post/17d0af8c/</url>
-    <content><![CDATA[<h1 id="RAM为什么是随机存储？"><a href="#RAM为什么是随机存储？" class="headerlink" title="RAM为什么是随机存储？"></a>RAM为什么是随机存储？</h1><p>​        <strong>”随机“强调的是存取数据所花的时间与目标数据所在的物理位置无关</strong>。这是由RAM的结构决定的，RAM使用<strong>存储阵列</strong>来存储数据，只要给出<strong>行地址</strong>和<strong>列地址</strong>，就能<strong>确定目标数据</strong>，这一过程<strong>与目标数据所处的物理位置无关</strong>。</p>
-<p>​        与“随机存取“相对的，是<strong>“串行访问”</strong>，指<strong>存取数据所花的时间与目标数据所在的物理位置有关</strong>。串行访问里面又分为<strong>顺序存取</strong>和<strong>直接存取</strong>。<strong>顺序存取如磁带</strong>，要想访问一个某一存储单元，<strong>必须先访问该单元前面的单元</strong>，（所以就有了听歌时倒磁带的痛苦经历）。<strong>直接存取如磁盘</strong>，磁头可以直接定位到目标存储单元，<strong>不需访问该单元前面的单元</strong>。需要注意的是，即使是直接定位，定位磁头所花的时间也是不同的，比如磁头当前在磁道0，定位到磁道2和磁道10000的时间肯定不同，所以存取数据所花的时间与目标数所在的物理位置仍然有关。</p>
-<h1 id="明明可以往硬盘里写数据，为什么叫ROM呢？"><a href="#明明可以往硬盘里写数据，为什么叫ROM呢？" class="headerlink" title="明明可以往硬盘里写数据，为什么叫ROM呢？"></a>明明可以往硬盘里写数据，为什么叫ROM呢？</h1><p>​        首先，<strong>硬盘 ≠ ROM.</strong></p>
-<p>​        在符合冯.诺依曼架构的计算机中，只读储存器ROM是相对于随机存储器RAM而存在的，<strong>所有的预程序从ROM读出存储在RAM上，工作时程序均在RAM中运行</strong>，而不是在ROM上，所以我们叫它只读储存器，<strong>运行在RAM中的数据在断电前会保存在可多次擦写的外储存器上，外储存器才是硬盘</strong>。</p>
-<p>​        简而言之，对于计算机而言，从严格意义来讲<strong>ROM是用来存储输入输出系统</strong>，即<strong>BIOS</strong>，而<strong>硬盘叫外储存器，用来存放操作系统软件以及程序与数据</strong>。</p>
-<p>​        对于手机而言，设定的Linux内核会<strong>从磁盘中划分一部分储存空间作为ROM区，用于开机时读取到RAM的映像，而ROM区域和程序以及数据存储区域共用一个介质</strong>，所以厂家为了简单宣传，会把整个ROM大小作为外储存器大小去宣传，但这个和PC是有一定区别的。</p>
-<p>​        所以，<strong>这也从结构上顺便解释了为什么安卓手机抑或Linux系统不容易中毒的原因，因为系统作为ROM中的单纯映像，不授权的话是无法写入的</strong>，而Windows在外储存器以软件形式存在，且分界不明显，同时使用微内核结构桥接比较多，虽然方便更改系统配置但是对不熟悉者安全度低。</p>
-<h1 id="EEPROM是一种“只读存储器”，为什么要对其进行写操作？"><a href="#EEPROM是一种“只读存储器”，为什么要对其进行写操作？" class="headerlink" title="EEPROM是一种“只读存储器”，为什么要对其进行写操作？"></a>EEPROM是一种“只读存储器”，为什么要对其进行写操作？</h1><p>EEPROM的首字母缩写具有随着技术的发展而发展的历史。</p>
-<p><strong>ROM</strong>：只读存储器。写在工厂。</p>
-<p><strong>PROM</strong>：可编程只读存储器，但可由用户编程（一次）。真正的一次性可编程，永远可读的存储器。弄错了，就丢了芯片。</p>
-<p><strong>EPROM</strong>：可擦可编程只读存储器。可以写入多次，擦出需要使用紫外线照射。有点麻烦，但非常有用。</p>
-<p><strong>EEPROM</strong>：电可擦可编程只读存储器。可以写入多次，通过编程电压进行修改。</p>
-<p>​        所以，为什么在可写时将其称为eepROm？我怀疑，答案是，与<strong>RAM</strong>（随机存取存储器）不同，它在电源关闭时会保存其内容，因此，其行为更像<strong>ROM</strong>。</p>
-<p>​        后来推出的<strong>闪存(Flash Memory)</strong>技术，它是一种广义上的EEPROM，手机上的eMMC和UFS都属于闪存技术，因此闪存也被人们称为ROM。</p>
-<h1 id="「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？"><a href="#「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？" class="headerlink" title="「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？"></a>「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？</h1><p>​        在计算机专业领域，“内存”的全称是“内部储存器”，用于在运行时储存信息，CPU可以直接寻址，区别于永久保存数据、CPU仅通过硬件控制器读取数据的“外部储存器”。<strong>这两者是从计算机架构的角度说的</strong>。在通常语境下，“内存”只有主板上插的内存条一种，<strong>内存就成了“主板上的RAM”的代称</strong>。</p>
-<p>​        RAM是Random Access Memory，随机访问储存器，特点是断电失效，可以直接通过电流刷新数据。现在一般只有内存条（DRAM）和CPU缓存（SRAM）使用这类芯片。</p>
-<p>​        对应的ROM是Read-Only Memory，只读储存器，最开始的ROM真的是只读，不可写入，包括半导体ROM和CD-ROM，后来出现了紫外线擦除的EPROM，电擦除的EEPROM。</p>
-<p>​        <strong>RAM和ROM是从技术实现的角度说的</strong>。</p>
-<p>​        U盘、固态硬盘、手机固件使用的闪存芯片也是一种EEPROM，它依然是先擦除再写入，和RAM有原理上的区别。所以<strong>手机广告上的2G RAM + 16G ROM是正确的用法</strong>。（不要纠结flash到底是不是EEPROM了，它确实符合EEPROM定义，写入是通过电擦除-再写入实现的，不过EEPROM一般专指可以按字节擦除的那种，flash是按块擦除）</p>
-<p>​        智能手机的组成和电脑一样，所以<strong>依据部件功能继承了电脑的称呼</strong>。不过硬盘换成了闪存芯片，所以手机里履行硬盘职能的部件可以被称作“闪存”。</p>
-<p>​        内存和ROM混淆<strong>我认为</strong>来自于安卓系统（或者更早的塞班，我没用过），安卓文件管理器把手机空间分为“内部储存”和“SD卡”，这里的“内部储存”指的是ROM，但是也简称为“内存”。为了和这个“内存”做区别，RAM就变成了运行内存，“运存”。</p>
-<p>所以对应关系如下：<br><strong>电脑：内存－硬盘</strong><br><strong>手机：RAM－ROM</strong><br>　　　<strong>内存－闪存</strong><br>　　　<strong>运存－内存</strong></p>
-<p>​        至于把手机的“内存”又迁移回电脑上，指代硬盘，只能说误会久矣…</p>
-]]></content>
-      <categories>
-        <category>内存布局</category>
-      </categories>
-      <tags>
-        <tag>RAM</tag>
-        <tag>ROM</tag>
-        <tag>Memory</tag>
       </tags>
   </entry>
   <entry>

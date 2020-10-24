@@ -40,7 +40,7 @@ a {
 }
 
 /* 滚动条 */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
 }
@@ -58,4 +58,4 @@ a {
 ::-moz-selection {
     color: #fff;
     background-color: #00c4b6;
-}
+} */
