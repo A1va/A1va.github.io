@@ -7,7 +7,7 @@ if(document.domain != 'localhost'){
   			if (isNaN(key)){
     			break;
   			}
-    		document.getElementById("article-container").getElementsByTagName('img')[key].src = document.getElementById("article-container").getElementsByTagName('img')[key].src.replace(document.domain,"cdn.jsdelivr.net/gh/" + name + "/" + repository)
+    		document.getElementById("article-container").getElementsByTagName('img')[key].src = document.getElementById("article-container").getElementsByTagName('img')[key].src.replace(document.domain,"cdn.jsdelivr.net/gh/A1va/A1va.github.io") // + name + "/" + repository)
 		}
     }
 }
