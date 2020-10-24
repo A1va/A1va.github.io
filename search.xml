@@ -122,7 +122,7 @@
   </entry>
   <entry>
     <title>nand2tetris C1-布尔逻辑</title>
-    <url>/post/5b231705/</url>
+    <url>/post/a2d606e7/</url>
     <content><![CDATA[<h1 id="布尔逻辑-Boolean-Logic"><a href="#布尔逻辑-Boolean-Logic" class="headerlink" title="[布尔逻辑 Boolean Logic]"></a>[布尔逻辑 Boolean Logic]</h1><p><strong>And/Or/Not</strong>算子都可以只用<strong>Nand</strong>或<strong>Nor</strong>函数来构建（可以单纯用Nand也可以单纯用Nor）</p>
 <p><code>Nand</code>: 只有1-1为0，其他情况(0-0, 0-1, 1-0)均为1（Not And）</p>
 <p><code>Nor</code>:   只有0-0为1，其他情况(0-1, 1-0, 1-1)均为0（Not Or）</p>
@@ -376,7 +376,7 @@ a~=~in·\overline{sel},~b~=~in·sel</script><h3 id="多位逻辑门"><a href="#�
 <p><strong>DMux8Way:</strong> </p>
 <figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">IN <span class="keyword">in</span>, sel[<span class="number">3</span>];</span><br><span class="line">OUT a, b, c, d, e, f, g, h;</span><br><span class="line"></span><br><span class="line">PARTS:<span class="type"></span></span><br><span class="line"><span class="type">DMux4Way</span>(<span class="keyword">in</span> = <span class="keyword">in</span>, sel = sel[<span class="number">1.</span><span class="number">.2</span>], a = o1, b = o2, c = o3, d = o4);</span><br><span class="line">DMux(<span class="keyword">in</span> = o1, sel = sel[<span class="number">0</span>], a = a, b = b);</span><br><span class="line">DMux(<span class="keyword">in</span> = o2, sel = sel[<span class="number">0</span>], a = c, b = d);</span><br><span class="line">DMux(<span class="keyword">in</span> = o3, sel = sel[<span class="number">0</span>], a = e, b = f);</span><br><span class="line">DMux(<span class="keyword">in</span> = o4, sel = sel[<span class="number">0</span>], a = g, b = h);</span><br></pre></td></tr></table></figure>
 <p>DMux和Mux的区别与关联：</p>
-<p><img src="/post/5b231705/v2-bb3f9b6f59a92fd0ede6b40bfb72332b_720w.jpg" alt="DMux &amp; Mux"></p>
+<p><img src="/post/a2d606e7/v2-bb3f9b6f59a92fd0ede6b40bfb72332b_720w.jpg" alt="DMux &amp; Mux"></p>
 ]]></content>
       <categories>
         <category>Computer Architecture</category>
@@ -388,7 +388,7 @@ a~=~in·\overline{sel},~b~=~in·sel</script><h3 id="多位逻辑门"><a href="#�
   </entry>
   <entry>
     <title>nand2tetris C2-布尔算法</title>
-    <url>/post/e4fb99f5/</url>
+    <url>/post/c8f554f1/</url>
     <content><![CDATA[<h1 id="布尔算法运算-Boolean-Arithmetic"><a href="#布尔算法运算-Boolean-Arithmetic" class="headerlink" title="[布尔算法运算 Boolean Arithmetic]"></a>[布尔算法运算 Boolean Arithmetic]</h1><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><p>两个<code>n-</code>位数字二进制加法的计算机硬件可以由三位加法的逻辑门构建而成。（两个计算位加上一个进位）</p>
 <p><strong>在4-位二进制系统中的有符号数的2-补码表示</strong></p>
 <div class="table-container">
@@ -467,20 +467,20 @@ a~=~in·\overline{sel},~b~=~in·sel</script><h3 id="多位逻辑门"><a href="#�
 <ul>
 <li><strong>半加器</strong>(Half-Adders)：用来进行<code>2-</code>位二进制数的加法.</li>
 </ul>
-<p><img src="/post/e4fb99f5/image-20200816222258242.png" alt="image-20200816222258242" style="zoom:80%;"></p>
+<p><img src="/post/c8f554f1/image-20200816222258242.png" alt="image-20200816222258242" style="zoom:80%;"></p>
 <ul>
 <li><strong>全加器</strong>(Full-Adders)：用来进行<code>3-</code>位二进制数加法.  </li>
 </ul>
-<p><img src="/post/e4fb99f5/image-20200816223202065.png" alt="image-20200816223202065" style="zoom:80%;"></p>
+<p><img src="/post/c8f554f1/image-20200816223202065.png" alt="image-20200816223202065" style="zoom:80%;"></p>
 <ul>
 <li><strong>加法器</strong>(Adders)：用来进行两个<code>n-</code>位加法.(图为16位)</li>
 </ul>
-<p><img src="/post/e4fb99f5/image-20200816222654606.png" alt="image-20200816222654606" style="zoom:80%;"></p>
+<p><img src="/post/c8f554f1/image-20200816222654606.png" alt="image-20200816222654606" style="zoom:80%;"></p>
 <ul>
 <li><strong>增量器</strong>(incrementer)：用来对指定的数字加1.</li>
 </ul>
-<p><img src="/post/e4fb99f5/image-20200816223012624.png" alt="image-20200816223012624" style="zoom:80%;"></p>
-<h3 id="算术逻辑单元-ALU"><a href="#算术逻辑单元-ALU" class="headerlink" title="算术逻辑单元(ALU)"></a>算术逻辑单元(ALU)</h3><p><img src="/post/e4fb99f5/image-20200817143329826.png" alt="image-20200817143329826" style="zoom:80%;"></p>
+<p><img src="/post/c8f554f1/image-20200816223012624.png" alt="image-20200816223012624" style="zoom:80%;"></p>
+<h3 id="算术逻辑单元-ALU"><a href="#算术逻辑单元-ALU" class="headerlink" title="算术逻辑单元(ALU)"></a>算术逻辑单元(ALU)</h3><p><img src="/post/c8f554f1/image-20200817143329826.png" alt="image-20200817143329826" style="zoom:80%;"></p>
 <p>Hack的ALU计算一组固定的函数<code>out = f(x, y)</code>，这里<code>x</code>和<code>y</code>是芯片的两个<code>16-</code>位输入，<code>out</code>是芯片的<code>16-</code>位输出，该函数表由18个固定函数组成，通过设置六个称为控制位(control bits)的输入位来告诉ALU用哪一个函数来进行何种函数计算。</p>
 <p>ALU可以对2^6^=64个不同的函数进行操作。</p>
 ]]></content>
@@ -494,8 +494,8 @@ a~=~in·\overline{sel},~b~=~in·sel</script><h3 id="多位逻辑门"><a href="#�
       </tags>
   </entry>
   <entry>
-    <title></title>
-    <url>/post/0/</url>
+    <title>nand2tetris C3-时序逻辑</title>
+    <url>/post/5b81f62b/</url>
     <content><![CDATA[<h1 id="时序逻辑-Sequential-Logic"><a href="#时序逻辑-Sequential-Logic" class="headerlink" title="[时序逻辑 Sequential Logic]"></a>[时序逻辑 Sequential Logic]</h1><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><p><strong>时钟(Clock)</strong>: 计算机里时间的流逝是用主时针(master clock)来表示的，它提供连续的<strong>交变信号序列</strong>。硬件实现通常基于<strong>振荡器(oscillator)</strong>，其在两个信号值<strong>0-1</strong>，或称<strong>“低电平-高电平(low-high, tick-tock)”</strong>之间交替变化。两个相邻的上升沿之间的时间间隙称为时钟的<strong>周期(cycle)</strong>，每个时钟周期模塑一个<strong>离散的时间单元</strong>。通过硬件电路，这个信号同时被传送到计算机平台的每个时序芯片中。</p>
 <p><strong>触发器(Flip-Flops)</strong>: 本书使用<strong>数据触发器(Data Flip-Flop, DFF或称D触发器)</strong>。实现基于时间的行为：</p>
 <script type="math/tex; mode=display">
@@ -504,17 +504,17 @@ out(t) = in(t - 1)</script><p>t是当前时钟周期。换而言之，DFF能够�
 <p><strong>寄存器(Registers)</strong>: 能够“储存”某一时刻的值，实现经典的存储行为：</p>
 <script type="math/tex; mode=display">
 out(t) = out(t - 1)</script><p>从另一个方面来说，DFF仅能够输出它前一时钟周期的输出，也就是<code>out(t) = in(t - 1)</code>。这提示了我们，可以通过DFF来实现寄存器，只需将后面的输出反馈到它的输入就可以了。</p>
-<p><img src="/post/0/image-20200818162126362.png" alt="image-20200818162126362" style="zoom: 50%;"></p>
+<p><img src="/post/5b81f62b/image-20200818162126362.png" alt="image-20200818162126362" style="zoom: 50%;"></p>
 <p>如此一来，在任何时刻<code>t</code>，这个设备的输出都会重现它在时刻<code>t-1</code>的值。</p>
 <p>如图3.1右，</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">load = 1, out(t) = in(t-1),  相当于wirte操作, 希望开始存储新值, 把值置于in输入口;</span><br><span class="line">load = 0, out(t) = out(t-1), 相当于read操作, 希望一直存储它的内部值直到新的指令到来</span><br></pre></td></tr></table></figure>
-<p><img src="/post/0/image-20200818163142204.png" alt="image-20200818163142204" style="zoom: 50%;"></p>
+<p><img src="/post/5b81f62b/image-20200818163142204.png" alt="image-20200818163142204" style="zoom: 50%;"></p>
 <p><strong>内存(Memories)</strong>: …… 随机存取内存(RAM, Random Acess Memory): 在RAM上能够随机访问被选择的字而不会受限于访问顺序。</p>
-<p><img src="/post/0/image-20200818163246416.png" alt="image-20200818163246416" style="zoom: 50%;"></p>
+<p><img src="/post/5b81f62b/image-20200818163246416.png" alt="image-20200818163246416" style="zoom: 50%;"></p>
 <p><strong>计数器(Counter)</strong>: 每经过一个时间周期计数器就增加1个单位，执行函数<code>out(t) = out(t-1) + c</code>，这里<code>c</code>就是1.</p>
 <h3 id="时间问题"><a href="#时间问题" class="headerlink" title="[时间问题]"></a>[时间问题]</h3><p>至此本章介绍的芯片都是时序芯片(sequential chip)。简单来说，时序芯片就是直接或间接地嵌入一个或多个DFF门的芯片。</p>
 <p>反馈回路：输出依赖于输入，而输入本身有依赖于输出，因此输出只依赖自身。</p>
-<p><img src="/post/0/image-20200818171444271.png" alt="image-20200818171444271" style="zoom: 50%;"></p>
+<p><img src="/post/5b81f62b/image-20200818171444271.png" alt="image-20200818171444271" style="zoom: 50%;"></p>
 <p>省略……</p>
 <h3 id="规范详述"><a href="#规范详述" class="headerlink" title="[规范详述]"></a>[规范详述]</h3><ul>
 <li><p>D触发器(DFFs)</p>
@@ -534,14 +534,14 @@ out(t) = out(t - 1)</script><p>从另一个方面来说，DFF仅能够输出它�
 </ul>
 </li>
 </ul>
-<p><img src="/post/0/image-20200822231745454.png" alt="image-20200822231745454" style="zoom: 50%;"></p>
+<p><img src="/post/5b81f62b/image-20200822231745454.png" alt="image-20200822231745454" style="zoom: 50%;"></p>
 <figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">CHIP Bit &#123;</span><br><span class="line">    IN <span class="keyword">in</span>, load;</span><br><span class="line">    OUT out;</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// lastOut is equal to the last time out, Assigned by DFF<span class="string">&#x27;s lastOut</span></span><br><span class="line"><span class="string">    Mux(a=lastOut, b=in, sel=load, out=muxOut);</span></span><br><span class="line"><span class="string">    // cause the out is distinct(Only use once), so we can add out to copy the out</span></span><br><span class="line"><span class="string">    DFF(in=muxOut, out=lastOut, out=out);</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
 <p><strong>n-Bits寄存器</strong>：</p>
 <p>n个<strong>1Bit寄存器</strong>串联 和 <code>log(2)n</code>的address选择寄存器进行读写（取址执行的基础 ）。</p>
 <p><strong>n-Bits RAM(Random Access Memory)</strong>：</p>
-<p><img src="/post/0/image-20200822234706201.png" alt="image-20200822234706201" style="zoom: 50%;"></p>
+<p><img src="/post/5b81f62b/image-20200822234706201.png" alt="image-20200822234706201" style="zoom: 50%;"></p>
 <p>address用于寻址：根据<code>address = i</code>找出需要载入的<strong>1Bit寄存器</strong>，此时该寄存器设置<code>load = 1，in = M</code>，并在下一个时间周期<code>out = M</code>，实现<code>out(t) = in(t-1)</code></p>
-<p><img src="/post/0/image-20200822235721818.png" alt="image-20200822235721818" style="zoom:50%;"></p>
+<p><img src="/post/5b81f62b/image-20200822235721818.png" alt="image-20200822235721818" style="zoom:50%;"></p>
 <figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 16-bit register:</span></span><br><span class="line">CHIP Register &#123;</span><br><span class="line">    IN <span class="keyword">in</span>[<span class="number">16</span>], load;</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// No Mux16, because DFF only accept <span class="number">1</span> bit input &amp; output.</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">0</span>], load=load, out=out[<span class="number">0</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">1</span>], load=load, out=out[<span class="number">1</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">2</span>], load=load, out=out[<span class="number">2</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">3</span>], load=load, out=out[<span class="number">3</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">4</span>], load=load, out=out[<span class="number">4</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">5</span>], load=load, out=out[<span class="number">5</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">6</span>], load=load, out=out[<span class="number">6</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">7</span>], load=load, out=out[<span class="number">7</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">8</span>], load=load, out=out[<span class="number">8</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">9</span>], load=load, out=out[<span class="number">9</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">10</span>], load=load, out=out[<span class="number">10</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">11</span>], load=load, out=out[<span class="number">11</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">12</span>], load=load, out=out[<span class="number">12</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">13</span>], load=load, out=out[<span class="number">13</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">14</span>], load=load, out=out[<span class="number">14</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">15</span>], load=load, out=out[<span class="number">15</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>Memory of 8 registers, each 16 bit-wide.</strong></p>
 <figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">CHIP RAM8 &#123;</span><br><span class="line">    IN <span class="keyword">in</span>[<span class="number">16</span>], load, address[<span class="number">3</span>];</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// <span class="keyword">in</span> accordance with address, locate which register to load</span><br><span class="line">    DMux8Way(<span class="keyword">in</span>=<span class="keyword">in</span>, sel=address, a=in0, b=in1, c=in2, d=in3, e=in4, f=in5, g=in6, h=in7);</span><br><span class="line"></span><br><span class="line">    Register(<span class="keyword">in</span>=in0, load=load, out=out0);</span><br><span class="line">    Register(<span class="keyword">in</span>=in1, load=load, out=out1);</span><br><span class="line">    Register(<span class="keyword">in</span>=in2, load=load, out=out2);</span><br><span class="line">    Register(<span class="keyword">in</span>=in3, load=load, out=out3);</span><br><span class="line">    Register(<span class="keyword">in</span>=in4, load=load, out=out4);</span><br><span class="line">    Register(<span class="keyword">in</span>=in5, load=load, out=out5);</span><br><span class="line">    Register(<span class="keyword">in</span>=in6, load=load, out=out6);</span><br><span class="line">    Register(<span class="keyword">in</span>=in7, load=load, out=out7);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// in accordance with address, decide which register should output</span></span><br><span class="line">    Mux8Way16(a=out0, b=out1, c=out2, d=out3, e=out4, f=out5, g=out6, h=out7, sel=address, out=out);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -552,13 +552,22 @@ out(t) = out(t - 1)</script><p>从另一个方面来说，DFF仅能够输出它�
 <li>计数器自增</li>
 <li>为计数器赋值</li>
 </ul>
-<p><img src="/post/0/image-20200823000717282.png" alt="image-20200823000717282" style="zoom:50%;"></p>
+<p><img src="/post/5b81f62b/image-20200823000717282.png" alt="image-20200823000717282" style="zoom:50%;"></p>
 <figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">CHIP PC &#123;</span><br><span class="line">    IN <span class="keyword">in</span>[<span class="number">16</span>],load,inc,reset;</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// Order cant change</span><br><span class="line">    <span class="comment">// inc</span></span><br><span class="line">    Mux16(a=lastOut, b=incOut, sel=inc, out=out1);</span><br><span class="line">    <span class="comment">// laod</span></span><br><span class="line">    Mux16(a=out1, b=<span class="keyword">in</span>, sel=load, out=out2);</span><br><span class="line">    <span class="comment">// reset</span></span><br><span class="line">    Mux16(a=out2, b=<span class="literal">false</span>, sel=reset, out=out3);</span><br><span class="line"></span><br><span class="line">    Register(<span class="keyword">in</span>=out3, load=<span class="literal">true</span>, out=lastOut, out=out);</span><br><span class="line">    Inc16(<span class="keyword">in</span>=lastOut, out=incOut);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
+      <categories>
+        <category>Computer Architecture</category>
+      </categories>
+      <tags>
+        <tag>RAM</tag>
+        <tag>nand2tetris</tag>
+        <tag>HDL</tag>
+        <tag>Register</tag>
+      </tags>
   </entry>
   <entry>
     <title>nand2tetris C8-虚拟机Ⅱ程序控制</title>
-    <url>/post/35e94e02/</url>
+    <url>/post/26de550e/</url>
     <content><![CDATA[<h1 id="虚拟机Ⅱ-程序控制-Program-Control"><a href="#虚拟机Ⅱ-程序控制-Program-Control" class="headerlink" title="[虚拟机Ⅱ: 程序控制 Program Control]"></a>[虚拟机Ⅱ: 程序控制 Program Control]</h1><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><p>上一章介绍9个算术指令、逻辑指令以及内存访问指令(push/pop segment<8> index)是如何利用基本<strong>栈式机(stack machine)</strong>操作来进行计算的。本章将在上章基础上描述<strong>程序控制流(program flow)命令</strong>和<strong>子程序调用(subroutine calling)命令</strong>是如何在<strong>栈式机</strong>实现的。</8></p>
 <p>对于在运行期的每个<strong>子程序调用</strong>，底层必须处理下面的一些细节。可以利用<strong>栈式机</strong>来方便的完成，事实上<strong>栈式结构</strong>本身的优势就在于处理类似的问题。</p>
 <ul>
@@ -572,26 +581,26 @@ out(t) = out(t - 1)</script><p>从另一个方面来说，DFF仅能够输出它�
 <li>返回到调用语句之后的下一条语句继续执行。</li>
 </ul>
 <h3 id="程序控制流"><a href="#程序控制流" class="headerlink" title="[程序控制流]"></a>[程序控制流]</h3><p>​        主要有两种，<strong>无条件跳转</strong>和<strong>有条件跳转</strong>，这部分是很容易实现的。上一章VM的原始操作是如何计算任意给定的布尔表达式，并将其结果置于栈顶的。这种表达式与<code>goto</code>和<code>if-goto</code>命令相结合，就可以表示任何编程语言中的任何控制结构的流程。</p>
-<p><img src="/post/35e94e02/image-20200926193155407.png" alt="程序控制流的实现"></p>
+<p><img src="/post/26de550e/image-20200926193155407.png" alt="程序控制流的实现"></p>
 <h3 id="子程序调用"><a href="#子程序调用" class="headerlink" title="[子程序调用]"></a>[子程序调用]</h3><p>​        子程序调用主要包含两种，调用内置指令和调用用户自己定义的子程序。调用内置指令，比如：<code>add</code>，<code>sub</code>等，在第7章都已经实现。调用用户自己定义的子程序与调用内置指令的区别在于需要使用关键字<code>call</code>。</p>
-<p><img src="/post/35e94e02/image-20200926200604522.png" alt="子程序调用流程" style="zoom:67%;"></p>
-<p><img src="/post/35e94e02/image-20200926200701237.png" alt="子程序流程2"></p>
+<p><img src="/post/26de550e/image-20200926200604522.png" alt="子程序调用流程" style="zoom:67%;"></p>
+<p><img src="/post/26de550e/image-20200926200701237.png" alt="子程序流程2"></p>
 <h4 id="如何实现嵌套调用和递归调用的内存管理机制？"><a href="#如何实现嵌套调用和递归调用的内存管理机制？" class="headerlink" title="如何实现嵌套调用和递归调用的内存管理机制？"></a>如何实现嵌套调用和递归调用的内存管理机制？</h4><p>​        主程序会调用子程序，子程序还会调用子程序，子程序也会调用子程序自身，这就形成了<strong>嵌套调用</strong>和<strong>递归调用</strong>。<br>​        这里要介绍一个概念：<strong>帧</strong>，它表示<strong>子程序的局部变量的集合</strong>。在这一章中，栈是指全局栈结构，它<strong>包括所有子程序的帧组成的栈</strong>，包含了第7章中介绍的栈结构，但又大于之前的栈结构。</p>
-<h4 id="函数调用协议-规范"><a href="#函数调用协议-规范" class="headerlink" title="函数调用协议(规范)"></a>函数调用协议(规范)</h4><p><img src="/post/35e94e02/image-20200926214313405.png" alt="函数调用协议(规范)"></p>
+<h4 id="函数调用协议-规范"><a href="#函数调用协议-规范" class="headerlink" title="函数调用协议(规范)"></a>函数调用协议(规范)</h4><p><img src="/post/26de550e/image-20200926214313405.png" alt="函数调用协议(规范)"></p>
 <ul>
 <li>虽然子程序调用链可以具有任意深度，可以有任意的递归，但是<strong>在任何时刻，只有调用链顶部的子程序才能被执行</strong>，而处于调用链中其他子程序将一直等待到该子程序执行完毕才能继续执行。子程序调用的实现过程中，这种<strong>后进先出</strong>的处理方式和<strong>栈区</strong>数据结构的操作方式吻合。</li>
 </ul>
-<p><img src="/post/35e94e02/image-20200924203308549.png" alt="后进先出" style="zoom:67%;"></p>
+<p><img src="/post/26de550e/image-20200924203308549.png" alt="后进先出" style="zoom:67%;"></p>
 <h4 id="✨✨✨函数调用协议的实现"><a href="#✨✨✨函数调用协议的实现" class="headerlink" title="✨✨✨函数调用协议的实现"></a>✨✨✨函数调用协议的实现</h4><ul>
 <li>函数调用协议及其对应的全局栈区结构能够通过执行下图中给出的(用Hack汇编代码写出的)伪指令在Hack平台上实现。（CodeWriter的实现部分）</li>
 </ul>
-<p><img src="/post/35e94e02/image-20200924204022900.png" alt="函数命令的VM实现"></p>
+<p><img src="/post/26de550e/image-20200924204022900.png" alt="函数命令的VM实现"></p>
 <ul>
 <li>下图显示了三个调用相关的栈区状态：</li>
 </ul>
-<p><img src="/post/35e94e02/image-20200924204140804.png" alt="全局栈区"></p>
-<h4 id="Hack平台的RAM标准映射"><a href="#Hack平台的RAM标准映射" class="headerlink" title="Hack平台的RAM标准映射"></a>Hack平台的RAM标准映射</h4><p><img src="/post/35e94e02/image-20200926215722605.png" alt="映射"></p>
-<p><img src="/post/35e94e02/image-20200926215830908.png" alt="汇编语言符号"></p>
+<p><img src="/post/26de550e/image-20200924204140804.png" alt="全局栈区"></p>
+<h4 id="Hack平台的RAM标准映射"><a href="#Hack平台的RAM标准映射" class="headerlink" title="Hack平台的RAM标准映射"></a>Hack平台的RAM标准映射</h4><p><img src="/post/26de550e/image-20200926215722605.png" alt="映射"></p>
+<p><img src="/post/26de550e/image-20200926215830908.png" alt="汇编语言符号"></p>
 <h2 id="实现"><a href="#实现" class="headerlink" title="[实现]"></a>[实现]</h2><p><em>Parser.java</em></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 基于Chap7，追加实现解析本章新增的6个VM指令</span></span><br></pre></td></tr></table></figure>
 <p><em>VMTranslator</em></p>
@@ -824,7 +833,7 @@ hexo-generator-index從 2.0.0 開始，已經支持文章置頂功能。
   </entry>
   <entry>
     <title>nand2tetris C4-机器语言</title>
-    <url>/post/dd2b6294/</url>
+    <url>/post/f125af90/</url>
     <content><![CDATA[<h1 id="机器语言-Machine-Language"><a href="#机器语言-Machine-Language" class="headerlink" title="[机器语言 Machine Language]"></a>[机器语言 Machine Language]</h1><p>借由机器语言，程序员用符号指令表达的抽象思维被转换成执行在硅片上的物理操作。</p>
 <p><strong>This chapter is Complicated.</strong></p>
 <h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><p>​        为了对机器语言作一般性描述，只须要集中讨论三个主要的抽象体上：<strong>处理器(processor)</strong>、<strong>内存(memory)</strong>以及一组<strong>寄存器(registers)</strong>。</p>
@@ -856,28 +865,28 @@ hexo-generator-index從 2.0.0 開始，已經支持文章置頂功能。
 <p>​        <strong>内存地址空间</strong>        Hack程序员要了解，有两个不同的地址空间：<strong>指令地址空间</strong>（instruction memory<strong>指令内存</strong>），<strong>数据地址空间</strong>（data memory<strong>数据内存</strong>）。两个内存区16-位宽，由15-位地址空间，意味着两个内存可设定的最大地址都是<code>32K</code>的<code>16-bit word</code><strong>(2^15^ = 32 × 1024 = 32K)</strong></p>
 <p>​        CPU只能执行存储在指令内存中的程序。指令内存是只读设备，程序通过某种外部方法被加载到指令内存中（加载新程序，就像游戏机更换游戏卡切换游戏）.  Hack平台的硬件仿真器提供一种方法，将某文本文件中用机器语言编写的程序加载到指令内存中。</p>
 <p>​        <strong>寄存器(Registers)</strong>        Hack程序员要接触两个称为D和A的16-位寄存器，能够被算数和逻辑指令显式地操控(eg: <code>A = D-1</code>或<code>D = !A</code>)。D只作为数据寄存器（储存数据）；A既可以作为数据寄存器，也可以作为地址寄存器（储存地址）。</p>
-<p><img src="/post/dd2b6294/image-20200827144620317.png" alt="三个寄存器" style="zoom: 50%;"></p>
+<p><img src="/post/f125af90/image-20200827144620317.png" alt="三个寄存器" style="zoom: 50%;"></p>
 <p>​        Hack语言规定，内存的存取指令是对隐式的内存地址“M”进行操作。<code>M-&gt;A, A=512, M = memory[512]</code></p>
 <h4 id="2-A-指令-地址指令"><a href="#2-A-指令-地址指令" class="headerlink" title="2. A-指令 (地址指令)"></a>2. A-指令 (地址指令)</h4><p>唯一解析的指令：@value，为A寄存器赋值</p>
 <figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* value:</span></span><br><span class="line"><span class="comment"> *  1.非负的十进制常数≤32767(=2^15 - 1)</span></span><br><span class="line"><span class="comment"> *  2.指向(非负的十进制常数)的符号, eg:sum</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">@<span class="number">21</span>：</span><br><span class="line"> - A寄存器赋值为<span class="number">21</span>  data register</span><br><span class="line"> - RAM[<span class="number">21</span>]将成为选定的RAM寄存器  address register</span><br><span class="line"><span class="comment">// 二进制形式：0value</span></span><br></pre></td></tr></table></figure>
 <p>​        只要赋值赋值给A寄存器，A寄存器会自动从数据存储器中选中被选择的寄存器，被选择的寄存器就是上图中的M寄存器。</p>
 <figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Set RAM[100] to -1</span></span><br><span class="line">@<span class="number">100</span>  <span class="comment">// A = 100, 二进制：0value(=0000 0000 0110 0100)</span></span><br><span class="line">M = <span class="number">-1</span>  <span class="comment">// RAM[100] = -1</span></span><br></pre></td></tr></table></figure>
 <p>​        此段代码，M就是代表了内存单元中的寄存器RAM[100]。这就是 A-指令 的用法，在内存的存取操作之前，我们总是要用 A-指令 去选择一个寄存器，进而完成内存的存取。</p>
-<h4 id="3-C-指令"><a href="#3-C-指令" class="headerlink" title="3. C-指令"></a>3. C-指令</h4><p><img src="/post/dd2b6294/image-20200827153104413.png" alt="C指令" style="zoom:50%;"></p>
+<h4 id="3-C-指令"><a href="#3-C-指令" class="headerlink" title="3. C-指令"></a>3. C-指令</h4><p><img src="/post/f125af90/image-20200827153104413.png" alt="C指令" style="zoom:50%;"></p>
 <figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line"><span class="comment">// dest or jump are optional</span></span><br><span class="line"><span class="comment">// if dest is null, &quot;=&quot; omit</span></span><br><span class="line"><span class="comment">// if jump is null, &quot;;&quot; omit</span></span><br><span class="line">C-instructions: <span class="type">dest </span>= comp;jump</span><br></pre></td></tr></table></figure>
 <p>comp域：ALU计算什么；</p>
 <p>dest域：计算后的结果（ALU的输出）将被存储到哪里；</p>
 <p>jump域：接下来要取出并执行拿一条命令</p>
 <figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Set the D register to -1</span></span><br><span class="line">D = <span class="number">-1</span>  <span class="comment">// D in dest table, -1 in comp table</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">// Set RAM[300] to the value of the D register minus 1</span></span><br><span class="line">@<span class="number">300</span>  <span class="comment">// A = 300, slect the register which I want to operate (access memory)</span></span><br><span class="line">M = D<span class="number">-1</span>  <span class="comment">// (D-1) in comp table</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">// If (D-1 == 0) jump to execute the instruction stored in ROM[56]</span></span><br><span class="line">@<span class="number">56</span>  <span class="comment">// A=56</span></span><br><span class="line">D<span class="number">-1</span>;JEQ  <span class="comment">// if (D-1 == 0) go to 56.</span></span><br><span class="line"><span class="comment">// (D-1) in comp table, JEQ is (if out=0 then jump)</span></span><br></pre></td></tr></table></figure>
 <p>C-指令的二进制表示：</p>
-<p><img src="/post/dd2b6294/image-20200827160411973.png" alt="C指令的二进制形式" style="zoom:50%;"></p>
+<p><img src="/post/f125af90/image-20200827160411973.png" alt="C指令的二进制形式" style="zoom:50%;"></p>
 <p>C-指令的compute域：</p>
-<p><img src="/post/dd2b6294/image-20200827160756020.png" alt="C-指令的compute域" style="zoom:50%;"></p>
+<p><img src="/post/f125af90/image-20200827160756020.png" alt="C-指令的compute域" style="zoom:50%;"></p>
 <p>C-指令的dest域：</p>
-<p><img src="/post/dd2b6294/image-20200827160915065.png" alt="C-指令的dest域" style="zoom:50%;"></p>
+<p><img src="/post/f125af90/image-20200827160915065.png" alt="C-指令的dest域" style="zoom:50%;"></p>
 <p>dest域为3位二进制组合，代表了8种可能。</p>
 <p>C-指令的jump域：</p>
-<p><img src="/post/dd2b6294/image-20200827161133846.png" alt="C-指令的jump域" style="zoom:50%;">与dest域相似，junp也是3位二进制组合。</p>
+<p><img src="/post/f125af90/image-20200827161133846.png" alt="C-指令的jump域" style="zoom:50%;">与dest域相似，junp也是3位二进制组合。</p>
 <p>特别的，最后一个指令<code>(0;JMP)</code>执行一个无条件跳转。（其实除了0，还可取任意数值）</p>
 <h4 id="4-符号"><a href="#4-符号" class="headerlink" title="4. 符号"></a>4. 符号</h4><p>​        汇编命令可以使用常数或符号来表示内存单元位置（地址）。</p>
 <h4 id="5-输入-输出处理"><a href="#5-输入-输出处理" class="headerlink" title="5. 输入/输出处理"></a>5. 输入/输出处理</h4><p>Hack能连接两个外设，屏幕和键盘。两个设备与计算机的交互都是通过<strong>内存映像(memory maps)</strong>实现的。</p>
@@ -885,7 +894,7 @@ hexo-generator-index從 2.0.0 開始，已經支持文章置頂功能。
 <p>键盘的输入是通过<strong>读取</strong>与键盘相关的<strong>内存单元</strong>来实现的。</p>
 <p>物理I/O设备和它们对应的内存映像是通过<strong>连续的循环刷新</strong>进行<strong>同步</strong>的。</p>
 <h4 id="屏幕"><a href="#屏幕" class="headerlink" title="屏幕"></a>屏幕</h4><p>​        屏幕通过电线连接计算机，如果我们追踪电线，我们可以看到它进连接了RAM的一个区域，称为屏幕内存映射。</p>
-<p><img src="/post/dd2b6294/image-20200828104048726.png" alt="screen memory map" style="zoom:50%;"></p>
+<p><img src="/post/f125af90/image-20200828104048726.png" alt="screen memory map" style="zoom:50%;"></p>
 <p>​        1 = 黑，0 = 白。而这中间的困难是，显示单元是二维的；内存映射是一维的，我们必须连接起来。我们只能从内存映射中<strong>读写</strong>16位数据，而无法只<strong>操作</strong>一个单独的位的数据。</p>
 <p>​        对内存的存取操作都是16位，因此我们可以取出16位，对其中的1位进行操作之后，再存放。</p>
 <p>​        另一难题，如何在内存映射出对应的行-列？</p>
@@ -904,9 +913,9 @@ hexo-generator-index從 2.0.0 開始，已經支持文章置頂功能。
 <p>视频上的硬件仿真器的例子：</p>
 <figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line"><span class="comment">// eg:第3行前16列的所有像素变黑</span></span><br><span class="line">CHIP Screen&#123;</span><br><span class="line">	IN  <span class="keyword">in</span>[<span class="number">16</span>],    <span class="comment">// what to write</span></span><br><span class="line">    load,          <span class="comment">// write-enable bit</span></span><br><span class="line">    address[<span class="number">13</span>];   <span class="comment">// where to read/write</span></span><br><span class="line">    OUT out[<span class="number">16</span>];   <span class="comment">// Screen value at the given address   </span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 32*3 = 96; address[13] = 96 = (0000 0000 0110 0000);</span></span><br><span class="line"><span class="comment">// load = 1</span></span><br><span class="line"><span class="comment">// in[16] = (1111 1111 1111 1111) = -1</span></span><br><span class="line"><span class="comment">// 写入内存后，还需要run时钟，将在下一个时钟周期刷新后显示</span></span><br></pre></td></tr></table></figure>
 <h4 id="键盘"><a href="#键盘" class="headerlink" title="键盘"></a>键盘</h4><p>​        键盘通过电缆连接计算机，如果我们追踪电缆，我们可以看到它进入了RAM的一个区域，称为键盘内存映射。</p>
-<p><img src="/post/dd2b6294/image-20200828105047045.png" alt="keyboard memory map" style="zoom:50%;"></p>
+<p><img src="/post/f125af90/image-20200828105047045.png" alt="keyboard memory map" style="zoom:50%;"></p>
 <p>​        Hack计算机与物理键盘之间通过RAM基地址为<strong>24576(0x6000)</strong>的单字内存映像进行交互。只要在键盘上敲一个键，其对应的16-位<strong>ASCII码</strong>值就出现在<strong>RAM[24576]</strong>。没有敲键盘时，该内存单元的值就是<strong>0(=0000 0000 0000 0000)</strong>。除了常用的<strong>ASCII码</strong>之外，Hack键盘还可以识别：</p>
-<p><img src="/post/dd2b6294/image-20200828105539792.png" alt="键盘识别额外的键" style="zoom:50%;"></p>
+<p><img src="/post/f125af90/image-20200828105539792.png" alt="键盘识别额外的键" style="zoom:50%;"></p>
 <figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Read-Only</span></span><br><span class="line">CHIP Keyboard &#123;</span><br><span class="line">    OUT out[<span class="number">16</span>];   <span class="comment">// The ASCII code of the pressed key, </span></span><br><span class="line">                   <span class="comment">// or 0 if no key is currently pressed, </span></span><br><span class="line">                   <span class="comment">// or one the special codes listed in Figure 5.5.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>​        按下瞬间识别，松手则无键按下，置0.</p>
 <h3 id="zap-zap-zap-机器语言实践"><a href="#zap-zap-zap-机器语言实践" class="headerlink" title=":zap::zap::zap:[机器语言实践]"></a>:zap::zap::zap:[机器语言实践]</h3><p><strong>D: data register</strong></p>
@@ -917,15 +926,15 @@ hexo-generator-index從 2.0.0 開始，已經支持文章置頂功能。
 <figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">@<span class="number">0</span>  <span class="comment">// R0 may be better</span></span><br><span class="line">D=M</span><br><span class="line"></span><br><span class="line">@<span class="number">1</span>  <span class="comment">// R1 may be better</span></span><br><span class="line">D=D+M  <span class="comment">// D+M in comp table of C-instruction</span></span><br><span class="line"></span><br><span class="line">@<span class="number">2</span>  <span class="comment">// R2 may be better</span></span><br><span class="line">M=D</span><br><span class="line">    </span><br><span class="line">@<span class="number">6</span></span><br><span class="line"><span class="number">0</span>;JMP  <span class="comment">// end of program, use infinite loop to avoid </span></span><br></pre></td></tr></table></figure>
 <p>空格在翻译时被忽略。</p>
 <p>当我们要使用<strong>寄存器(R0~R15)</strong>时，利用符号表示，以获得更好的可读性：（此时A寄存器作为 address register）</p>
-<p><img src="/post/dd2b6294/image-20200828141806438.png" alt="symbols" style="zoom:50%;"></p>
+<p><img src="/post/f125af90/image-20200828141806438.png" alt="symbols" style="zoom:50%;"></p>
 <p>符号严格区分大小写，请只使用‘R’。</p>
 <p>SCREEN、KBD以及其他的内置符号</p>
-<p><img src="/post/dd2b6294/image-20200828142217495.png" alt="extra symbols" style="zoom:50%;"></p>
+<p><img src="/post/f125af90/image-20200828142217495.png" alt="extra symbols" style="zoom:50%;"></p>
 <p>SCREEN和KBD代表的分别是：输出和输入设备内存映射的基地址。</p>
-<h4 id="分支-Branching"><a href="#分支-Branching" class="headerlink" title="[分支 Branching]"></a>[分支 Branching]</h4><p><img src="/post/dd2b6294/image-20200828144432517.png" alt="branch" style="zoom:50%;"></p>
+<h4 id="分支-Branching"><a href="#分支-Branching" class="headerlink" title="[分支 Branching]"></a>[分支 Branching]</h4><p><img src="/post/f125af90/image-20200828144432517.png" alt="branch" style="zoom:50%;"></p>
 <p><strong>@LABEL</strong>会被翻译成@n，其中n是<strong>(LABEL)</strong>声明后的<strong>指令号</strong>。</p>
 <p>(POSITIVE)是8，(END)是10</p>
-<h4 id="Variables"><a href="#Variables" class="headerlink" title="[Variables]"></a>[Variables]</h4><p><img src="/post/dd2b6294/image-20200828161742688.png" alt="flip" style="zoom:50%;"></p>
+<h4 id="Variables"><a href="#Variables" class="headerlink" title="[Variables]"></a>[Variables]</h4><p><img src="/post/f125af90/image-20200828161742688.png" alt="flip" style="zoom:50%;"></p>
 <p>@temp变成中间变量，效果相当于@n，</p>
 <p>@temp变量从地址16开始，可声明n个变量。</p>
 <p>计算累加和</p>
@@ -939,7 +948,7 @@ hexo-generator-index從 2.0.0 開始，已經支持文章置頂功能。
 <li>Test the program (on paper) using a variable-value trace table.</li>
 </ol>
 <h4 id="指针"><a href="#指针" class="headerlink" title="[指针]"></a>[指针]</h4><figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line"><span class="comment">// for(i=0; i&lt;n; i++)&#123;</span></span><br><span class="line"><span class="comment">// 		arr[i] = -1;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"><span class="comment">// Suppose that arr=100 and n=10</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// arr = 100</span></span><br><span class="line">    @<span class="number">100</span></span><br><span class="line">    D=A</span><br><span class="line">    @arr</span><br><span class="line">    M=D</span><br><span class="line"></span><br><span class="line">    <span class="comment">// n = 10</span></span><br><span class="line">    @<span class="number">10</span></span><br><span class="line">    D=A</span><br><span class="line">    @n</span><br><span class="line">    M=D</span><br><span class="line"></span><br><span class="line">    <span class="comment">// initialize i = 0</span></span><br><span class="line">    @i</span><br><span class="line">    M=<span class="number">0</span></span><br><span class="line"></span><br><span class="line">(LOOP)</span><br><span class="line">    <span class="comment">// if (i==n) goto END. (not STOP cause we dont intent to valuation)</span></span><br><span class="line">    @i</span><br><span class="line">    D=M</span><br><span class="line">    @n</span><br><span class="line">    D=D-M</span><br><span class="line">    @END</span><br><span class="line">    D;JEQ</span><br><span class="line"></span><br><span class="line">    <span class="comment">// RAM[arr+i] = -1</span></span><br><span class="line">    @arr</span><br><span class="line">    D=M</span><br><span class="line">    @i</span><br><span class="line">    A=D+M  <span class="comment">// A = arr+i</span></span><br><span class="line">    M=<span class="number">-1</span>  <span class="comment">// RAM[arr+i] = -1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// i++</span></span><br><span class="line">    @i</span><br><span class="line">    M=M+<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    @LOOP</span><br><span class="line">    <span class="number">0</span>;JMP</span><br><span class="line"></span><br><span class="line">(END)</span><br><span class="line">    @END</span><br><span class="line">    <span class="number">0</span>;JMP</span><br></pre></td></tr></table></figure>
-<p><img src="/post/dd2b6294/image-20200828210609280.png" alt="pointers" style="zoom:50%;"></p>
+<p><img src="/post/f125af90/image-20200828210609280.png" alt="pointers" style="zoom:50%;"></p>
 <ul>
 <li><p>高级语言中，<code>arr</code>和<code>i</code>之类<strong>存储地址</strong>的变量称为<strong>指针</strong>。</p>
 </li>
@@ -947,14 +956,14 @@ hexo-generator-index從 2.0.0 開始，已經支持文章置頂功能。
 </li>
 <li>将地址寄存器（A register）设置为某个内存寄存器的内容，其中我们做了一些指针运算，计算我们需要操作的地址。</li>
 </ul>
-<h4 id="输入-输出"><a href="#输入-输出" class="headerlink" title="输入 / 输出"></a>输入 / 输出</h4><p><img src="/post/dd2b6294/image-20200828211646079.png" alt="input/output" style="zoom:50%;"></p>
+<h4 id="输入-输出"><a href="#输入-输出" class="headerlink" title="输入 / 输出"></a>输入 / 输出</h4><p><img src="/post/f125af90/image-20200828211646079.png" alt="input/output" style="zoom:50%;"></p>
 <p>上图知识回顾。</p>
 <p>我们需要在屏幕上画全黑的矩形，简单的思路是迭代足够多的行，让屏幕显示“黑块”。</p>
 <p>psuedu code: </p>
 <figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line"><span class="comment">// for (i=0; i&lt;n; i++)&#123;</span></span><br><span class="line"><span class="comment">// 		draw 16 block pixels at the beginning of row i</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line">	addr = SCREEN</span><br><span class="line">    n = RAM[<span class="number">0</span>]</span><br><span class="line">    i = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    LOOP:<span class="type"></span></span><br><span class="line"><span class="type">        if i &gt; n goto END</span></span><br><span class="line"><span class="type">        RAM</span>[addr] = <span class="number">-1</span>  <span class="comment">// 1111 1111 1111 1111(= 16 black pixels)</span></span><br><span class="line">        <span class="comment">// advances to the next row</span></span><br><span class="line">        addr = addr + <span class="number">32</span>  <span class="comment">// 我们用内存映射的前32行代表一整行512(=32*16)个像素，每行如此</span></span><br><span class="line">        i = i + <span class="number">1</span></span><br><span class="line">        goto LOOP</span><br><span class="line"></span><br><span class="line">    END:<span class="type"></span></span><br><span class="line"><span class="type">        goto END</span></span><br></pre></td></tr></table></figure>
 <p>实现的Hack汇编：</p>
 <figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">   @SCREEN</span><br><span class="line">   D=A</span><br><span class="line">   @addr</span><br><span class="line">   M=D  <span class="comment">// addr = 16384(base address)</span></span><br><span class="line"></span><br><span class="line">   @R0</span><br><span class="line">   D=M</span><br><span class="line">   @n</span><br><span class="line">   M=D  <span class="comment">// n = RAM[0]</span></span><br><span class="line"></span><br><span class="line">   @i</span><br><span class="line">   M=<span class="number">0</span></span><br><span class="line"></span><br><span class="line">(LOOP)</span><br><span class="line">    @i</span><br><span class="line">    D=M</span><br><span class="line">    @n</span><br><span class="line">    D=D-M</span><br><span class="line">    @END</span><br><span class="line">    D;JGT  <span class="comment">// if i &gt; n goto END</span></span><br><span class="line"></span><br><span class="line">    @addr</span><br><span class="line">    A=M</span><br><span class="line">    M=<span class="number">-1</span>  <span class="comment">// RAM[addr] = 1111 1111 1111 1111</span></span><br><span class="line"></span><br><span class="line">    @i</span><br><span class="line">    M=M+<span class="number">1</span>  <span class="comment">// i = i + 1</span></span><br><span class="line">    @<span class="number">1</span></span><br><span class="line">    D=A  <span class="comment">// D = RAM[32]</span></span><br><span class="line">    @addr</span><br><span class="line">    M=M+D  <span class="comment">// addr = addr + 32</span></span><br><span class="line">    @LOOP</span><br><span class="line">    <span class="number">0</span>;JMP  <span class="comment">// goto END</span></span><br><span class="line"></span><br><span class="line">(END)</span><br><span class="line">    @END  <span class="comment">// program&#x27;s end</span></span><br><span class="line">    <span class="number">0</span>;JMP  <span class="comment">// infinite loop</span></span><br></pre></td></tr></table></figure>
-<h5 id="键盘-1"><a href="#键盘-1" class="headerlink" title="键盘"></a>键盘</h5><p><img src="/post/dd2b6294/image-20200828222504824.png" alt="keyboard" style="zoom:50%;"></p>
+<h5 id="键盘-1"><a href="#键盘-1" class="headerlink" title="键盘"></a>键盘</h5><p><img src="/post/f125af90/image-20200828222504824.png" alt="keyboard" style="zoom:50%;"></p>
 <ul>
 <li>读出RAM[24576]的内容<ul>
 <li>如果寄存器存储了0，说明无键输入；</li>
@@ -996,8 +1005,8 @@ hexo-generator-index從 2.0.0 開始，已經支持文章置頂功能。
 <p>implement:</p>
 <figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">    <span class="comment">// max = 24575, store as a address</span></span><br><span class="line">    @<span class="number">24575</span></span><br><span class="line">    D=A</span><br><span class="line">    @max</span><br><span class="line">    M=D</span><br><span class="line"></span><br><span class="line">    <span class="comment">// current = SCREEN, store as a address</span></span><br><span class="line">    @SCREEN</span><br><span class="line">    D=A</span><br><span class="line">    @current</span><br><span class="line">    M=D</span><br><span class="line"></span><br><span class="line">(LOOP)</span><br><span class="line">    <span class="comment">// if(Memory[KBD] &gt; 0)&#123;  // 键盘有按键</span></span><br><span class="line">    <span class="comment">//     FILL();</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    @KBD</span><br><span class="line">    D=M  <span class="comment">// *** get Memory[KBD]</span></span><br><span class="line">    @FILL</span><br><span class="line">    D;JGT</span><br><span class="line"></span><br><span class="line">    <span class="comment">// CLEAR();  // no conditional</span></span><br><span class="line">    @CLEAR</span><br><span class="line">    <span class="number">0</span>;JMP</span><br><span class="line"></span><br><span class="line">(FILL)</span><br><span class="line">    @current</span><br><span class="line">    D=M</span><br><span class="line">    @max</span><br><span class="line">    D=D-M  <span class="comment">// current - max</span></span><br><span class="line">    @LOOP</span><br><span class="line">    D;JGT</span><br><span class="line"></span><br><span class="line">    @current</span><br><span class="line">    A=M</span><br><span class="line">    M=<span class="number">-1</span></span><br><span class="line">    @current</span><br><span class="line">    M=M+<span class="number">1</span></span><br><span class="line">    @LOOP</span><br><span class="line">    <span class="number">0</span>;JMP</span><br><span class="line"></span><br><span class="line">(CLEAR)</span><br><span class="line">    @SCREEN</span><br><span class="line">    D=A  <span class="comment">// *** get SCREEN address</span></span><br><span class="line">    @current</span><br><span class="line">    D=D-M  <span class="comment">// SCREEN - current</span></span><br><span class="line">    @LOOP</span><br><span class="line">    D;JGT</span><br><span class="line"></span><br><span class="line">    @current</span><br><span class="line">    A=M</span><br><span class="line">    M=<span class="number">0</span></span><br><span class="line"></span><br><span class="line">    @current</span><br><span class="line">    M=M<span class="number">-1</span></span><br><span class="line"></span><br><span class="line">    @LOOP</span><br><span class="line">    <span class="number">0</span>;JMP</span><br></pre></td></tr></table></figure>
 <p>做的时候困扰我的反而是：@KBD之后获取Memory[KBD]的值，以及@SCREEN之后获取SCREEN地址。成功把我绕晕了….</p>
-<p><img src="/post/dd2b6294/image-20200830115543297.png" alt="result00" style="zoom:50%;"></p>
-<p><img src="/post/dd2b6294/image-20200830115451987.png" alt="result01" style="zoom:50%;"></p>
+<p><img src="/post/f125af90/image-20200830115543297.png" alt="result00" style="zoom:50%;"></p>
+<p><img src="/post/f125af90/image-20200830115451987.png" alt="result01" style="zoom:50%;"></p>
 <p>A-register、D-register and @value:</p>
 <figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">@<span class="number">1024</span>  <span class="comment">// 传说中的 A-instruction  也就是A指令, 下面的都是C指令</span></span><br><span class="line">D=A    <span class="comment">// 读取数据1024, 并赋值给 D-Register 也就是 data-Register 数据寄存器</span></span><br><span class="line">D=M    <span class="comment">// 读取内存地址为1024 的值也就是 Memory[1024]</span></span><br><span class="line">D;JEQ  <span class="comment">// 跳转逻辑 如果当前数据寄存器中的值等于0, 则pc = 1024, 也就是当前下一个输入的指令地址为1</span></span><br></pre></td></tr></table></figure>
 <p><em>test:</em>(from阿德莱德大学)</p>
@@ -1015,7 +1024,7 @@ hexo-generator-index從 2.0.0 開始，已經支持文章置頂功能。
   </entry>
   <entry>
     <title>nand2tetris C5-计算机体系结构</title>
-    <url>/post/881a6736/</url>
+    <url>/post/1404dacc/</url>
     <content><![CDATA[<h1 id="计算机体系结构-Computer-Architecture"><a href="#计算机体系结构-Computer-Architecture" class="headerlink" title="[计算机体系结构 Computer Architecture]"></a>[计算机体系结构 Computer Architecture]</h1><p>本章涵盖“硬件”部分中最难啃的内容。将第1~3章构建的所有芯片整合并集成一台通用计算机Hack。</p>
 <p>Hack优点：</p>
 <ol>
@@ -1026,10 +1035,10 @@ hexo-generator-index從 2.0.0 開始，已經支持文章置頂功能。
 <h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><h4 id="1-存储程序概念"><a href="#1-存储程序概念" class="headerlink" title="1. 存储程序概念"></a>1. 存储程序概念</h4><p>​        一个由有限硬件组件构成的计算机却可以执行无限的任务队列，其实都是<strong>“存储程序(stored program)”</strong>概念的硕果。计算机基于固定的硬件平台，能够执行固定的指令集。同时，这些指令能够被当成构建模块，组成任意的程序。而且，这些程序的逻辑被存储到计算机的<strong>存储设备(memory)</strong>里，跟数据一样，成为所谓的<strong>“软件(software)”</strong>。</p>
 <h4 id="2-冯·诺伊曼结构"><a href="#2-冯·诺伊曼结构" class="headerlink" title="2.冯·诺伊曼结构"></a>2.冯·诺伊曼结构</h4><p>​        存储系统概念最著名的是<strong>通用图灵机(1936)</strong>和<strong>冯·诺伊曼机(1945)</strong>。</p>
 <p>​        图灵机描述虚拟的简单计算机的抽象机，主要用来分分析计算机的逻辑结构。相比之下，冯·诺伊曼机是实际应用型的体系结构，是今天所有计算机结构的基础。</p>
-<p><img src="/post/881a6736/image-20200830133841248.png" alt="冯·诺伊曼机"></p>
+<p><img src="/post/1404dacc/image-20200830133841248.png" alt="冯·诺伊曼机"></p>
 <p>​        冯·诺伊曼体系结构的基础是一个<strong>中央处理单元(CPU, Central Processing Unit)</strong>，它与<strong>记忆设备(memory device)</strong>即<strong>广义的内存</strong>进行交互，负责从<strong>输入设备(input device)</strong>接收数据，向<strong>输出设备(output device)</strong>发送数据。体系结构的核心是存储程序的概念：计算机内存不仅存储着要进行操作的数据，还存储着指示计算机运行的指令。</p>
 <p>​        广义的内存代表任何具有存储功能的设备和组件。</p>
-<p><img src="/post/881a6736/image-20200901111929066.png" alt="DataBus、AddressBus、ControlBus"></p>
+<p><img src="/post/1404dacc/image-20200901111929066.png" alt="DataBus、AddressBus、ControlBus"></p>
 <p>​        Data、Address、Control这三部分的每一段信息都由电线实现，通过一组公共总线。公共电线分别有数据总线、地址总线、控制总线。</p>
 <p>​        首先是数据总线和<code>ALU</code>的交互，输入数据进行算术运算或逻辑运算，得出结果再输出到数据总线，然后到<strong>内存(memory)</strong>或<strong>寄存器(registers)</strong>。</p>
 <p>​        控制总线。<code>ALU</code>需要知道它每次运行的是什么操作，所以它必须从控制总线中重新获取信息，指定它所要进行的操作类型。通过条件分支或循环条件决定下一个指令是什么？这种控制通过控制位(sel)实现, 所以我们需要从<code>ALU</code>中获取控制信息反馈到控制系统的其他部分。</p>
@@ -1065,9 +1074,9 @@ hexo-generator-index從 2.0.0 開始，已經支持文章置頂功能。
 </tbody>
 </table>
 </div>
-<p><img src="/post/881a6736/image-20200901145605717.png" alt="dataMemory"></p>
+<p><img src="/post/1404dacc/image-20200901145605717.png" alt="dataMemory"></p>
 <p>​        根据地址得到需要操作的数据块，并对其进行读写操作。</p>
-<p><img src="/post/881a6736/image-20200901145738663.png" alt="programMemory"></p>
+<p><img src="/post/1404dacc/image-20200901145738663.png" alt="programMemory"></p>
 <p>​        需要将下一个程序指令的地址输入到<strong>程序内存</strong>，因为这是我们使用程序指令的地方，放置地址后，从那里得到指令，也可能是数字。程序内存中的指令告诉系统的其他部分该做什么，所以我们需要从下一个指令中获取信息，也即从程序内存的数据输出，并将其输入到控制总线。</p>
 <h4 id="3-内存"><a href="#3-内存" class="headerlink" title="3. 内存"></a>3. 内存</h4><p>​        冯·诺伊曼机的内存中存有两种类型的信息：<strong>数据项(data items)</strong> 和 <strong>程序指令(programing instructioins)</strong>。采用不同方式处理两种信息，并被分别存储到不同的内存区，尽管功能不同，但都以二进制数形式存储在具有通用结构的<strong>随机存取器(RAM)</strong>。一个单独的字（一个数据项或者一条指令）通过它的地址指定。</p>
 <ul>
@@ -1111,7 +1120,7 @@ hexo-generator-index從 2.0.0 開始，已經支持文章置頂功能。
 <h3 id="Hack-硬件平台规范详述"><a href="#Hack-硬件平台规范详述" class="headerlink" title="Hack 硬件平台规范详述"></a>Hack 硬件平台规范详述</h3><h4 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h4><p>​        Hack平台是16-位冯·诺伊曼机，一个<code>CPU</code>、两个独立的内存模块（指令内存和数据内存）和两个内存映像I/O设备（屏幕和键盘）。</p>
 <p>​        Hack计算机执行位于指令内存中的程序。指令内存是只读设备，可以用ROM芯片实现。加载新的程序意味着要替换整个ROM芯片。HACK平台的硬件仿真器提供了<strong>加载文本文件</strong>的方法，文本文件包含用<strong>Hack机器语言</strong>编写的程序（从新在开始，<strong>分别用RAM和ROM来指代Hack的数据内存和指令内存</strong>）。因此两个独立的内存模块为：RAM和ROM。</p>
 <p>​        Hack的CPU由<strong>ALU</strong>和三个分别称为<strong>数据寄存器(D, data regiter)</strong>、<strong>地址寄存器(A, address register)</strong>、<strong>程序计数器(PC, program counter)</strong>的寄存器组成。</p>
-<p><img src="/post/881a6736/image-20200902144121386.png" alt="The Hack Computer"></p>
+<p><img src="/post/1404dacc/image-20200902144121386.png" alt="The Hack Computer"></p>
 <p>……省略约3000字，请仔细看书🤣</p>
 <h3 id="实现"><a href="#实现" class="headerlink" title="[实现]"></a>[实现]</h3><ul>
 <li><strong>Memory</strong>：内存，包括数据内存和指令内存，屏幕内存映像和键盘内存映像</li>
@@ -1144,24 +1153,24 @@ hexo-generator-index從 2.0.0 開始，已經支持文章置頂功能。
 </li>
 </ol>
 <h4 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h4><p>输入管脚：<code>inM[16]</code>, <code>instruction[16]</code>, <code>reset</code><br>输出管脚：<code>outM[16]</code>, <code>writeM</code>, <code>addressM[15]</code>, <code>pc[15]</code><br>CPU实现的一种推荐方案：</p>
-<p><img src="/post/881a6736/image-20200903101409828.png" alt="CPU-inplement"></p>
+<p><img src="/post/1404dacc/image-20200903101409828.png" alt="CPU-inplement"></p>
 <ol>
 <li>ALU</li>
 <li>三个寄存器：A-Register、D-Register、PC</li>
 <li>两个Mux（多路复用器）</li>
 <li>利用输入的指令的规范逻辑完善<code>c</code>标签（不同芯片的控制位）的逻辑，即可实现CPU</li>
 </ol>
-<p><img src="/post/881a6736/image-20200903155249111.png" alt="decode"></p>
+<p><img src="/post/1404dacc/image-20200903155249111.png" alt="decode"></p>
 <p>​        对指令解码的逻辑，对MSB(0/1)进行区分A-指令和C-指令，提取出另外的15-bit。A-指令保存在<code>A Register</code>，C-指令还需继续解码。</p>
-<p><img src="/post/881a6736/image-20200903161122686.png" alt="ALU-input"></p>
+<p><img src="/post/1404dacc/image-20200903161122686.png" alt="ALU-input"></p>
 <p>​    ALU的数据输入：D-register、A-register/M-register</p>
 <p>​    ALU根据<code>comp</code>域 <strong>控制</strong>输入<strong>执行</strong>哪一个运算函数。</p>
-<p><img src="/post/881a6736/image-20200903161304535.png" alt="ALU-output"></p>
+<p><img src="/post/1404dacc/image-20200903161304535.png" alt="ALU-output"></p>
 <p>​    ALU数据输出：D-register，A-register，M-register</p>
 <p>​    ALU根据<code>dest</code>域 <strong>控制</strong>输出<strong>写入</strong>哪些寄存器</p>
-<p><img src="/post/881a6736/image-20200903161840894.png" alt="reset"></p>
+<p><img src="/post/1404dacc/image-20200903161840894.png" alt="reset"></p>
 <p>​    计算机已经载入了程序，当按下<code>reset</code>，程序开始运行，重启也可。<strong>(PC=0)</strong></p>
-<p><img src="/post/881a6736/image-20200903162246778.png" alt="jump-control"></p>
+<p><img src="/post/1404dacc/image-20200903162246778.png" alt="jump-control"></p>
 <p>​    PC概念：总是发送下一个指令的地址；由指令的<code>jump</code>域控制PC的输出</p>
 <ul>
 <li>开始/重启程序的执行，<code>reset = 1, PC = 0</code></li>
@@ -1169,14 +1178,14 @@ hexo-generator-index從 2.0.0 開始，已經支持文章置頂功能。
 <li>程序无条件跳转，<code>jump = (111), PC = A</code></li>
 <li>程序有条件跳转（判断条件是否满足再跳转），<code>jump = 1~3个1, PC = A</code></li>
 </ul>
-<p><img src="/post/881a6736/image-20200903163053983.png" alt="jump-implement"></p>
+<p><img src="/post/1404dacc/image-20200903163053983.png" alt="jump-implement"></p>
 <p>​    PC的实现：</p>
 <ul>
 <li><code>reset</code>是否为1？</li>
 <li><code>load</code>由<code>jump</code>域的3-bits和<strong>ALU的控制输出(ZR、NG)</strong>决定</li>
 <li><code>load = 1, PC = A; load = 0, PC++</code></li>
 </ul>
-<p><img src="/post/881a6736/image-20200903163656399.png" alt="ZR-NG"></p>
+<p><img src="/post/1404dacc/image-20200903163656399.png" alt="ZR-NG"></p>
 <p>​    <strong>ALU的控制输出(ZR、NG)</strong>: 输出是0时，<code>ZR = 1</code>、输出是负数时，<code>NG = 1</code></p>
 <h5 id="指令格式"><a href="#指令格式" class="headerlink" title="指令格式"></a>指令格式</h5><p>对指令进行<strong>解码</strong>，需要回顾一下第四章规范的指令格式：<br><strong>A-指令</strong>：</p>
 <script type="math/tex; mode=display">
@@ -1193,7 +1202,7 @@ hexo-generator-index從 2.0.0 開始，已經支持文章置頂功能。
 <li><code>jump</code>域：控制（有条件/无条件）跳转。</li>
 </ul>
 <h5 id="解码指令"><a href="#解码指令" class="headerlink" title="解码指令"></a>解码指令</h5><p>​        如果是A-指令，那么无论如何都要将地址加载到A寄存器中；如果是C-指令，则需要考虑<strong>d~1~</strong>，是否(1/0)需要将ALU的计算结果保存在A寄存器中。</p>
-<p><img src="/post/881a6736/image-20200903110412596.png" alt="A-Instruction"></p>
+<p><img src="/post/1404dacc/image-20200903110412596.png" alt="A-Instruction"></p>
 <p>​        不妨暂时将第一个Mux的控制位记为<strong>c~m~</strong>，将A寄存器的控制位记作<strong>c~a~</strong>。</p>
 <p>​        <strong>c~m~</strong>用于区分<strong>A</strong>-指令<strong>(0-vvv)</strong>和<strong>C</strong>-指令<strong>(111-)</strong>；<strong>c~a~</strong>用于控制是否写入<code>A Register</code>.</p>
 <p>那么我们可以得到真值表：</p>
@@ -1247,23 +1256,23 @@ c_m~=~\overline{Instruction[15]},~c_a~=~\overline{Instruction[15]·\overline{d_1
 <ul>
 <li><strong><em>a</em></strong>是控制选择<strong>A/M</strong>的控制位，所以它应该在第二个Mux，注意要与<code>MSB</code><strong>取与</strong>操作，确保为C-指令。</li>
 </ul>
-<p><img src="/post/881a6736/image-20200903153107852.png" alt="A/M-Register"></p>
+<p><img src="/post/1404dacc/image-20200903153107852.png" alt="A/M-Register"></p>
 <ul>
 <li><strong>d~2~</strong>是控制计算结果是否保存在<code>D Register</code>中的，所以它与<code>MSB</code><strong>取与</strong>操作后，作为控制信号给<code>D Register</code>；</li>
 </ul>
-<p><img src="/post/881a6736/image-20200903154017004.png" alt="DRegister-C"></p>
+<p><img src="/post/1404dacc/image-20200903154017004.png" alt="DRegister-C"></p>
 <ul>
 <li><strong>c~1~~c~6~</strong>是控制ALU的运算函数的，所以它们应该作为ALU的控制位，<code>comp</code>域对应ALU的运算函数。</li>
 </ul>
-<p><img src="/post/881a6736/image-20200903153824368.png" alt="ALU-c"></p>
+<p><img src="/post/1404dacc/image-20200903153824368.png" alt="ALU-c"></p>
 <ul>
 <li><strong>d~3~</strong>是控制计算结果是否保存在<code>M Register</code>中的，所以它作为输出与<code>MSB</code><strong>取与</strong>操作后，输出给writeM；</li>
 </ul>
-<p><img src="/post/881a6736/image-20200903154052424.png" alt="MRegister-C"></p>
+<p><img src="/post/1404dacc/image-20200903154052424.png" alt="MRegister-C"></p>
 <ul>
 <li><strong><em>j</em>~1~, <em>j</em>~2~, <em>j</em>~3~</strong>是控制跳转的，总体上来看，只有两种现象，一种是顺序执行，即PC+1；另一种是跳转到地址为<code>A Register</code>中的地址单元。根据课本给出的编码：</li>
 </ul>
-<p><img src="/post/881a6736/image-20200903154135073.png" alt="jump-region"></p>
+<p><img src="/post/1404dacc/image-20200903154135073.png" alt="jump-region"></p>
 <p>​        究竟是否需要跳转，要根据ALU的计算结果进行判断。</p>
 <p>​        ALU有两个<strong>控制</strong>输出信号：<strong>zr</strong>（当计算结果等于0时为1）对应 <strong>j~1~</strong>，<strong>ng</strong>（当计算结果小于0时为1）对应 <strong>j~2~</strong>；所以我们可以推出：$\overline{ng~+~zr}$（当计算结果大于0时为1）对应 <strong>j~3~</strong></p>
 <p>​        结合<code>jump</code>域和ALU的输出结果，可以得到如下真值表：</p>
@@ -1302,8 +1311,8 @@ c_m~=~\overline{Instruction[15]},~c_a~=~\overline{Instruction[15]·\overline{d_1
       </tags>
   </entry>
   <entry>
-    <title>nand2tetris C6-汇编编译器</title>
-    <url>/post/feff5e0b/</url>
+    <title>nand2tetris C6-计算机体系结构</title>
+    <url>/post/62e1e3f1/</url>
     <content><![CDATA[<h1 id="汇编编译器-Assembler"><a href="#汇编编译器-Assembler" class="headerlink" title="[汇编编译器 Assembler]"></a>[汇编编译器 Assembler]</h1><p>​        我们已经完成了计算机的<strong>硬件平台(hardware platform)</strong>，此后我们将集中探讨计算机的<strong>软件阶层体系(software hierarchy)</strong>，直到最后为简单的面向对象编程语言开发<strong>编译器</strong>和<strong>基本的操作系统</strong>为止。</p>
 <p>​        在软件阶层体系中，最基本的模块就是<strong>汇编编译器(assembler)</strong>。在C4中介绍了机器语言的两种表达形式，即<strong>汇编形式</strong>和<strong>二进制形式</strong>。在这里我们将了解编译器如何系统地将汇编语言编写的程序<strong>翻译</strong>成二进制形式。</p>
 <p>​        因为<strong>符号化汇编命令(symbolic assembler commands)</strong>与其对应的二进制代码之间的关系很简单，唯一的复杂性在于：<strong>允许汇编程序使用符号来指代内存地址</strong>。我们希望通过编译器来管理这些<strong>用户自定义的符号(symbols)</strong>，将它们解析成物理内存地址。一般使用<strong>符号表(symbol table)</strong>来完成这个任务，这种符号表是经典的数据结构，应用在很多软件编译过程中。</p>
@@ -1326,7 +1335,7 @@ c_m~=~\overline{Instruction[15]},~c_a~=~\overline{Instruction[15]·\overline{d_1
 </ul>
 </li>
 </ul>
-<p><img src="/post/feff5e0b/image-20200905143509717.png" alt="符号解析"></p>
+<p><img src="/post/62e1e3f1/image-20200905143509717.png" alt="符号解析"></p>
 <p>​    如上，符号表的各项键值对 对应了源代码中的自定义符号。只是最后一句需要解释一下，代表了无限循环<code>end:  goto end</code>.</p>
 <p>​    其中，有3个要点需要说明。</p>
 <ol>
@@ -1350,7 +1359,7 @@ c_m~=~\overline{Instruction[15]},~c_a~=~\overline{Instruction[15]·\overline{d_1
 <h3 id="Hack-汇编到二进制的翻译规范详述"><a href="#Hack-汇编到二进制的翻译规范详述" class="headerlink" title="[Hack 汇编到二进制的翻译规范详述]"></a>[Hack 汇编到二进制的翻译规范详述]</h3><p>​        总的来说，Assembler是一个翻译挑战，从源语言到目标语言。为了做到这点，我们必须知道两种语言的语法。</p>
 <h4 id="1-语法规约和文件格式"><a href="#1-语法规约和文件格式" class="headerlink" title="1. 语法规约和文件格式"></a>1. 语法规约和文件格式</h4><p><strong>文件名称</strong>        习惯上，二进制机器码程序后缀名为“Hack”，汇编代码程序的后缀名为“asm”。因此，Prog.asm文件会被汇编翻译器翻译成Prog.hack文件。</p>
 <p><strong>二进制代码(.hack)文件</strong>        二进制代码文件由<strong>文本行</strong>组成。<strong>第一行由16个0/1组成的ASCⅡ码构成一个序列，该序列对一个单一的16-位机器语言指令进行编码</strong>。当机器语言程序被<strong>加载</strong>进计算机的<strong>指令内存</strong>中时，文件的<strong>第n行二进制码</strong>被存储到<strong>地址为n</strong>的指令内存单元内（设命令行的技术和指令内存的起始地址都是从0开始）。    </p>
-<p><img src="/post/feff5e0b/memory_layout.png" alt="内存布局"></p>
+<p><img src="/post/62e1e3f1/memory_layout.png" alt="内存布局"></p>
 <p><strong>汇编语言(.asm)文件</strong>        由<strong>文本行</strong>组成，每一行代表一条<strong>指令(instrution)</strong>或者一个<strong>符号声明(symbol declaration)</strong>.</p>
 <ul>
 <li><strong>指令(Instrution)</strong>        A-指令或C-指令</li>
@@ -1362,8 +1371,8 @@ c_m~=~\overline{Instruction[15]},~c_a~=~\overline{Instruction[15]·\overline{d_1
 <p><strong>空格</strong>        空格字符和空行被忽略。</p>
 <p><strong>大小写习惯</strong>        <strong>所有的汇编助记符必须大写</strong>。用户<strong>自定义</strong>的符号和变量是<strong>区分大小写</strong>的。一般的习惯是，<strong>标签(labels)大写</strong>，<strong>变量名称小写</strong>。</p>
 <h4 id="2-指令"><a href="#2-指令" class="headerlink" title="2. 指令"></a>2. 指令</h4><p>Hack计算机包含两种指令类型，分别称为<strong>寻址指令(A-指令, Addressing Instrution)</strong>和<strong>计算指令(C-指令, Compute Instruction)</strong>。指令格式如下：</p>
-<p><img src="/post/feff5e0b/image-20200906092445956.png" alt="A-指令"></p>
-<p><img src="/post/feff5e0b/image-20200906092528300.png" alt="C-指令"></p>
+<p><img src="/post/62e1e3f1/image-20200906092445956.png" alt="A-指令"></p>
+<p><img src="/post/62e1e3f1/image-20200906092528300.png" alt="C-指令"></p>
 <h4 id="3-符号"><a href="#3-符号" class="headerlink" title="3. 符号"></a>3. 符号</h4><p>Hack汇编命令通过使用<strong>常数</strong>或<strong>符号</strong>来指代<strong>内存单元<em>(地址)</em></strong></p>
 <blockquote>
 <p>从C6开始，若未经特殊说明，内存单元可以用名词“地址”代替，如变量Value的地址是0X5B46，这包含两层意思：</p>
@@ -1373,7 +1382,7 @@ c_m~=~\overline{Instruction[15]},~c_a~=~\overline{Instruction[15]·\overline{d_1
 </blockquote>
 <p>汇编程序中的符号来源于三个方面。</p>
 <p><strong>预定义符号(Predefined Symbols)</strong>        任何Hack程序允许使用下面的预定义符号。</p>
-<p><img src="/post/feff5e0b/image-20200906093259952.png" alt="预定义符号"></p>
+<p><img src="/post/62e1e3f1/image-20200906093259952.png" alt="预定义符号"></p>
 <p><strong>标签符合(Labels Symbols)</strong>        伪命令(Xxx)定义符号Xxx来指代存有程序中下一条命令在指令内存中的地址。每个标签只能定义一次，可以在任何地方使用，甚至在定义之前。有两种实现方法：</p>
 <ol>
 <li><p>先存储Symbol到符号表(但不知道它在哪里)，当真正遇到正确地址的定义时补上。</p>
@@ -1382,7 +1391,7 @@ c_m~=~\overline{Instruction[15]},~c_a~=~\overline{Instruction[15]·\overline{d_1
 </li>
 </ol>
 <p><strong>变量符号(Variable Symbols)</strong>        任何出现在汇编程序中的符号Xxx，如果它<strong>不是预定义符号也没有在其他地方使用(Xxx)命令</strong>，那么它就被当作是变量。每遇到一个新的变量时，就把它<strong>连续地映射到从16开始的内存中去</strong>。</p>
-<h3 id="基本的汇编编译器逻辑"><a href="#基本的汇编编译器逻辑" class="headerlink" title="[基本的汇编编译器逻辑]"></a>[基本的汇编编译器逻辑]</h3><p><img src="/post/feff5e0b/image-20200906095023883.png" alt="汇编编译器的逻辑"></p>
+<h3 id="基本的汇编编译器逻辑"><a href="#基本的汇编编译器逻辑" class="headerlink" title="[基本的汇编编译器逻辑]"></a>[基本的汇编编译器逻辑]</h3><p><img src="/post/62e1e3f1/image-20200906095023883.png" alt="汇编编译器的逻辑"></p>
 <p>汇编编译器 <strong>(Assembler模块)</strong>循环执行：</p>
 <ul>
 <li>从输入的文本文件中读取下一个汇编语言的命令（无需记住上一个命令）</li>
@@ -1398,37 +1407,37 @@ c_m~=~\overline{Instruction[15]},~c_a~=~\overline{Instruction[15]·\overline{d_1
 <p>第二个问题：如何把命令分为不同的部分？</p>
 <p>​        利用一些语法，把原来的字符串分成多个部分，其中涉及到一些简单的字符串操作。</p>
 <p>第三个问题：如何把ASM翻译成二进制代码？</p>
-<p><img src="/post/feff5e0b/image-20200906111607583.png" alt="翻译" style="zoom:67%;"></p>
+<p><img src="/post/62e1e3f1/image-20200906111607583.png" alt="翻译" style="zoom:67%;"></p>
 <p>​        通过查询符号表根据<strong>命令和符号</strong>找到出对应的二进制代码，而数字则直接转换成二进制。</p>
 <p>第四个问题：如何将二进制代码合并？</p>
-<p><img src="/post/feff5e0b/image-20200906111849947.png" alt="合并" style="zoom:67%;"></p>
+<p><img src="/post/62e1e3f1/image-20200906111849947.png" alt="合并" style="zoom:67%;"></p>
 <h3 id="实现"><a href="#实现" class="headerlink" title="[实现]"></a>[实现]</h3><p>实现计划：</p>
 <ol>
 <li>我们将从编写一个基本的汇编程序开始，它可以处理那些没有符号的程序。（推迟对符号的处理，直接忽略所有的“空白”）</li>
 <li>我们将会发展出处理和使用符号的能力。</li>
 <li>最后，使用这个功能，我们会返回到基本的汇编程序<strong>(1.)</strong>，然后将其拓展为通用的汇编程序，它可以翻译任何给定的程序，用Hack汇编代码写成二进制代码。</li>
 </ol>
-<h4 id="1-1-翻译A-指令"><a href="#1-1-翻译A-指令" class="headerlink" title="1.1 翻译A-指令"></a>1.1 翻译A-指令</h4><p><img src="/post/feff5e0b/image-20200906210200090.png" alt="A-指令" style="zoom: 67%;"></p>
+<h4 id="1-1-翻译A-指令"><a href="#1-1-翻译A-指令" class="headerlink" title="1.1 翻译A-指令"></a>1.1 翻译A-指令</h4><p><img src="/post/62e1e3f1/image-20200906210200090.png" alt="A-指令" style="zoom: 67%;"></p>
 <p>​        当<code>value</code>是非负的十进制常数，或者一个符号指向这样的常数时，就是A-指令。二进制语法<code>0-valueBinary</code>。</p>
 <p>​        翻译成二进制码：</p>
 <ul>
 <li>如果<code>value</code>是十进制常数，那么我们就计算该值的二进制码。为了把它变成一个15位的常数，我们需要加多少个0。</li>
 <li>如果是<code>symbol</code>，迟点解决。</li>
 </ul>
-<h4 id="1-2-翻译C-指令"><a href="#1-2-翻译C-指令" class="headerlink" title="1.2 翻译C-指令"></a>1.2 翻译C-指令</h4><p><img src="/post/feff5e0b/image-20200906211938885.png" alt="image-20200906211938885" style="zoom:67%;"></p>
+<h4 id="1-2-翻译C-指令"><a href="#1-2-翻译C-指令" class="headerlink" title="1.2 翻译C-指令"></a>1.2 翻译C-指令</h4><p><img src="/post/62e1e3f1/image-20200906211938885.png" alt="image-20200906211938885" style="zoom:67%;"></p>
 <p>​        由汇编编译器的解析器，将C-指令分成<code>dest</code>、<code>comp</code>和<code>jump</code>三个部分解析。解析器会获得一个源语句或汇编指令，将它分为三个单独的字段，然后我们可以单独检查每个字段。</p>
 <p>​        当设计到C-指令的二进制形式，我们初始化我们正构建的字符串开头有<strong>3个<code>1</code></strong>；</p>
 <p>​        接下来的7个位对应于<code>comp</code>域</p>
-<p><img src="/post/feff5e0b/image-20200906213014717.png" alt="image-20200906213014717" style="zoom:67%;"></p>
+<p><img src="/post/62e1e3f1/image-20200906213014717.png" alt="image-20200906213014717" style="zoom:67%;"></p>
 <p>​        根据<code>D+1</code>在表中查询，可得<code>a=0, c=011111</code>，然后把它附加到我逐渐构建的字符串。</p>
 <p>​        指令的下一个部分与目标相对应。</p>
-<p><img src="/post/feff5e0b/image-20200906213749551.png" alt="C-指令 dest" style="zoom:67%;"></p>
+<p><img src="/post/62e1e3f1/image-20200906213749551.png" alt="C-指令 dest" style="zoom:67%;"></p>
 <p>​        根据<code>MD</code>查询相关的表，可得<code>MD=011</code>，并将其附加到逐渐构建的字符串。</p>
 <p>​        指令的最后一部分对应于跳转指令。</p>
-<p><img src="/post/feff5e0b/image-20200906214014761.png" alt="C-指令 jump" style="zoom:67%;"></p>
+<p><img src="/post/62e1e3f1/image-20200906214014761.png" alt="C-指令 jump" style="zoom:67%;"></p>
 <p>​        根据无跳转查询表，可得<code>null=000</code>，附加到字符串，最后构建完成汇编语句对应的二进制码。</p>
 <p>​        正如上述，我们在这里所做的一切都是文本处理、字符串处理。我得到一个源字符串，通过特定的解析方式，我在一个渐进的过程中构建目标字符串，每一种高级语言都有执行字符串处理的能力。</p>
-<h4 id="1-3-要构建的汇编器的完整逻辑"><a href="#1-3-要构建的汇编器的完整逻辑" class="headerlink" title="1.3 要构建的汇编器的完整逻辑"></a>1.3 要构建的汇编器的完整逻辑</h4><p><img src="/post/feff5e0b/image-20200906214901531.png" alt="image-20200906214901531" style="zoom:67%;"></p>
+<h4 id="1-3-要构建的汇编器的完整逻辑"><a href="#1-3-要构建的汇编器的完整逻辑" class="headerlink" title="1.3 要构建的汇编器的完整逻辑"></a>1.3 要构建的汇编器的完整逻辑</h4><p><img src="/post/62e1e3f1/image-20200906214901531.png" alt="image-20200906214901531" style="zoom:67%;"></p>
 <p>对于每个指令：</p>
 <ul>
 <li><p>解析指令：将它分成多个模块。A-：<code>0-value</code>；C-：<code>111a cccc ccdd djjj</code></p>
@@ -1441,7 +1450,7 @@ c_m~=~\overline{Instruction[15]},~c_a~=~\overline{Instruction[15]·\overline{d_1
 <li><p>将16-位的机器指令写入输出文件。</p>
 </li>
 </ul>
-<h3 id="开发一个Hack汇编器"><a href="#开发一个Hack汇编器" class="headerlink" title="[开发一个Hack汇编器]"></a>[开发一个Hack汇编器]</h3><p><img src="/post/feff5e0b/image-20200906220942772.png" alt="开发Hack汇编器" style="zoom:50%;"></p>
+<h3 id="开发一个Hack汇编器"><a href="#开发一个Hack汇编器" class="headerlink" title="[开发一个Hack汇编器]"></a>[开发一个Hack汇编器]</h3><p><img src="/post/62e1e3f1/image-20200906220942772.png" alt="开发Hack汇编器" style="zoom:50%;"></p>
 <p>规定：</p>
 <ul>
 <li>开发一个Hack汇编编译器程序，将Hack汇编程序翻译成可执行的Hack二进制码</li>
@@ -1472,14 +1481,14 @@ c_m~=~\overline{Instruction[15]},~c_a~=~\overline{Instruction[15]·\overline{d_1
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Assembler</span></span>&#123;</span><br><span class="line">    <span class="comment">// Parser getParser(): 根据文件名创建Parser对象</span></span><br><span class="line">    <span class="comment">// boolean isValidName(): 判断文件是否为.asm文件</span></span><br><span class="line">    <span class="comment">// int getInt(): 返回三种字符串对应的十进制常数</span></span><br><span class="line">    <span class="comment">// main(): </span></span><br><span class="line">    <span class="comment">// 1.解析命令行: (java 包名/类名 .asm文件位置)</span></span><br><span class="line">    <span class="comment">//                                (0)</span></span><br><span class="line">    <span class="comment">// 2.错误处理，命令参数必须是是两个，文件必须是.asm文件; 获得文件名</span></span><br><span class="line">    <span class="comment">// 3.根据文件名实例化Parser对象</span></span><br><span class="line">    <span class="comment">// 4.创建同名的输出流文件.hack，并存储在PrintWriter对象</span></span><br><span class="line">    <span class="comment">// loop</span></span><br><span class="line">    <span class="comment">// 5.循环利用parser解析指令，当前输入还有更多指令时，指令跳向下一行，跳过所有的&quot;空白&quot;，(如果此时指令长度为0，则下一个循环)，否则，创建出Parser对象的CommandType类型对象.</span></span><br><span class="line">    <span class="comment">// 6.根据CommandType对象，进行三种指令的处理</span></span><br><span class="line">    <span class="comment">// C-指令：3个区域分别用Code调用类静态方法，获取3个区域的二进制码，并往输出流对象PrintWriter写入&quot;111 comp dest jump&quot;</span></span><br><span class="line">    <span class="comment">// 伪指令：不处理</span></span><br><span class="line">    <span class="comment">// A-指令：用Code调用类静态方法获取A-指令的二进制码，并输出流对象PrintWriter写入&quot;0 binary&quot;</span></span><br><span class="line">    <span class="comment">// 如果Parser对象判断还有指令则创建新行</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 关闭资源</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="2-完整的汇编编译器"><a href="#2-完整的汇编编译器" class="headerlink" title="2. 完整的汇编编译器"></a>2. 完整的汇编编译器</h4><h5 id="SymbolTable模块"><a href="#SymbolTable模块" class="headerlink" title="SymbolTable模块"></a>SymbolTable模块</h5><p>​        因为Hack指令可能包含符号，作为翻译的一部分，必须为这些符号确定<strong>实际的地址</strong>。</p>
 <p>​        我们用<strong>符号表(symbol table)</strong>来完成，符号表用来建立和维护符号与地质之间的关联。<strong>哈希表(hash table)</strong>就是表示这种关系的经典数据结构之一。</p>
-<p><img src="/post/feff5e0b/image-20200910212336715.png" alt="symbolTable"></p>
+<p><img src="/post/62e1e3f1/image-20200910212336715.png" alt="symbolTable"></p>
 <h5 id="有符号程序的汇编编译器"><a href="#有符号程序的汇编编译器" class="headerlink" title="有符号程序的汇编编译器"></a>有符号程序的汇编编译器</h5><p>​        有效的方法之一是，从头至尾地读取两次代码。</p>
 <p>​        Hack语言有三种类型的符号：预编译符号(predefined symbols)，标签(labels)和变量(variables)。符号表应该包含并处理所有这些符号。</p>
 <p>​        <strong>初始化</strong>        创建符号表；根据下表，用所有预定义符号和他们预分配的RAM地址对符号表进行初始化。</p>
-<p><img src="/post/feff5e0b/image-20200910212821490.png" alt="预定义符号表"></p>
+<p><img src="/post/62e1e3f1/image-20200910212821490.png" alt="预定义符号表"></p>
 <p>​        <strong>第一遍读取阶段</strong>        该阶段主要是<strong>在符号表建立每条命令及其对应的地址</strong>。处理程序的每一行时，利用数字来记录ROM地址——当前指令最终将被加载到这个地址中。每次遇到一条<strong>伪指令<em>(Xxx)</em></strong>时，在<strong>符号表</strong>上加一个新条目来<strong>将<em>Xxx</em>与最终用于存储程序中下一条指令的ROM地址关联</strong>。此阶段所有标记和他们的ROM地址被加入到符号表中。</p>
 <p>​        <strong>第二遍读取阶段</strong>        重新对每一行指令进行语法分析，每次遇到<strong>符号化A-指令</strong>，就在符号表中查找<strong><em>Xxx</em></strong>。如果在符号表中找到了该符号，就<strong>用其对应的地址来替换该符号与完成指令的翻译</strong>。如果在符合表中<strong>没找到该符号</strong>，那么它必定代表<strong>变量</strong>。为处理这个变量，<strong>在符号表中添加<em>(Xxx, n)</em>，这里<em>n</em>代表下一个可用的个RAM地址</strong>。分配的RAM地址是连续数字，从地址16开始。(紧接着预定义符号之后)</p>
-<p><img src="/post/feff5e0b/image-20200910223225858.png" alt="image-20200910223225858" style="zoom:67%;"></p>
+<p><img src="/post/62e1e3f1/image-20200910223225858.png" alt="image-20200910223225858" style="zoom:67%;"></p>
 <p><em>Parser.java</em></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parser</span></span>&#123;</span><br><span class="line">    <span class="comment">// Modify</span></span><br><span class="line">    <span class="comment">// String symbol(): 增加@Variable和(Symbol)的处理。@..返回处理统一，不变；而(Symbol)，只返回Symbol</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><em>SymbolTable.java</em></p>
@@ -1499,11 +1508,11 @@ c_m~=~\overline{Instruction[15]},~c_a~=~\overline{Instruction[15]·\overline{d_1
   </entry>
   <entry>
     <title>nand2tetris C7-虚拟机Ⅰ堆栈运算</title>
-    <url>/post/90466d95/</url>
+    <url>/post/83717699/</url>
     <content><![CDATA[<h1 id="虚拟机Ⅰ-堆栈运算-Stack-Arithmetic"><a href="#虚拟机Ⅰ-堆栈运算-Stack-Arithmetic" class="headerlink" title="[虚拟机Ⅰ: 堆栈运算 Stack Arithmetic]"></a>[虚拟机Ⅰ: 堆栈运算 Stack Arithmetic]</h1><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><h4 id="1-虚拟机范型"><a href="#1-虚拟机范型" class="headerlink" title="1.虚拟机范型"></a>1.虚拟机范型</h4><p>​        高级语言程序能够在计算机上运行之前，它必须被翻译成计算机的机器语言，即<strong>编译</strong>。如果每种高级语言被编译成对应于目标硬件平台的机器语言，那么我们必须维护多个版本的代码，这是一种无尽的折磨…</p>
-<p><img src="/post/90466d95/image-20200911163424313.png" alt="pain" style="zoom:67%;"></p>
+<p><img src="/post/83717699/image-20200911163424313.png" alt="pain" style="zoom:67%;"></p>
 <p>​        减少高级语言和机器语言<strong>依赖性</strong>的方法之一是将编译过程分为<strong>两个几乎独立的阶段</strong>。基本思想：中间代码运行在<strong>虚拟机(virtual Machine)</strong>上，而不是正式的硬件平台。</p>
-<p><img src="/post/90466d95/image-20200911163242720.png" alt="virtualMachine instance"></p>
+<p><img src="/post/83717699/image-20200911163242720.png" alt="virtualMachine instance"></p>
 <p>​        第一个阶段：高级程序被解析出来，其命令被翻译成中间结果。第二个阶段：这些中间结果被进一步翻译成目标硬件的机器语言。当然，两个编译阶段之间的接口<strong>(接口就是中间处理步骤的精确定义)</strong>必须仔细地进行设计。</p>
 <p>​        原来作用为一个独立程序的编译器被分成两个独立的程序。第一个程序，编译器(Compiler)，将高级代码翻译成中间VM指令；第二个程序将这个<strong>VM代码翻译成目标计算机硬件平台的机器语言</strong>。</p>
 <p>​        Java编译器也是<strong>两层(two-tiered)结构</strong>，它生成运行在JVM虚拟机上(也称为Java运行时环境，<strong>Java Runtime Enviroment</strong>)的byte-code语言。</p>
@@ -1515,22 +1524,22 @@ c_m~=~\overline{Instruction[15]},~c_a~=~\overline{Instruction[15]·\overline{d_1
 <p>​        在此虚拟机中，虚拟机语言共包含4种类型的指令：算术指令，内存访问指令，程序流程控制指令和子程序调用指令。</p>
 <p>​        </p>
 <h4 id="2-栈式计算机模型"><a href="#2-栈式计算机模型" class="headerlink" title="2.栈式计算机模型"></a>2.栈式计算机模型</h4><p>​        在VM操作中的操作数和结果应该驻留在哪里。也许“最干净利落”的方法是将其放在<strong>栈式(stack)</strong>数据结构。</p>
-<h5 id="栈式计算机模型的实现"><a href="#栈式计算机模型的实现" class="headerlink" title="栈式计算机模型的实现"></a>栈式计算机模型的实现</h5><p><img src="/post/90466d95/image-20200913101004893.png" alt="stack machine inplementation" style="zoom:50%;"></p>
+<h5 id="栈式计算机模型的实现"><a href="#栈式计算机模型的实现" class="headerlink" title="栈式计算机模型的实现"></a>栈式计算机模型的实现</h5><p><img src="/post/83717699/image-20200913101004893.png" alt="stack machine inplementation" style="zoom:50%;"></p>
 <p><em>Logic</em></p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">*sp = <span class="number">17</span>;</span><br><span class="line">sp++;</span><br></pre></td></tr></table></figure>
 <p><em>Hack assembly</em></p>
 <figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">@<span class="number">17</span>;  <span class="comment">// A=17</span></span><br><span class="line">D=A;  <span class="comment">// D=17</span></span><br><span class="line"><span class="comment">// *SP=D</span></span><br><span class="line">@SP;  <span class="comment">// A = SP</span></span><br><span class="line">A=M;  <span class="comment">// A = Memory[SP]: indirect address</span></span><br><span class="line">M=D;  <span class="comment">// M = D,( M is (*SP) )</span></span><br><span class="line"><span class="comment">// SP++</span></span><br><span class="line">@SP;</span><br><span class="line">M=M+<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
 <h3 id="from-VM-to-Assembly"><a href="#from-VM-to-Assembly" class="headerlink" title="[from VM to Assembly]"></a>[from VM to Assembly]</h3><p><strong><em>push &amp; pop</em> implementation:</strong></p>
-<p><img src="/post/90466d95/image-20200923124849383.png" alt="push/pop" style="zoom:67%;"></p>
+<p><img src="/post/83717699/image-20200923124849383.png" alt="push/pop" style="zoom:67%;"></p>
 <p><strong><em>stack</em> implementation</strong></p>
-<p><img src="/post/90466d95/image-20200923125313183.png" alt="image-20200923125313183" style="zoom:67%;"></p>
+<p><img src="/post/83717699/image-20200923125313183.png" alt="image-20200923125313183" style="zoom:67%;"></p>
 <p><strong><em>implement constant:</em></strong>no <code>pop</code></p>
-<p><img src="/post/90466d95/image-20200913111011987.png" alt="implement constant" style="zoom:50%;"></p>
+<p><img src="/post/83717699/image-20200913111011987.png" alt="implement constant" style="zoom:50%;"></p>
 <ul>
 <li>不允许存储任何东西到<code>constant</code>段</li>
 </ul>
 <p><strong>Implementing <em>local</em></strong></p>
-<p><img src="/post/90466d95/image-20200913103134064.png" alt="local" style="zoom:50%;"></p>
+<p><img src="/post/83717699/image-20200913103134064.png" alt="local" style="zoom:50%;"></p>
 <p><em>logic</em>:</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">addr = LCL + <span class="number">2</span>;</span><br><span class="line">SP--;</span><br><span class="line">*addr = *SP;</span><br></pre></td></tr></table></figure>
 <p><em>implement:</em></p>
@@ -1538,18 +1547,18 @@ c_m~=~\overline{Instruction[15]},~c_a~=~\overline{Instruction[15]·\overline{d_1
 <h5 id="summary"><a href="#summary" class="headerlink" title="summary:"></a>summary:</h5><p>previous <em>Logic</em> is <code>pop local i</code>, and <code>push local i</code> is similiar.</p>
 <p><code>pop local i</code>is to<code>addr = LCL + i, SP--, *addr = *SP</code></p>
 <p><code>push local i</code> is to<code>addr = LCL + i, *SP = *addr, SP++</code></p>
-<p><img src="/post/90466d95/image-20200913104413496.png" alt="summary" style="zoom:50%;"></p>
+<p><img src="/post/83717699/image-20200913104413496.png" alt="summary" style="zoom:50%;"></p>
 <p><strong>implement <em>lcoal, argument, this, that</em></strong>:</p>
-<p><img src="/post/90466d95/image-20200923151620070.png" alt="image-20200923151620070" style="zoom:67%;"></p>
+<p><img src="/post/83717699/image-20200923151620070.png" alt="image-20200923151620070" style="zoom:67%;"></p>
 <ul>
 <li>将函数方法局部变量和参数变量映射到<code>local</code>和<code>argument</code>段</li>
 <li>将函数方法正在处理的对象属性字段和数组项(条目)映射到<code>this</code>和<code>that</code>段</li>
 </ul>
-<p><img src="/post/90466d95/image-20200913144322327.png" alt="four segment" style="zoom: 80%;"></p>
+<p><img src="/post/83717699/image-20200913144322327.png" alt="four segment" style="zoom: 80%;"></p>
 <p><code>local</code>, <code>argument</code>, <code>this</code> 和 <code>that</code>都是同样的实现，只需要将<code>segment</code>替换就可以得到另一种。</p>
 <script type="math/tex; mode=display">
 segment = \{lcoal, argument, this, that\}</script><p><strong><em>implement static</em></strong>:class level variable</p>
-<p><img src="/post/90466d95/image-20200913150214722.png" alt="static-variable" style="zoom: 80%;"></p>
+<p><img src="/post/83717699/image-20200913150214722.png" alt="static-variable" style="zoom: 80%;"></p>
 <p>​    挑战：<code>static</code>变量应该对程序中的所有函数方法可见</p>
 <p>​    解决方法：将其存储在<code>global space</code>全局段中</p>
 <ul>
@@ -1557,11 +1566,11 @@ segment = \{lcoal, argument, this, that\}</script><p><strong><em>implement stati
 <li>遵循Hack汇编的语法，Hack汇编编译器将会把这些映射到<code>RAM[16], ... , RAM[255]</code></li>
 </ul>
 <p><em>implement Memory segment:</em> <code>temp</code></p>
-<p><img src="/post/90466d95/image-20200913162748968.png" alt="temp01" style="zoom: 67%;"></p>
+<p><img src="/post/83717699/image-20200913162748968.png" alt="temp01" style="zoom: 67%;"></p>
 <ul>
 <li>有些时候，编译器需要用一些中间变量，我们的VM提供了8个类似的变量，存储在<code>temp</code>段</li>
 </ul>
-<p><img src="/post/90466d95/image-20200913163030397.png" alt="temp02" style="zoom:67%;"></p>
+<p><img src="/post/83717699/image-20200913163030397.png" alt="temp02" style="zoom:67%;"></p>
 <p>✨✨<code>temp</code>: from VM code to Assembly pseudo code</p>
 <p>8个变量存储在<code>RAM[5]~RAM[12]</code></p>
 <p><strong><em>implement pointer 0/1</em></strong></p>
@@ -1569,13 +1578,13 @@ segment = \{lcoal, argument, this, that\}</script><p><strong><em>implement stati
 <li>用于存储<code>this</code>和<code>that</code>段的基地址</li>
 <li>当我们编写编译器时，就会知道<code>this</code>的重要性</li>
 </ul>
-<p><img src="/post/90466d95/image-20200922135814987.png" alt="pointer"></p>
+<p><img src="/post/83717699/image-20200922135814987.png" alt="pointer"></p>
 <ul>
 <li>通过访问<code>THIS</code>从而访问<code>pointer 0: this</code></li>
 <li>通过访问<code>THAT</code>从而访问<code>pointer 1: that</code></li>
 </ul>
-<h5 id="Summary"><a href="#Summary" class="headerlink" title="Summary:"></a>Summary:</h5><p><img src="/post/90466d95/image-20200922135405740.png" alt="总结1" style="zoom:67%;"></p>
-<p><img src="/post/90466d95/image-20200922135427724.png" alt="总结2" style="zoom:67%;"></p>
+<h5 id="Summary"><a href="#Summary" class="headerlink" title="Summary:"></a>Summary:</h5><p><img src="/post/83717699/image-20200922135405740.png" alt="总结1" style="zoom:67%;"></p>
+<p><img src="/post/83717699/image-20200922135427724.png" alt="总结2" style="zoom:67%;"></p>
 <h3 id="实现"><a href="#实现" class="headerlink" title="[实现]"></a>[实现]</h3><h5 id="综合内存映射分析堆栈运算"><a href="#综合内存映射分析堆栈运算" class="headerlink" title="综合内存映射分析堆栈运算"></a><strong>综合内存映射分析堆栈运算</strong></h5><p>​        做好本章的项目，理解好<strong>内存映射(Memory Map)</strong>是关键，只有理解了内存映射才能知道去哪里取数据，将数据存储到哪里。</p>
 <p>​        综合来看，本章的大致思路就是：从<strong>RAM[1]~RAM[4]</strong>中找到<strong>基址</strong>，根据偏移量计算出地址，再去获取数据，并将数据放入堆栈中，在栈区中完成一定操作后，再将结果从堆栈中弹出，放到指定的内存单元（这里实际上还需要计算基址和偏移量）。不同的是<code>temp</code>段，它可以直接在<strong>RAM[5]</strong>上加上偏移量得到存储单元的地址。</p>
 <p>​        在整个操作过程中，如果需要使用除D寄存器和A寄存器之外的寄存器暂时存储结果的时候，就会使用到<strong>RAM[13]~RAM[15]</strong>的通用寄存器。</p>
@@ -1618,8 +1627,8 @@ segment = \{lcoal, argument, this, that\}</script><p><strong><em>implement stati
 <li>手写练习相关Hack汇编语言，对于每个<code>segment</code>段的转换，至少完成一个例子</li>
 <li>将转换过程用高级语言实现(Java/Python/…)，测试修改，抽象方法，代码复用</li>
 </ol>
-<p><img src="/post/90466d95/image-20200922135207520.png" alt="建议实现步骤" style="zoom: 80%;"></p>
-<p><img src="/post/90466d95/image-20200922135257496.png" alt="建议实现步骤2" style="zoom:80%;"></p>
+<p><img src="/post/83717699/image-20200922135207520.png" alt="建议实现步骤" style="zoom: 80%;"></p>
+<p><img src="/post/83717699/image-20200922135257496.png" alt="建议实现步骤2" style="zoom:80%;"></p>
 <p><strong><em>Tips:</em></strong></p>
 <ol>
 <li><p>第七章中的机器语言和第六章中的机器语言在结构上略有不同，这一章中的语言更加向高级语言靠拢，在有些地方显得“啰嗦”</p>
