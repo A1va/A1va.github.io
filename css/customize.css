@@ -39,6 +39,12 @@ a {
     color: #00c4b6;
 }
 
+/*页脚自定义字段字体颜色*/
+/* 也就是配置文件里的footer_custom_text */
+.footer_custom_text {
+    color: #00c4b6;
+}
+
 /* 滚动条 */
 /* ::-webkit-scrollbar {
     width: 10px;
