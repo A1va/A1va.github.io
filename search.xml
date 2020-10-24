@@ -64,8 +64,6 @@
 <p><strong>PROM</strong>：可编程只读存储器，但可由用户编程（一次）。真正的一次性可编程，永远可读的存储器。弄错了，就丢了芯片。</p>
 <p><strong>EPROM</strong>：可擦可编程只读存储器。可以写入多次，擦出需要使用紫外线照射。有点麻烦，但非常有用。</p>
 <p><strong>EEPROM</strong>：电可擦可编程只读存储器。可以写入多次，通过编程电压进行修改。</p>
-<p><img src="/post/17d0af8c/FWasd.jpg" alt></p>
-<p><em>图1. Intel 1702A EPROM，最早的EPROM类型之一，256 x 8位。石英小玻璃窗可吸收紫外线。资料来源：Wikipedia <a href="https://en.wikipedia.org/wiki/EPROM">EPROM</a>。</em></p>
 <p>​        所以，为什么在可写时将其称为eepROm？我怀疑，答案是，与<strong>RAM</strong>（随机存取存储器）不同，它在电源关闭时会保存其内容，因此，其行为更像<strong>ROM</strong>。</p>
 <p>​        后来推出的<strong>闪存(Flash Memory)</strong>技术，它是一种广义上的EEPROM，手机上的eMMC和UFS都属于闪存技术，因此闪存也被人们称为ROM。</p>
 <h1 id="「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？"><a href="#「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？" class="headerlink" title="「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？"></a>「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？</h1><p>​        在计算机专业领域，“内存”的全称是“内部储存器”，用于在运行时储存信息，CPU可以直接寻址，区别于永久保存数据、CPU仅通过硬件控制器读取数据的“外部储存器”。<strong>这两者是从计算机架构的角度说的</strong>。在通常语境下，“内存”只有主板上插的内存条一种，<strong>内存就成了“主板上的RAM”的代称</strong>。</p>
@@ -88,130 +86,38 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/post/4a17b156/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<a id="more"></a>
-<!-- 
-hexo-generator-index從 2.0.0 開始，已經支持文章置頂功能。
-你可以直接在文章的front-matter區域裏添加sticky: 1屬性來把這篇文章置頂。
-數值越大，置頂的優先級越大。 
--->
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>nand2tetis C2-布尔算法</title>
-    <url>/post/e4fb99f5/</url>
-    <content><![CDATA[<h1 id="布尔算法运算-Boolean-Arithmetic"><a href="#布尔算法运算-Boolean-Arithmetic" class="headerlink" title="[布尔算法运算 Boolean Arithmetic]"></a>[布尔算法运算 Boolean Arithmetic]</h1><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><p>两个<code>n-</code>位数字二进制加法的计算机硬件可以由三位加法的逻辑门构建而成。（两个计算位加上一个进位）</p>
-<p><strong>在4-位二进制系统中的有符号数的2-补码表示</strong></p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>正数</th>
-<th>负数</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0 – 0000</td>
-<td></td>
-</tr>
-<tr>
-<td>1 – 0001</td>
-<td>1111 – (-1)</td>
-</tr>
-<tr>
-<td>2 – 0010</td>
-<td>1110 – (-2)</td>
-</tr>
-<tr>
-<td>3 – 0011</td>
-<td>1101 – (-3)</td>
-</tr>
-<tr>
-<td>4 – 0100</td>
-<td>1100 – (-4)</td>
-</tr>
-<tr>
-<td>5 – 0101</td>
-<td>1011 – (-5)</td>
-</tr>
-<tr>
-<td>6 – 0110</td>
-<td>1010 – (-6)</td>
-</tr>
-<tr>
-<td>7 – 0111</td>
-<td>1001 – (-7)</td>
-</tr>
-<tr>
-<td></td>
-<td>1000 – (-8)</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>计算<code>-x</code>原理：</p>
-<script type="math/tex; mode=display">
-2^n-x = 1 + (2^n-1)-x</script><p>由此可知，用补码表示<code>n-</code>位二进制系统有如下属性：</p>
+    <title>Stack&amp;Heap</title>
+    <url>/post/e5494597/</url>
+    <content><![CDATA[<h1 id="栈（Stack）和堆（Heap）"><a href="#栈（Stack）和堆（Heap）" class="headerlink" title="栈（Stack）和堆（Heap）"></a>栈（Stack）和堆（Heap）</h1><p>​        目前来说我们知道怎么去声明一个基础类型的变量，比如int，float，等等。以及复杂数据类型数组和结构，声明它们的时候C会把这些变量放在栈上。<strong>每个线程都有一个栈，而程序通常只有一个堆</strong>。</p>
+<h3 id="栈（Stack）"><a href="#栈（Stack）" class="headerlink" title="栈（Stack）"></a>栈（Stack）</h3><p>  什么是栈？它是内存中一块特殊的区域，<strong>用于保存在函数中声明的零时变量</strong>（其中也包括<code>main()</code>函数）。栈是LIFO(Last in First Out 后进先出)的数据结构，进出操作是由CPU来管理和优化的。<strong>调用函数时就会使用栈。</strong>每当函数声明了一个变量，该变量就会被<strong>推入(Pushed)</strong>栈中。每当函数退出时，所有的变量都会被函数推出栈，并被<strong>释放掉(Free)</strong>。一旦变量被释放，该内存区域就可以被其他栈变量使用。<br>  使用栈的优势是它会为你管理内存，而不需要你手动去分配或者释放内存。更进一步说，由于CPU可以有效地管理栈内存，所以从栈中读写变量是很快的。<br>  理解栈的关键是需要知道函数什么时候退出，此时栈中所有的变量被推出，因此<strong>栈变量是局部的</strong>（也就是局部变量）。C中经常出现的一个错误就是，在函数返回以后去访问函数内部中栈变量。<br>  如果使用太多的栈空间会导致溢出，比如在使用递归的时候，该函数使用了太多的局部变量在递归过程中就有可能造成<strong>栈溢出</strong>。</p>
+<blockquote>
+<p>总结</p>
 <ul>
-<li>系统能对所有<strong>2^n^</strong>个有符号数进行编码，最大的数(0111)和最小的数(1000)分别为<strong>(2^n-1^-1)</strong>和<strong>(-2^n-1^)</strong>.</li>
-<li>所有正整数的编码的首位是0.</li>
-<li>所有负整数的编码的首位是1.</li>
-<li><em>为了通过<code>x</code>的编码获得<code>-x</code>的编码，所有最右边的0和从左边起的第一个1保持不变，然后将剩余的位取反。</em>等价的捷径就是，<strong>对<code>x</code>的所有的位取反，然后加上1，这个方案更容易在硬件中实现.</strong></li>
+<li>栈是LIFO数据结构；</li>
+<li>CPU管理内存，而不需要手动去管理。正是因为这个原因从栈中读写变量<strong>很快</strong>的；</li>
+<li>栈变量是局部的（也就是局部变量）；</li>
+<li>栈的容量会随着函数的Push和Pop变化；</li>
 </ul>
-<p>这种表示法有个特别吸引人的特征：<strong>任何两个用补码表示的有符号数的加法和与正数的加法完全相同</strong>。</p>
-<p>eg: </p>
-<p>1.加法(-2) + (-3)</p>
-<p>使用补码(<code>4-</code>位)表示：(1110)₂ + (1101)₂  = (1011)₂  ，(丢掉溢出位)</p>
-<p>正好是-5的补码.</p>
-<p><strong>我们不用去关心这些代码表示的数字（正数还是负数）</strong></p>
-<p>2.减法可以看成<code>x - y = x + (-y)</code>，补码表示中，计算<code>-y</code>：所有位取反再加1</p>
-<p><strong>以上意味着能用单一芯片（成为算术逻辑单元ALU，ALU即<code>Arithmetic Logical Unit</code>）将硬件执行的所有基本算术操作和逻辑操作封装起来</strong>.</p>
-<h3 id="规范详述"><a href="#规范详述" class="headerlink" title="[规范详述]"></a>[规范详述]</h3><ol>
-<li>加法器(Adders)<ul>
-<li><strong>半加器</strong>(Half-Adders)</li>
-<li><strong>全加器</strong>(Full-Adders)</li>
-<li><strong>加法器</strong>(Adders)</li>
+</blockquote>
+<h3 id="堆（Heap）"><a href="#堆（Heap）" class="headerlink" title="堆（Heap）"></a>堆（Heap）</h3><p>  堆也是内存中一块特定区域，但是CPU并不会自动管理相关的操作，而且它的空间大小会有一定的浮动。在堆上分配内存的时候，在C中使用<code>malloc()</code>和<code>calloc()</code>函数。在不需要堆上这块内存之后，需要使用<code>free()</code>函数释放掉它。<strong>如果不释放的话就会造成内存泄漏</strong>，这块内存就会被闲置。<br>  和栈不同之处在于，<strong>堆内存数据的读写速度会比栈慢</strong>。</p>
+<h3 id="栈（Stack）和堆（Heap）的差异"><a href="#栈（Stack）和堆（Heap）的差异" class="headerlink" title="栈（Stack）和堆（Heap）的差异"></a>栈（Stack）和堆（Heap）的差异</h3><h4 id="配置堆栈大小"><a href="#配置堆栈大小" class="headerlink" title="配置堆栈大小"></a>配置堆栈大小</h4><p>  堆的大小在程序启动时分配，数值在不同操作系统中可能有所不同。<br>  在Cocoa中想要修改线程的栈大小的话，可以使用<code>NSThread</code>的实例方法<code>setStackSize:</code>，如果使用POSIX线程技术创建的线程的话，想要设置栈大小的话使用<code>pthread_attr_setstacksize</code>函数。</p>
+<blockquote>
+<p>⚠️如果要设置栈大小就必须要在创建线程之前完成。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 第一种</span></span><br><span class="line">NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(backgroudMethod:) object:nil];</span><br><span class="line">[thread setStackSize:<span class="number">1024</span>];</span><br><span class="line">[thread start];</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 第二种</span></span><br><span class="line"><span class="keyword">pthread_attr_t</span> attr;</span><br><span class="line"><span class="keyword">pthread_t</span> posix_tread_id;</span><br><span class="line"><span class="keyword">int</span> returnVal;</span><br><span class="line">returnVal = pthread_attr_init(&amp;attr);</span><br><span class="line">returnVal = pthread_attr_setstacksize(&amp;attr, <span class="number">1024</span>);  <span class="comment">// 在创建线程前设置堆栈大小</span></span><br><span class="line"><span class="keyword">char</span> *data;</span><br><span class="line">data = <span class="string">&quot;To ensure that a thread knows what work to do&quot;</span>;</span><br><span class="line"><span class="keyword">int</span> thread_error = pthread_create(&amp;posix_tread_id, &amp;attr, posix_thread_mainroutine, data);</span><br></pre></td></tr></table></figure>
+<h4 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h4><p>  栈是和线程相关联的，意思就是说当线程退出时，栈被回收。而堆通常是在启动程序时分配，当程序退出之后被回收。</p>
+<h3 id="什么时候使用栈什么时候使用堆"><a href="#什么时候使用栈什么时候使用堆" class="headerlink" title="什么时候使用栈什么时候使用堆"></a>什么时候使用栈什么时候使用堆</h3><ul>
+<li>需要申请较大内存空间（比如struct，array之类的），而且需要该变量存在较长时间，就是将该变量放在<strong>堆</strong>中；</li>
+<li>如果需要动态修改struct或者array的大小，将该变量放在<strong>堆</strong>上。使用<code>malloc()</code>，<code>calloc()</code>，<code>realloc()</code>和<code>free()</code>等函数来管理内存；</li>
+<li>如果使用相对较小的变量，并且只在函数中使用它们，此时该变量就存在于栈上。这样做会更快而且更简单。</li>
 </ul>
-</li>
-</ol>
-<ul>
-<li><strong>半加器</strong>(Half-Adders)：用来进行<code>2-</code>位二进制数的加法.</li>
-</ul>
-<p><img src="/post/e4fb99f5/image-20200816222258242.png" alt="image-20200816222258242" style="zoom:80%;"></p>
-<ul>
-<li><strong>全加器</strong>(Full-Adders)：用来进行<code>3-</code>位二进制数加法.  </li>
-</ul>
-<p><img src="/post/e4fb99f5/image-20200816223202065.png" alt="image-20200816223202065" style="zoom:80%;"></p>
-<ul>
-<li><strong>加法器</strong>(Adders)：用来进行两个<code>n-</code>位加法.(图为16位)</li>
-</ul>
-<p><img src="/post/e4fb99f5/image-20200816222654606.png" alt="image-20200816222654606" style="zoom:80%;"></p>
-<ul>
-<li><strong>增量器</strong>(incrementer)：用来对指定的数字加1.</li>
-</ul>
-<p><img src="/post/e4fb99f5/image-20200816223012624.png" alt="image-20200816223012624" style="zoom:80%;"></p>
-<h3 id="算术逻辑单元-ALU"><a href="#算术逻辑单元-ALU" class="headerlink" title="算术逻辑单元(ALU)"></a>算术逻辑单元(ALU)</h3><p><img src="/post/e4fb99f5/image-20200817143329826.png" alt="image-20200817143329826" style="zoom:80%;"></p>
-<p>Hack的ALU计算一组固定的函数<code>out = f(x, y)</code>，这里<code>x</code>和<code>y</code>是芯片的两个<code>16-</code>位输入，<code>out</code>是芯片的<code>16-</code>位输出，该函数表由18个固定函数组成，通过设置六个称为控制位(control bits)的输入位来告诉ALU用哪一个函数来进行何种函数计算。</p>
-<p>ALU可以对2^6^=64个不同的函数进行操作。</p>
 ]]></content>
       <categories>
-        <category>Computer Architecture</category>
+        <category>内存布局</category>
       </categories>
       <tags>
-        <tag>nand2tetris</tag>
-        <tag>HDL</tag>
-        <tag>ALU</tag>
+        <tag>stack</tag>
+        <tag>heap</tag>
       </tags>
   </entry>
   <entry>
@@ -481,6 +387,113 @@ a~=~in·\overline{sel},~b~=~in·sel</script><h3 id="多位逻辑门"><a href="#�
       </tags>
   </entry>
   <entry>
+    <title>nand2tetis C2-布尔算法</title>
+    <url>/post/e4fb99f5/</url>
+    <content><![CDATA[<h1 id="布尔算法运算-Boolean-Arithmetic"><a href="#布尔算法运算-Boolean-Arithmetic" class="headerlink" title="[布尔算法运算 Boolean Arithmetic]"></a>[布尔算法运算 Boolean Arithmetic]</h1><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><p>两个<code>n-</code>位数字二进制加法的计算机硬件可以由三位加法的逻辑门构建而成。（两个计算位加上一个进位）</p>
+<p><strong>在4-位二进制系统中的有符号数的2-补码表示</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>正数</th>
+<th>负数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 – 0000</td>
+<td></td>
+</tr>
+<tr>
+<td>1 – 0001</td>
+<td>1111 – (-1)</td>
+</tr>
+<tr>
+<td>2 – 0010</td>
+<td>1110 – (-2)</td>
+</tr>
+<tr>
+<td>3 – 0011</td>
+<td>1101 – (-3)</td>
+</tr>
+<tr>
+<td>4 – 0100</td>
+<td>1100 – (-4)</td>
+</tr>
+<tr>
+<td>5 – 0101</td>
+<td>1011 – (-5)</td>
+</tr>
+<tr>
+<td>6 – 0110</td>
+<td>1010 – (-6)</td>
+</tr>
+<tr>
+<td>7 – 0111</td>
+<td>1001 – (-7)</td>
+</tr>
+<tr>
+<td></td>
+<td>1000 – (-8)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>计算<code>-x</code>原理：</p>
+<script type="math/tex; mode=display">
+2^n-x = 1 + (2^n-1)-x</script><p>由此可知，用补码表示<code>n-</code>位二进制系统有如下属性：</p>
+<ul>
+<li>系统能对所有<strong>2^n^</strong>个有符号数进行编码，最大的数(0111)和最小的数(1000)分别为<strong>(2^n-1^-1)</strong>和<strong>(-2^n-1^)</strong>.</li>
+<li>所有正整数的编码的首位是0.</li>
+<li>所有负整数的编码的首位是1.</li>
+<li><em>为了通过<code>x</code>的编码获得<code>-x</code>的编码，所有最右边的0和从左边起的第一个1保持不变，然后将剩余的位取反。</em>等价的捷径就是，<strong>对<code>x</code>的所有的位取反，然后加上1，这个方案更容易在硬件中实现.</strong></li>
+</ul>
+<p>这种表示法有个特别吸引人的特征：<strong>任何两个用补码表示的有符号数的加法和与正数的加法完全相同</strong>。</p>
+<p>eg: </p>
+<p>1.加法(-2) + (-3)</p>
+<p>使用补码(<code>4-</code>位)表示：(1110)₂ + (1101)₂  = (1011)₂  ，(丢掉溢出位)</p>
+<p>正好是-5的补码.</p>
+<p><strong>我们不用去关心这些代码表示的数字（正数还是负数）</strong></p>
+<p>2.减法可以看成<code>x - y = x + (-y)</code>，补码表示中，计算<code>-y</code>：所有位取反再加1</p>
+<p><strong>以上意味着能用单一芯片（成为算术逻辑单元ALU，ALU即<code>Arithmetic Logical Unit</code>）将硬件执行的所有基本算术操作和逻辑操作封装起来</strong>.</p>
+<h3 id="规范详述"><a href="#规范详述" class="headerlink" title="[规范详述]"></a>[规范详述]</h3><ol>
+<li>加法器(Adders)<ul>
+<li><strong>半加器</strong>(Half-Adders)</li>
+<li><strong>全加器</strong>(Full-Adders)</li>
+<li><strong>加法器</strong>(Adders)</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><strong>半加器</strong>(Half-Adders)：用来进行<code>2-</code>位二进制数的加法.</li>
+</ul>
+<p><img src="/post/e4fb99f5/image-20200816222258242.png" alt="image-20200816222258242" style="zoom:80%;"></p>
+<ul>
+<li><strong>全加器</strong>(Full-Adders)：用来进行<code>3-</code>位二进制数加法.  </li>
+</ul>
+<p><img src="/post/e4fb99f5/image-20200816223202065.png" alt="image-20200816223202065" style="zoom:80%;"></p>
+<ul>
+<li><strong>加法器</strong>(Adders)：用来进行两个<code>n-</code>位加法.(图为16位)</li>
+</ul>
+<p><img src="/post/e4fb99f5/image-20200816222654606.png" alt="image-20200816222654606" style="zoom:80%;"></p>
+<ul>
+<li><strong>增量器</strong>(incrementer)：用来对指定的数字加1.</li>
+</ul>
+<p><img src="/post/e4fb99f5/image-20200816223012624.png" alt="image-20200816223012624" style="zoom:80%;"></p>
+<h3 id="算术逻辑单元-ALU"><a href="#算术逻辑单元-ALU" class="headerlink" title="算术逻辑单元(ALU)"></a>算术逻辑单元(ALU)</h3><p><img src="/post/e4fb99f5/image-20200817143329826.png" alt="image-20200817143329826" style="zoom:80%;"></p>
+<p>Hack的ALU计算一组固定的函数<code>out = f(x, y)</code>，这里<code>x</code>和<code>y</code>是芯片的两个<code>16-</code>位输入，<code>out</code>是芯片的<code>16-</code>位输出，该函数表由18个固定函数组成，通过设置六个称为控制位(control bits)的输入位来告诉ALU用哪一个函数来进行何种函数计算。</p>
+<p>ALU可以对2^6^=64个不同的函数进行操作。</p>
+]]></content>
+      <categories>
+        <category>Computer Architecture</category>
+      </categories>
+      <tags>
+        <tag>nand2tetris</tag>
+        <tag>HDL</tag>
+        <tag>ALU</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>nand2tetis C3-时序逻辑</title>
     <url>/post/778f3b2f/</url>
     <content><![CDATA[<h1 id="时序逻辑-Sequential-Logic"><a href="#时序逻辑-Sequential-Logic" class="headerlink" title="[时序逻辑 Sequential Logic]"></a>[时序逻辑 Sequential Logic]</h1><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><p><strong>时钟(Clock)</strong>: 计算机里时间的流逝是用主时针(master clock)来表示的，它提供连续的<strong>交变信号序列</strong>。硬件实现通常基于<strong>振荡器(oscillator)</strong>，其在两个信号值<strong>0-1</strong>，或称<strong>“低电平-高电平(low-high, tick-tock)”</strong>之间交替变化。两个相邻的上升沿之间的时间间隙称为时钟的<strong>周期(cycle)</strong>，每个时钟周期模塑一个<strong>离散的时间单元</strong>。通过硬件电路，这个信号同时被传送到计算机平台的每个时序芯片中。</p>
@@ -608,47 +621,14 @@ out(t) = out(t - 1)</script><p>从另一个方面来说，DFF仅能够输出它�
       </tags>
   </entry>
   <entry>
-    <title>stack&amp;Heap</title>
-    <url>/post/e5494597/</url>
-    <content><![CDATA[<h1 id="栈（Stack）和堆（Heap）"><a href="#栈（Stack）和堆（Heap）" class="headerlink" title="栈（Stack）和堆（Heap）"></a>栈（Stack）和堆（Heap）</h1><p>​        目前来说我们知道怎么去声明一个基础类型的变量，比如int，float，等等。以及复杂数据类型数组和结构，声明它们的时候C会把这些变量放在栈上。<strong>每个线程都有一个栈，而程序通常只有一个堆</strong>。</p>
-<h3 id="栈（Stack）"><a href="#栈（Stack）" class="headerlink" title="栈（Stack）"></a>栈（Stack）</h3><p>  什么是栈？它是内存中一块特殊的区域，<strong>用于保存在函数中声明的零时变量</strong>（其中也包括<code>main()</code>函数）。栈是LIFO(Last in First Out 后进先出)的数据结构，进出操作是由CPU来管理和优化的。<strong>调用函数时就会使用栈。</strong>每当函数声明了一个变量，该变量就会被<strong>推入(Pushed)</strong>栈中。每当函数退出时，所有的变量都会被函数推出栈，并被<strong>释放掉(Free)</strong>。一旦变量被释放，该内存区域就可以被其他栈变量使用。<br>  使用栈的优势是它会为你管理内存，而不需要你手动去分配或者释放内存。更进一步说，由于CPU可以有效地管理栈内存，所以从栈中读写变量是很快的。<br>  理解栈的关键是需要知道函数什么时候退出，此时栈中所有的变量被推出，因此<strong>栈变量是局部的</strong>（也就是局部变量）。C中经常出现的一个错误就是，在函数返回以后去访问函数内部中栈变量。<br>  如果使用太多的栈空间会导致溢出，比如在使用递归的时候，该函数使用了太多的局部变量在递归过程中就有可能造成<strong>栈溢出</strong>。</p>
-<blockquote>
-<p>总结</p>
-<ul>
-<li>栈是LIFO数据结构；</li>
-<li>CPU管理内存，而不需要手动去管理。正是因为这个原因从栈中读写变量<strong>很快</strong>的；</li>
-<li>栈变量是局部的（也就是局部变量）；</li>
-<li>栈的容量会随着函数的Push和Pop变化；</li>
-</ul>
-</blockquote>
-<h3 id="堆（Heap）"><a href="#堆（Heap）" class="headerlink" title="堆（Heap）"></a>堆（Heap）</h3><p>  堆也是内存中一块特定区域，但是CPU并不会自动管理相关的操作，而且它的空间大小会有一定的浮动。在堆上分配内存的时候，在C中使用<code>malloc()</code>和<code>calloc()</code>函数。在不需要堆上这块内存之后，需要使用<code>free()</code>函数释放掉它。<strong>如果不释放的话就会造成内存泄漏</strong>，这块内存就会被闲置。<br>  和栈不同之处在于，<strong>堆内存数据的读写速度会比栈慢</strong>。</p>
-<h3 id="栈（Stack）和堆（Heap）的差异"><a href="#栈（Stack）和堆（Heap）的差异" class="headerlink" title="栈（Stack）和堆（Heap）的差异"></a>栈（Stack）和堆（Heap）的差异</h3><h4 id="配置堆栈大小"><a href="#配置堆栈大小" class="headerlink" title="配置堆栈大小"></a>配置堆栈大小</h4><p>  堆的大小在程序启动时分配，数值在不同操作系统中可能有所不同。<br>  在Cocoa中想要修改线程的栈大小的话，可以使用<code>NSThread</code>的实例方法<code>setStackSize:</code>，如果使用POSIX线程技术创建的线程的话，想要设置栈大小的话使用<code>pthread_attr_setstacksize</code>函数。</p>
-<blockquote>
-<p>⚠️如果要设置栈大小就必须要在创建线程之前完成。</p>
-</blockquote>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 第一种</span></span><br><span class="line">NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(backgroudMethod:) object:nil];</span><br><span class="line">[thread setStackSize:<span class="number">1024</span>];</span><br><span class="line">[thread start];</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 第二种</span></span><br><span class="line"><span class="keyword">pthread_attr_t</span> attr;</span><br><span class="line"><span class="keyword">pthread_t</span> posix_tread_id;</span><br><span class="line"><span class="keyword">int</span> returnVal;</span><br><span class="line">returnVal = pthread_attr_init(&amp;attr);</span><br><span class="line">returnVal = pthread_attr_setstacksize(&amp;attr, <span class="number">1024</span>);  <span class="comment">// 在创建线程前设置堆栈大小</span></span><br><span class="line"><span class="keyword">char</span> *data;</span><br><span class="line">data = <span class="string">&quot;To ensure that a thread knows what work to do&quot;</span>;</span><br><span class="line"><span class="keyword">int</span> thread_error = pthread_create(&amp;posix_tread_id, &amp;attr, posix_thread_mainroutine, data);</span><br></pre></td></tr></table></figure>
-<h4 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h4><p>  栈是和线程相关联的，意思就是说当线程退出时，栈被回收。而堆通常是在启动程序时分配，当程序退出之后被回收。</p>
-<h3 id="什么时候使用栈什么时候使用堆"><a href="#什么时候使用栈什么时候使用堆" class="headerlink" title="什么时候使用栈什么时候使用堆"></a>什么时候使用栈什么时候使用堆</h3><ul>
-<li>需要申请较大内存空间（比如struct，array之类的），而且需要该变量存在较长时间，就是将该变量放在<strong>堆</strong>中；</li>
-<li>如果需要动态修改struct或者array的大小，将该变量放在<strong>堆</strong>上。使用<code>malloc()</code>，<code>calloc()</code>，<code>realloc()</code>和<code>free()</code>等函数来管理内存；</li>
-<li>如果使用相对较小的变量，并且只在函数中使用它们，此时该变量就存在于栈上。这样做会更快而且更简单。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>内存布局</category>
-      </categories>
-      <tags>
-        <tag>stack</tag>
-        <tag>heap</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Assembly综合研究</title>
     <url>/post/e9163f9a/</url>
-    <content><![CDATA[<h2 id="部分实验代码"><a href="#部分实验代码" class="headerlink" title="部分实验代码"></a>部分实验代码</h2><ul>
-<li>[部分实验代码]:(<a href="https://github.com/A1va/x86-Assembly">https://github.com/A1va/x86-Assembly</a>)</li>
-</ul>
-<h2 id="研究试验1-搭建一个精简的C语言开发环境"><a href="#研究试验1-搭建一个精简的C语言开发环境" class="headerlink" title="研究试验1 搭建一个精简的C语言开发环境"></a>研究试验1 搭建一个精简的C语言开发环境</h2><ul>
+    <content><![CDATA[<!-- 
+hexo-generator-index從 2.0.0 開始，已經支持文章置頂功能。
+你可以直接在文章的front-matter區域裏添加sticky: 1屬性來把這篇文章置頂。
+數值越大，置頂的優先級越大。 
+-->
+<h2 id="部分实验代码"><a href="#部分实验代码" class="headerlink" title="部分实验代码"></a>部分实验代码</h2><h2 id="研究试验1-搭建一个精简的C语言开发环境"><a href="#研究试验1-搭建一个精简的C语言开发环境" class="headerlink" title="研究试验1 搭建一个精简的C语言开发环境"></a>研究试验1 搭建一个精简的C语言开发环境</h2><ul>
 <li>这里使用TC.EXE以及当前必要的依赖搭建这个精简的环境<ul>
 <li>C0S.OBJ</li>
 <li>CS.LIB</li>
@@ -1512,6 +1492,7 @@ c_m~=~\overline{Instruction[15]},~c_a~=~\overline{Instruction[15]·\overline{d_1
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Symboltable</span></span>&#123;</span><br><span class="line">    <span class="comment">// 符号表：HashTable&lt;String, Integer&gt;</span></span><br><span class="line">    <span class="comment">// 当前更新变量的地址：16(init)</span></span><br><span class="line">    <span class="comment">// SymbolTable(): 初始化HashTable，并初始化预定义的符号</span></span><br><span class="line">    <span class="comment">// void addEntry(String symbol, int address)</span></span><br><span class="line">    <span class="comment">// boolean contains(String symbol): 是否包含Key</span></span><br><span class="line">    <span class="comment">// int getAddress(String symbol): 根据Key获得Address</span></span><br><span class="line">    <span class="comment">// int getNextAddAndIncrement(): 获取当前更新变量的地址，并令地址加1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><em>Assembler.java</em></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Assembler</span></span>&#123;</span><br><span class="line">    <span class="comment">// Add</span></span><br><span class="line">    <span class="comment">// 添加第一次遍历：主要是构建符号表，将伪指令添加到符号表</span></span><br><span class="line">    <span class="comment">// 记录当前命令被加载到的地址</span></span><br><span class="line">    <span class="comment">// loop</span></span><br><span class="line">    <span class="comment">// 1.循环利用parser解析指令，当前输入还有更多指令时，指令跳向下一行，跳过所有的&quot;空白&quot;，(如果此时指令长度为0，则下一个循环)，否则，创建出Parser对象的CommandType类型对象.</span></span><br><span class="line">    <span class="comment">// 如果指令类型是伪指令，将(符号,当前程序指令地址+1)添加到符号表; 否则当前程序指令地址自增</span></span><br><span class="line">    <span class="comment">// 关闭parser资源</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Modify</span></span><br><span class="line">    <span class="comment">// int getInt(String input, SymbolTable symbolTable): 当input是符号化常数，转换为int并返回; 若不是，处理数字格式异常，(只能是 预定义变量 / 用户自定义变量).</span></span><br><span class="line">    <span class="comment">// - 预定义变量: 返回 根据input符号返回符号表对应的地址</span></span><br><span class="line">    <span class="comment">// - 用户自定义变量: 将(符号，符号表中的当前更新变量的地址)，并返回地址</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Reference: <a href="https://github.com/jahnagoldman">jahnagoldman</a></p>
 ]]></content>
       <categories>
         <category>Computer Architecture</category>
