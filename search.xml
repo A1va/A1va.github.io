@@ -50,6 +50,39 @@
       </tags>
   </entry>
   <entry>
+    <title>OSTEP4-进程</title>
+    <url>/post/1ff66ec/</url>
+    <content><![CDATA[<h1 id="抽象-进程-homework"><a href="#抽象-进程-homework" class="headerlink" title="[抽象: 进程_homework]"></a>[抽象: 进程_homework]</h1><p>1.<code>./process-run.py -l 5:100,5:100</code>。CPU利用率应为多少（例如，CPU使用时间的百分比？</p>
+<p>  <img src="/post/1ff66ec/image-20201107162610895.png" alt="image-20201107162610895" style="zoom: 50%;"></p>
+<p>  CPU利用率为100％，因为两个进程都没有I/O调用。</p>
+<p>2.<code>./process-run.py -l 4:100,1:0</code>。完成这两个过程需要多长时间？</p>
+<p>  <img src="/post/1ff66ec/image-20201107162713141.png" alt="image-20201107162713141" style="zoom: 50%;"></p>
+<p>  默认I/O时间长度为5。这些进程按<code>-l</code>选项中列出的顺序开始。调度程序是非抢占式的。<br>          <code>Time=9</code>，第一个进程需要执行4条指令才能完成，然后第二个进程将准备运行I/O并消耗时间长度为5。<br>          模拟器添加最终的“空刻度”以进行10个刻度。</p>
+<p>3.<code>./process-run.py -l 1:0,4:100</code>。现在会发生什么？切换顺序重要吗？为什么？</p>
+<p>  <img src="/post/1ff66ec/image-20201107163039162.png" alt="image-20201107163039162" style="zoom:50%;"></p>
+<p>  现在，这两个进程需要的时间长度为5，因为可以在第一个进程等待I/O的同时CPU执行第二个进程的指令。模拟器添加最终的“空刻度”以进行6个刻度。</p>
+<p>4.现在，我们将探讨其他一些标志。一个重要的标志是<code>-S</code>，它确定进程发出I / O时系统的反应。将标记设置为时<code>SWITCH_ON_END</code>，系统在执行I / O时将不会切换到另一进程，而是等待该进程完全完成。当您运行以下两个进程时，会发生什么情况，一个进程执行I / O，另一个进程执行CPU工作？（<code>-l 1:0,4:100 -c -S SWITCH_ON_END</code>）</p>
+<p>  <img src="/post/1ff66ec/image-20201107163348304.png" alt="image-20201107163348304" style="zoom:50%;"></p>
+<p>  现在，资源使用情况统计信息与问题2中的统计信息几乎相同（两个进程均完成9个滴答声），唯一的区别是，首先执行IO的进程没有最终的“空滴答声”。</p>
+<p>5.现在，运行相同的进程，但是将切换行为设置为只要正在等待I / O（<code>-l 1:0,4:100 -c -S SWITCH_ON_IO</code>）就切换到另一进程。怎么了？</p>
+<p>  这正是问题3，<code>-S SWITCH_ON_IO</code>也是默认设置。</p>
+<p>6.另一个重要的行为是I / O完成时应采取的措施。使用<code>-I IO_RUN_LATER</code>，当I / O完成时，发出该I / O的进程不必立即运行；相反，当时正在运行的任何东西都会继续运行。当您运行这些流程组合时会发生什么？（<code>./process-run.py -l 3:0,5:100,5:100,5:100 -S SWITCH_ON_IO -I IO_RUN_LATER -c -p</code>）系统资源是否得到有效利用？</p>
+<p>  第一个进程将等待IO，接下来的3个进程将依次完成。总运行时间为26个滴答声，最后还有一个额外的“空滴答声”。这不是对资源的有效利用，因为第一个进程可能已经在运行<em>所有</em>IO操作，而其他进程正在使用CPU。</p>
+<p>7.现在运行相同的进程，但<code>-I IO_RUN_IMMEDIATE</code>运行set，立即运行发出I / O的进程。这种行为有何不同？为什么运行刚刚完成一个I / O的过程是一个好主意？</p>
+<p>  在这种情况下，第一个进程将中断其他进程以启动其IO操作，从而减少了18个滴答的计算时间。资源使用率将类似地提高，CPU使用率将达到100％。</p>
+<p>  运行刚刚完成一个I / O的进程是一个好主意，因为与其他进程相比，该进程更有可能发出另一个I / O语句（这是一个统计参数），并且在此模拟的情况下，最好执行尽快关闭I / O操作。</p>
+<p>8.现在与某些随机生成的进程中运行，例如<code>-s 1 -l 3:50,3:50</code>，<code>-s 2 -l 3:50,3:50</code>，<code>-s 3 -l 3:50,3:50</code>。看看您是否可以预测跟踪结果。使用<code>-I IO_RUN_IMMEDIATE</code>vs.会发生什么<code>-I IO_RUN_LATER</code>？使用<code>-S SWITCH_ON_IO</code>vs.时会发生什么<code>-S SWITCH_ON_END</code></p>
+<p>  <code>SWITCH_ON_IO</code>总是比更快的运行时间<code>SWITCH_ON_END</code>。对于给出的3个示例，<code>-I IO_RUN_IMMEDIATE</code>执行的顺序与完全相同<code>-I IO_RUN_LATER</code>。在所有3种情况下，相对于IO操作的时间长度（5个滴答声），少数几个可能的CPU指令（每个进程最多可以包含3条指令，因此每个进程最多可以包含3条CPU指令）意味着这些进程花费了大部分时间他们花费<code>WAITING</code>在IO上的时间，因此没有机会<code>IO_RUN_IMMEDIATE</code>退出当前正在运行的进程。</p>
+]]></content>
+      <categories>
+        <category>Operating System</category>
+      </categories>
+      <tags>
+        <tag>homework</tag>
+        <tag>process</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>OSTEP7-进程调度</title>
     <url>/post/fe1a6b20/</url>
     <content><![CDATA[<h1 id="抽象-进程——答案"><a href="#抽象-进程——答案" class="headerlink" title="[抽象: 进程——答案]"></a>[抽象: 进程——答案]</h1><h3 id="1-工作负载假设"><a href="#1-工作负载假设" class="headerlink" title="1. 工作负载假设"></a>1. 工作负载假设</h3><p>对操作系统中运行的进程（有时也叫工作任务）做出如下的假设：</p>
@@ -141,6 +174,113 @@ T(响应时间)=T(首次运行)-T(到达时间)</script><p>考虑一种情况：
         <tag>RAM</tag>
         <tag>ROM</tag>
         <tag>Memory</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring Boot入门</title>
+    <url>/post/a06b7d48/</url>
+    <content><![CDATA[<h1 id="Spring-Boot-入门"><a href="#Spring-Boot-入门" class="headerlink" title="[Spring Boot 入门]"></a>[Spring Boot 入门]</h1><p><a href="http://t.cn/AirXJZuO">百度百科</a></p>
+<p><strong>优点</strong></p>
+<blockquote>
+<ul>
+<li>快速创建独立运行的Spring项目以及与主流框架集成</li>
+<li>使用嵌入式的Servlet容器，应用无需打成WAR包</li>
+<li>starters自动依赖与版本控制</li>
+<li>大量的自动配置，简化开发，也可修改默认值</li>
+<li>无需配置XML，无代码生成，开箱即用</li>
+<li>准生产环境的运行时应用监控</li>
+<li>与云计算的天然集成</li>
+</ul>
+</blockquote>
+<h2 id="微服务"><a href="#微服务" class="headerlink" title="[微服务]"></a>[微服务]</h2><blockquote>
+<p>2014，martin fowler</p>
+<p>微服务：架构风格（服务微化）</p>
+<p>一个应用应该是一组小型服务；可以通过HTTP的方式进行互通；</p>
+<p>单体应用：ALL IN ONE</p>
+<p>微服务：每一个功能元素最终都是一个可独立替换和独立升级的软件单元；</p>
+<p><a href="https://martinfowler.com/articles/microservices.html#MicroservicesAndSoa">详细参照微服务文档</a></p>
+<p><a href="https://blog.csdn.net/qq_37788067/article/details/79250623">集群、分布式、微服务概念和区别</a></p>
+</blockquote>
+<h2 id="环境约束"><a href="#环境约束" class="headerlink" title="[环境约束]"></a>[环境约束]</h2><p>–jdk1.8：Spring Boot 推荐jdk1.7及以上；</p>
+<p>–maven3.x：maven 3.3以上版本；</p>
+<h2 id="Maven设置"><a href="#Maven设置" class="headerlink" title="[Maven设置]"></a>[Maven设置]</h2><p>给maven 的settings.xml配置文件的profiles标签添加：（设置使用的jdk版本）</p>
+<p>开发工具中的maven设置为自己配置的maven</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>jdk-1.8<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jdk</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">jdk</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.compilerVersion</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.compilerVersion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="创建一个maven工程"><a href="#创建一个maven工程" class="headerlink" title="[创建一个maven工程]"></a>[创建一个maven工程]</h2><ol>
+<li><p>导入spring boot相关的依赖</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">   </span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写一个主程序；启动Spring Boot应用</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> con.nolva.springboot;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * springBootApplication：标注一个主程序类，表示这个是一个Springboot应用</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldMainApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//启动</span></span><br><span class="line">        SpringApplication.run(HelloWorldMainApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写一个Controller</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.nolva.springboot.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * RestController：是spring4里的新注解，是<span class="doctag">@ResponseBody</span>和<span class="doctag">@Controller</span>的缩写。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;hello SpringBoot,this is my first Application&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行主程序Main方法测试</p>
+</li>
+<li><p>访问 <a href="http://localhost:8080/hello">localhost:8080/hello</a></p>
+</li>
+</ol>
+<h2 id="简化部署"><a href="#简化部署" class="headerlink" title="[简化部署]"></a>[简化部署]</h2><ol>
+<li><p>添加maven插件</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 这个插件，可以将应用打包成一个可执行的jar包；--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用mvn package进行打包</p>
+</li>
+<li><p>进入打包好的jar包所在目录</p>
+</li>
+<li><p>使用 <code>java -jar jar包名称</code> 运行</p>
+</li>
+</ol>
+<h2 id="Hello-World探究"><a href="#Hello-World探究" class="headerlink" title="[Hello World探究]"></a>[Hello World探究]</h2><h3 id="依赖"><a href="#依赖" class="headerlink" title="[依赖]"></a>[依赖]</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">  &lt;!--Hello World项目的父工程是org.springframework.boot--&gt;</span><br><span class="line">  &lt;parent&gt;</span><br><span class="line">      &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;2.2.1.RELEASE&lt;/version&gt;</span><br><span class="line">      &lt;relativePath/&gt;</span><br><span class="line">  &lt;/parent&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!--</span><br><span class="line">      org.springframework.boot他的父项目是spring-boot-dependencies</span><br><span class="line">      他来真正管理Spring Boot应用里面的所有依赖版本；</span><br><span class="line">      Spring Boot的版本仲裁中心；</span><br><span class="line">      以后我们导入依赖默认是不需要写版本；（没有在dependencies里面管理的依赖自然需要声明版本号）</span><br><span class="line">  --&gt;</span><br><span class="line">&lt;parent&gt;</span><br><span class="line">  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;spring-boot-dependencies&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;2.2.1.RELEASE&lt;/version&gt;</span><br><span class="line">  &lt;relativePath&gt;../../spring-boot-dependencies&lt;/relativePath&gt;</span><br><span class="line">&lt;/parent&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="启动器"><a href="#启动器" class="headerlink" title="[启动器]"></a>[启动器]</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>spring-boot-starter</strong>-<code>web</code>：</p>
+<p> spring-boot-starter：spring-boot场景启动器；帮我们导入了web模块正常运行所依赖的组件；</p>
+<p>Spring Boot将所有的功能场景都抽取出来，做成一个个的starters（启动器），只需要在项目里面引入这些starter相关场景的所有依赖都会导入进来。要用什么功能就导入什么场景的启动器</p>
+<h3 id="主程序类，主入口类"><a href="#主程序类，主入口类" class="headerlink" title="[主程序类，主入口类]"></a>[主程序类，主入口类]</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldMainApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//启动</span></span><br><span class="line">        SpringApplication.run(HelloWorldMainApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>@SpringBootApplication</code>: Spring Boot应用标注在某个类上说明这个类是SpringBoot的主配置类，SpringBoot就应该运行这个类的main方法来启动SpringBoot应用；</p>
+<p>看一下<code>@SpringBootApplication</code>这个注解类的源码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span>    <span class="comment">//可以给一个类型进行注解，比如类、接口、枚举</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span>    <span class="comment">//可以保留到程序运行的时候，它会被加载进入到 JVM 中</span></span><br><span class="line"><span class="meta">@Documented</span>    <span class="comment">//将注解中的元素包含到 Javadoc 中去。</span></span><br><span class="line"><span class="meta">@Inherited</span>    <span class="comment">//继承，比如A类上有该注解，B类继承A类，B类就也拥有该注解</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@SpringBootConfiguration</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">*创建一个配置类，在配置类上添加 @ComponentScan 注解。</span></span><br><span class="line"><span class="comment">*该注解默认会扫描该类所在的包下所有的配置类，相当于之前的 &lt;context:component-scan&gt;。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@ComponentScan(</span></span><br><span class="line"><span class="meta">    excludeFilters = &#123;@Filter(</span></span><br><span class="line"><span class="meta">    type = FilterType.CUSTOM,</span></span><br><span class="line"><span class="meta">    classes = &#123;TypeExcludeFilter.class&#125;</span></span><br><span class="line"><span class="meta">), @Filter(</span></span><br><span class="line"><span class="meta">    type = FilterType.CUSTOM,</span></span><br><span class="line"><span class="meta">    classes = &#123;AutoConfigurationExcludeFilter.class&#125;</span></span><br><span class="line"><span class="meta">)&#125;</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootApplication</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>@SpringBootConfiguration</code>：Spring Boot的配置类；标注在某个类上，表示这是一个Spring Boot的配置类；</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootConfiguration</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>@Configuration</code>：配置类上来标注这个注解；</p>
+<p>配置类 ——- 配置文件；配置类也是容器中的一个组件；@Component</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Configuration</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><code>@EnableAutoConfiguration</code>：开启自动配置功能；</p>
+<p>以前我们需要配置的东西，Spring Boot帮我们自动配置；@<strong>EnableAutoConfiguration</strong>告诉SpringBoot开启自动配置功能；这样自动配置才能生效；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Inherited</span><br><span class="line">@AutoConfigurationPackage</span><br><span class="line">@Import(&#123;AutoConfigurationImportSelector.class&#125;)</span><br><span class="line">public @interface EnableAutoConfiguration</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>@AutoConfigurationPackage</code>：自动配置包</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@Import(&#123;Registrar.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> AutoConfigurationPackage</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>@Import</code>：Spring的底层注解@Import，给容器中导入一个组件</p>
+<p>导入的组件由<code>org.springframework.boot.autoconfigure.AutoConfigurationPackages.Registrar</code>将主配置类（@SpringBootApplication标注的类）的所在包及下面所有子包里面的所有组件扫描到Spring容器；</p>
+<p><img src="/post/a06b7d48/1573637120233.png" alt="DEBUG"></p>
+<p>这里controller包是在主程序所在的包下，所以会被扫描到，我们在springboot包下创建一个test包，把主程序放在test包下，这样启动就只会去扫描test包下的内容而controller包就不会被扫描到，再访问开始的hello就是404</p>
+<p><img src="/post/a06b7d48/1573637728857.png" alt="DEBUG"></p>
+</li>
+</ul>
+</li>
+<li><p><code>@Import(&#123;AutoConfigurationImportSelector.class&#125;)</code></p>
+<p><code>AutoConfigurationImportSelector.class</code>将所有需要导入的组件以全类名的方式返回；这些组件就会被添加到容器中；会给容器中导入非常多的自动配置类（xxxAutoConfiguration）；就是给容器中导入这个场景需要的所有组件，并配置好这些组件；</p>
+<p>有了自动配置类，免去了我们手动编写配置注入功能组件等的工作；</p>
+<p><img src="/post/a06b7d48/1573638685562.png" alt="Configuration"></p>
+</li>
+</ul>
+</li>
+</ul>
+<p>Spring Boot在启动的时候从类路径下的META-INF/spring.factories中获取EnableAutoConfiguration指定的值，将这些值作为自动配置类导入到容器中，自动配置类就生效，帮我们进行自动配置工作；以前我们需要自己配置的东西，自动配置类都帮我们完成了；</p>
+]]></content>
+      <categories>
+        <category>Spring Boot</category>
+      </categories>
+      <tags>
+        <tag>Spring Boot</tag>
       </tags>
   </entry>
   <entry>
@@ -271,146 +411,6 @@ T(响应时间)=T(首次运行)-T(到达时间)</script><p>考虑一种情况：
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 排除logback-classic和log4j-over-slf4j，因为我们就需要log4j，不用转换成slf4j。并添加slf4j-log4j12 --&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>logback-classic<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>ch.qos.logback<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>log4j-over-slf4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>slf4j-log4j12<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>切换为log4j2</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 排除starter-logging并添加spring-boot-starter-log4j2 --&gt;</span>   </span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-logging<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-log4j2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Spring Boot</category>
-      </categories>
-      <tags>
-        <tag>Spring Boot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>OSTEP4-进程</title>
-    <url>/post/1ff66ec/</url>
-    <content><![CDATA[<h1 id="抽象-进程-homework"><a href="#抽象-进程-homework" class="headerlink" title="[抽象: 进程_homework]"></a>[抽象: 进程_homework]</h1><p>1.<code>./process-run.py -l 5:100,5:100</code>。CPU利用率应为多少（例如，CPU使用时间的百分比？</p>
-<p>  <img src="/post/1ff66ec/image-20201107162610895.png" alt="image-20201107162610895" style="zoom: 50%;"></p>
-<p>  CPU利用率为100％，因为两个进程都没有I/O调用。</p>
-<p>2.<code>./process-run.py -l 4:100,1:0</code>。完成这两个过程需要多长时间？</p>
-<p>  <img src="/post/1ff66ec/image-20201107162713141.png" alt="image-20201107162713141" style="zoom: 50%;"></p>
-<p>  默认I/O时间长度为5。这些进程按<code>-l</code>选项中列出的顺序开始。调度程序是非抢占式的。<br>          <code>Time=9</code>，第一个进程需要执行4条指令才能完成，然后第二个进程将准备运行I/O并消耗时间长度为5。<br>          模拟器添加最终的“空刻度”以进行10个刻度。</p>
-<p>3.<code>./process-run.py -l 1:0,4:100</code>。现在会发生什么？切换顺序重要吗？为什么？</p>
-<p>  <img src="/post/1ff66ec/image-20201107163039162.png" alt="image-20201107163039162" style="zoom:50%;"></p>
-<p>  现在，这两个进程需要的时间长度为5，因为可以在第一个进程等待I/O的同时CPU执行第二个进程的指令。模拟器添加最终的“空刻度”以进行6个刻度。</p>
-<p>4.现在，我们将探讨其他一些标志。一个重要的标志是<code>-S</code>，它确定进程发出I / O时系统的反应。将标记设置为时<code>SWITCH_ON_END</code>，系统在执行I / O时将不会切换到另一进程，而是等待该进程完全完成。当您运行以下两个进程时，会发生什么情况，一个进程执行I / O，另一个进程执行CPU工作？（<code>-l 1:0,4:100 -c -S SWITCH_ON_END</code>）</p>
-<p>  <img src="/post/1ff66ec/image-20201107163348304.png" alt="image-20201107163348304" style="zoom:50%;"></p>
-<p>  现在，资源使用情况统计信息与问题2中的统计信息几乎相同（两个进程均完成9个滴答声），唯一的区别是，首先执行IO的进程没有最终的“空滴答声”。</p>
-<p>5.现在，运行相同的进程，但是将切换行为设置为只要正在等待I / O（<code>-l 1:0,4:100 -c -S SWITCH_ON_IO</code>）就切换到另一进程。怎么了？</p>
-<p>  这正是问题3，<code>-S SWITCH_ON_IO</code>也是默认设置。</p>
-<p>6.另一个重要的行为是I / O完成时应采取的措施。使用<code>-I IO_RUN_LATER</code>，当I / O完成时，发出该I / O的进程不必立即运行；相反，当时正在运行的任何东西都会继续运行。当您运行这些流程组合时会发生什么？（<code>./process-run.py -l 3:0,5:100,5:100,5:100 -S SWITCH_ON_IO -I IO_RUN_LATER -c -p</code>）系统资源是否得到有效利用？</p>
-<p>  第一个进程将等待IO，接下来的3个进程将依次完成。总运行时间为26个滴答声，最后还有一个额外的“空滴答声”。这不是对资源的有效利用，因为第一个进程可能已经在运行<em>所有</em>IO操作，而其他进程正在使用CPU。</p>
-<p>7.现在运行相同的进程，但<code>-I IO_RUN_IMMEDIATE</code>运行set，立即运行发出I / O的进程。这种行为有何不同？为什么运行刚刚完成一个I / O的过程是一个好主意？</p>
-<p>  在这种情况下，第一个进程将中断其他进程以启动其IO操作，从而减少了18个滴答的计算时间。资源使用率将类似地提高，CPU使用率将达到100％。</p>
-<p>  运行刚刚完成一个I / O的进程是一个好主意，因为与其他进程相比，该进程更有可能发出另一个I / O语句（这是一个统计参数），并且在此模拟的情况下，最好执行尽快关闭I / O操作。</p>
-<p>8.现在与某些随机生成的进程中运行，例如<code>-s 1 -l 3:50,3:50</code>，<code>-s 2 -l 3:50,3:50</code>，<code>-s 3 -l 3:50,3:50</code>。看看您是否可以预测跟踪结果。使用<code>-I IO_RUN_IMMEDIATE</code>vs.会发生什么<code>-I IO_RUN_LATER</code>？使用<code>-S SWITCH_ON_IO</code>vs.时会发生什么<code>-S SWITCH_ON_END</code></p>
-<p>  <code>SWITCH_ON_IO</code>总是比更快的运行时间<code>SWITCH_ON_END</code>。对于给出的3个示例，<code>-I IO_RUN_IMMEDIATE</code>执行的顺序与完全相同<code>-I IO_RUN_LATER</code>。在所有3种情况下，相对于IO操作的时间长度（5个滴答声），少数几个可能的CPU指令（每个进程最多可以包含3条指令，因此每个进程最多可以包含3条CPU指令）意味着这些进程花费了大部分时间他们花费<code>WAITING</code>在IO上的时间，因此没有机会<code>IO_RUN_IMMEDIATE</code>退出当前正在运行的进程。</p>
-]]></content>
-      <categories>
-        <category>Operating System</category>
-      </categories>
-      <tags>
-        <tag>process</tag>
-        <tag>homework</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring Boot入门</title>
-    <url>/post/a06b7d48/</url>
-    <content><![CDATA[<h1 id="Spring-Boot-入门"><a href="#Spring-Boot-入门" class="headerlink" title="[Spring Boot 入门]"></a>[Spring Boot 入门]</h1><p><a href="http://t.cn/AirXJZuO">百度百科</a></p>
-<p><strong>优点</strong></p>
-<blockquote>
-<ul>
-<li>快速创建独立运行的Spring项目以及与主流框架集成</li>
-<li>使用嵌入式的Servlet容器，应用无需打成WAR包</li>
-<li>starters自动依赖与版本控制</li>
-<li>大量的自动配置，简化开发，也可修改默认值</li>
-<li>无需配置XML，无代码生成，开箱即用</li>
-<li>准生产环境的运行时应用监控</li>
-<li>与云计算的天然集成</li>
-</ul>
-</blockquote>
-<h2 id="微服务"><a href="#微服务" class="headerlink" title="[微服务]"></a>[微服务]</h2><blockquote>
-<p>2014，martin fowler</p>
-<p>微服务：架构风格（服务微化）</p>
-<p>一个应用应该是一组小型服务；可以通过HTTP的方式进行互通；</p>
-<p>单体应用：ALL IN ONE</p>
-<p>微服务：每一个功能元素最终都是一个可独立替换和独立升级的软件单元；</p>
-<p><a href="https://martinfowler.com/articles/microservices.html#MicroservicesAndSoa">详细参照微服务文档</a></p>
-<p><a href="https://blog.csdn.net/qq_37788067/article/details/79250623">集群、分布式、微服务概念和区别</a></p>
-</blockquote>
-<h2 id="环境约束"><a href="#环境约束" class="headerlink" title="[环境约束]"></a>[环境约束]</h2><p>–jdk1.8：Spring Boot 推荐jdk1.7及以上；</p>
-<p>–maven3.x：maven 3.3以上版本；</p>
-<h2 id="Maven设置"><a href="#Maven设置" class="headerlink" title="[Maven设置]"></a>[Maven设置]</h2><p>给maven 的settings.xml配置文件的profiles标签添加：（设置使用的jdk版本）</p>
-<p>开发工具中的maven设置为自己配置的maven</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>jdk-1.8<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jdk</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">jdk</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.compilerVersion</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.compilerVersion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="创建一个maven工程"><a href="#创建一个maven工程" class="headerlink" title="[创建一个maven工程]"></a>[创建一个maven工程]</h2><ol>
-<li><p>导入spring boot相关的依赖</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">   </span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编写一个主程序；启动Spring Boot应用</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> con.nolva.springboot;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * springBootApplication：标注一个主程序类，表示这个是一个Springboot应用</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldMainApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//启动</span></span><br><span class="line">        SpringApplication.run(HelloWorldMainApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编写一个Controller</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.nolva.springboot.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * RestController：是spring4里的新注解，是<span class="doctag">@ResponseBody</span>和<span class="doctag">@Controller</span>的缩写。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;hello SpringBoot,this is my first Application&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>运行主程序Main方法测试</p>
-</li>
-<li><p>访问 <a href="http://localhost:8080/hello">localhost:8080/hello</a></p>
-</li>
-</ol>
-<h2 id="简化部署"><a href="#简化部署" class="headerlink" title="[简化部署]"></a>[简化部署]</h2><ol>
-<li><p>添加maven插件</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 这个插件，可以将应用打包成一个可执行的jar包；--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用mvn package进行打包</p>
-</li>
-<li><p>进入打包好的jar包所在目录</p>
-</li>
-<li><p>使用 <code>java -jar jar包名称</code> 运行</p>
-</li>
-</ol>
-<h2 id="Hello-World探究"><a href="#Hello-World探究" class="headerlink" title="[Hello World探究]"></a>[Hello World探究]</h2><h3 id="依赖"><a href="#依赖" class="headerlink" title="[依赖]"></a>[依赖]</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">  &lt;!--Hello World项目的父工程是org.springframework.boot--&gt;</span><br><span class="line">  &lt;parent&gt;</span><br><span class="line">      &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;2.2.1.RELEASE&lt;/version&gt;</span><br><span class="line">      &lt;relativePath/&gt;</span><br><span class="line">  &lt;/parent&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!--</span><br><span class="line">      org.springframework.boot他的父项目是spring-boot-dependencies</span><br><span class="line">      他来真正管理Spring Boot应用里面的所有依赖版本；</span><br><span class="line">      Spring Boot的版本仲裁中心；</span><br><span class="line">      以后我们导入依赖默认是不需要写版本；（没有在dependencies里面管理的依赖自然需要声明版本号）</span><br><span class="line">  --&gt;</span><br><span class="line">&lt;parent&gt;</span><br><span class="line">  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;spring-boot-dependencies&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;2.2.1.RELEASE&lt;/version&gt;</span><br><span class="line">  &lt;relativePath&gt;../../spring-boot-dependencies&lt;/relativePath&gt;</span><br><span class="line">&lt;/parent&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="启动器"><a href="#启动器" class="headerlink" title="[启动器]"></a>[启动器]</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><strong>spring-boot-starter</strong>-<code>web</code>：</p>
-<p> spring-boot-starter：spring-boot场景启动器；帮我们导入了web模块正常运行所依赖的组件；</p>
-<p>Spring Boot将所有的功能场景都抽取出来，做成一个个的starters（启动器），只需要在项目里面引入这些starter相关场景的所有依赖都会导入进来。要用什么功能就导入什么场景的启动器</p>
-<h3 id="主程序类，主入口类"><a href="#主程序类，主入口类" class="headerlink" title="[主程序类，主入口类]"></a>[主程序类，主入口类]</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldMainApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//启动</span></span><br><span class="line">        SpringApplication.run(HelloWorldMainApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>@SpringBootApplication</code>: Spring Boot应用标注在某个类上说明这个类是SpringBoot的主配置类，SpringBoot就应该运行这个类的main方法来启动SpringBoot应用；</p>
-<p>看一下<code>@SpringBootApplication</code>这个注解类的源码</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span>    <span class="comment">//可以给一个类型进行注解，比如类、接口、枚举</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span>    <span class="comment">//可以保留到程序运行的时候，它会被加载进入到 JVM 中</span></span><br><span class="line"><span class="meta">@Documented</span>    <span class="comment">//将注解中的元素包含到 Javadoc 中去。</span></span><br><span class="line"><span class="meta">@Inherited</span>    <span class="comment">//继承，比如A类上有该注解，B类继承A类，B类就也拥有该注解</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@SpringBootConfiguration</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">*创建一个配置类，在配置类上添加 @ComponentScan 注解。</span></span><br><span class="line"><span class="comment">*该注解默认会扫描该类所在的包下所有的配置类，相当于之前的 &lt;context:component-scan&gt;。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@ComponentScan(</span></span><br><span class="line"><span class="meta">    excludeFilters = &#123;@Filter(</span></span><br><span class="line"><span class="meta">    type = FilterType.CUSTOM,</span></span><br><span class="line"><span class="meta">    classes = &#123;TypeExcludeFilter.class&#125;</span></span><br><span class="line"><span class="meta">), @Filter(</span></span><br><span class="line"><span class="meta">    type = FilterType.CUSTOM,</span></span><br><span class="line"><span class="meta">    classes = &#123;AutoConfigurationExcludeFilter.class&#125;</span></span><br><span class="line"><span class="meta">)&#125;</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootApplication</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p><code>@SpringBootConfiguration</code>：Spring Boot的配置类；标注在某个类上，表示这是一个Spring Boot的配置类；</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootConfiguration</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p><code>@Configuration</code>：配置类上来标注这个注解；</p>
-<p>配置类 ——- 配置文件；配置类也是容器中的一个组件；@Component</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Configuration</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p><code>@EnableAutoConfiguration</code>：开启自动配置功能；</p>
-<p>以前我们需要配置的东西，Spring Boot帮我们自动配置；@<strong>EnableAutoConfiguration</strong>告诉SpringBoot开启自动配置功能；这样自动配置才能生效；</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Inherited</span><br><span class="line">@AutoConfigurationPackage</span><br><span class="line">@Import(&#123;AutoConfigurationImportSelector.class&#125;)</span><br><span class="line">public @interface EnableAutoConfiguration</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p><code>@AutoConfigurationPackage</code>：自动配置包</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@Import(&#123;Registrar.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> AutoConfigurationPackage</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p><code>@Import</code>：Spring的底层注解@Import，给容器中导入一个组件</p>
-<p>导入的组件由<code>org.springframework.boot.autoconfigure.AutoConfigurationPackages.Registrar</code>将主配置类（@SpringBootApplication标注的类）的所在包及下面所有子包里面的所有组件扫描到Spring容器；</p>
-<p><img src="/post/a06b7d48/1573637120233.png" alt="DEBUG"></p>
-<p>这里controller包是在主程序所在的包下，所以会被扫描到，我们在springboot包下创建一个test包，把主程序放在test包下，这样启动就只会去扫描test包下的内容而controller包就不会被扫描到，再访问开始的hello就是404</p>
-<p><img src="/post/a06b7d48/1573637728857.png" alt="DEBUG"></p>
-</li>
-</ul>
-</li>
-<li><p><code>@Import(&#123;AutoConfigurationImportSelector.class&#125;)</code></p>
-<p><code>AutoConfigurationImportSelector.class</code>将所有需要导入的组件以全类名的方式返回；这些组件就会被添加到容器中；会给容器中导入非常多的自动配置类（xxxAutoConfiguration）；就是给容器中导入这个场景需要的所有组件，并配置好这些组件；</p>
-<p>有了自动配置类，免去了我们手动编写配置注入功能组件等的工作；</p>
-<p><img src="/post/a06b7d48/1573638685562.png" alt="Configuration"></p>
-</li>
-</ul>
-</li>
-</ul>
-<p>Spring Boot在启动的时候从类路径下的META-INF/spring.factories中获取EnableAutoConfiguration指定的值，将这些值作为自动配置类导入到容器中，自动配置类就生效，帮我们进行自动配置工作；以前我们需要自己配置的东西，自动配置类都帮我们完成了；</p>
-]]></content>
       <categories>
         <category>Spring Boot</category>
       </categories>
@@ -1169,6 +1169,78 @@ a~=~in·\overline{sel},~b~=~in·sel</script><h3 id="多位逻辑门"><a href="#�
       </tags>
   </entry>
   <entry>
+    <title>nand2tetris C3-时序逻辑</title>
+    <url>/post/5b81f62b/</url>
+    <content><![CDATA[<h1 id="时序逻辑-Sequential-Logic"><a href="#时序逻辑-Sequential-Logic" class="headerlink" title="[时序逻辑 Sequential Logic]"></a>[时序逻辑 Sequential Logic]</h1><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><p><strong>时钟(Clock)</strong>: 计算机里时间的流逝是用主时针(master clock)来表示的，它提供连续的<strong>交变信号序列</strong>。硬件实现通常基于<strong>振荡器(oscillator)</strong>，其在两个信号值<strong>0-1</strong>，或称<strong>“低电平-高电平(low-high, tick-tock)”</strong>之间交替变化。两个相邻的上升沿之间的时间间隙称为时钟的<strong>周期(cycle)</strong>，每个时钟周期模塑一个<strong>离散的时间单元</strong>。通过硬件电路，这个信号同时被传送到计算机平台的每个时序芯片中。</p>
+<p><strong>触发器(Flip-Flops)</strong>: 本书使用<strong>数据触发器(Data Flip-Flop, DFF或称D触发器)</strong>。实现基于时间的行为：</p>
+<script type="math/tex; mode=display">
+out(t) = in(t - 1)</script><p>t是当前时钟周期。换而言之，DFF能够简单的实现将前一个时间周期的输入值作为当前周期的输出值。</p>
+<p><code>out(t) = in(t - 1)</code>是所有计算机硬件维持自身状态的基础，二进制单元 -&gt; 寄存器 -&gt; 任意大的随机存取记忆单元(RAM) 都是如此.</p>
+<p><strong>寄存器(Registers)</strong>: 能够“储存”某一时刻的值，实现经典的存储行为：</p>
+<script type="math/tex; mode=display">
+out(t) = out(t - 1)</script><p>从另一个方面来说，DFF仅能够输出它前一时钟周期的输出，也就是<code>out(t) = in(t - 1)</code>。这提示了我们，可以通过DFF来实现寄存器，只需将后面的输出反馈到它的输入就可以了。</p>
+<p><img src="/post/5b81f62b/image-20200818162126362.png" alt="image-20200818162126362" style="zoom: 50%;"></p>
+<p>如此一来，在任何时刻<code>t</code>，这个设备的输出都会重现它在时刻<code>t-1</code>的值。</p>
+<p>如图3.1右，</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">load = 1, out(t) = in(t-1),  相当于wirte操作, 希望开始存储新值, 把值置于in输入口;</span><br><span class="line">load = 0, out(t) = out(t-1), 相当于read操作, 希望一直存储它的内部值直到新的指令到来</span><br></pre></td></tr></table></figure>
+<p><img src="/post/5b81f62b/image-20200818163142204.png" alt="image-20200818163142204" style="zoom: 50%;"></p>
+<p><strong>内存(Memories)</strong>: …… 随机存取内存(RAM, Random Acess Memory): 在RAM上能够随机访问被选择的字而不会受限于访问顺序。</p>
+<p><img src="/post/5b81f62b/image-20200818163246416.png" alt="image-20200818163246416" style="zoom: 50%;"></p>
+<p><strong>计数器(Counter)</strong>: 每经过一个时间周期计数器就增加1个单位，执行函数<code>out(t) = out(t-1) + c</code>，这里<code>c</code>就是1.</p>
+<h3 id="时间问题"><a href="#时间问题" class="headerlink" title="[时间问题]"></a>[时间问题]</h3><p>至此本章介绍的芯片都是时序芯片(sequential chip)。简单来说，时序芯片就是直接或间接地嵌入一个或多个DFF门的芯片。</p>
+<p>反馈回路：输出依赖于输入，而输入本身有依赖于输出，因此输出只依赖自身。</p>
+<p><img src="/post/5b81f62b/image-20200818171444271.png" alt="image-20200818171444271" style="zoom: 50%;"></p>
+<p>省略……</p>
+<h3 id="规范详述"><a href="#规范详述" class="headerlink" title="[规范详述]"></a>[规范详述]</h3><ul>
+<li><p>D触发器(DFFs)</p>
+</li>
+<li><p>寄存器 (基于DFFs)</p>
+</li>
+<li><p>存储块 (基于寄存器)</p>
+</li>
+<li><p>计数器芯片 (基于寄存器)</p>
+<p>太多细节，几乎都是必看的，建议看书；避免抄书，在此省略……</p>
+</li>
+</ul>
+<h3 id="实现硬件"><a href="#实现硬件" class="headerlink" title="[实现硬件]"></a>[实现硬件]</h3><p><strong>1Bit寄存器</strong>：</p>
+<ul>
+<li>If load[t] == 1 then out[t+1] = in[t]<ul>
+<li>else out does not change (out[t+1] = out[t])</li>
+</ul>
+</li>
+</ul>
+<p><img src="/post/5b81f62b/image-20200822231745454.png" alt="image-20200822231745454" style="zoom: 50%;"></p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">CHIP Bit &#123;</span><br><span class="line">    IN <span class="keyword">in</span>, load;</span><br><span class="line">    OUT out;</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// lastOut is equal to the last time out, Assigned by DFF<span class="string">&#x27;s lastOut</span></span><br><span class="line"><span class="string">    Mux(a=lastOut, b=in, sel=load, out=muxOut);</span></span><br><span class="line"><span class="string">    // cause the out is distinct(Only use once), so we can add out to copy the out</span></span><br><span class="line"><span class="string">    DFF(in=muxOut, out=lastOut, out=out);</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<p><strong>n-Bits寄存器</strong>：</p>
+<p>n个<strong>1Bit寄存器</strong>串联 和 <code>log(2)n</code>的address选择寄存器进行读写（取址执行的基础 ）。</p>
+<p><strong>n-Bits RAM(Random Access Memory)</strong>：</p>
+<p><img src="/post/5b81f62b/image-20200822234706201.png" alt="image-20200822234706201" style="zoom: 50%;"></p>
+<p>address用于寻址：根据<code>address = i</code>找出需要载入的<strong>1Bit寄存器</strong>，此时该寄存器设置<code>load = 1，in = M</code>，并在下一个时间周期<code>out = M</code>，实现<code>out(t) = in(t-1)</code></p>
+<p><img src="/post/5b81f62b/image-20200822235721818.png" alt="image-20200822235721818" style="zoom:50%;"></p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 16-bit register:</span></span><br><span class="line">CHIP Register &#123;</span><br><span class="line">    IN <span class="keyword">in</span>[<span class="number">16</span>], load;</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// No Mux16, because DFF only accept <span class="number">1</span> bit input &amp; output.</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">0</span>], load=load, out=out[<span class="number">0</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">1</span>], load=load, out=out[<span class="number">1</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">2</span>], load=load, out=out[<span class="number">2</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">3</span>], load=load, out=out[<span class="number">3</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">4</span>], load=load, out=out[<span class="number">4</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">5</span>], load=load, out=out[<span class="number">5</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">6</span>], load=load, out=out[<span class="number">6</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">7</span>], load=load, out=out[<span class="number">7</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">8</span>], load=load, out=out[<span class="number">8</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">9</span>], load=load, out=out[<span class="number">9</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">10</span>], load=load, out=out[<span class="number">10</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">11</span>], load=load, out=out[<span class="number">11</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">12</span>], load=load, out=out[<span class="number">12</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">13</span>], load=load, out=out[<span class="number">13</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">14</span>], load=load, out=out[<span class="number">14</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">15</span>], load=load, out=out[<span class="number">15</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Memory of 8 registers, each 16 bit-wide.</strong></p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">CHIP RAM8 &#123;</span><br><span class="line">    IN <span class="keyword">in</span>[<span class="number">16</span>], load, address[<span class="number">3</span>];</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// <span class="keyword">in</span> accordance with address, locate which register to load</span><br><span class="line">    DMux8Way(<span class="keyword">in</span>=<span class="keyword">in</span>, sel=address, a=in0, b=in1, c=in2, d=in3, e=in4, f=in5, g=in6, h=in7);</span><br><span class="line"></span><br><span class="line">    Register(<span class="keyword">in</span>=in0, load=load, out=out0);</span><br><span class="line">    Register(<span class="keyword">in</span>=in1, load=load, out=out1);</span><br><span class="line">    Register(<span class="keyword">in</span>=in2, load=load, out=out2);</span><br><span class="line">    Register(<span class="keyword">in</span>=in3, load=load, out=out3);</span><br><span class="line">    Register(<span class="keyword">in</span>=in4, load=load, out=out4);</span><br><span class="line">    Register(<span class="keyword">in</span>=in5, load=load, out=out5);</span><br><span class="line">    Register(<span class="keyword">in</span>=in6, load=load, out=out6);</span><br><span class="line">    Register(<span class="keyword">in</span>=in7, load=load, out=out7);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// in accordance with address, decide which register should output</span></span><br><span class="line">    Mux8Way16(a=out0, b=out1, c=out2, d=out3, e=out4, f=out5, g=out6, h=out7, sel=address, out=out);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Couters</strong></p>
+<p>三个基本功能：</p>
+<ul>
+<li>重置计数器</li>
+<li>计数器自增</li>
+<li>为计数器赋值</li>
+</ul>
+<p><img src="/post/5b81f62b/image-20200823000717282.png" alt="image-20200823000717282" style="zoom:50%;"></p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">CHIP PC &#123;</span><br><span class="line">    IN <span class="keyword">in</span>[<span class="number">16</span>],load,inc,reset;</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// Order cant change</span><br><span class="line">    <span class="comment">// inc</span></span><br><span class="line">    Mux16(a=lastOut, b=incOut, sel=inc, out=out1);</span><br><span class="line">    <span class="comment">// laod</span></span><br><span class="line">    Mux16(a=out1, b=<span class="keyword">in</span>, sel=load, out=out2);</span><br><span class="line">    <span class="comment">// reset</span></span><br><span class="line">    Mux16(a=out2, b=<span class="literal">false</span>, sel=reset, out=out3);</span><br><span class="line"></span><br><span class="line">    Register(<span class="keyword">in</span>=out3, load=<span class="literal">true</span>, out=lastOut, out=out);</span><br><span class="line">    Inc16(<span class="keyword">in</span>=lastOut, out=incOut);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Computer Architecture</category>
+      </categories>
+      <tags>
+        <tag>RAM</tag>
+        <tag>nand2tetris</tag>
+        <tag>HDL</tag>
+        <tag>Register</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>nand2tetris C2-布尔算法</title>
     <url>/post/c8f554f1/</url>
     <content><![CDATA[<h1 id="布尔算法运算-Boolean-Arithmetic"><a href="#布尔算法运算-Boolean-Arithmetic" class="headerlink" title="[布尔算法运算 Boolean Arithmetic]"></a>[布尔算法运算 Boolean Arithmetic]</h1><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><p>两个<code>n-</code>位数字二进制加法的计算机硬件可以由三位加法的逻辑门构建而成。（两个计算位加上一个进位）</p>
@@ -1273,78 +1345,6 @@ a~=~in·\overline{sel},~b~=~in·sel</script><h3 id="多位逻辑门"><a href="#�
         <tag>nand2tetris</tag>
         <tag>HDL</tag>
         <tag>ALU</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>nand2tetris C3-时序逻辑</title>
-    <url>/post/5b81f62b/</url>
-    <content><![CDATA[<h1 id="时序逻辑-Sequential-Logic"><a href="#时序逻辑-Sequential-Logic" class="headerlink" title="[时序逻辑 Sequential Logic]"></a>[时序逻辑 Sequential Logic]</h1><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><p><strong>时钟(Clock)</strong>: 计算机里时间的流逝是用主时针(master clock)来表示的，它提供连续的<strong>交变信号序列</strong>。硬件实现通常基于<strong>振荡器(oscillator)</strong>，其在两个信号值<strong>0-1</strong>，或称<strong>“低电平-高电平(low-high, tick-tock)”</strong>之间交替变化。两个相邻的上升沿之间的时间间隙称为时钟的<strong>周期(cycle)</strong>，每个时钟周期模塑一个<strong>离散的时间单元</strong>。通过硬件电路，这个信号同时被传送到计算机平台的每个时序芯片中。</p>
-<p><strong>触发器(Flip-Flops)</strong>: 本书使用<strong>数据触发器(Data Flip-Flop, DFF或称D触发器)</strong>。实现基于时间的行为：</p>
-<script type="math/tex; mode=display">
-out(t) = in(t - 1)</script><p>t是当前时钟周期。换而言之，DFF能够简单的实现将前一个时间周期的输入值作为当前周期的输出值。</p>
-<p><code>out(t) = in(t - 1)</code>是所有计算机硬件维持自身状态的基础，二进制单元 -&gt; 寄存器 -&gt; 任意大的随机存取记忆单元(RAM) 都是如此.</p>
-<p><strong>寄存器(Registers)</strong>: 能够“储存”某一时刻的值，实现经典的存储行为：</p>
-<script type="math/tex; mode=display">
-out(t) = out(t - 1)</script><p>从另一个方面来说，DFF仅能够输出它前一时钟周期的输出，也就是<code>out(t) = in(t - 1)</code>。这提示了我们，可以通过DFF来实现寄存器，只需将后面的输出反馈到它的输入就可以了。</p>
-<p><img src="/post/5b81f62b/image-20200818162126362.png" alt="image-20200818162126362" style="zoom: 50%;"></p>
-<p>如此一来，在任何时刻<code>t</code>，这个设备的输出都会重现它在时刻<code>t-1</code>的值。</p>
-<p>如图3.1右，</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">load = 1, out(t) = in(t-1),  相当于wirte操作, 希望开始存储新值, 把值置于in输入口;</span><br><span class="line">load = 0, out(t) = out(t-1), 相当于read操作, 希望一直存储它的内部值直到新的指令到来</span><br></pre></td></tr></table></figure>
-<p><img src="/post/5b81f62b/image-20200818163142204.png" alt="image-20200818163142204" style="zoom: 50%;"></p>
-<p><strong>内存(Memories)</strong>: …… 随机存取内存(RAM, Random Acess Memory): 在RAM上能够随机访问被选择的字而不会受限于访问顺序。</p>
-<p><img src="/post/5b81f62b/image-20200818163246416.png" alt="image-20200818163246416" style="zoom: 50%;"></p>
-<p><strong>计数器(Counter)</strong>: 每经过一个时间周期计数器就增加1个单位，执行函数<code>out(t) = out(t-1) + c</code>，这里<code>c</code>就是1.</p>
-<h3 id="时间问题"><a href="#时间问题" class="headerlink" title="[时间问题]"></a>[时间问题]</h3><p>至此本章介绍的芯片都是时序芯片(sequential chip)。简单来说，时序芯片就是直接或间接地嵌入一个或多个DFF门的芯片。</p>
-<p>反馈回路：输出依赖于输入，而输入本身有依赖于输出，因此输出只依赖自身。</p>
-<p><img src="/post/5b81f62b/image-20200818171444271.png" alt="image-20200818171444271" style="zoom: 50%;"></p>
-<p>省略……</p>
-<h3 id="规范详述"><a href="#规范详述" class="headerlink" title="[规范详述]"></a>[规范详述]</h3><ul>
-<li><p>D触发器(DFFs)</p>
-</li>
-<li><p>寄存器 (基于DFFs)</p>
-</li>
-<li><p>存储块 (基于寄存器)</p>
-</li>
-<li><p>计数器芯片 (基于寄存器)</p>
-<p>太多细节，几乎都是必看的，建议看书；避免抄书，在此省略……</p>
-</li>
-</ul>
-<h3 id="实现硬件"><a href="#实现硬件" class="headerlink" title="[实现硬件]"></a>[实现硬件]</h3><p><strong>1Bit寄存器</strong>：</p>
-<ul>
-<li>If load[t] == 1 then out[t+1] = in[t]<ul>
-<li>else out does not change (out[t+1] = out[t])</li>
-</ul>
-</li>
-</ul>
-<p><img src="/post/5b81f62b/image-20200822231745454.png" alt="image-20200822231745454" style="zoom: 50%;"></p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">CHIP Bit &#123;</span><br><span class="line">    IN <span class="keyword">in</span>, load;</span><br><span class="line">    OUT out;</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// lastOut is equal to the last time out, Assigned by DFF<span class="string">&#x27;s lastOut</span></span><br><span class="line"><span class="string">    Mux(a=lastOut, b=in, sel=load, out=muxOut);</span></span><br><span class="line"><span class="string">    // cause the out is distinct(Only use once), so we can add out to copy the out</span></span><br><span class="line"><span class="string">    DFF(in=muxOut, out=lastOut, out=out);</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
-<p><strong>n-Bits寄存器</strong>：</p>
-<p>n个<strong>1Bit寄存器</strong>串联 和 <code>log(2)n</code>的address选择寄存器进行读写（取址执行的基础 ）。</p>
-<p><strong>n-Bits RAM(Random Access Memory)</strong>：</p>
-<p><img src="/post/5b81f62b/image-20200822234706201.png" alt="image-20200822234706201" style="zoom: 50%;"></p>
-<p>address用于寻址：根据<code>address = i</code>找出需要载入的<strong>1Bit寄存器</strong>，此时该寄存器设置<code>load = 1，in = M</code>，并在下一个时间周期<code>out = M</code>，实现<code>out(t) = in(t-1)</code></p>
-<p><img src="/post/5b81f62b/image-20200822235721818.png" alt="image-20200822235721818" style="zoom:50%;"></p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 16-bit register:</span></span><br><span class="line">CHIP Register &#123;</span><br><span class="line">    IN <span class="keyword">in</span>[<span class="number">16</span>], load;</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// No Mux16, because DFF only accept <span class="number">1</span> bit input &amp; output.</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">0</span>], load=load, out=out[<span class="number">0</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">1</span>], load=load, out=out[<span class="number">1</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">2</span>], load=load, out=out[<span class="number">2</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">3</span>], load=load, out=out[<span class="number">3</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">4</span>], load=load, out=out[<span class="number">4</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">5</span>], load=load, out=out[<span class="number">5</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">6</span>], load=load, out=out[<span class="number">6</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">7</span>], load=load, out=out[<span class="number">7</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">8</span>], load=load, out=out[<span class="number">8</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">9</span>], load=load, out=out[<span class="number">9</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">10</span>], load=load, out=out[<span class="number">10</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">11</span>], load=load, out=out[<span class="number">11</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">12</span>], load=load, out=out[<span class="number">12</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">13</span>], load=load, out=out[<span class="number">13</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">14</span>], load=load, out=out[<span class="number">14</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">15</span>], load=load, out=out[<span class="number">15</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>Memory of 8 registers, each 16 bit-wide.</strong></p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">CHIP RAM8 &#123;</span><br><span class="line">    IN <span class="keyword">in</span>[<span class="number">16</span>], load, address[<span class="number">3</span>];</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// <span class="keyword">in</span> accordance with address, locate which register to load</span><br><span class="line">    DMux8Way(<span class="keyword">in</span>=<span class="keyword">in</span>, sel=address, a=in0, b=in1, c=in2, d=in3, e=in4, f=in5, g=in6, h=in7);</span><br><span class="line"></span><br><span class="line">    Register(<span class="keyword">in</span>=in0, load=load, out=out0);</span><br><span class="line">    Register(<span class="keyword">in</span>=in1, load=load, out=out1);</span><br><span class="line">    Register(<span class="keyword">in</span>=in2, load=load, out=out2);</span><br><span class="line">    Register(<span class="keyword">in</span>=in3, load=load, out=out3);</span><br><span class="line">    Register(<span class="keyword">in</span>=in4, load=load, out=out4);</span><br><span class="line">    Register(<span class="keyword">in</span>=in5, load=load, out=out5);</span><br><span class="line">    Register(<span class="keyword">in</span>=in6, load=load, out=out6);</span><br><span class="line">    Register(<span class="keyword">in</span>=in7, load=load, out=out7);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// in accordance with address, decide which register should output</span></span><br><span class="line">    Mux8Way16(a=out0, b=out1, c=out2, d=out3, e=out4, f=out5, g=out6, h=out7, sel=address, out=out);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>Couters</strong></p>
-<p>三个基本功能：</p>
-<ul>
-<li>重置计数器</li>
-<li>计数器自增</li>
-<li>为计数器赋值</li>
-</ul>
-<p><img src="/post/5b81f62b/image-20200823000717282.png" alt="image-20200823000717282" style="zoom:50%;"></p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">CHIP PC &#123;</span><br><span class="line">    IN <span class="keyword">in</span>[<span class="number">16</span>],load,inc,reset;</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// Order cant change</span><br><span class="line">    <span class="comment">// inc</span></span><br><span class="line">    Mux16(a=lastOut, b=incOut, sel=inc, out=out1);</span><br><span class="line">    <span class="comment">// laod</span></span><br><span class="line">    Mux16(a=out1, b=<span class="keyword">in</span>, sel=load, out=out2);</span><br><span class="line">    <span class="comment">// reset</span></span><br><span class="line">    Mux16(a=out2, b=<span class="literal">false</span>, sel=reset, out=out3);</span><br><span class="line"></span><br><span class="line">    Register(<span class="keyword">in</span>=out3, load=<span class="literal">true</span>, out=lastOut, out=out);</span><br><span class="line">    Inc16(<span class="keyword">in</span>=lastOut, out=incOut);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Computer Architecture</category>
-      </categories>
-      <tags>
-        <tag>RAM</tag>
-        <tag>nand2tetris</tag>
-        <tag>HDL</tag>
-        <tag>Register</tag>
       </tags>
   </entry>
   <entry>
