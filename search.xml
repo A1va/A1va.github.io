@@ -516,35 +516,6 @@ T(响应时间)=T(首次运行)-T(到达时间)</script><p>考虑一种情况：
       </tags>
   </entry>
   <entry>
-    <title>Spring Initializer快建项目</title>
-    <url>/post/8340e3af/</url>
-    <content><![CDATA[<h1 id="使用Spring-Initializer快速创建Spring-Boot项目"><a href="#使用Spring-Initializer快速创建Spring-Boot项目" class="headerlink" title="[使用Spring Initializer快速创建Spring Boot项目]"></a>[使用Spring Initializer快速创建Spring Boot项目]</h1><p>IDE都支持使用Spring的项目创建向导快速创建一个Spring Boot项目；</p>
-<p>选择我们需要的模块；向导会联网创建Spring Boot项目；</p>
-<p>需要联网</p>
-<h2 id="IDEA"><a href="#IDEA" class="headerlink" title="[IDEA]"></a>[IDEA]</h2><ol>
-<li><p>创建项目时选择Spring Initializr</p>
-<p><img src="/post/8340e3af/1573639771931.png" alt="idea01"></p>
-</li>
-<li><p>完善项目信息</p>
-<p><img src="/post/8340e3af/1573639923504.png" alt="idea02"></p>
-<p>出现 <strong>Artifact contains illegal characters</strong> 是因为<code>Artifact</code>中使用了大写，只能是全小写，单词之间用<code>-</code>分隔</p>
-</li>
-<li><p>选择需要的starter</p>
-<p><img src="/post/8340e3af/1573640773365.png" alt="idea03"></p>
-</li>
-<li><p>创建完成后 不要的文件可以删除</p>
-<p><img src="/post/8340e3af/1573641023432.png" alt="idea04"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Spring Boot</category>
-      </categories>
-      <tags>
-        <tag>Spring Boot</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Spring Boot的自动配置原理</title>
     <url>/post/7fc7b961/</url>
     <content><![CDATA[<h1 id="自动配置原理"><a href="#自动配置原理" class="headerlink" title="[自动配置原理]"></a>[自动配置原理]</h1><p>配置文件到底能写什么？怎么写？自动配置原理；</p>
@@ -659,41 +630,6 @@ T(响应时间)=T(首次运行)-T(到达时间)</script><p>考虑一种情况：
       </categories>
       <tags>
         <tag>Spring Boot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Stack&amp;Heap</title>
-    <url>/post/e5494597/</url>
-    <content><![CDATA[<h1 id="栈（Stack）和堆（Heap）"><a href="#栈（Stack）和堆（Heap）" class="headerlink" title="栈（Stack）和堆（Heap）"></a>栈（Stack）和堆（Heap）</h1><p>​        目前来说我们知道怎么去声明一个基础类型的变量，比如int，float，等等。以及复杂数据类型数组和结构，声明它们的时候C会把这些变量放在栈上。<strong>每个线程都有一个栈，而程序通常只有一个堆</strong>。</p>
-<h3 id="栈（Stack）"><a href="#栈（Stack）" class="headerlink" title="栈（Stack）"></a>栈（Stack）</h3><p>  什么是栈？它是内存中一块特殊的区域，<strong>用于保存在函数中声明的零时变量</strong>（其中也包括<code>main()</code>函数）。栈是LIFO(Last in First Out 后进先出)的数据结构，进出操作是由CPU来管理和优化的。<strong>调用函数时就会使用栈。</strong>每当函数声明了一个变量，该变量就会被<strong>推入(Pushed)</strong>栈中。每当函数退出时，所有的变量都会被函数推出栈，并被<strong>释放掉(Free)</strong>。一旦变量被释放，该内存区域就可以被其他栈变量使用。<br>  使用栈的优势是它会为你管理内存，而不需要你手动去分配或者释放内存。更进一步说，由于CPU可以有效地管理栈内存，所以从栈中读写变量是很快的。<br>  理解栈的关键是需要知道函数什么时候退出，此时栈中所有的变量被推出，因此<strong>栈变量是局部的</strong>（也就是局部变量）。C中经常出现的一个错误就是，在函数返回以后去访问函数内部中栈变量。<br>  如果使用太多的栈空间会导致溢出，比如在使用递归的时候，该函数使用了太多的局部变量在递归过程中就有可能造成<strong>栈溢出</strong>。</p>
-<blockquote>
-<p>总结</p>
-<ul>
-<li>栈是LIFO数据结构；</li>
-<li>CPU管理内存，而不需要手动去管理。正是因为这个原因从栈中读写变量<strong>很快</strong>的；</li>
-<li>栈变量是局部的（也就是局部变量）；</li>
-<li>栈的容量会随着函数的Push和Pop变化；</li>
-</ul>
-</blockquote>
-<h3 id="堆（Heap）"><a href="#堆（Heap）" class="headerlink" title="堆（Heap）"></a>堆（Heap）</h3><p>  堆也是内存中一块特定区域，但是CPU并不会自动管理相关的操作，而且它的空间大小会有一定的浮动。在堆上分配内存的时候，在C中使用<code>malloc()</code>和<code>calloc()</code>函数。在不需要堆上这块内存之后，需要使用<code>free()</code>函数释放掉它。<strong>如果不释放的话就会造成内存泄漏</strong>，这块内存就会被闲置。<br>  和栈不同之处在于，<strong>堆内存数据的读写速度会比栈慢</strong>。</p>
-<h3 id="栈（Stack）和堆（Heap）的差异"><a href="#栈（Stack）和堆（Heap）的差异" class="headerlink" title="栈（Stack）和堆（Heap）的差异"></a>栈（Stack）和堆（Heap）的差异</h3><h4 id="配置堆栈大小"><a href="#配置堆栈大小" class="headerlink" title="配置堆栈大小"></a>配置堆栈大小</h4><p>  堆的大小在程序启动时分配，数值在不同操作系统中可能有所不同。<br>  在Cocoa中想要修改线程的栈大小的话，可以使用<code>NSThread</code>的实例方法<code>setStackSize:</code>，如果使用POSIX线程技术创建的线程的话，想要设置栈大小的话使用<code>pthread_attr_setstacksize</code>函数。</p>
-<blockquote>
-<p>⚠️如果要设置栈大小就必须要在创建线程之前完成。</p>
-</blockquote>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 第一种</span></span><br><span class="line">NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(backgroudMethod:) object:nil];</span><br><span class="line">[thread setStackSize:<span class="number">1024</span>];</span><br><span class="line">[thread start];</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 第二种</span></span><br><span class="line"><span class="keyword">pthread_attr_t</span> attr;</span><br><span class="line"><span class="keyword">pthread_t</span> posix_tread_id;</span><br><span class="line"><span class="keyword">int</span> returnVal;</span><br><span class="line">returnVal = pthread_attr_init(&amp;attr);</span><br><span class="line">returnVal = pthread_attr_setstacksize(&amp;attr, <span class="number">1024</span>);  <span class="comment">// 在创建线程前设置堆栈大小</span></span><br><span class="line"><span class="keyword">char</span> *data;</span><br><span class="line">data = <span class="string">&quot;To ensure that a thread knows what work to do&quot;</span>;</span><br><span class="line"><span class="keyword">int</span> thread_error = pthread_create(&amp;posix_tread_id, &amp;attr, posix_thread_mainroutine, data);</span><br></pre></td></tr></table></figure>
-<h4 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h4><p>  栈是和线程相关联的，意思就是说当线程退出时，栈被回收。而堆通常是在启动程序时分配，当程序退出之后被回收。</p>
-<h3 id="什么时候使用栈什么时候使用堆"><a href="#什么时候使用栈什么时候使用堆" class="headerlink" title="什么时候使用栈什么时候使用堆"></a>什么时候使用栈什么时候使用堆</h3><ul>
-<li>需要申请较大内存空间（比如struct，array之类的），而且需要该变量存在较长时间，就是将该变量放在<strong>堆</strong>中；</li>
-<li>如果需要动态修改struct或者array的大小，将该变量放在<strong>堆</strong>上。使用<code>malloc()</code>，<code>calloc()</code>，<code>realloc()</code>和<code>free()</code>等函数来管理内存；</li>
-<li>如果使用相对较小的变量，并且只在函数中使用它们，此时该变量就存在于栈上。这样做会更快而且更简单。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>内存布局</category>
-      </categories>
-      <tags>
-        <tag>stack</tag>
-        <tag>heap</tag>
       </tags>
   </entry>
   <entry>
@@ -900,6 +836,35 @@ fruits: [苹果,桃子,香蕉]<figure class="highlight plain"><table><tr><td cla
 <p>所有支持的配置加载来源：</p>
 <p><a href="https://docs.spring.io/spring-boot/docs/2.2.1.RELEASE/reference/htmlsingle/#boot-features-external-config">参考官方文档</a></p>
 <p><img src="/post/99fd0336/1573735371567.png" alt="1573735371567"></p>
+]]></content>
+      <categories>
+        <category>Spring Boot</category>
+      </categories>
+      <tags>
+        <tag>Spring Boot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring Initializer快建项目</title>
+    <url>/post/8340e3af/</url>
+    <content><![CDATA[<h1 id="使用Spring-Initializer快速创建Spring-Boot项目"><a href="#使用Spring-Initializer快速创建Spring-Boot项目" class="headerlink" title="[使用Spring Initializer快速创建Spring Boot项目]"></a>[使用Spring Initializer快速创建Spring Boot项目]</h1><p>IDE都支持使用Spring的项目创建向导快速创建一个Spring Boot项目；</p>
+<p>选择我们需要的模块；向导会联网创建Spring Boot项目；</p>
+<p>需要联网</p>
+<h2 id="IDEA"><a href="#IDEA" class="headerlink" title="[IDEA]"></a>[IDEA]</h2><ol>
+<li><p>创建项目时选择Spring Initializr</p>
+<p><img src="/post/8340e3af/1573639771931.png" alt="idea01"></p>
+</li>
+<li><p>完善项目信息</p>
+<p><img src="/post/8340e3af/1573639923504.png" alt="idea02"></p>
+<p>出现 <strong>Artifact contains illegal characters</strong> 是因为<code>Artifact</code>中使用了大写，只能是全小写，单词之间用<code>-</code>分隔</p>
+</li>
+<li><p>选择需要的starter</p>
+<p><img src="/post/8340e3af/1573640773365.png" alt="idea03"></p>
+</li>
+<li><p>创建完成后 不要的文件可以删除</p>
+<p><img src="/post/8340e3af/1573641023432.png" alt="idea04"></p>
+</li>
+</ol>
 ]]></content>
       <categories>
         <category>Spring Boot</category>
@@ -1173,6 +1138,41 @@ a~=~in·\overline{sel},~b~=~in·sel</script><h3 id="多位逻辑门"><a href="#�
       <tags>
         <tag>nand2tetris</tag>
         <tag>HDL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Stack&amp;Heap</title>
+    <url>/post/e5494597/</url>
+    <content><![CDATA[<h1 id="栈（Stack）和堆（Heap）"><a href="#栈（Stack）和堆（Heap）" class="headerlink" title="栈（Stack）和堆（Heap）"></a>栈（Stack）和堆（Heap）</h1><p>​        目前来说我们知道怎么去声明一个基础类型的变量，比如int，float，等等。以及复杂数据类型数组和结构，声明它们的时候C会把这些变量放在栈上。<strong>每个线程都有一个栈，而程序通常只有一个堆</strong>。</p>
+<h3 id="栈（Stack）"><a href="#栈（Stack）" class="headerlink" title="栈（Stack）"></a>栈（Stack）</h3><p>  什么是栈？它是内存中一块特殊的区域，<strong>用于保存在函数中声明的零时变量</strong>（其中也包括<code>main()</code>函数）。栈是LIFO(Last in First Out 后进先出)的数据结构，进出操作是由CPU来管理和优化的。<strong>调用函数时就会使用栈。</strong>每当函数声明了一个变量，该变量就会被<strong>推入(Pushed)</strong>栈中。每当函数退出时，所有的变量都会被函数推出栈，并被<strong>释放掉(Free)</strong>。一旦变量被释放，该内存区域就可以被其他栈变量使用。<br>  使用栈的优势是它会为你管理内存，而不需要你手动去分配或者释放内存。更进一步说，由于CPU可以有效地管理栈内存，所以从栈中读写变量是很快的。<br>  理解栈的关键是需要知道函数什么时候退出，此时栈中所有的变量被推出，因此<strong>栈变量是局部的</strong>（也就是局部变量）。C中经常出现的一个错误就是，在函数返回以后去访问函数内部中栈变量。<br>  如果使用太多的栈空间会导致溢出，比如在使用递归的时候，该函数使用了太多的局部变量在递归过程中就有可能造成<strong>栈溢出</strong>。</p>
+<blockquote>
+<p>总结</p>
+<ul>
+<li>栈是LIFO数据结构；</li>
+<li>CPU管理内存，而不需要手动去管理。正是因为这个原因从栈中读写变量<strong>很快</strong>的；</li>
+<li>栈变量是局部的（也就是局部变量）；</li>
+<li>栈的容量会随着函数的Push和Pop变化；</li>
+</ul>
+</blockquote>
+<h3 id="堆（Heap）"><a href="#堆（Heap）" class="headerlink" title="堆（Heap）"></a>堆（Heap）</h3><p>  堆也是内存中一块特定区域，但是CPU并不会自动管理相关的操作，而且它的空间大小会有一定的浮动。在堆上分配内存的时候，在C中使用<code>malloc()</code>和<code>calloc()</code>函数。在不需要堆上这块内存之后，需要使用<code>free()</code>函数释放掉它。<strong>如果不释放的话就会造成内存泄漏</strong>，这块内存就会被闲置。<br>  和栈不同之处在于，<strong>堆内存数据的读写速度会比栈慢</strong>。</p>
+<h3 id="栈（Stack）和堆（Heap）的差异"><a href="#栈（Stack）和堆（Heap）的差异" class="headerlink" title="栈（Stack）和堆（Heap）的差异"></a>栈（Stack）和堆（Heap）的差异</h3><h4 id="配置堆栈大小"><a href="#配置堆栈大小" class="headerlink" title="配置堆栈大小"></a>配置堆栈大小</h4><p>  堆的大小在程序启动时分配，数值在不同操作系统中可能有所不同。<br>  在Cocoa中想要修改线程的栈大小的话，可以使用<code>NSThread</code>的实例方法<code>setStackSize:</code>，如果使用POSIX线程技术创建的线程的话，想要设置栈大小的话使用<code>pthread_attr_setstacksize</code>函数。</p>
+<blockquote>
+<p>⚠️如果要设置栈大小就必须要在创建线程之前完成。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 第一种</span></span><br><span class="line">NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(backgroudMethod:) object:nil];</span><br><span class="line">[thread setStackSize:<span class="number">1024</span>];</span><br><span class="line">[thread start];</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 第二种</span></span><br><span class="line"><span class="keyword">pthread_attr_t</span> attr;</span><br><span class="line"><span class="keyword">pthread_t</span> posix_tread_id;</span><br><span class="line"><span class="keyword">int</span> returnVal;</span><br><span class="line">returnVal = pthread_attr_init(&amp;attr);</span><br><span class="line">returnVal = pthread_attr_setstacksize(&amp;attr, <span class="number">1024</span>);  <span class="comment">// 在创建线程前设置堆栈大小</span></span><br><span class="line"><span class="keyword">char</span> *data;</span><br><span class="line">data = <span class="string">&quot;To ensure that a thread knows what work to do&quot;</span>;</span><br><span class="line"><span class="keyword">int</span> thread_error = pthread_create(&amp;posix_tread_id, &amp;attr, posix_thread_mainroutine, data);</span><br></pre></td></tr></table></figure>
+<h4 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h4><p>  栈是和线程相关联的，意思就是说当线程退出时，栈被回收。而堆通常是在启动程序时分配，当程序退出之后被回收。</p>
+<h3 id="什么时候使用栈什么时候使用堆"><a href="#什么时候使用栈什么时候使用堆" class="headerlink" title="什么时候使用栈什么时候使用堆"></a>什么时候使用栈什么时候使用堆</h3><ul>
+<li>需要申请较大内存空间（比如struct，array之类的），而且需要该变量存在较长时间，就是将该变量放在<strong>堆</strong>中；</li>
+<li>如果需要动态修改struct或者array的大小，将该变量放在<strong>堆</strong>上。使用<code>malloc()</code>，<code>calloc()</code>，<code>realloc()</code>和<code>free()</code>等函数来管理内存；</li>
+<li>如果使用相对较小的变量，并且只在函数中使用它们，此时该变量就存在于栈上。这样做会更快而且更简单。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>内存布局</category>
+      </categories>
+      <tags>
+        <tag>stack</tag>
+        <tag>heap</tag>
       </tags>
   </entry>
   <entry>
@@ -1849,6 +1849,202 @@ hexo-generator-index從 2.0.0 開始，已經支持文章置頂功能。
       </tags>
   </entry>
   <entry>
+    <title>nand2tetris C6-汇编编译器</title>
+    <url>/post/e93fe37f/</url>
+    <content><![CDATA[<h1 id="汇编编译器-Assembler"><a href="#汇编编译器-Assembler" class="headerlink" title="[汇编编译器 Assembler]"></a>[汇编编译器 Assembler]</h1><p>​        我们已经完成了计算机的<strong>硬件平台(hardware platform)</strong>，此后我们将集中探讨计算机的<strong>软件阶层体系(software hierarchy)</strong>，直到最后为简单的面向对象编程语言开发<strong>编译器</strong>和<strong>基本的操作系统</strong>为止。</p>
+<p>​        在软件阶层体系中，最基本的模块就是<strong>汇编编译器(assembler)</strong>。在C4中介绍了机器语言的两种表达形式，即<strong>汇编形式</strong>和<strong>二进制形式</strong>。在这里我们将了解编译器如何系统地将汇编语言编写的程序<strong>翻译</strong>成二进制形式。</p>
+<p>​        因为<strong>符号化汇编命令(symbolic assembler commands)</strong>与其对应的二进制代码之间的关系很简单，唯一的复杂性在于：<strong>允许汇编程序使用符号来指代内存地址</strong>。我们希望通过编译器来管理这些<strong>用户自定义的符号(symbols)</strong>，将它们解析成物理内存地址。一般使用<strong>符号表(symbol table)</strong>来完成这个任务，这种符号表是经典的数据结构，应用在很多软件编译过程中。</p>
+<h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><h4 id="1-符号-Symbols"><a href="#1-符号-Symbols" class="headerlink" title="1. 符号(Symbols)"></a>1. 符号(Symbols)</h4><p>​        符号在汇编程序通常有两个用途：</p>
+<ul>
+<li><p><strong>变量(Variables)</strong>：<strong>程序员可以使用符号的变量名称，翻译器会“自动地”为其分配内存地址</strong>。这些地址的实际值是没有意义的，只要在程序的整个编译过程中，<strong>每个符号始终被指代为同一内存地址</strong>即可。</p>
+</li>
+<li><p><strong>标签(Labels)</strong>：<strong>程序员可以在程序中用符号来标注不同的位置</strong>。比如，可以用标签<code>loop</code>来指代特定代码段的起始位置。程序中的其它指令就可以有条件或无条件地执行<code>goto loop</code>指令。</p>
+<p>​        用户定义的<strong>变量名称</strong>和<strong>符号标签(symbolic labels)</strong>，与实际内存地址的映射则不是这么简单。确定符号地址的任务是从用硬件层级上升到软件层级过程中遇到的第一个挑战。</p>
+</li>
+<li><p><strong>符号解析(Sybol Resolution)</strong>：如下图，该程序包含4个用户自定义的符号：2个变量名称(<strong>i</strong>和<strong>sum</strong>)；2个标签(<strong>loop</strong>和<strong>end</strong>)。<strong><em>如何系统的将符号转换为不含符号的代码呢？</em></strong>制定两个任意性的<strong>规则</strong>：</p>
+<ol>
+<li><p><strong>翻译后的代码</strong>将被存储到计算机中<strong>起始地址为0的内存</strong>中；</p>
+</li>
+<li><p><strong>变量</strong>将会被分配到<strong>起始地址为1024的内存</strong>中（这些规则依赖于特定的目标硬件平台）。</p>
+</li>
+</ol>
+<ul>
+<li>数据结构处理方式：构建一个<strong>符号表(symbol table)</strong>. 在源代码中，每遇到一个新符号<strong><em>xxx</em></strong>，就在符号表中添加一行<strong>(<em>xxx</em></strong>, <strong><em>n</em>)</strong>。<em>n</em>是分配给对应符号的内存地址。符号表建立完成后，利用他来将程序翻译成无符号的版本。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/post/e93fe37f/image-20200905143509717.png" alt="符号解析"></p>
+<p>​    如上，符号表的各项键值对 对应了源代码中的自定义符号。只是最后一句需要解释一下，代表了无限循环<code>end:  goto end</code>.</p>
+<p>​    其中，有3个要点需要说明。</p>
+<ol>
+<li>我们定义的变量分配的规则决定了能运行的程序<strong>最多</strong>只能有1024条指令。为了不使实际程序（如操作系统）<strong>溢出</strong>到符号表，存储变量的基地址应该<strong>更远</strong>一些。<strong>(base address&gt;&gt;1024)</strong></li>
+<li><strong>“每条源代码命令映射到一个字(word)”</strong>的假设过于天真。一般情况下，某些汇编指令(<code>if i = 101 goto end</code>)会被翻译成几条机器指令，因此每条源代码会占据好几个内存单元。为了解决此问题，翻译程序会记录每条源代码产生的字的个数，然后相应的更新它的<strong>“指令内存计数器(Insvachion memory counter)”</strong>.</li>
+<li>对于<strong>“每个变量用一个单一的内存单元来表示”</strong>的假设可能也不实际。编程语言支持<strong>多种类型的变量</strong>，各自占用着<strong>不同的内存空间</strong>。因此，当为变量分配内存空间时，翻译程序必须考虑他们的<strong>数据类型</strong>和<strong>硬件内存单元的宽度</strong>。</li>
+</ol>
+<h4 id="2-汇编编译器-Assembler"><a href="#2-汇编编译器-Assembler" class="headerlink" title="2.汇编编译器(Assembler)"></a>2.汇编编译器(Assembler)</h4><p>​        汇编编译器将汇编程序翻译成计算机的二进制机器语言，才能被计算机执行。生成的代码被加载到计算机的内存中然后被硬件执行。</p>
+<p>​        可见，汇编编译器实际上主要是个文本处理程序，设计目的是提供翻译服务。因此我们要有完整的汇编语法说明文档和相应的二进制代码。有了这样的约定（通常称为机器语言规范），让每个符号命令执行下面的任务：</p>
+<ul>
+<li><p>解析出符号命令内在的<strong>域</strong>。（解析）</p>
+</li>
+<li><p>对于每个域，<strong>产生</strong>机器语言中相应的<strong>位域</strong>。（代码生成）</p>
+</li>
+<li><p>用内存单元的<strong>数字地址</strong>来<strong>替换</strong>所有的<strong>符号引用</strong>。（符号处理）</p>
+</li>
+<li><p>将二进制码<strong>汇编</strong>成完整的机器指令。（汇编）</p>
+<p>其中三个任务（解析、代码生成和汇编）是相当容易实现的。而符号处理则相对复杂，是汇编编译器的主要功能。(——符号表)</p>
+</li>
+</ul>
+<h3 id="Hack-汇编到二进制的翻译规范详述"><a href="#Hack-汇编到二进制的翻译规范详述" class="headerlink" title="[Hack 汇编到二进制的翻译规范详述]"></a>[Hack 汇编到二进制的翻译规范详述]</h3><p>​        总的来说，Assembler是一个翻译挑战，从源语言到目标语言。为了做到这点，我们必须知道两种语言的语法。</p>
+<h4 id="1-语法规约和文件格式"><a href="#1-语法规约和文件格式" class="headerlink" title="1. 语法规约和文件格式"></a>1. 语法规约和文件格式</h4><p><strong>文件名称</strong>        习惯上，二进制机器码程序后缀名为“Hack”，汇编代码程序的后缀名为“asm”。因此，Prog.asm文件会被汇编翻译器翻译成Prog.hack文件。</p>
+<p><strong>二进制代码(.hack)文件</strong>        二进制代码文件由<strong>文本行</strong>组成。<strong>第一行由16个0/1组成的ASCⅡ码构成一个序列，该序列对一个单一的16-位机器语言指令进行编码</strong>。当机器语言程序被<strong>加载</strong>进计算机的<strong>指令内存</strong>中时，文件的<strong>第n行二进制码</strong>被存储到<strong>地址为n</strong>的指令内存单元内（设命令行的技术和指令内存的起始地址都是从0开始）。    </p>
+<p><img src="/post/e93fe37f/memory_layout.png" alt="内存布局"></p>
+<p><strong>汇编语言(.asm)文件</strong>        由<strong>文本行</strong>组成，每一行代表一条<strong>指令(instrution)</strong>或者一个<strong>符号声明(symbol declaration)</strong>.</p>
+<ul>
+<li><strong>指令(Instrution)</strong>        A-指令或C-指令</li>
+<li><strong>(Symbol)</strong>        <strong>该伪命令将Symbol绑定到该程序中下一条命令的地址上</strong>。因为它并<strong>不产生机器代码</strong>，所以称之为<strong>“伪代码(pseudo-command)”.</strong>      (eg: (END))</li>
+</ul>
+<p>（下面的语法仅适用于汇编程序）</p>
+<p><strong>常数(constants)和符号(Symbols)</strong>        常数必须是<strong>非负</strong>的，用<strong>十进制</strong>表示。用户定义的符号可以由字母、数字、下划线(_)、点(.)、美元符号($)和冒号(:)组成的字母序列，但是<strong>不能以字母开头</strong>。</p>
+<p><strong>注释</strong>        以两条斜线(//)开头的文本行，注释不会被计算机执行。</p>
+<p><strong>空格</strong>        空格字符和空行被忽略。</p>
+<p><strong>大小写习惯</strong>        <strong>所有的汇编助记符必须大写</strong>。用户<strong>自定义</strong>的符号和变量是<strong>区分大小写</strong>的。一般的习惯是，<strong>标签(labels)大写</strong>，<strong>变量名称小写</strong>。</p>
+<h4 id="2-指令"><a href="#2-指令" class="headerlink" title="2. 指令"></a>2. 指令</h4><p>Hack计算机包含两种指令类型，分别称为<strong>寻址指令(A-指令, Addressing Instrution)</strong>和<strong>计算指令(C-指令, Compute Instruction)</strong>。指令格式如下：</p>
+<p><img src="/post/e93fe37f/image-20200906092445956.png" alt="A-指令"></p>
+<p><img src="/post/e93fe37f/image-20200906092528300.png" alt="C-指令"></p>
+<h4 id="3-符号"><a href="#3-符号" class="headerlink" title="3. 符号"></a>3. 符号</h4><p>Hack汇编命令通过使用<strong>常数</strong>或<strong>符号</strong>来指代<strong>内存单元<em>(地址)</em></strong></p>
+<blockquote>
+<p>从C6开始，若未经特殊说明，内存单元可以用名词“地址”代替，如变量Value的地址是0X5B46，这包含两层意思：</p>
+<p>1）说明Value的物理地址是数值0X5B46；</p>
+<p>2）<strong>Value代表的变量存储在地址为0X5B46的内存单元中</strong>。</p>
+<p>MOV  AX，Value   等价于  MOV  AX，(0X5B46)</p>
+</blockquote>
+<p>汇编程序中的符号来源于三个方面。</p>
+<p><strong>预定义符号(Predefined Symbols)</strong>        任何Hack程序允许使用下面的预定义符号。</p>
+<p><img src="/post/e93fe37f/image-20200906093259952.png" alt="预定义符号"></p>
+<p><strong>标签符合(Labels Symbols)</strong>        伪命令(Xxx)定义符号Xxx来指代存有程序中下一条命令在指令内存中的地址。每个标签只能定义一次，可以在任何地方使用，甚至在定义之前。有两种实现方法：</p>
+<ol>
+<li><p>先存储Symbol到符号表(但不知道它在哪里)，当真正遇到正确地址的定义时补上。</p>
+</li>
+<li><p>第一次遍历程序的Labels和对应的位置，并存储在符号表，第二次遍历把Labels换成Address。(更简单)</p>
+</li>
+</ol>
+<p><strong>变量符号(Variable Symbols)</strong>        任何出现在汇编程序中的符号Xxx，如果它<strong>不是预定义符号也没有在其他地方使用(Xxx)命令</strong>，那么它就被当作是变量。每遇到一个新的变量时，就把它<strong>连续地映射到从16开始的内存中去</strong>。</p>
+<h3 id="基本的汇编编译器逻辑"><a href="#基本的汇编编译器逻辑" class="headerlink" title="[基本的汇编编译器逻辑]"></a>[基本的汇编编译器逻辑]</h3><p><img src="/post/e93fe37f/image-20200906095023883.png" alt="汇编编译器的逻辑"></p>
+<p>汇编编译器 <strong>(Assembler模块)</strong>循环执行：</p>
+<ul>
+<li>从输入的文本文件中读取下一个汇编语言的命令（无需记住上一个命令）</li>
+<li>把命令分为不同的部分</li>
+<li>每个部分都可以用我们的语言指定的一种独特的方式翻译成二进制代码</li>
+<li>将这些代码合并为一个机器语言命令（得到的二进制代码直接等同于汇编语言）</li>
+<li>输出这个机器语言命令</li>
+</ul>
+<p>循环直到 文末(EOF)</p>
+<p>第一个问题：如何从输入的文本文件中读取下一个汇编语言的命令？</p>
+<p>​        唯一的<strong>困难</strong>是我们可能需要跳过所有的注释、空格和空行。我们需要<strong>确保</strong>我们读<strong>取了下一个命令，而不是注释、空格和空行</strong>。</p>
+<p>​        读取当前命令，并将其各部分放入某种字符串变量中，变成了一些我们以后可以处理的字符数组。</p>
+<p>第二个问题：如何把命令分为不同的部分？</p>
+<p>​        利用一些语法，把原来的字符串分成多个部分，其中涉及到一些简单的字符串操作。</p>
+<p>第三个问题：如何把ASM翻译成二进制代码？</p>
+<p><img src="/post/e93fe37f/image-20200906111607583.png" alt="翻译" style="zoom:67%;"></p>
+<p>​        通过查询符号表根据<strong>命令和符号</strong>找到出对应的二进制代码，而数字则直接转换成二进制。</p>
+<p>第四个问题：如何将二进制代码合并？</p>
+<p><img src="/post/e93fe37f/image-20200906111849947.png" alt="合并" style="zoom:67%;"></p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="[实现]"></a>[实现]</h3><p>实现计划：</p>
+<ol>
+<li>我们将从编写一个基本的汇编程序开始，它可以处理那些没有符号的程序。（推迟对符号的处理，直接忽略所有的“空白”）</li>
+<li>我们将会发展出处理和使用符号的能力。</li>
+<li>最后，使用这个功能，我们会返回到基本的汇编程序<strong>(1.)</strong>，然后将其拓展为通用的汇编程序，它可以翻译任何给定的程序，用Hack汇编代码写成二进制代码。</li>
+</ol>
+<h4 id="1-1-翻译A-指令"><a href="#1-1-翻译A-指令" class="headerlink" title="1.1 翻译A-指令"></a>1.1 翻译A-指令</h4><p><img src="/post/e93fe37f/image-20200906210200090.png" alt="A-指令" style="zoom: 67%;"></p>
+<p>​        当<code>value</code>是非负的十进制常数，或者一个符号指向这样的常数时，就是A-指令。二进制语法<code>0-valueBinary</code>。</p>
+<p>​        翻译成二进制码：</p>
+<ul>
+<li>如果<code>value</code>是十进制常数，那么我们就计算该值的二进制码。为了把它变成一个15位的常数，我们需要加多少个0。</li>
+<li>如果是<code>symbol</code>，迟点解决。</li>
+</ul>
+<h4 id="1-2-翻译C-指令"><a href="#1-2-翻译C-指令" class="headerlink" title="1.2 翻译C-指令"></a>1.2 翻译C-指令</h4><p><img src="/post/e93fe37f/image-20200906211938885.png" alt="image-20200906211938885" style="zoom:67%;"></p>
+<p>​        由汇编编译器的解析器，将C-指令分成<code>dest</code>、<code>comp</code>和<code>jump</code>三个部分解析。解析器会获得一个源语句或汇编指令，将它分为三个单独的字段，然后我们可以单独检查每个字段。</p>
+<p>​        当设计到C-指令的二进制形式，我们初始化我们正构建的字符串开头有<strong>3个<code>1</code></strong>；</p>
+<p>​        接下来的7个位对应于<code>comp</code>域</p>
+<p><img src="/post/e93fe37f/image-20200906213014717.png" alt="image-20200906213014717" style="zoom:67%;"></p>
+<p>​        根据<code>D+1</code>在表中查询，可得<code>a=0, c=011111</code>，然后把它附加到我逐渐构建的字符串。</p>
+<p>​        指令的下一个部分与目标相对应。</p>
+<p><img src="/post/e93fe37f/image-20200906213749551.png" alt="C-指令 dest" style="zoom:67%;"></p>
+<p>​        根据<code>MD</code>查询相关的表，可得<code>MD=011</code>，并将其附加到逐渐构建的字符串。</p>
+<p>​        指令的最后一部分对应于跳转指令。</p>
+<p><img src="/post/e93fe37f/image-20200906214014761.png" alt="C-指令 jump" style="zoom:67%;"></p>
+<p>​        根据无跳转查询表，可得<code>null=000</code>，附加到字符串，最后构建完成汇编语句对应的二进制码。</p>
+<p>​        正如上述，我们在这里所做的一切都是文本处理、字符串处理。我得到一个源字符串，通过特定的解析方式，我在一个渐进的过程中构建目标字符串，每一种高级语言都有执行字符串处理的能力。</p>
+<h4 id="1-3-要构建的汇编器的完整逻辑"><a href="#1-3-要构建的汇编器的完整逻辑" class="headerlink" title="1.3 要构建的汇编器的完整逻辑"></a>1.3 要构建的汇编器的完整逻辑</h4><p><img src="/post/e93fe37f/image-20200906214901531.png" alt="image-20200906214901531" style="zoom:67%;"></p>
+<p>对于每个指令：</p>
+<ul>
+<li><p>解析指令：将它分成多个模块。A-：<code>0-value</code>；C-：<code>111a cccc ccdd djjj</code></p>
+</li>
+<li><p>A-指令：将十进制常数翻译成二进制码；</p>
+</li>
+<li><p>C-指令：生成指令中各个域对应的二进制码；</p>
+<p>将翻译好的二进制码汇编成16-位的机器指令</p>
+</li>
+<li><p>将16-位的机器指令写入输出文件。</p>
+</li>
+</ul>
+<h3 id="开发一个Hack汇编器"><a href="#开发一个Hack汇编器" class="headerlink" title="[开发一个Hack汇编器]"></a>[开发一个Hack汇编器]</h3><p><img src="/post/e93fe37f/image-20200906220942772.png" alt="开发Hack汇编器" style="zoom:50%;"></p>
+<p>规定：</p>
+<ul>
+<li>开发一个Hack汇编编译器程序，将Hack汇编程序翻译成可执行的Hack二进制码</li>
+<li>源程序写在后缀为<code>Prog.asm</code>的文本文件中</li>
+<li>生成的二进制码写入到后缀为<code>Prog.hack</code>的文本文件中</li>
+<li>假设：<code>Prog.asm</code>无错误检测</li>
+</ul>
+<p>用法：</p>
+<p>命令行语法。该命令应该创建（或覆盖）一个可原封不动在Hack计算机中执行的<code>Xxx.hack</code>文件。</p>
+<p>​        构建编译器分为两个阶段。第一阶段，编写汇编编译器(<strong>Paeser模块</strong>和<strong>Code模块</strong>)来翻译<strong>无符号汇编程序</strong>。第二阶段，拓展成为具有<strong>符号处理能力</strong>的汇编编译器。</p>
+<h4 id="1-无符号程序的汇编编译器"><a href="#1-无符号程序的汇编编译器" class="headerlink" title="1. 无符号程序的汇编编译器"></a>1. 无符号程序的汇编编译器</h4><ul>
+<li>输入的<code>Prog.asm</code>程序不包含符号。A-指令<code>@Xxx</code>必须是十进制非负常数，不能是符号。</li>
+<li>不能包含符号命令，<code>(Xxx)</code>不可用。</li>
+</ul>
+<ol>
+<li>打开名为<code>Prog.hack</code>的输出文件</li>
+<li>开始处理<code>Prog.asm</code>文件的每一行汇编指令  (Loop)<ul>
+<li>对于C-指令，程序将翻译后的指令域的二进制码连接到一个单一的16-位字上，并将其写入<code>Prog.hack</code>文件</li>
+<li>对于A-指令，程序将语法分析器返回地十进制常数翻译成对应的二进制表示，并将得到的16-位字写入<code>Prog.hack</code>文件</li>
+</ul>
+</li>
+</ol>
+<p><em>Parser.java</em></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 处理.asm文件的指令  eg: @常数, AMD comp JGT/..  (AMD=)(comp运算)(;JGT/...), (Symbol)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parser</span> </span>&#123; </span><br><span class="line">    <span class="comment">// 扫描器(Scanner对象)存储输入流，准备语法分析</span></span><br><span class="line">    <span class="comment">// String对象存储当前行的指令</span></span><br><span class="line">    <span class="comment">// 构造器：为汇编编译器构造语法分析器的实例，传入Scanner对象(而Scanner对象由汇编编译器需要编译的文件构造)</span></span><br><span class="line">    <span class="comment">// API:</span></span><br><span class="line">    <span class="comment">// boolean hasMoreCommands(): 扫描器.hasNextLine</span></span><br><span class="line">    <span class="comment">// void advance(): 当前指令.nextLine</span></span><br><span class="line">    <span class="comment">// enum commandType: 三种指令类型</span></span><br><span class="line">    <span class="comment">// void skipSpacesAndComments(): 注释:subString()截掉&#x27;//&#x27;之后的内容, 空白:replace()替换所有空格和制表符</span></span><br><span class="line">    <span class="comment">// int Length(): 当前指令长度</span></span><br><span class="line">    <span class="comment">// commandType CommandType(): 根据当前指令，返回判断得出的指令类型。判断出A-指令和伪指令，剩下的就是C-指令</span></span><br><span class="line">    <span class="comment">// C-指令 API</span></span><br><span class="line">    <span class="comment">// String dest(): 将当前指令分割，返回当前C-指令的dest助记符</span></span><br><span class="line">    <span class="comment">// String comp(): 将当前指令分割，返回当前C-指令的comp助记符</span></span><br><span class="line">    <span class="comment">// String jump(): 将当前指令分割，返回当前C-指令的jump助记符</span></span><br><span class="line">    <span class="comment">// A-指令 API</span></span><br><span class="line">    <span class="comment">// String symbol(): 直接返回@之后的内容，无符号: 必为非负十进制常数</span></span><br><span class="line">    <span class="comment">// void close(): 关闭资源</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>Code.java</em></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 传入一个域的助记符，返回域对应的二进制码</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Code</span> </span>&#123;</span><br><span class="line">    <span class="comment">// C-指令</span></span><br><span class="line">    <span class="comment">// comp域</span></span><br><span class="line">    <span class="comment">// HashMap&lt;String, String&gt;对象，存储comp域助记符到二进制码的转换表</span></span><br><span class="line">    <span class="comment">// String comp(): 错误处理,若HashMap对象不存在该comp域指令. 存在则根据HashMap返回comp域助记符**对应的二进制码**</span></span><br><span class="line">    <span class="comment">// dest域, 无需表</span></span><br><span class="line">    <span class="comment">// void checkDest(): 根据dest域助记符判断是否需要存储到寄存器，并往对应的二进制码添加(0/1)</span></span><br><span class="line">    <span class="comment">// String dest(): 用StringBuilder对象存储dest二进制形式，调用checkDest()得到dest正确的二进制表达式，并返回</span></span><br><span class="line">    <span class="comment">// jump域</span></span><br><span class="line">    <span class="comment">// String jump(): 根据jump域助记符，返回jump对应得二进制表达式</span></span><br><span class="line">    <span class="comment">// A-指令</span></span><br><span class="line">    <span class="comment">// String binary(): 对常数的大小进行错误判断，根据十进制常数返回二进制的对应形式，并填充0直至二进制码为15位</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>Assembler.java</em></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Assembler</span></span>&#123;</span><br><span class="line">    <span class="comment">// Parser getParser(): 根据文件名创建Parser对象</span></span><br><span class="line">    <span class="comment">// boolean isValidName(): 判断文件是否为.asm文件</span></span><br><span class="line">    <span class="comment">// int getInt(): 返回三种字符串对应的十进制常数</span></span><br><span class="line">    <span class="comment">// main(): </span></span><br><span class="line">    <span class="comment">// 1.解析命令行: (java 包名/类名 .asm文件位置)</span></span><br><span class="line">    <span class="comment">//                                (0)</span></span><br><span class="line">    <span class="comment">// 2.错误处理，命令参数必须是是两个，文件必须是.asm文件; 获得文件名</span></span><br><span class="line">    <span class="comment">// 3.根据文件名实例化Parser对象</span></span><br><span class="line">    <span class="comment">// 4.创建同名的输出流文件.hack，并存储在PrintWriter对象</span></span><br><span class="line">    <span class="comment">// loop</span></span><br><span class="line">    <span class="comment">// 5.循环利用parser解析指令，当前输入还有更多指令时，指令跳向下一行，跳过所有的&quot;空白&quot;，(如果此时指令长度为0，则下一个循环)，否则，创建出Parser对象的CommandType类型对象.</span></span><br><span class="line">    <span class="comment">// 6.根据CommandType对象，进行三种指令的处理</span></span><br><span class="line">    <span class="comment">// C-指令：3个区域分别用Code调用类静态方法，获取3个区域的二进制码，并往输出流对象PrintWriter写入&quot;111 comp dest jump&quot;</span></span><br><span class="line">    <span class="comment">// 伪指令：不处理</span></span><br><span class="line">    <span class="comment">// A-指令：用Code调用类静态方法获取A-指令的二进制码，并输出流对象PrintWriter写入&quot;0 binary&quot;</span></span><br><span class="line">    <span class="comment">// 如果Parser对象判断还有指令则创建新行</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 关闭资源</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-完整的汇编编译器"><a href="#2-完整的汇编编译器" class="headerlink" title="2. 完整的汇编编译器"></a>2. 完整的汇编编译器</h4><h5 id="SymbolTable模块"><a href="#SymbolTable模块" class="headerlink" title="SymbolTable模块"></a>SymbolTable模块</h5><p>​        因为Hack指令可能包含符号，作为翻译的一部分，必须为这些符号确定<strong>实际的地址</strong>。</p>
+<p>​        我们用<strong>符号表(symbol table)</strong>来完成，符号表用来建立和维护符号与地质之间的关联。<strong>哈希表(hash table)</strong>就是表示这种关系的经典数据结构之一。</p>
+<p><img src="/post/e93fe37f/image-20200910212336715.png" alt="symbolTable"></p>
+<h5 id="有符号程序的汇编编译器"><a href="#有符号程序的汇编编译器" class="headerlink" title="有符号程序的汇编编译器"></a>有符号程序的汇编编译器</h5><p>​        有效的方法之一是，从头至尾地读取两次代码。</p>
+<p>​        Hack语言有三种类型的符号：预编译符号(predefined symbols)，标签(labels)和变量(variables)。符号表应该包含并处理所有这些符号。</p>
+<p>​        <strong>初始化</strong>        创建符号表；根据下表，用所有预定义符号和他们预分配的RAM地址对符号表进行初始化。</p>
+<p><img src="/post/e93fe37f/image-20200910212821490.png" alt="预定义符号表"></p>
+<p>​        <strong>第一遍读取阶段</strong>        该阶段主要是<strong>在符号表建立每条命令及其对应的地址</strong>。处理程序的每一行时，利用数字来记录ROM地址——当前指令最终将被加载到这个地址中。每次遇到一条<strong>伪指令<em>(Xxx)</em></strong>时，在<strong>符号表</strong>上加一个新条目来<strong>将<em>Xxx</em>与最终用于存储程序中下一条指令的ROM地址关联</strong>。此阶段所有标记和他们的ROM地址被加入到符号表中。</p>
+<p>​        <strong>第二遍读取阶段</strong>        重新对每一行指令进行语法分析，每次遇到<strong>符号化A-指令</strong>，就在符号表中查找<strong><em>Xxx</em></strong>。如果在符号表中找到了该符号，就<strong>用其对应的地址来替换该符号与完成指令的翻译</strong>。如果在符合表中<strong>没找到该符号</strong>，那么它必定代表<strong>变量</strong>。为处理这个变量，<strong>在符号表中添加<em>(Xxx, n)</em>，这里<em>n</em>代表下一个可用的个RAM地址</strong>。分配的RAM地址是连续数字，从地址16开始。(紧接着预定义符号之后)</p>
+<p><img src="/post/e93fe37f/image-20200910223225858.png" alt="image-20200910223225858" style="zoom:67%;"></p>
+<p><em>Parser.java</em></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parser</span></span>&#123;</span><br><span class="line">    <span class="comment">// Modify</span></span><br><span class="line">    <span class="comment">// String symbol(): 增加@Variable和(Symbol)的处理。@..返回处理统一，不变；而(Symbol)，只返回Symbol</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>SymbolTable.java</em></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Symboltable</span></span>&#123;</span><br><span class="line">    <span class="comment">// 符号表：HashTable&lt;String, Integer&gt;</span></span><br><span class="line">    <span class="comment">// 当前更新变量的地址：16(init)</span></span><br><span class="line">    <span class="comment">// SymbolTable(): 初始化HashTable，并初始化预定义的符号</span></span><br><span class="line">    <span class="comment">// void addEntry(String symbol, int address)</span></span><br><span class="line">    <span class="comment">// boolean contains(String symbol): 是否包含Key</span></span><br><span class="line">    <span class="comment">// int getAddress(String symbol): 根据Key获得Address</span></span><br><span class="line">    <span class="comment">// int getNextAddAndIncrement(): 获取当前更新变量的地址，并令地址加1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>Assembler.java</em></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Assembler</span></span>&#123;</span><br><span class="line">    <span class="comment">// Add</span></span><br><span class="line">    <span class="comment">// 添加第一次遍历：主要是构建符号表，将伪指令添加到符号表</span></span><br><span class="line">    <span class="comment">// 记录当前命令被加载到的地址</span></span><br><span class="line">    <span class="comment">// loop</span></span><br><span class="line">    <span class="comment">// 1.循环利用parser解析指令，当前输入还有更多指令时，指令跳向下一行，跳过所有的&quot;空白&quot;，(如果此时指令长度为0，则下一个循环)，否则，创建出Parser对象的CommandType类型对象.</span></span><br><span class="line">    <span class="comment">// 如果指令类型是伪指令，将(符号,当前程序指令地址+1)添加到符号表; 否则当前程序指令地址自增</span></span><br><span class="line">    <span class="comment">// 关闭parser资源</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Modify</span></span><br><span class="line">    <span class="comment">// int getInt(String input, SymbolTable symbolTable): 当input是符号化常数，转换为int并返回; 若不是，处理数字格式异常，(只能是 预定义变量 / 用户自定义变量).</span></span><br><span class="line">    <span class="comment">// - 预定义变量: 返回 根据input符号返回符号表对应的地址</span></span><br><span class="line">    <span class="comment">// - 用户自定义变量: 将(符号，符号表中的当前更新变量的地址)，并返回地址</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Reference: <a href="https://github.com/jahnagoldman">jahnagoldman</a></p>
+]]></content>
+      <categories>
+        <category>Computer Architecture</category>
+      </categories>
+      <tags>
+        <tag>nand2tetris</tag>
+        <tag>Assembly</tag>
+        <tag>Hack汇编编译器</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>nand2tetris C5-计算机体系结构</title>
     <url>/post/1404dacc/</url>
     <content><![CDATA[<h1 id="计算机体系结构-Computer-Architecture"><a href="#计算机体系结构-Computer-Architecture" class="headerlink" title="[计算机体系结构 Computer Architecture]"></a>[计算机体系结构 Computer Architecture]</h1><p>本章涵盖“硬件”部分中最难啃的内容。将第1~3章构建的所有芯片整合并集成一台通用计算机Hack。</p>
@@ -2291,202 +2487,6 @@ segment = \{lcoal, argument, this, that\}</script><p><strong><em>implement stati
         <tag>nand2tetris</tag>
         <tag>VirtualMachine</tag>
         <tag>vm code</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>nand2tetris C6-汇编编译器</title>
-    <url>/post/e93fe37f/</url>
-    <content><![CDATA[<h1 id="汇编编译器-Assembler"><a href="#汇编编译器-Assembler" class="headerlink" title="[汇编编译器 Assembler]"></a>[汇编编译器 Assembler]</h1><p>​        我们已经完成了计算机的<strong>硬件平台(hardware platform)</strong>，此后我们将集中探讨计算机的<strong>软件阶层体系(software hierarchy)</strong>，直到最后为简单的面向对象编程语言开发<strong>编译器</strong>和<strong>基本的操作系统</strong>为止。</p>
-<p>​        在软件阶层体系中，最基本的模块就是<strong>汇编编译器(assembler)</strong>。在C4中介绍了机器语言的两种表达形式，即<strong>汇编形式</strong>和<strong>二进制形式</strong>。在这里我们将了解编译器如何系统地将汇编语言编写的程序<strong>翻译</strong>成二进制形式。</p>
-<p>​        因为<strong>符号化汇编命令(symbolic assembler commands)</strong>与其对应的二进制代码之间的关系很简单，唯一的复杂性在于：<strong>允许汇编程序使用符号来指代内存地址</strong>。我们希望通过编译器来管理这些<strong>用户自定义的符号(symbols)</strong>，将它们解析成物理内存地址。一般使用<strong>符号表(symbol table)</strong>来完成这个任务，这种符号表是经典的数据结构，应用在很多软件编译过程中。</p>
-<h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><h4 id="1-符号-Symbols"><a href="#1-符号-Symbols" class="headerlink" title="1. 符号(Symbols)"></a>1. 符号(Symbols)</h4><p>​        符号在汇编程序通常有两个用途：</p>
-<ul>
-<li><p><strong>变量(Variables)</strong>：<strong>程序员可以使用符号的变量名称，翻译器会“自动地”为其分配内存地址</strong>。这些地址的实际值是没有意义的，只要在程序的整个编译过程中，<strong>每个符号始终被指代为同一内存地址</strong>即可。</p>
-</li>
-<li><p><strong>标签(Labels)</strong>：<strong>程序员可以在程序中用符号来标注不同的位置</strong>。比如，可以用标签<code>loop</code>来指代特定代码段的起始位置。程序中的其它指令就可以有条件或无条件地执行<code>goto loop</code>指令。</p>
-<p>​        用户定义的<strong>变量名称</strong>和<strong>符号标签(symbolic labels)</strong>，与实际内存地址的映射则不是这么简单。确定符号地址的任务是从用硬件层级上升到软件层级过程中遇到的第一个挑战。</p>
-</li>
-<li><p><strong>符号解析(Sybol Resolution)</strong>：如下图，该程序包含4个用户自定义的符号：2个变量名称(<strong>i</strong>和<strong>sum</strong>)；2个标签(<strong>loop</strong>和<strong>end</strong>)。<strong><em>如何系统的将符号转换为不含符号的代码呢？</em></strong>制定两个任意性的<strong>规则</strong>：</p>
-<ol>
-<li><p><strong>翻译后的代码</strong>将被存储到计算机中<strong>起始地址为0的内存</strong>中；</p>
-</li>
-<li><p><strong>变量</strong>将会被分配到<strong>起始地址为1024的内存</strong>中（这些规则依赖于特定的目标硬件平台）。</p>
-</li>
-</ol>
-<ul>
-<li>数据结构处理方式：构建一个<strong>符号表(symbol table)</strong>. 在源代码中，每遇到一个新符号<strong><em>xxx</em></strong>，就在符号表中添加一行<strong>(<em>xxx</em></strong>, <strong><em>n</em>)</strong>。<em>n</em>是分配给对应符号的内存地址。符号表建立完成后，利用他来将程序翻译成无符号的版本。</li>
-</ul>
-</li>
-</ul>
-<p><img src="/post/e93fe37f/image-20200905143509717.png" alt="符号解析"></p>
-<p>​    如上，符号表的各项键值对 对应了源代码中的自定义符号。只是最后一句需要解释一下，代表了无限循环<code>end:  goto end</code>.</p>
-<p>​    其中，有3个要点需要说明。</p>
-<ol>
-<li>我们定义的变量分配的规则决定了能运行的程序<strong>最多</strong>只能有1024条指令。为了不使实际程序（如操作系统）<strong>溢出</strong>到符号表，存储变量的基地址应该<strong>更远</strong>一些。<strong>(base address&gt;&gt;1024)</strong></li>
-<li><strong>“每条源代码命令映射到一个字(word)”</strong>的假设过于天真。一般情况下，某些汇编指令(<code>if i = 101 goto end</code>)会被翻译成几条机器指令，因此每条源代码会占据好几个内存单元。为了解决此问题，翻译程序会记录每条源代码产生的字的个数，然后相应的更新它的<strong>“指令内存计数器(Insvachion memory counter)”</strong>.</li>
-<li>对于<strong>“每个变量用一个单一的内存单元来表示”</strong>的假设可能也不实际。编程语言支持<strong>多种类型的变量</strong>，各自占用着<strong>不同的内存空间</strong>。因此，当为变量分配内存空间时，翻译程序必须考虑他们的<strong>数据类型</strong>和<strong>硬件内存单元的宽度</strong>。</li>
-</ol>
-<h4 id="2-汇编编译器-Assembler"><a href="#2-汇编编译器-Assembler" class="headerlink" title="2.汇编编译器(Assembler)"></a>2.汇编编译器(Assembler)</h4><p>​        汇编编译器将汇编程序翻译成计算机的二进制机器语言，才能被计算机执行。生成的代码被加载到计算机的内存中然后被硬件执行。</p>
-<p>​        可见，汇编编译器实际上主要是个文本处理程序，设计目的是提供翻译服务。因此我们要有完整的汇编语法说明文档和相应的二进制代码。有了这样的约定（通常称为机器语言规范），让每个符号命令执行下面的任务：</p>
-<ul>
-<li><p>解析出符号命令内在的<strong>域</strong>。（解析）</p>
-</li>
-<li><p>对于每个域，<strong>产生</strong>机器语言中相应的<strong>位域</strong>。（代码生成）</p>
-</li>
-<li><p>用内存单元的<strong>数字地址</strong>来<strong>替换</strong>所有的<strong>符号引用</strong>。（符号处理）</p>
-</li>
-<li><p>将二进制码<strong>汇编</strong>成完整的机器指令。（汇编）</p>
-<p>其中三个任务（解析、代码生成和汇编）是相当容易实现的。而符号处理则相对复杂，是汇编编译器的主要功能。(——符号表)</p>
-</li>
-</ul>
-<h3 id="Hack-汇编到二进制的翻译规范详述"><a href="#Hack-汇编到二进制的翻译规范详述" class="headerlink" title="[Hack 汇编到二进制的翻译规范详述]"></a>[Hack 汇编到二进制的翻译规范详述]</h3><p>​        总的来说，Assembler是一个翻译挑战，从源语言到目标语言。为了做到这点，我们必须知道两种语言的语法。</p>
-<h4 id="1-语法规约和文件格式"><a href="#1-语法规约和文件格式" class="headerlink" title="1. 语法规约和文件格式"></a>1. 语法规约和文件格式</h4><p><strong>文件名称</strong>        习惯上，二进制机器码程序后缀名为“Hack”，汇编代码程序的后缀名为“asm”。因此，Prog.asm文件会被汇编翻译器翻译成Prog.hack文件。</p>
-<p><strong>二进制代码(.hack)文件</strong>        二进制代码文件由<strong>文本行</strong>组成。<strong>第一行由16个0/1组成的ASCⅡ码构成一个序列，该序列对一个单一的16-位机器语言指令进行编码</strong>。当机器语言程序被<strong>加载</strong>进计算机的<strong>指令内存</strong>中时，文件的<strong>第n行二进制码</strong>被存储到<strong>地址为n</strong>的指令内存单元内（设命令行的技术和指令内存的起始地址都是从0开始）。    </p>
-<p><img src="/post/e93fe37f/memory_layout.png" alt="内存布局"></p>
-<p><strong>汇编语言(.asm)文件</strong>        由<strong>文本行</strong>组成，每一行代表一条<strong>指令(instrution)</strong>或者一个<strong>符号声明(symbol declaration)</strong>.</p>
-<ul>
-<li><strong>指令(Instrution)</strong>        A-指令或C-指令</li>
-<li><strong>(Symbol)</strong>        <strong>该伪命令将Symbol绑定到该程序中下一条命令的地址上</strong>。因为它并<strong>不产生机器代码</strong>，所以称之为<strong>“伪代码(pseudo-command)”.</strong>      (eg: (END))</li>
-</ul>
-<p>（下面的语法仅适用于汇编程序）</p>
-<p><strong>常数(constants)和符号(Symbols)</strong>        常数必须是<strong>非负</strong>的，用<strong>十进制</strong>表示。用户定义的符号可以由字母、数字、下划线(_)、点(.)、美元符号($)和冒号(:)组成的字母序列，但是<strong>不能以字母开头</strong>。</p>
-<p><strong>注释</strong>        以两条斜线(//)开头的文本行，注释不会被计算机执行。</p>
-<p><strong>空格</strong>        空格字符和空行被忽略。</p>
-<p><strong>大小写习惯</strong>        <strong>所有的汇编助记符必须大写</strong>。用户<strong>自定义</strong>的符号和变量是<strong>区分大小写</strong>的。一般的习惯是，<strong>标签(labels)大写</strong>，<strong>变量名称小写</strong>。</p>
-<h4 id="2-指令"><a href="#2-指令" class="headerlink" title="2. 指令"></a>2. 指令</h4><p>Hack计算机包含两种指令类型，分别称为<strong>寻址指令(A-指令, Addressing Instrution)</strong>和<strong>计算指令(C-指令, Compute Instruction)</strong>。指令格式如下：</p>
-<p><img src="/post/e93fe37f/image-20200906092445956.png" alt="A-指令"></p>
-<p><img src="/post/e93fe37f/image-20200906092528300.png" alt="C-指令"></p>
-<h4 id="3-符号"><a href="#3-符号" class="headerlink" title="3. 符号"></a>3. 符号</h4><p>Hack汇编命令通过使用<strong>常数</strong>或<strong>符号</strong>来指代<strong>内存单元<em>(地址)</em></strong></p>
-<blockquote>
-<p>从C6开始，若未经特殊说明，内存单元可以用名词“地址”代替，如变量Value的地址是0X5B46，这包含两层意思：</p>
-<p>1）说明Value的物理地址是数值0X5B46；</p>
-<p>2）<strong>Value代表的变量存储在地址为0X5B46的内存单元中</strong>。</p>
-<p>MOV  AX，Value   等价于  MOV  AX，(0X5B46)</p>
-</blockquote>
-<p>汇编程序中的符号来源于三个方面。</p>
-<p><strong>预定义符号(Predefined Symbols)</strong>        任何Hack程序允许使用下面的预定义符号。</p>
-<p><img src="/post/e93fe37f/image-20200906093259952.png" alt="预定义符号"></p>
-<p><strong>标签符合(Labels Symbols)</strong>        伪命令(Xxx)定义符号Xxx来指代存有程序中下一条命令在指令内存中的地址。每个标签只能定义一次，可以在任何地方使用，甚至在定义之前。有两种实现方法：</p>
-<ol>
-<li><p>先存储Symbol到符号表(但不知道它在哪里)，当真正遇到正确地址的定义时补上。</p>
-</li>
-<li><p>第一次遍历程序的Labels和对应的位置，并存储在符号表，第二次遍历把Labels换成Address。(更简单)</p>
-</li>
-</ol>
-<p><strong>变量符号(Variable Symbols)</strong>        任何出现在汇编程序中的符号Xxx，如果它<strong>不是预定义符号也没有在其他地方使用(Xxx)命令</strong>，那么它就被当作是变量。每遇到一个新的变量时，就把它<strong>连续地映射到从16开始的内存中去</strong>。</p>
-<h3 id="基本的汇编编译器逻辑"><a href="#基本的汇编编译器逻辑" class="headerlink" title="[基本的汇编编译器逻辑]"></a>[基本的汇编编译器逻辑]</h3><p><img src="/post/e93fe37f/image-20200906095023883.png" alt="汇编编译器的逻辑"></p>
-<p>汇编编译器 <strong>(Assembler模块)</strong>循环执行：</p>
-<ul>
-<li>从输入的文本文件中读取下一个汇编语言的命令（无需记住上一个命令）</li>
-<li>把命令分为不同的部分</li>
-<li>每个部分都可以用我们的语言指定的一种独特的方式翻译成二进制代码</li>
-<li>将这些代码合并为一个机器语言命令（得到的二进制代码直接等同于汇编语言）</li>
-<li>输出这个机器语言命令</li>
-</ul>
-<p>循环直到 文末(EOF)</p>
-<p>第一个问题：如何从输入的文本文件中读取下一个汇编语言的命令？</p>
-<p>​        唯一的<strong>困难</strong>是我们可能需要跳过所有的注释、空格和空行。我们需要<strong>确保</strong>我们读<strong>取了下一个命令，而不是注释、空格和空行</strong>。</p>
-<p>​        读取当前命令，并将其各部分放入某种字符串变量中，变成了一些我们以后可以处理的字符数组。</p>
-<p>第二个问题：如何把命令分为不同的部分？</p>
-<p>​        利用一些语法，把原来的字符串分成多个部分，其中涉及到一些简单的字符串操作。</p>
-<p>第三个问题：如何把ASM翻译成二进制代码？</p>
-<p><img src="/post/e93fe37f/image-20200906111607583.png" alt="翻译" style="zoom:67%;"></p>
-<p>​        通过查询符号表根据<strong>命令和符号</strong>找到出对应的二进制代码，而数字则直接转换成二进制。</p>
-<p>第四个问题：如何将二进制代码合并？</p>
-<p><img src="/post/e93fe37f/image-20200906111849947.png" alt="合并" style="zoom:67%;"></p>
-<h3 id="实现"><a href="#实现" class="headerlink" title="[实现]"></a>[实现]</h3><p>实现计划：</p>
-<ol>
-<li>我们将从编写一个基本的汇编程序开始，它可以处理那些没有符号的程序。（推迟对符号的处理，直接忽略所有的“空白”）</li>
-<li>我们将会发展出处理和使用符号的能力。</li>
-<li>最后，使用这个功能，我们会返回到基本的汇编程序<strong>(1.)</strong>，然后将其拓展为通用的汇编程序，它可以翻译任何给定的程序，用Hack汇编代码写成二进制代码。</li>
-</ol>
-<h4 id="1-1-翻译A-指令"><a href="#1-1-翻译A-指令" class="headerlink" title="1.1 翻译A-指令"></a>1.1 翻译A-指令</h4><p><img src="/post/e93fe37f/image-20200906210200090.png" alt="A-指令" style="zoom: 67%;"></p>
-<p>​        当<code>value</code>是非负的十进制常数，或者一个符号指向这样的常数时，就是A-指令。二进制语法<code>0-valueBinary</code>。</p>
-<p>​        翻译成二进制码：</p>
-<ul>
-<li>如果<code>value</code>是十进制常数，那么我们就计算该值的二进制码。为了把它变成一个15位的常数，我们需要加多少个0。</li>
-<li>如果是<code>symbol</code>，迟点解决。</li>
-</ul>
-<h4 id="1-2-翻译C-指令"><a href="#1-2-翻译C-指令" class="headerlink" title="1.2 翻译C-指令"></a>1.2 翻译C-指令</h4><p><img src="/post/e93fe37f/image-20200906211938885.png" alt="image-20200906211938885" style="zoom:67%;"></p>
-<p>​        由汇编编译器的解析器，将C-指令分成<code>dest</code>、<code>comp</code>和<code>jump</code>三个部分解析。解析器会获得一个源语句或汇编指令，将它分为三个单独的字段，然后我们可以单独检查每个字段。</p>
-<p>​        当设计到C-指令的二进制形式，我们初始化我们正构建的字符串开头有<strong>3个<code>1</code></strong>；</p>
-<p>​        接下来的7个位对应于<code>comp</code>域</p>
-<p><img src="/post/e93fe37f/image-20200906213014717.png" alt="image-20200906213014717" style="zoom:67%;"></p>
-<p>​        根据<code>D+1</code>在表中查询，可得<code>a=0, c=011111</code>，然后把它附加到我逐渐构建的字符串。</p>
-<p>​        指令的下一个部分与目标相对应。</p>
-<p><img src="/post/e93fe37f/image-20200906213749551.png" alt="C-指令 dest" style="zoom:67%;"></p>
-<p>​        根据<code>MD</code>查询相关的表，可得<code>MD=011</code>，并将其附加到逐渐构建的字符串。</p>
-<p>​        指令的最后一部分对应于跳转指令。</p>
-<p><img src="/post/e93fe37f/image-20200906214014761.png" alt="C-指令 jump" style="zoom:67%;"></p>
-<p>​        根据无跳转查询表，可得<code>null=000</code>，附加到字符串，最后构建完成汇编语句对应的二进制码。</p>
-<p>​        正如上述，我们在这里所做的一切都是文本处理、字符串处理。我得到一个源字符串，通过特定的解析方式，我在一个渐进的过程中构建目标字符串，每一种高级语言都有执行字符串处理的能力。</p>
-<h4 id="1-3-要构建的汇编器的完整逻辑"><a href="#1-3-要构建的汇编器的完整逻辑" class="headerlink" title="1.3 要构建的汇编器的完整逻辑"></a>1.3 要构建的汇编器的完整逻辑</h4><p><img src="/post/e93fe37f/image-20200906214901531.png" alt="image-20200906214901531" style="zoom:67%;"></p>
-<p>对于每个指令：</p>
-<ul>
-<li><p>解析指令：将它分成多个模块。A-：<code>0-value</code>；C-：<code>111a cccc ccdd djjj</code></p>
-</li>
-<li><p>A-指令：将十进制常数翻译成二进制码；</p>
-</li>
-<li><p>C-指令：生成指令中各个域对应的二进制码；</p>
-<p>将翻译好的二进制码汇编成16-位的机器指令</p>
-</li>
-<li><p>将16-位的机器指令写入输出文件。</p>
-</li>
-</ul>
-<h3 id="开发一个Hack汇编器"><a href="#开发一个Hack汇编器" class="headerlink" title="[开发一个Hack汇编器]"></a>[开发一个Hack汇编器]</h3><p><img src="/post/e93fe37f/image-20200906220942772.png" alt="开发Hack汇编器" style="zoom:50%;"></p>
-<p>规定：</p>
-<ul>
-<li>开发一个Hack汇编编译器程序，将Hack汇编程序翻译成可执行的Hack二进制码</li>
-<li>源程序写在后缀为<code>Prog.asm</code>的文本文件中</li>
-<li>生成的二进制码写入到后缀为<code>Prog.hack</code>的文本文件中</li>
-<li>假设：<code>Prog.asm</code>无错误检测</li>
-</ul>
-<p>用法：</p>
-<p>命令行语法。该命令应该创建（或覆盖）一个可原封不动在Hack计算机中执行的<code>Xxx.hack</code>文件。</p>
-<p>​        构建编译器分为两个阶段。第一阶段，编写汇编编译器(<strong>Paeser模块</strong>和<strong>Code模块</strong>)来翻译<strong>无符号汇编程序</strong>。第二阶段，拓展成为具有<strong>符号处理能力</strong>的汇编编译器。</p>
-<h4 id="1-无符号程序的汇编编译器"><a href="#1-无符号程序的汇编编译器" class="headerlink" title="1. 无符号程序的汇编编译器"></a>1. 无符号程序的汇编编译器</h4><ul>
-<li>输入的<code>Prog.asm</code>程序不包含符号。A-指令<code>@Xxx</code>必须是十进制非负常数，不能是符号。</li>
-<li>不能包含符号命令，<code>(Xxx)</code>不可用。</li>
-</ul>
-<ol>
-<li>打开名为<code>Prog.hack</code>的输出文件</li>
-<li>开始处理<code>Prog.asm</code>文件的每一行汇编指令  (Loop)<ul>
-<li>对于C-指令，程序将翻译后的指令域的二进制码连接到一个单一的16-位字上，并将其写入<code>Prog.hack</code>文件</li>
-<li>对于A-指令，程序将语法分析器返回地十进制常数翻译成对应的二进制表示，并将得到的16-位字写入<code>Prog.hack</code>文件</li>
-</ul>
-</li>
-</ol>
-<p><em>Parser.java</em></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 处理.asm文件的指令  eg: @常数, AMD comp JGT/..  (AMD=)(comp运算)(;JGT/...), (Symbol)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parser</span> </span>&#123; </span><br><span class="line">    <span class="comment">// 扫描器(Scanner对象)存储输入流，准备语法分析</span></span><br><span class="line">    <span class="comment">// String对象存储当前行的指令</span></span><br><span class="line">    <span class="comment">// 构造器：为汇编编译器构造语法分析器的实例，传入Scanner对象(而Scanner对象由汇编编译器需要编译的文件构造)</span></span><br><span class="line">    <span class="comment">// API:</span></span><br><span class="line">    <span class="comment">// boolean hasMoreCommands(): 扫描器.hasNextLine</span></span><br><span class="line">    <span class="comment">// void advance(): 当前指令.nextLine</span></span><br><span class="line">    <span class="comment">// enum commandType: 三种指令类型</span></span><br><span class="line">    <span class="comment">// void skipSpacesAndComments(): 注释:subString()截掉&#x27;//&#x27;之后的内容, 空白:replace()替换所有空格和制表符</span></span><br><span class="line">    <span class="comment">// int Length(): 当前指令长度</span></span><br><span class="line">    <span class="comment">// commandType CommandType(): 根据当前指令，返回判断得出的指令类型。判断出A-指令和伪指令，剩下的就是C-指令</span></span><br><span class="line">    <span class="comment">// C-指令 API</span></span><br><span class="line">    <span class="comment">// String dest(): 将当前指令分割，返回当前C-指令的dest助记符</span></span><br><span class="line">    <span class="comment">// String comp(): 将当前指令分割，返回当前C-指令的comp助记符</span></span><br><span class="line">    <span class="comment">// String jump(): 将当前指令分割，返回当前C-指令的jump助记符</span></span><br><span class="line">    <span class="comment">// A-指令 API</span></span><br><span class="line">    <span class="comment">// String symbol(): 直接返回@之后的内容，无符号: 必为非负十进制常数</span></span><br><span class="line">    <span class="comment">// void close(): 关闭资源</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><em>Code.java</em></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 传入一个域的助记符，返回域对应的二进制码</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Code</span> </span>&#123;</span><br><span class="line">    <span class="comment">// C-指令</span></span><br><span class="line">    <span class="comment">// comp域</span></span><br><span class="line">    <span class="comment">// HashMap&lt;String, String&gt;对象，存储comp域助记符到二进制码的转换表</span></span><br><span class="line">    <span class="comment">// String comp(): 错误处理,若HashMap对象不存在该comp域指令. 存在则根据HashMap返回comp域助记符**对应的二进制码**</span></span><br><span class="line">    <span class="comment">// dest域, 无需表</span></span><br><span class="line">    <span class="comment">// void checkDest(): 根据dest域助记符判断是否需要存储到寄存器，并往对应的二进制码添加(0/1)</span></span><br><span class="line">    <span class="comment">// String dest(): 用StringBuilder对象存储dest二进制形式，调用checkDest()得到dest正确的二进制表达式，并返回</span></span><br><span class="line">    <span class="comment">// jump域</span></span><br><span class="line">    <span class="comment">// String jump(): 根据jump域助记符，返回jump对应得二进制表达式</span></span><br><span class="line">    <span class="comment">// A-指令</span></span><br><span class="line">    <span class="comment">// String binary(): 对常数的大小进行错误判断，根据十进制常数返回二进制的对应形式，并填充0直至二进制码为15位</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><em>Assembler.java</em></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Assembler</span></span>&#123;</span><br><span class="line">    <span class="comment">// Parser getParser(): 根据文件名创建Parser对象</span></span><br><span class="line">    <span class="comment">// boolean isValidName(): 判断文件是否为.asm文件</span></span><br><span class="line">    <span class="comment">// int getInt(): 返回三种字符串对应的十进制常数</span></span><br><span class="line">    <span class="comment">// main(): </span></span><br><span class="line">    <span class="comment">// 1.解析命令行: (java 包名/类名 .asm文件位置)</span></span><br><span class="line">    <span class="comment">//                                (0)</span></span><br><span class="line">    <span class="comment">// 2.错误处理，命令参数必须是是两个，文件必须是.asm文件; 获得文件名</span></span><br><span class="line">    <span class="comment">// 3.根据文件名实例化Parser对象</span></span><br><span class="line">    <span class="comment">// 4.创建同名的输出流文件.hack，并存储在PrintWriter对象</span></span><br><span class="line">    <span class="comment">// loop</span></span><br><span class="line">    <span class="comment">// 5.循环利用parser解析指令，当前输入还有更多指令时，指令跳向下一行，跳过所有的&quot;空白&quot;，(如果此时指令长度为0，则下一个循环)，否则，创建出Parser对象的CommandType类型对象.</span></span><br><span class="line">    <span class="comment">// 6.根据CommandType对象，进行三种指令的处理</span></span><br><span class="line">    <span class="comment">// C-指令：3个区域分别用Code调用类静态方法，获取3个区域的二进制码，并往输出流对象PrintWriter写入&quot;111 comp dest jump&quot;</span></span><br><span class="line">    <span class="comment">// 伪指令：不处理</span></span><br><span class="line">    <span class="comment">// A-指令：用Code调用类静态方法获取A-指令的二进制码，并输出流对象PrintWriter写入&quot;0 binary&quot;</span></span><br><span class="line">    <span class="comment">// 如果Parser对象判断还有指令则创建新行</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 关闭资源</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="2-完整的汇编编译器"><a href="#2-完整的汇编编译器" class="headerlink" title="2. 完整的汇编编译器"></a>2. 完整的汇编编译器</h4><h5 id="SymbolTable模块"><a href="#SymbolTable模块" class="headerlink" title="SymbolTable模块"></a>SymbolTable模块</h5><p>​        因为Hack指令可能包含符号，作为翻译的一部分，必须为这些符号确定<strong>实际的地址</strong>。</p>
-<p>​        我们用<strong>符号表(symbol table)</strong>来完成，符号表用来建立和维护符号与地质之间的关联。<strong>哈希表(hash table)</strong>就是表示这种关系的经典数据结构之一。</p>
-<p><img src="/post/e93fe37f/image-20200910212336715.png" alt="symbolTable"></p>
-<h5 id="有符号程序的汇编编译器"><a href="#有符号程序的汇编编译器" class="headerlink" title="有符号程序的汇编编译器"></a>有符号程序的汇编编译器</h5><p>​        有效的方法之一是，从头至尾地读取两次代码。</p>
-<p>​        Hack语言有三种类型的符号：预编译符号(predefined symbols)，标签(labels)和变量(variables)。符号表应该包含并处理所有这些符号。</p>
-<p>​        <strong>初始化</strong>        创建符号表；根据下表，用所有预定义符号和他们预分配的RAM地址对符号表进行初始化。</p>
-<p><img src="/post/e93fe37f/image-20200910212821490.png" alt="预定义符号表"></p>
-<p>​        <strong>第一遍读取阶段</strong>        该阶段主要是<strong>在符号表建立每条命令及其对应的地址</strong>。处理程序的每一行时，利用数字来记录ROM地址——当前指令最终将被加载到这个地址中。每次遇到一条<strong>伪指令<em>(Xxx)</em></strong>时，在<strong>符号表</strong>上加一个新条目来<strong>将<em>Xxx</em>与最终用于存储程序中下一条指令的ROM地址关联</strong>。此阶段所有标记和他们的ROM地址被加入到符号表中。</p>
-<p>​        <strong>第二遍读取阶段</strong>        重新对每一行指令进行语法分析，每次遇到<strong>符号化A-指令</strong>，就在符号表中查找<strong><em>Xxx</em></strong>。如果在符号表中找到了该符号，就<strong>用其对应的地址来替换该符号与完成指令的翻译</strong>。如果在符合表中<strong>没找到该符号</strong>，那么它必定代表<strong>变量</strong>。为处理这个变量，<strong>在符号表中添加<em>(Xxx, n)</em>，这里<em>n</em>代表下一个可用的个RAM地址</strong>。分配的RAM地址是连续数字，从地址16开始。(紧接着预定义符号之后)</p>
-<p><img src="/post/e93fe37f/image-20200910223225858.png" alt="image-20200910223225858" style="zoom:67%;"></p>
-<p><em>Parser.java</em></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parser</span></span>&#123;</span><br><span class="line">    <span class="comment">// Modify</span></span><br><span class="line">    <span class="comment">// String symbol(): 增加@Variable和(Symbol)的处理。@..返回处理统一，不变；而(Symbol)，只返回Symbol</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><em>SymbolTable.java</em></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Symboltable</span></span>&#123;</span><br><span class="line">    <span class="comment">// 符号表：HashTable&lt;String, Integer&gt;</span></span><br><span class="line">    <span class="comment">// 当前更新变量的地址：16(init)</span></span><br><span class="line">    <span class="comment">// SymbolTable(): 初始化HashTable，并初始化预定义的符号</span></span><br><span class="line">    <span class="comment">// void addEntry(String symbol, int address)</span></span><br><span class="line">    <span class="comment">// boolean contains(String symbol): 是否包含Key</span></span><br><span class="line">    <span class="comment">// int getAddress(String symbol): 根据Key获得Address</span></span><br><span class="line">    <span class="comment">// int getNextAddAndIncrement(): 获取当前更新变量的地址，并令地址加1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><em>Assembler.java</em></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Assembler</span></span>&#123;</span><br><span class="line">    <span class="comment">// Add</span></span><br><span class="line">    <span class="comment">// 添加第一次遍历：主要是构建符号表，将伪指令添加到符号表</span></span><br><span class="line">    <span class="comment">// 记录当前命令被加载到的地址</span></span><br><span class="line">    <span class="comment">// loop</span></span><br><span class="line">    <span class="comment">// 1.循环利用parser解析指令，当前输入还有更多指令时，指令跳向下一行，跳过所有的&quot;空白&quot;，(如果此时指令长度为0，则下一个循环)，否则，创建出Parser对象的CommandType类型对象.</span></span><br><span class="line">    <span class="comment">// 如果指令类型是伪指令，将(符号,当前程序指令地址+1)添加到符号表; 否则当前程序指令地址自增</span></span><br><span class="line">    <span class="comment">// 关闭parser资源</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Modify</span></span><br><span class="line">    <span class="comment">// int getInt(String input, SymbolTable symbolTable): 当input是符号化常数，转换为int并返回; 若不是，处理数字格式异常，(只能是 预定义变量 / 用户自定义变量).</span></span><br><span class="line">    <span class="comment">// - 预定义变量: 返回 根据input符号返回符号表对应的地址</span></span><br><span class="line">    <span class="comment">// - 用户自定义变量: 将(符号，符号表中的当前更新变量的地址)，并返回地址</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Reference: <a href="https://github.com/jahnagoldman">jahnagoldman</a></p>
-]]></content>
-      <categories>
-        <category>Computer Architecture</category>
-      </categories>
-      <tags>
-        <tag>nand2tetris</tag>
-        <tag>Assembly</tag>
-        <tag>Hack汇编编译器</tag>
       </tags>
   </entry>
 </search>
