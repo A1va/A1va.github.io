@@ -50,42 +50,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Q&amp;A:RAM &amp; ROM &amp; Memory</title>
-    <url>/post/17d0af8c/</url>
-    <content><![CDATA[<h1 id="RAM为什么是随机存储？"><a href="#RAM为什么是随机存储？" class="headerlink" title="RAM为什么是随机存储？"></a>RAM为什么是随机存储？</h1><p>​        <strong>”随机“强调的是存取数据所花的时间与目标数据所在的物理位置无关</strong>。这是由RAM的结构决定的，RAM使用<strong>存储阵列</strong>来存储数据，只要给出<strong>行地址</strong>和<strong>列地址</strong>，就能<strong>确定目标数据</strong>，这一过程<strong>与目标数据所处的物理位置无关</strong>。</p>
-<p>​        与“随机存取“相对的，是<strong>“串行访问”</strong>，指<strong>存取数据所花的时间与目标数据所在的物理位置有关</strong>。串行访问里面又分为<strong>顺序存取</strong>和<strong>直接存取</strong>。<strong>顺序存取如磁带</strong>，要想访问一个某一存储单元，<strong>必须先访问该单元前面的单元</strong>，（所以就有了听歌时倒磁带的痛苦经历）。<strong>直接存取如磁盘</strong>，磁头可以直接定位到目标存储单元，<strong>不需访问该单元前面的单元</strong>。需要注意的是，即使是直接定位，定位磁头所花的时间也是不同的，比如磁头当前在磁道0，定位到磁道2和磁道10000的时间肯定不同，所以存取数据所花的时间与目标数所在的物理位置仍然有关。</p>
-<h1 id="明明可以往硬盘里写数据，为什么叫ROM呢？"><a href="#明明可以往硬盘里写数据，为什么叫ROM呢？" class="headerlink" title="明明可以往硬盘里写数据，为什么叫ROM呢？"></a>明明可以往硬盘里写数据，为什么叫ROM呢？</h1><p>​        首先，<strong>硬盘 ≠ ROM.</strong></p>
-<p>​        在符合冯.诺依曼架构的计算机中，只读储存器ROM是相对于随机存储器RAM而存在的，<strong>所有的预程序从ROM读出存储在RAM上，工作时程序均在RAM中运行</strong>，而不是在ROM上，所以我们叫它只读储存器，<strong>运行在RAM中的数据在断电前会保存在可多次擦写的外储存器上，外储存器才是硬盘</strong>。</p>
-<p>​        简而言之，对于计算机而言，从严格意义来讲<strong>ROM是用来存储输入输出系统</strong>，即<strong>BIOS</strong>，而<strong>硬盘叫外储存器，用来存放操作系统软件以及程序与数据</strong>。</p>
-<p>​        对于手机而言，设定的Linux内核会<strong>从磁盘中划分一部分储存空间作为ROM区，用于开机时读取到RAM的映像，而ROM区域和程序以及数据存储区域共用一个介质</strong>，所以厂家为了简单宣传，会把整个ROM大小作为外储存器大小去宣传，但这个和PC是有一定区别的。</p>
-<p>​        所以，<strong>这也从结构上顺便解释了为什么安卓手机抑或Linux系统不容易中毒的原因，因为系统作为ROM中的单纯映像，不授权的话是无法写入的</strong>，而Windows在外储存器以软件形式存在，且分界不明显，同时使用微内核结构桥接比较多，虽然方便更改系统配置但是对不熟悉者安全度低。</p>
-<h1 id="EEPROM是一种“只读存储器”，为什么要对其进行写操作？"><a href="#EEPROM是一种“只读存储器”，为什么要对其进行写操作？" class="headerlink" title="EEPROM是一种“只读存储器”，为什么要对其进行写操作？"></a>EEPROM是一种“只读存储器”，为什么要对其进行写操作？</h1><p>EEPROM的首字母缩写具有随着技术的发展而发展的历史。</p>
-<p><strong>ROM</strong>：只读存储器。写在工厂。</p>
-<p><strong>PROM</strong>：可编程只读存储器，但可由用户编程（一次）。真正的一次性可编程，永远可读的存储器。弄错了，就丢了芯片。</p>
-<p><strong>EPROM</strong>：可擦可编程只读存储器。可以写入多次，擦出需要使用紫外线照射。有点麻烦，但非常有用。</p>
-<p><strong>EEPROM</strong>：电可擦可编程只读存储器。可以写入多次，通过编程电压进行修改。</p>
-<p>​        所以，为什么在可写时将其称为eepROm？我怀疑，答案是，与<strong>RAM</strong>（随机存取存储器）不同，它在电源关闭时会保存其内容，因此，其行为更像<strong>ROM</strong>。</p>
-<p>​        后来推出的<strong>闪存(Flash Memory)</strong>技术，它是一种广义上的EEPROM，手机上的eMMC和UFS都属于闪存技术，因此闪存也被人们称为ROM。</p>
-<h1 id="「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？"><a href="#「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？" class="headerlink" title="「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？"></a>「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？</h1><p>​        在计算机专业领域，“内存”的全称是“内部储存器”，用于在运行时储存信息，CPU可以直接寻址，区别于永久保存数据、CPU仅通过硬件控制器读取数据的“外部储存器”。<strong>这两者是从计算机架构的角度说的</strong>。在通常语境下，“内存”只有主板上插的内存条一种，<strong>内存就成了“主板上的RAM”的代称</strong>。</p>
-<p>​        RAM是Random Access Memory，随机访问储存器，特点是断电失效，可以直接通过电流刷新数据。现在一般只有内存条（DRAM）和CPU缓存（SRAM）使用这类芯片。</p>
-<p>​        对应的ROM是Read-Only Memory，只读储存器，最开始的ROM真的是只读，不可写入，包括半导体ROM和CD-ROM，后来出现了紫外线擦除的EPROM，电擦除的EEPROM。</p>
-<p>​        <strong>RAM和ROM是从技术实现的角度说的</strong>。</p>
-<p>​        U盘、固态硬盘、手机固件使用的闪存芯片也是一种EEPROM，它依然是先擦除再写入，和RAM有原理上的区别。所以<strong>手机广告上的2G RAM + 16G ROM是正确的用法</strong>。（不要纠结flash到底是不是EEPROM了，它确实符合EEPROM定义，写入是通过电擦除-再写入实现的，不过EEPROM一般专指可以按字节擦除的那种，flash是按块擦除）</p>
-<p>​        智能手机的组成和电脑一样，所以<strong>依据部件功能继承了电脑的称呼</strong>。不过硬盘换成了闪存芯片，所以手机里履行硬盘职能的部件可以被称作“闪存”。</p>
-<p>​        内存和ROM混淆<strong>我认为</strong>来自于安卓系统（或者更早的塞班，我没用过），安卓文件管理器把手机空间分为“内部储存”和“SD卡”，这里的“内部储存”指的是ROM，但是也简称为“内存”。为了和这个“内存”做区别，RAM就变成了运行内存，“运存”。</p>
-<p>所以对应关系如下：<br><strong>电脑：内存－硬盘</strong><br><strong>手机：RAM－ROM</strong><br>　　　<strong>内存－闪存</strong><br>　　　<strong>运存－内存</strong></p>
-<p>​        至于把手机的“内存”又迁移回电脑上，指代硬盘，只能说误会久矣…</p>
-]]></content>
-      <categories>
-        <category>内存布局</category>
-      </categories>
-      <tags>
-        <tag>RAM</tag>
-        <tag>ROM</tag>
-        <tag>Memory</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>OSTEP7-进程调度</title>
     <url>/post/fe1a6b20/</url>
     <content><![CDATA[<h1 id="进程调度"><a href="#进程调度" class="headerlink" title="[进程调度]"></a>[进程调度]</h1><h3 id="1-工作负载假设"><a href="#1-工作负载假设" class="headerlink" title="1. 工作负载假设"></a>1. 工作负载假设</h3><p>对操作系统中运行的进程（有时也叫工作任务）做出如下的假设：</p>
@@ -181,6 +145,42 @@ T(响应时间)=T(首次运行)-T(到达时间)</script><p>考虑一种情况：
       <tags>
         <tag>process</tag>
         <tag>process scheduling</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Q&amp;A:RAM &amp; ROM &amp; Memory</title>
+    <url>/post/17d0af8c/</url>
+    <content><![CDATA[<h1 id="RAM为什么是随机存储？"><a href="#RAM为什么是随机存储？" class="headerlink" title="RAM为什么是随机存储？"></a>RAM为什么是随机存储？</h1><p>​        <strong>”随机“强调的是存取数据所花的时间与目标数据所在的物理位置无关</strong>。这是由RAM的结构决定的，RAM使用<strong>存储阵列</strong>来存储数据，只要给出<strong>行地址</strong>和<strong>列地址</strong>，就能<strong>确定目标数据</strong>，这一过程<strong>与目标数据所处的物理位置无关</strong>。</p>
+<p>​        与“随机存取“相对的，是<strong>“串行访问”</strong>，指<strong>存取数据所花的时间与目标数据所在的物理位置有关</strong>。串行访问里面又分为<strong>顺序存取</strong>和<strong>直接存取</strong>。<strong>顺序存取如磁带</strong>，要想访问一个某一存储单元，<strong>必须先访问该单元前面的单元</strong>，（所以就有了听歌时倒磁带的痛苦经历）。<strong>直接存取如磁盘</strong>，磁头可以直接定位到目标存储单元，<strong>不需访问该单元前面的单元</strong>。需要注意的是，即使是直接定位，定位磁头所花的时间也是不同的，比如磁头当前在磁道0，定位到磁道2和磁道10000的时间肯定不同，所以存取数据所花的时间与目标数所在的物理位置仍然有关。</p>
+<h1 id="明明可以往硬盘里写数据，为什么叫ROM呢？"><a href="#明明可以往硬盘里写数据，为什么叫ROM呢？" class="headerlink" title="明明可以往硬盘里写数据，为什么叫ROM呢？"></a>明明可以往硬盘里写数据，为什么叫ROM呢？</h1><p>​        首先，<strong>硬盘 ≠ ROM.</strong></p>
+<p>​        在符合冯.诺依曼架构的计算机中，只读储存器ROM是相对于随机存储器RAM而存在的，<strong>所有的预程序从ROM读出存储在RAM上，工作时程序均在RAM中运行</strong>，而不是在ROM上，所以我们叫它只读储存器，<strong>运行在RAM中的数据在断电前会保存在可多次擦写的外储存器上，外储存器才是硬盘</strong>。</p>
+<p>​        简而言之，对于计算机而言，从严格意义来讲<strong>ROM是用来存储输入输出系统</strong>，即<strong>BIOS</strong>，而<strong>硬盘叫外储存器，用来存放操作系统软件以及程序与数据</strong>。</p>
+<p>​        对于手机而言，设定的Linux内核会<strong>从磁盘中划分一部分储存空间作为ROM区，用于开机时读取到RAM的映像，而ROM区域和程序以及数据存储区域共用一个介质</strong>，所以厂家为了简单宣传，会把整个ROM大小作为外储存器大小去宣传，但这个和PC是有一定区别的。</p>
+<p>​        所以，<strong>这也从结构上顺便解释了为什么安卓手机抑或Linux系统不容易中毒的原因，因为系统作为ROM中的单纯映像，不授权的话是无法写入的</strong>，而Windows在外储存器以软件形式存在，且分界不明显，同时使用微内核结构桥接比较多，虽然方便更改系统配置但是对不熟悉者安全度低。</p>
+<h1 id="EEPROM是一种“只读存储器”，为什么要对其进行写操作？"><a href="#EEPROM是一种“只读存储器”，为什么要对其进行写操作？" class="headerlink" title="EEPROM是一种“只读存储器”，为什么要对其进行写操作？"></a>EEPROM是一种“只读存储器”，为什么要对其进行写操作？</h1><p>EEPROM的首字母缩写具有随着技术的发展而发展的历史。</p>
+<p><strong>ROM</strong>：只读存储器。写在工厂。</p>
+<p><strong>PROM</strong>：可编程只读存储器，但可由用户编程（一次）。真正的一次性可编程，永远可读的存储器。弄错了，就丢了芯片。</p>
+<p><strong>EPROM</strong>：可擦可编程只读存储器。可以写入多次，擦出需要使用紫外线照射。有点麻烦，但非常有用。</p>
+<p><strong>EEPROM</strong>：电可擦可编程只读存储器。可以写入多次，通过编程电压进行修改。</p>
+<p>​        所以，为什么在可写时将其称为eepROm？我怀疑，答案是，与<strong>RAM</strong>（随机存取存储器）不同，它在电源关闭时会保存其内容，因此，其行为更像<strong>ROM</strong>。</p>
+<p>​        后来推出的<strong>闪存(Flash Memory)</strong>技术，它是一种广义上的EEPROM，手机上的eMMC和UFS都属于闪存技术，因此闪存也被人们称为ROM。</p>
+<h1 id="「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？"><a href="#「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？" class="headerlink" title="「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？"></a>「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？</h1><p>​        在计算机专业领域，“内存”的全称是“内部储存器”，用于在运行时储存信息，CPU可以直接寻址，区别于永久保存数据、CPU仅通过硬件控制器读取数据的“外部储存器”。<strong>这两者是从计算机架构的角度说的</strong>。在通常语境下，“内存”只有主板上插的内存条一种，<strong>内存就成了“主板上的RAM”的代称</strong>。</p>
+<p>​        RAM是Random Access Memory，随机访问储存器，特点是断电失效，可以直接通过电流刷新数据。现在一般只有内存条（DRAM）和CPU缓存（SRAM）使用这类芯片。</p>
+<p>​        对应的ROM是Read-Only Memory，只读储存器，最开始的ROM真的是只读，不可写入，包括半导体ROM和CD-ROM，后来出现了紫外线擦除的EPROM，电擦除的EEPROM。</p>
+<p>​        <strong>RAM和ROM是从技术实现的角度说的</strong>。</p>
+<p>​        U盘、固态硬盘、手机固件使用的闪存芯片也是一种EEPROM，它依然是先擦除再写入，和RAM有原理上的区别。所以<strong>手机广告上的2G RAM + 16G ROM是正确的用法</strong>。（不要纠结flash到底是不是EEPROM了，它确实符合EEPROM定义，写入是通过电擦除-再写入实现的，不过EEPROM一般专指可以按字节擦除的那种，flash是按块擦除）</p>
+<p>​        智能手机的组成和电脑一样，所以<strong>依据部件功能继承了电脑的称呼</strong>。不过硬盘换成了闪存芯片，所以手机里履行硬盘职能的部件可以被称作“闪存”。</p>
+<p>​        内存和ROM混淆<strong>我认为</strong>来自于安卓系统（或者更早的塞班，我没用过），安卓文件管理器把手机空间分为“内部储存”和“SD卡”，这里的“内部储存”指的是ROM，但是也简称为“内存”。为了和这个“内存”做区别，RAM就变成了运行内存，“运存”。</p>
+<p>所以对应关系如下：<br><strong>电脑：内存－硬盘</strong><br><strong>手机：RAM－ROM</strong><br>　　　<strong>内存－闪存</strong><br>　　　<strong>运存－内存</strong></p>
+<p>​        至于把手机的“内存”又迁移回电脑上，指代硬盘，只能说误会久矣…</p>
+]]></content>
+      <categories>
+        <category>内存布局</category>
+      </categories>
+      <tags>
+        <tag>RAM</tag>
+        <tag>ROM</tag>
+        <tag>Memory</tag>
       </tags>
   </entry>
   <entry>
@@ -633,35 +633,6 @@ T(响应时间)=T(首次运行)-T(到达时间)</script><p>考虑一种情况：
       </tags>
   </entry>
   <entry>
-    <title>Spring Initializer快建项目</title>
-    <url>/post/8340e3af/</url>
-    <content><![CDATA[<h1 id="使用Spring-Initializer快速创建Spring-Boot项目"><a href="#使用Spring-Initializer快速创建Spring-Boot项目" class="headerlink" title="[使用Spring Initializer快速创建Spring Boot项目]"></a>[使用Spring Initializer快速创建Spring Boot项目]</h1><p>IDE都支持使用Spring的项目创建向导快速创建一个Spring Boot项目；</p>
-<p>选择我们需要的模块；向导会联网创建Spring Boot项目；</p>
-<p>需要联网</p>
-<h2 id="IDEA"><a href="#IDEA" class="headerlink" title="[IDEA]"></a>[IDEA]</h2><ol>
-<li><p>创建项目时选择Spring Initializr</p>
-<p><img src="/post/8340e3af/1573639771931.png" alt="idea01"></p>
-</li>
-<li><p>完善项目信息</p>
-<p><img src="/post/8340e3af/1573639923504.png" alt="idea02"></p>
-<p>出现 <strong>Artifact contains illegal characters</strong> 是因为<code>Artifact</code>中使用了大写，只能是全小写，单词之间用<code>-</code>分隔</p>
-</li>
-<li><p>选择需要的starter</p>
-<p><img src="/post/8340e3af/1573640773365.png" alt="idea03"></p>
-</li>
-<li><p>创建完成后 不要的文件可以删除</p>
-<p><img src="/post/8340e3af/1573641023432.png" alt="idea04"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Spring Boot</category>
-      </categories>
-      <tags>
-        <tag>Spring Boot</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Spring Boot配置文件</title>
     <url>/post/99fd0336/</url>
     <content><![CDATA[<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="[配置文件]"></a>[配置文件]</h1><p>SpringBoot使用一个全局的配置文件，配置文件名<code>application</code>是固定的；</p>
@@ -865,6 +836,35 @@ fruits: [苹果,桃子,香蕉]<figure class="highlight plain"><table><tr><td cla
 <p>所有支持的配置加载来源：</p>
 <p><a href="https://docs.spring.io/spring-boot/docs/2.2.1.RELEASE/reference/htmlsingle/#boot-features-external-config">参考官方文档</a></p>
 <p><img src="/post/99fd0336/1573735371567.png" alt="1573735371567"></p>
+]]></content>
+      <categories>
+        <category>Spring Boot</category>
+      </categories>
+      <tags>
+        <tag>Spring Boot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring Initializer快建项目</title>
+    <url>/post/8340e3af/</url>
+    <content><![CDATA[<h1 id="使用Spring-Initializer快速创建Spring-Boot项目"><a href="#使用Spring-Initializer快速创建Spring-Boot项目" class="headerlink" title="[使用Spring Initializer快速创建Spring Boot项目]"></a>[使用Spring Initializer快速创建Spring Boot项目]</h1><p>IDE都支持使用Spring的项目创建向导快速创建一个Spring Boot项目；</p>
+<p>选择我们需要的模块；向导会联网创建Spring Boot项目；</p>
+<p>需要联网</p>
+<h2 id="IDEA"><a href="#IDEA" class="headerlink" title="[IDEA]"></a>[IDEA]</h2><ol>
+<li><p>创建项目时选择Spring Initializr</p>
+<p><img src="/post/8340e3af/1573639771931.png" alt="idea01"></p>
+</li>
+<li><p>完善项目信息</p>
+<p><img src="/post/8340e3af/1573639923504.png" alt="idea02"></p>
+<p>出现 <strong>Artifact contains illegal characters</strong> 是因为<code>Artifact</code>中使用了大写，只能是全小写，单词之间用<code>-</code>分隔</p>
+</li>
+<li><p>选择需要的starter</p>
+<p><img src="/post/8340e3af/1573640773365.png" alt="idea03"></p>
+</li>
+<li><p>创建完成后 不要的文件可以删除</p>
+<p><img src="/post/8340e3af/1573641023432.png" alt="idea04"></p>
+</li>
+</ol>
 ]]></content>
       <categories>
         <category>Spring Boot</category>
@@ -1176,6 +1176,78 @@ a~=~in·\overline{sel},~b~=~in·sel</script><h3 id="多位逻辑门"><a href="#�
       </tags>
   </entry>
   <entry>
+    <title>nand2tetris C3-时序逻辑</title>
+    <url>/post/5b81f62b/</url>
+    <content><![CDATA[<h1 id="时序逻辑-Sequential-Logic"><a href="#时序逻辑-Sequential-Logic" class="headerlink" title="[时序逻辑 Sequential Logic]"></a>[时序逻辑 Sequential Logic]</h1><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><p><strong>时钟(Clock)</strong>: 计算机里时间的流逝是用主时针(master clock)来表示的，它提供连续的<strong>交变信号序列</strong>。硬件实现通常基于<strong>振荡器(oscillator)</strong>，其在两个信号值<strong>0-1</strong>，或称<strong>“低电平-高电平(low-high, tick-tock)”</strong>之间交替变化。两个相邻的上升沿之间的时间间隙称为时钟的<strong>周期(cycle)</strong>，每个时钟周期模塑一个<strong>离散的时间单元</strong>。通过硬件电路，这个信号同时被传送到计算机平台的每个时序芯片中。</p>
+<p><strong>触发器(Flip-Flops)</strong>: 本书使用<strong>数据触发器(Data Flip-Flop, DFF或称D触发器)</strong>。实现基于时间的行为：</p>
+<script type="math/tex; mode=display">
+out(t) = in(t - 1)</script><p>t是当前时钟周期。换而言之，DFF能够简单的实现将前一个时间周期的输入值作为当前周期的输出值。</p>
+<p><code>out(t) = in(t - 1)</code>是所有计算机硬件维持自身状态的基础，二进制单元 -&gt; 寄存器 -&gt; 任意大的随机存取记忆单元(RAM) 都是如此.</p>
+<p><strong>寄存器(Registers)</strong>: 能够“储存”某一时刻的值，实现经典的存储行为：</p>
+<script type="math/tex; mode=display">
+out(t) = out(t - 1)</script><p>从另一个方面来说，DFF仅能够输出它前一时钟周期的输出，也就是<code>out(t) = in(t - 1)</code>。这提示了我们，可以通过DFF来实现寄存器，只需将后面的输出反馈到它的输入就可以了。</p>
+<p><img src="/post/5b81f62b/image-20200818162126362.png" alt="image-20200818162126362" style="zoom: 50%;"></p>
+<p>如此一来，在任何时刻<code>t</code>，这个设备的输出都会重现它在时刻<code>t-1</code>的值。</p>
+<p>如图3.1右，</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">load = 1, out(t) = in(t-1),  相当于wirte操作, 希望开始存储新值, 把值置于in输入口;</span><br><span class="line">load = 0, out(t) = out(t-1), 相当于read操作, 希望一直存储它的内部值直到新的指令到来</span><br></pre></td></tr></table></figure>
+<p><img src="/post/5b81f62b/image-20200818163142204.png" alt="image-20200818163142204" style="zoom: 50%;"></p>
+<p><strong>内存(Memories)</strong>: …… 随机存取内存(RAM, Random Acess Memory): 在RAM上能够随机访问被选择的字而不会受限于访问顺序。</p>
+<p><img src="/post/5b81f62b/image-20200818163246416.png" alt="image-20200818163246416" style="zoom: 50%;"></p>
+<p><strong>计数器(Counter)</strong>: 每经过一个时间周期计数器就增加1个单位，执行函数<code>out(t) = out(t-1) + c</code>，这里<code>c</code>就是1.</p>
+<h3 id="时间问题"><a href="#时间问题" class="headerlink" title="[时间问题]"></a>[时间问题]</h3><p>至此本章介绍的芯片都是时序芯片(sequential chip)。简单来说，时序芯片就是直接或间接地嵌入一个或多个DFF门的芯片。</p>
+<p>反馈回路：输出依赖于输入，而输入本身有依赖于输出，因此输出只依赖自身。</p>
+<p><img src="/post/5b81f62b/image-20200818171444271.png" alt="image-20200818171444271" style="zoom: 50%;"></p>
+<p>省略……</p>
+<h3 id="规范详述"><a href="#规范详述" class="headerlink" title="[规范详述]"></a>[规范详述]</h3><ul>
+<li><p>D触发器(DFFs)</p>
+</li>
+<li><p>寄存器 (基于DFFs)</p>
+</li>
+<li><p>存储块 (基于寄存器)</p>
+</li>
+<li><p>计数器芯片 (基于寄存器)</p>
+<p>太多细节，几乎都是必看的，建议看书；避免抄书，在此省略……</p>
+</li>
+</ul>
+<h3 id="实现硬件"><a href="#实现硬件" class="headerlink" title="[实现硬件]"></a>[实现硬件]</h3><p><strong>1Bit寄存器</strong>：</p>
+<ul>
+<li>If load[t] == 1 then out[t+1] = in[t]<ul>
+<li>else out does not change (out[t+1] = out[t])</li>
+</ul>
+</li>
+</ul>
+<p><img src="/post/5b81f62b/image-20200822231745454.png" alt="image-20200822231745454" style="zoom: 50%;"></p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">CHIP Bit &#123;</span><br><span class="line">    IN <span class="keyword">in</span>, load;</span><br><span class="line">    OUT out;</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// lastOut is equal to the last time out, Assigned by DFF<span class="string">&#x27;s lastOut</span></span><br><span class="line"><span class="string">    Mux(a=lastOut, b=in, sel=load, out=muxOut);</span></span><br><span class="line"><span class="string">    // cause the out is distinct(Only use once), so we can add out to copy the out</span></span><br><span class="line"><span class="string">    DFF(in=muxOut, out=lastOut, out=out);</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<p><strong>n-Bits寄存器</strong>：</p>
+<p>n个<strong>1Bit寄存器</strong>串联 和 <code>log(2)n</code>的address选择寄存器进行读写（取址执行的基础 ）。</p>
+<p><strong>n-Bits RAM(Random Access Memory)</strong>：</p>
+<p><img src="/post/5b81f62b/image-20200822234706201.png" alt="image-20200822234706201" style="zoom: 50%;"></p>
+<p>address用于寻址：根据<code>address = i</code>找出需要载入的<strong>1Bit寄存器</strong>，此时该寄存器设置<code>load = 1，in = M</code>，并在下一个时间周期<code>out = M</code>，实现<code>out(t) = in(t-1)</code></p>
+<p><img src="/post/5b81f62b/image-20200822235721818.png" alt="image-20200822235721818" style="zoom:50%;"></p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 16-bit register:</span></span><br><span class="line">CHIP Register &#123;</span><br><span class="line">    IN <span class="keyword">in</span>[<span class="number">16</span>], load;</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// No Mux16, because DFF only accept <span class="number">1</span> bit input &amp; output.</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">0</span>], load=load, out=out[<span class="number">0</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">1</span>], load=load, out=out[<span class="number">1</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">2</span>], load=load, out=out[<span class="number">2</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">3</span>], load=load, out=out[<span class="number">3</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">4</span>], load=load, out=out[<span class="number">4</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">5</span>], load=load, out=out[<span class="number">5</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">6</span>], load=load, out=out[<span class="number">6</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">7</span>], load=load, out=out[<span class="number">7</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">8</span>], load=load, out=out[<span class="number">8</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">9</span>], load=load, out=out[<span class="number">9</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">10</span>], load=load, out=out[<span class="number">10</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">11</span>], load=load, out=out[<span class="number">11</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">12</span>], load=load, out=out[<span class="number">12</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">13</span>], load=load, out=out[<span class="number">13</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">14</span>], load=load, out=out[<span class="number">14</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">15</span>], load=load, out=out[<span class="number">15</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Memory of 8 registers, each 16 bit-wide.</strong></p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">CHIP RAM8 &#123;</span><br><span class="line">    IN <span class="keyword">in</span>[<span class="number">16</span>], load, address[<span class="number">3</span>];</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// <span class="keyword">in</span> accordance with address, locate which register to load</span><br><span class="line">    DMux8Way(<span class="keyword">in</span>=<span class="keyword">in</span>, sel=address, a=in0, b=in1, c=in2, d=in3, e=in4, f=in5, g=in6, h=in7);</span><br><span class="line"></span><br><span class="line">    Register(<span class="keyword">in</span>=in0, load=load, out=out0);</span><br><span class="line">    Register(<span class="keyword">in</span>=in1, load=load, out=out1);</span><br><span class="line">    Register(<span class="keyword">in</span>=in2, load=load, out=out2);</span><br><span class="line">    Register(<span class="keyword">in</span>=in3, load=load, out=out3);</span><br><span class="line">    Register(<span class="keyword">in</span>=in4, load=load, out=out4);</span><br><span class="line">    Register(<span class="keyword">in</span>=in5, load=load, out=out5);</span><br><span class="line">    Register(<span class="keyword">in</span>=in6, load=load, out=out6);</span><br><span class="line">    Register(<span class="keyword">in</span>=in7, load=load, out=out7);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// in accordance with address, decide which register should output</span></span><br><span class="line">    Mux8Way16(a=out0, b=out1, c=out2, d=out3, e=out4, f=out5, g=out6, h=out7, sel=address, out=out);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Couters</strong></p>
+<p>三个基本功能：</p>
+<ul>
+<li>重置计数器</li>
+<li>计数器自增</li>
+<li>为计数器赋值</li>
+</ul>
+<p><img src="/post/5b81f62b/image-20200823000717282.png" alt="image-20200823000717282" style="zoom:50%;"></p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">CHIP PC &#123;</span><br><span class="line">    IN <span class="keyword">in</span>[<span class="number">16</span>],load,inc,reset;</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// Order cant change</span><br><span class="line">    <span class="comment">// inc</span></span><br><span class="line">    Mux16(a=lastOut, b=incOut, sel=inc, out=out1);</span><br><span class="line">    <span class="comment">// laod</span></span><br><span class="line">    Mux16(a=out1, b=<span class="keyword">in</span>, sel=load, out=out2);</span><br><span class="line">    <span class="comment">// reset</span></span><br><span class="line">    Mux16(a=out2, b=<span class="literal">false</span>, sel=reset, out=out3);</span><br><span class="line"></span><br><span class="line">    Register(<span class="keyword">in</span>=out3, load=<span class="literal">true</span>, out=lastOut, out=out);</span><br><span class="line">    Inc16(<span class="keyword">in</span>=lastOut, out=incOut);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Computer Architecture</category>
+      </categories>
+      <tags>
+        <tag>RAM</tag>
+        <tag>nand2tetris</tag>
+        <tag>HDL</tag>
+        <tag>Register</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>nand2tetris C2-布尔算法</title>
     <url>/post/c8f554f1/</url>
     <content><![CDATA[<h1 id="布尔算法运算-Boolean-Arithmetic"><a href="#布尔算法运算-Boolean-Arithmetic" class="headerlink" title="[布尔算法运算 Boolean Arithmetic]"></a>[布尔算法运算 Boolean Arithmetic]</h1><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><p>两个<code>n-</code>位数字二进制加法的计算机硬件可以由三位加法的逻辑门构建而成。（两个计算位加上一个进位）</p>
@@ -1280,78 +1352,6 @@ a~=~in·\overline{sel},~b~=~in·sel</script><h3 id="多位逻辑门"><a href="#�
         <tag>nand2tetris</tag>
         <tag>HDL</tag>
         <tag>ALU</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>nand2tetris C3-时序逻辑</title>
-    <url>/post/5b81f62b/</url>
-    <content><![CDATA[<h1 id="时序逻辑-Sequential-Logic"><a href="#时序逻辑-Sequential-Logic" class="headerlink" title="[时序逻辑 Sequential Logic]"></a>[时序逻辑 Sequential Logic]</h1><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><p><strong>时钟(Clock)</strong>: 计算机里时间的流逝是用主时针(master clock)来表示的，它提供连续的<strong>交变信号序列</strong>。硬件实现通常基于<strong>振荡器(oscillator)</strong>，其在两个信号值<strong>0-1</strong>，或称<strong>“低电平-高电平(low-high, tick-tock)”</strong>之间交替变化。两个相邻的上升沿之间的时间间隙称为时钟的<strong>周期(cycle)</strong>，每个时钟周期模塑一个<strong>离散的时间单元</strong>。通过硬件电路，这个信号同时被传送到计算机平台的每个时序芯片中。</p>
-<p><strong>触发器(Flip-Flops)</strong>: 本书使用<strong>数据触发器(Data Flip-Flop, DFF或称D触发器)</strong>。实现基于时间的行为：</p>
-<script type="math/tex; mode=display">
-out(t) = in(t - 1)</script><p>t是当前时钟周期。换而言之，DFF能够简单的实现将前一个时间周期的输入值作为当前周期的输出值。</p>
-<p><code>out(t) = in(t - 1)</code>是所有计算机硬件维持自身状态的基础，二进制单元 -&gt; 寄存器 -&gt; 任意大的随机存取记忆单元(RAM) 都是如此.</p>
-<p><strong>寄存器(Registers)</strong>: 能够“储存”某一时刻的值，实现经典的存储行为：</p>
-<script type="math/tex; mode=display">
-out(t) = out(t - 1)</script><p>从另一个方面来说，DFF仅能够输出它前一时钟周期的输出，也就是<code>out(t) = in(t - 1)</code>。这提示了我们，可以通过DFF来实现寄存器，只需将后面的输出反馈到它的输入就可以了。</p>
-<p><img src="/post/5b81f62b/image-20200818162126362.png" alt="image-20200818162126362" style="zoom: 50%;"></p>
-<p>如此一来，在任何时刻<code>t</code>，这个设备的输出都会重现它在时刻<code>t-1</code>的值。</p>
-<p>如图3.1右，</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">load = 1, out(t) = in(t-1),  相当于wirte操作, 希望开始存储新值, 把值置于in输入口;</span><br><span class="line">load = 0, out(t) = out(t-1), 相当于read操作, 希望一直存储它的内部值直到新的指令到来</span><br></pre></td></tr></table></figure>
-<p><img src="/post/5b81f62b/image-20200818163142204.png" alt="image-20200818163142204" style="zoom: 50%;"></p>
-<p><strong>内存(Memories)</strong>: …… 随机存取内存(RAM, Random Acess Memory): 在RAM上能够随机访问被选择的字而不会受限于访问顺序。</p>
-<p><img src="/post/5b81f62b/image-20200818163246416.png" alt="image-20200818163246416" style="zoom: 50%;"></p>
-<p><strong>计数器(Counter)</strong>: 每经过一个时间周期计数器就增加1个单位，执行函数<code>out(t) = out(t-1) + c</code>，这里<code>c</code>就是1.</p>
-<h3 id="时间问题"><a href="#时间问题" class="headerlink" title="[时间问题]"></a>[时间问题]</h3><p>至此本章介绍的芯片都是时序芯片(sequential chip)。简单来说，时序芯片就是直接或间接地嵌入一个或多个DFF门的芯片。</p>
-<p>反馈回路：输出依赖于输入，而输入本身有依赖于输出，因此输出只依赖自身。</p>
-<p><img src="/post/5b81f62b/image-20200818171444271.png" alt="image-20200818171444271" style="zoom: 50%;"></p>
-<p>省略……</p>
-<h3 id="规范详述"><a href="#规范详述" class="headerlink" title="[规范详述]"></a>[规范详述]</h3><ul>
-<li><p>D触发器(DFFs)</p>
-</li>
-<li><p>寄存器 (基于DFFs)</p>
-</li>
-<li><p>存储块 (基于寄存器)</p>
-</li>
-<li><p>计数器芯片 (基于寄存器)</p>
-<p>太多细节，几乎都是必看的，建议看书；避免抄书，在此省略……</p>
-</li>
-</ul>
-<h3 id="实现硬件"><a href="#实现硬件" class="headerlink" title="[实现硬件]"></a>[实现硬件]</h3><p><strong>1Bit寄存器</strong>：</p>
-<ul>
-<li>If load[t] == 1 then out[t+1] = in[t]<ul>
-<li>else out does not change (out[t+1] = out[t])</li>
-</ul>
-</li>
-</ul>
-<p><img src="/post/5b81f62b/image-20200822231745454.png" alt="image-20200822231745454" style="zoom: 50%;"></p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">CHIP Bit &#123;</span><br><span class="line">    IN <span class="keyword">in</span>, load;</span><br><span class="line">    OUT out;</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// lastOut is equal to the last time out, Assigned by DFF<span class="string">&#x27;s lastOut</span></span><br><span class="line"><span class="string">    Mux(a=lastOut, b=in, sel=load, out=muxOut);</span></span><br><span class="line"><span class="string">    // cause the out is distinct(Only use once), so we can add out to copy the out</span></span><br><span class="line"><span class="string">    DFF(in=muxOut, out=lastOut, out=out);</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
-<p><strong>n-Bits寄存器</strong>：</p>
-<p>n个<strong>1Bit寄存器</strong>串联 和 <code>log(2)n</code>的address选择寄存器进行读写（取址执行的基础 ）。</p>
-<p><strong>n-Bits RAM(Random Access Memory)</strong>：</p>
-<p><img src="/post/5b81f62b/image-20200822234706201.png" alt="image-20200822234706201" style="zoom: 50%;"></p>
-<p>address用于寻址：根据<code>address = i</code>找出需要载入的<strong>1Bit寄存器</strong>，此时该寄存器设置<code>load = 1，in = M</code>，并在下一个时间周期<code>out = M</code>，实现<code>out(t) = in(t-1)</code></p>
-<p><img src="/post/5b81f62b/image-20200822235721818.png" alt="image-20200822235721818" style="zoom:50%;"></p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 16-bit register:</span></span><br><span class="line">CHIP Register &#123;</span><br><span class="line">    IN <span class="keyword">in</span>[<span class="number">16</span>], load;</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// No Mux16, because DFF only accept <span class="number">1</span> bit input &amp; output.</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">0</span>], load=load, out=out[<span class="number">0</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">1</span>], load=load, out=out[<span class="number">1</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">2</span>], load=load, out=out[<span class="number">2</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">3</span>], load=load, out=out[<span class="number">3</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">4</span>], load=load, out=out[<span class="number">4</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">5</span>], load=load, out=out[<span class="number">5</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">6</span>], load=load, out=out[<span class="number">6</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">7</span>], load=load, out=out[<span class="number">7</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">8</span>], load=load, out=out[<span class="number">8</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">9</span>], load=load, out=out[<span class="number">9</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">10</span>], load=load, out=out[<span class="number">10</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">11</span>], load=load, out=out[<span class="number">11</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">12</span>], load=load, out=out[<span class="number">12</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">13</span>], load=load, out=out[<span class="number">13</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">14</span>], load=load, out=out[<span class="number">14</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">15</span>], load=load, out=out[<span class="number">15</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>Memory of 8 registers, each 16 bit-wide.</strong></p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">CHIP RAM8 &#123;</span><br><span class="line">    IN <span class="keyword">in</span>[<span class="number">16</span>], load, address[<span class="number">3</span>];</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// <span class="keyword">in</span> accordance with address, locate which register to load</span><br><span class="line">    DMux8Way(<span class="keyword">in</span>=<span class="keyword">in</span>, sel=address, a=in0, b=in1, c=in2, d=in3, e=in4, f=in5, g=in6, h=in7);</span><br><span class="line"></span><br><span class="line">    Register(<span class="keyword">in</span>=in0, load=load, out=out0);</span><br><span class="line">    Register(<span class="keyword">in</span>=in1, load=load, out=out1);</span><br><span class="line">    Register(<span class="keyword">in</span>=in2, load=load, out=out2);</span><br><span class="line">    Register(<span class="keyword">in</span>=in3, load=load, out=out3);</span><br><span class="line">    Register(<span class="keyword">in</span>=in4, load=load, out=out4);</span><br><span class="line">    Register(<span class="keyword">in</span>=in5, load=load, out=out5);</span><br><span class="line">    Register(<span class="keyword">in</span>=in6, load=load, out=out6);</span><br><span class="line">    Register(<span class="keyword">in</span>=in7, load=load, out=out7);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// in accordance with address, decide which register should output</span></span><br><span class="line">    Mux8Way16(a=out0, b=out1, c=out2, d=out3, e=out4, f=out5, g=out6, h=out7, sel=address, out=out);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>Couters</strong></p>
-<p>三个基本功能：</p>
-<ul>
-<li>重置计数器</li>
-<li>计数器自增</li>
-<li>为计数器赋值</li>
-</ul>
-<p><img src="/post/5b81f62b/image-20200823000717282.png" alt="image-20200823000717282" style="zoom:50%;"></p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">CHIP PC &#123;</span><br><span class="line">    IN <span class="keyword">in</span>[<span class="number">16</span>],load,inc,reset;</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// Order cant change</span><br><span class="line">    <span class="comment">// inc</span></span><br><span class="line">    Mux16(a=lastOut, b=incOut, sel=inc, out=out1);</span><br><span class="line">    <span class="comment">// laod</span></span><br><span class="line">    Mux16(a=out1, b=<span class="keyword">in</span>, sel=load, out=out2);</span><br><span class="line">    <span class="comment">// reset</span></span><br><span class="line">    Mux16(a=out2, b=<span class="literal">false</span>, sel=reset, out=out3);</span><br><span class="line"></span><br><span class="line">    Register(<span class="keyword">in</span>=out3, load=<span class="literal">true</span>, out=lastOut, out=out);</span><br><span class="line">    Inc16(<span class="keyword">in</span>=lastOut, out=incOut);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Computer Architecture</category>
-      </categories>
-      <tags>
-        <tag>RAM</tag>
-        <tag>nand2tetris</tag>
-        <tag>HDL</tag>
-        <tag>Register</tag>
       </tags>
   </entry>
   <entry>

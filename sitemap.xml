@@ -200,6 +200,20 @@
   </url>
   
   <url>
+    <loc>https://a1va.gitee.io/tags/process/</loc>
+    <lastmod>2020-11-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://a1va.gitee.io/tags/process-scheduling/</loc>
+    <lastmod>2020-11-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://a1va.gitee.io/tags/RAM/</loc>
     <lastmod>2020-11-10</lastmod>
     <changefreq>daily</changefreq>
@@ -215,20 +229,6 @@
   
   <url>
     <loc>https://a1va.gitee.io/tags/Memory/</loc>
-    <lastmod>2020-11-10</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://a1va.gitee.io/tags/process/</loc>
-    <lastmod>2020-11-10</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://a1va.gitee.io/tags/process-scheduling/</loc>
     <lastmod>2020-11-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -256,14 +256,14 @@
   </url>
   
   <url>
-    <loc>https://a1va.gitee.io/tags/ALU/</loc>
+    <loc>https://a1va.gitee.io/tags/Register/</loc>
     <lastmod>2020-11-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://a1va.gitee.io/tags/Register/</loc>
+    <loc>https://a1va.gitee.io/tags/ALU/</loc>
     <lastmod>2020-11-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
