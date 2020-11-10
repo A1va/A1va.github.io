@@ -909,6 +909,113 @@ fruits: [苹果,桃子,香蕉]<figure class="highlight plain"><table><tr><td cla
       </tags>
   </entry>
   <entry>
+    <title>nand2tetris C2-布尔算法</title>
+    <url>/post/c8f554f1/</url>
+    <content><![CDATA[<h1 id="布尔算法运算-Boolean-Arithmetic"><a href="#布尔算法运算-Boolean-Arithmetic" class="headerlink" title="[布尔算法运算 Boolean Arithmetic]"></a>[布尔算法运算 Boolean Arithmetic]</h1><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><p>两个<code>n-</code>位数字二进制加法的计算机硬件可以由三位加法的逻辑门构建而成。（两个计算位加上一个进位）</p>
+<p><strong>在4-位二进制系统中的有符号数的2-补码表示</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>正数</th>
+<th>负数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 – 0000</td>
+<td></td>
+</tr>
+<tr>
+<td>1 – 0001</td>
+<td>1111 – (-1)</td>
+</tr>
+<tr>
+<td>2 – 0010</td>
+<td>1110 – (-2)</td>
+</tr>
+<tr>
+<td>3 – 0011</td>
+<td>1101 – (-3)</td>
+</tr>
+<tr>
+<td>4 – 0100</td>
+<td>1100 – (-4)</td>
+</tr>
+<tr>
+<td>5 – 0101</td>
+<td>1011 – (-5)</td>
+</tr>
+<tr>
+<td>6 – 0110</td>
+<td>1010 – (-6)</td>
+</tr>
+<tr>
+<td>7 – 0111</td>
+<td>1001 – (-7)</td>
+</tr>
+<tr>
+<td></td>
+<td>1000 – (-8)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>计算<code>-x</code>原理：</p>
+<script type="math/tex; mode=display">
+2^n-x = 1 + (2^n-1)-x</script><p>由此可知，用补码表示<code>n-</code>位二进制系统有如下属性：</p>
+<ul>
+<li>系统能对所有<strong>2^n^</strong>个有符号数进行编码，最大的数(0111)和最小的数(1000)分别为<strong>(2^n-1^-1)</strong>和<strong>(-2^n-1^)</strong>.</li>
+<li>所有正整数的编码的首位是0.</li>
+<li>所有负整数的编码的首位是1.</li>
+<li><em>为了通过<code>x</code>的编码获得<code>-x</code>的编码，所有最右边的0和从左边起的第一个1保持不变，然后将剩余的位取反。</em>等价的捷径就是，<strong>对<code>x</code>的所有的位取反，然后加上1，这个方案更容易在硬件中实现.</strong></li>
+</ul>
+<p>这种表示法有个特别吸引人的特征：<strong>任何两个用补码表示的有符号数的加法和与正数的加法完全相同</strong>。</p>
+<p>eg: </p>
+<p>1.加法(-2) + (-3)</p>
+<p>使用补码(<code>4-</code>位)表示：(1110)₂ + (1101)₂  = (1011)₂  ，(丢掉溢出位)</p>
+<p>正好是-5的补码.</p>
+<p><strong>我们不用去关心这些代码表示的数字（正数还是负数）</strong></p>
+<p>2.减法可以看成<code>x - y = x + (-y)</code>，补码表示中，计算<code>-y</code>：所有位取反再加1</p>
+<p><strong>以上意味着能用单一芯片（成为算术逻辑单元ALU，ALU即<code>Arithmetic Logical Unit</code>）将硬件执行的所有基本算术操作和逻辑操作封装起来</strong>.</p>
+<h3 id="规范详述"><a href="#规范详述" class="headerlink" title="[规范详述]"></a>[规范详述]</h3><ol>
+<li>加法器(Adders)<ul>
+<li><strong>半加器</strong>(Half-Adders)</li>
+<li><strong>全加器</strong>(Full-Adders)</li>
+<li><strong>加法器</strong>(Adders)</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><strong>半加器</strong>(Half-Adders)：用来进行<code>2-</code>位二进制数的加法.</li>
+</ul>
+<p><img src="/post/c8f554f1/image-20200816222258242.png" alt="image-20200816222258242" style="zoom:80%;"></p>
+<ul>
+<li><strong>全加器</strong>(Full-Adders)：用来进行<code>3-</code>位二进制数加法.  </li>
+</ul>
+<p><img src="/post/c8f554f1/image-20200816223202065.png" alt="image-20200816223202065" style="zoom:80%;"></p>
+<ul>
+<li><strong>加法器</strong>(Adders)：用来进行两个<code>n-</code>位加法.(图为16位)</li>
+</ul>
+<p><img src="/post/c8f554f1/image-20200816222654606.png" alt="image-20200816222654606" style="zoom:80%;"></p>
+<ul>
+<li><strong>增量器</strong>(incrementer)：用来对指定的数字加1.</li>
+</ul>
+<p><img src="/post/c8f554f1/image-20200816223012624.png" alt="image-20200816223012624" style="zoom:80%;"></p>
+<h3 id="算术逻辑单元-ALU"><a href="#算术逻辑单元-ALU" class="headerlink" title="算术逻辑单元(ALU)"></a>算术逻辑单元(ALU)</h3><p><img src="/post/c8f554f1/image-20200817143329826.png" alt="image-20200817143329826" style="zoom:80%;"></p>
+<p>Hack的ALU计算一组固定的函数<code>out = f(x, y)</code>，这里<code>x</code>和<code>y</code>是芯片的两个<code>16-</code>位输入，<code>out</code>是芯片的<code>16-</code>位输出，该函数表由18个固定函数组成，通过设置六个称为控制位(control bits)的输入位来告诉ALU用哪一个函数来进行何种函数计算。</p>
+<p>ALU可以对2^6^=64个不同的函数进行操作。</p>
+]]></content>
+      <categories>
+        <category>Computer Architecture</category>
+      </categories>
+      <tags>
+        <tag>nand2tetris</tag>
+        <tag>HDL</tag>
+        <tag>ALU</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>nand2tetris C1-布尔逻辑</title>
     <url>/post/a2d606e7/</url>
     <content><![CDATA[<h1 id="布尔逻辑-Boolean-Logic"><a href="#布尔逻辑-Boolean-Logic" class="headerlink" title="[布尔逻辑 Boolean Logic]"></a>[布尔逻辑 Boolean Logic]</h1><p><strong>And/Or/Not</strong>算子都可以只用<strong>Nand</strong>或<strong>Nor</strong>函数来构建（可以单纯用Nand也可以单纯用Nor）</p>
@@ -1245,113 +1352,6 @@ out(t) = out(t - 1)</script><p>从另一个方面来说，DFF仅能够输出它�
         <tag>nand2tetris</tag>
         <tag>HDL</tag>
         <tag>Register</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>nand2tetris C2-布尔算法</title>
-    <url>/post/c8f554f1/</url>
-    <content><![CDATA[<h1 id="布尔算法运算-Boolean-Arithmetic"><a href="#布尔算法运算-Boolean-Arithmetic" class="headerlink" title="[布尔算法运算 Boolean Arithmetic]"></a>[布尔算法运算 Boolean Arithmetic]</h1><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><p>两个<code>n-</code>位数字二进制加法的计算机硬件可以由三位加法的逻辑门构建而成。（两个计算位加上一个进位）</p>
-<p><strong>在4-位二进制系统中的有符号数的2-补码表示</strong></p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>正数</th>
-<th>负数</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0 – 0000</td>
-<td></td>
-</tr>
-<tr>
-<td>1 – 0001</td>
-<td>1111 – (-1)</td>
-</tr>
-<tr>
-<td>2 – 0010</td>
-<td>1110 – (-2)</td>
-</tr>
-<tr>
-<td>3 – 0011</td>
-<td>1101 – (-3)</td>
-</tr>
-<tr>
-<td>4 – 0100</td>
-<td>1100 – (-4)</td>
-</tr>
-<tr>
-<td>5 – 0101</td>
-<td>1011 – (-5)</td>
-</tr>
-<tr>
-<td>6 – 0110</td>
-<td>1010 – (-6)</td>
-</tr>
-<tr>
-<td>7 – 0111</td>
-<td>1001 – (-7)</td>
-</tr>
-<tr>
-<td></td>
-<td>1000 – (-8)</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>计算<code>-x</code>原理：</p>
-<script type="math/tex; mode=display">
-2^n-x = 1 + (2^n-1)-x</script><p>由此可知，用补码表示<code>n-</code>位二进制系统有如下属性：</p>
-<ul>
-<li>系统能对所有<strong>2^n^</strong>个有符号数进行编码，最大的数(0111)和最小的数(1000)分别为<strong>(2^n-1^-1)</strong>和<strong>(-2^n-1^)</strong>.</li>
-<li>所有正整数的编码的首位是0.</li>
-<li>所有负整数的编码的首位是1.</li>
-<li><em>为了通过<code>x</code>的编码获得<code>-x</code>的编码，所有最右边的0和从左边起的第一个1保持不变，然后将剩余的位取反。</em>等价的捷径就是，<strong>对<code>x</code>的所有的位取反，然后加上1，这个方案更容易在硬件中实现.</strong></li>
-</ul>
-<p>这种表示法有个特别吸引人的特征：<strong>任何两个用补码表示的有符号数的加法和与正数的加法完全相同</strong>。</p>
-<p>eg: </p>
-<p>1.加法(-2) + (-3)</p>
-<p>使用补码(<code>4-</code>位)表示：(1110)₂ + (1101)₂  = (1011)₂  ，(丢掉溢出位)</p>
-<p>正好是-5的补码.</p>
-<p><strong>我们不用去关心这些代码表示的数字（正数还是负数）</strong></p>
-<p>2.减法可以看成<code>x - y = x + (-y)</code>，补码表示中，计算<code>-y</code>：所有位取反再加1</p>
-<p><strong>以上意味着能用单一芯片（成为算术逻辑单元ALU，ALU即<code>Arithmetic Logical Unit</code>）将硬件执行的所有基本算术操作和逻辑操作封装起来</strong>.</p>
-<h3 id="规范详述"><a href="#规范详述" class="headerlink" title="[规范详述]"></a>[规范详述]</h3><ol>
-<li>加法器(Adders)<ul>
-<li><strong>半加器</strong>(Half-Adders)</li>
-<li><strong>全加器</strong>(Full-Adders)</li>
-<li><strong>加法器</strong>(Adders)</li>
-</ul>
-</li>
-</ol>
-<ul>
-<li><strong>半加器</strong>(Half-Adders)：用来进行<code>2-</code>位二进制数的加法.</li>
-</ul>
-<p><img src="/post/c8f554f1/image-20200816222258242.png" alt="image-20200816222258242" style="zoom:80%;"></p>
-<ul>
-<li><strong>全加器</strong>(Full-Adders)：用来进行<code>3-</code>位二进制数加法.  </li>
-</ul>
-<p><img src="/post/c8f554f1/image-20200816223202065.png" alt="image-20200816223202065" style="zoom:80%;"></p>
-<ul>
-<li><strong>加法器</strong>(Adders)：用来进行两个<code>n-</code>位加法.(图为16位)</li>
-</ul>
-<p><img src="/post/c8f554f1/image-20200816222654606.png" alt="image-20200816222654606" style="zoom:80%;"></p>
-<ul>
-<li><strong>增量器</strong>(incrementer)：用来对指定的数字加1.</li>
-</ul>
-<p><img src="/post/c8f554f1/image-20200816223012624.png" alt="image-20200816223012624" style="zoom:80%;"></p>
-<h3 id="算术逻辑单元-ALU"><a href="#算术逻辑单元-ALU" class="headerlink" title="算术逻辑单元(ALU)"></a>算术逻辑单元(ALU)</h3><p><img src="/post/c8f554f1/image-20200817143329826.png" alt="image-20200817143329826" style="zoom:80%;"></p>
-<p>Hack的ALU计算一组固定的函数<code>out = f(x, y)</code>，这里<code>x</code>和<code>y</code>是芯片的两个<code>16-</code>位输入，<code>out</code>是芯片的<code>16-</code>位输出，该函数表由18个固定函数组成，通过设置六个称为控制位(control bits)的输入位来告诉ALU用哪一个函数来进行何种函数计算。</p>
-<p>ALU可以对2^6^=64个不同的函数进行操作。</p>
-]]></content>
-      <categories>
-        <category>Computer Architecture</category>
-      </categories>
-      <tags>
-        <tag>nand2tetris</tag>
-        <tag>HDL</tag>
-        <tag>ALU</tag>
       </tags>
   </entry>
   <entry>
@@ -2137,163 +2137,6 @@ c_m~=~\overline{Instruction[15]},~c_a~=~\overline{Instruction[15]·\overline{d_1
       </tags>
   </entry>
   <entry>
-    <title>nand2tetris C7-虚拟机Ⅰ堆栈运算</title>
-    <url>/post/83717699/</url>
-    <content><![CDATA[<h1 id="虚拟机Ⅰ-堆栈运算-Stack-Arithmetic"><a href="#虚拟机Ⅰ-堆栈运算-Stack-Arithmetic" class="headerlink" title="[虚拟机Ⅰ: 堆栈运算 Stack Arithmetic]"></a>[虚拟机Ⅰ: 堆栈运算 Stack Arithmetic]</h1><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><h4 id="1-虚拟机范型"><a href="#1-虚拟机范型" class="headerlink" title="1.虚拟机范型"></a>1.虚拟机范型</h4><p>​        高级语言程序能够在计算机上运行之前，它必须被翻译成计算机的机器语言，即<strong>编译</strong>。如果每种高级语言被编译成对应于目标硬件平台的机器语言，那么我们必须维护多个版本的代码，这是一种无尽的折磨…</p>
-<p><img src="/post/83717699/image-20200911163424313.png" alt="pain" style="zoom:67%;"></p>
-<p>​        减少高级语言和机器语言<strong>依赖性</strong>的方法之一是将编译过程分为<strong>两个几乎独立的阶段</strong>。基本思想：中间代码运行在<strong>虚拟机(virtual Machine)</strong>上，而不是正式的硬件平台。</p>
-<p><img src="/post/83717699/image-20200911163242720.png" alt="virtualMachine instance"></p>
-<p>​        第一个阶段：高级程序被解析出来，其命令被翻译成中间结果。第二个阶段：这些中间结果被进一步翻译成目标硬件的机器语言。当然，两个编译阶段之间的接口<strong>(接口就是中间处理步骤的精确定义)</strong>必须仔细地进行设计。</p>
-<p>​        原来作用为一个独立程序的编译器被分成两个独立的程序。第一个程序，编译器(Compiler)，将高级代码翻译成中间VM指令；第二个程序将这个<strong>VM代码翻译成目标计算机硬件平台的机器语言</strong>。</p>
-<p>​        Java编译器也是<strong>两层(two-tiered)结构</strong>，它生成运行在JVM虚拟机上(也称为Java运行时环境，<strong>Java Runtime Enviroment</strong>)的byte-code语言。</p>
-<p>​        明确且正式的虚拟机语言概念有很多务实的优点。首先，仅需要<strong>替换虚拟机实现部分</strong>（有时候称为编译器的后端程序， backend）就能相对容易地<strong>得到不同硬件平台的编译器</strong>。因此，虚拟机在不同硬件平台之间的<strong>可移植性</strong>可以实现代码效率、硬件成本和程序开发难度之间的权衡。其次，很多语言的编译器能够<strong>共享VM后端程序</strong>，允许<strong>代码共享和语言互用性</strong>。比如，某种高级语言善于科学计算，而另一种在处理用户接口方面很突出。<strong>如果把两种语言编译到通用的VM层，那么通过使用约定的调用语法，其中一种语言的程序就能够很容易地调用另一种语言的程序</strong>。</p>
-<p>​        虚拟机方法的另一个优点是<strong>模块化</strong>。<strong>VM的每一个改善都会立即被所有构建于其上的编译器继承</strong>。同样地，每个安装有VM实现的数字设备都能够受益于现有软件的庞大基础。</p>
-<p>​        将高级语言翻译成中间代码的程序可以称为<strong>编译器前端程序</strong>，而将中间代码翻译成机器语言的程序可以称为<strong>编译器后端程序</strong>。</p>
-<p>​        比如<code>Java</code>，<code>Java</code>的源码经翻译后形成<code>Byte Code</code>文件，<code>Byte Code</code>文件是运行在<code>Java</code>虚拟机上的，而<code>Byte Code</code>文件经翻译后得到机器语言，机器语言运行在硬件平台上。因此，中间代码运行在虚拟机上，机器语言运行在硬件上。</p>
-<p>​        编译器的后端程序负责的是将中间代码翻译成机器语言，所以它与硬件平台的关系性非常大，如果我们需要运行在不同的硬件平台上，那么机器语言就会发生变化，因此后端程序就需要改变，而前端程序不需要改变，因而虚拟机可以使语言很方便的进行<strong>跨平台使用</strong>。</p>
-<p>​        在此虚拟机中，虚拟机语言共包含4种类型的指令：算术指令，内存访问指令，程序流程控制指令和子程序调用指令。</p>
-<p>​        </p>
-<h4 id="2-栈式计算机模型"><a href="#2-栈式计算机模型" class="headerlink" title="2.栈式计算机模型"></a>2.栈式计算机模型</h4><p>​        在VM操作中的操作数和结果应该驻留在哪里。也许“最干净利落”的方法是将其放在<strong>栈式(stack)</strong>数据结构。</p>
-<h5 id="栈式计算机模型的实现"><a href="#栈式计算机模型的实现" class="headerlink" title="栈式计算机模型的实现"></a>栈式计算机模型的实现</h5><p><img src="/post/83717699/image-20200913101004893.png" alt="stack machine inplementation" style="zoom:50%;"></p>
-<p><em>Logic</em></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">*sp = <span class="number">17</span>;</span><br><span class="line">sp++;</span><br></pre></td></tr></table></figure>
-<p><em>Hack assembly</em></p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">@<span class="number">17</span>;  <span class="comment">// A=17</span></span><br><span class="line">D=A;  <span class="comment">// D=17</span></span><br><span class="line"><span class="comment">// *SP=D</span></span><br><span class="line">@SP;  <span class="comment">// A = SP</span></span><br><span class="line">A=M;  <span class="comment">// A = Memory[SP]: indirect address</span></span><br><span class="line">M=D;  <span class="comment">// M = D,( M is (*SP) )</span></span><br><span class="line"><span class="comment">// SP++</span></span><br><span class="line">@SP;</span><br><span class="line">M=M+<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="from-VM-to-Assembly"><a href="#from-VM-to-Assembly" class="headerlink" title="[from VM to Assembly]"></a>[from VM to Assembly]</h3><p><strong><em>push &amp; pop</em> implementation:</strong></p>
-<p><img src="/post/83717699/image-20200923124849383.png" alt="push/pop" style="zoom:67%;"></p>
-<p><strong><em>stack</em> implementation</strong></p>
-<p><img src="/post/83717699/image-20200923125313183.png" alt="image-20200923125313183" style="zoom:67%;"></p>
-<p><strong><em>implement constant:</em></strong>no <code>pop</code></p>
-<p><img src="/post/83717699/image-20200913111011987.png" alt="implement constant" style="zoom:50%;"></p>
-<ul>
-<li>不允许存储任何东西到<code>constant</code>段</li>
-</ul>
-<p><strong>Implementing <em>local</em></strong></p>
-<p><img src="/post/83717699/image-20200913103134064.png" alt="local" style="zoom:50%;"></p>
-<p><em>logic</em>:</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">addr = LCL + <span class="number">2</span>;</span><br><span class="line">SP--;</span><br><span class="line">*addr = *SP;</span><br></pre></td></tr></table></figure>
-<p><em>implement:</em></p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">@<span class="number">2</span>;</span><br><span class="line">D=A;</span><br><span class="line">@LCL;</span><br><span class="line">D=M+D;</span><br><span class="line">@addr;</span><br><span class="line">M=D;</span><br><span class="line"><span class="comment">// SP--, SP is a pointer</span></span><br><span class="line">@SP;</span><br><span class="line">A=M;</span><br><span class="line">M=M<span class="number">-1</span>;  <span class="comment">// SP--</span></span><br><span class="line">D=M;  <span class="comment">// D=SP</span></span><br><span class="line">@addr;</span><br><span class="line">A=M;  <span class="comment">// A=addr, M=*addr</span></span><br><span class="line">M=D;</span><br></pre></td></tr></table></figure>
-<h5 id="summary"><a href="#summary" class="headerlink" title="summary:"></a>summary:</h5><p>previous <em>Logic</em> is <code>pop local i</code>, and <code>push local i</code> is similiar.</p>
-<p><code>pop local i</code>is to<code>addr = LCL + i, SP--, *addr = *SP</code></p>
-<p><code>push local i</code> is to<code>addr = LCL + i, *SP = *addr, SP++</code></p>
-<p><img src="/post/83717699/image-20200913104413496.png" alt="summary" style="zoom:50%;"></p>
-<p><strong>implement <em>lcoal, argument, this, that</em></strong>:</p>
-<p><img src="/post/83717699/image-20200923151620070.png" alt="image-20200923151620070" style="zoom:67%;"></p>
-<ul>
-<li>将函数方法局部变量和参数变量映射到<code>local</code>和<code>argument</code>段</li>
-<li>将函数方法正在处理的对象属性字段和数组项(条目)映射到<code>this</code>和<code>that</code>段</li>
-</ul>
-<p><img src="/post/83717699/image-20200913144322327.png" alt="four segment" style="zoom: 80%;"></p>
-<p><code>local</code>, <code>argument</code>, <code>this</code> 和 <code>that</code>都是同样的实现，只需要将<code>segment</code>替换就可以得到另一种。</p>
-<script type="math/tex; mode=display">
-segment = \{lcoal, argument, this, that\}</script><p><strong><em>implement static</em></strong>:class level variable</p>
-<p><img src="/post/83717699/image-20200913150214722.png" alt="static-variable" style="zoom: 80%;"></p>
-<p>​    挑战：<code>static</code>变量应该对程序中的所有函数方法可见</p>
-<p>​    解决方法：将其存储在<code>global space</code>全局段中</p>
-<ul>
-<li>VM翻译器必须翻译每一个VM指向的<code>static i</code>(in the file <em>Foo.vm</em>)到Hack汇编程序的<code>Foo.i</code></li>
-<li>遵循Hack汇编的语法，Hack汇编编译器将会把这些映射到<code>RAM[16], ... , RAM[255]</code></li>
-</ul>
-<p><em>implement Memory segment:</em> <code>temp</code></p>
-<p><img src="/post/83717699/image-20200913162748968.png" alt="temp01" style="zoom: 67%;"></p>
-<ul>
-<li>有些时候，编译器需要用一些中间变量，我们的VM提供了8个类似的变量，存储在<code>temp</code>段</li>
-</ul>
-<p><img src="/post/83717699/image-20200913163030397.png" alt="temp02" style="zoom:67%;"></p>
-<p>✨✨<code>temp</code>: from VM code to Assembly pseudo code</p>
-<p>8个变量存储在<code>RAM[5]~RAM[12]</code></p>
-<p><strong><em>implement pointer 0/1</em></strong></p>
-<ul>
-<li>用于存储<code>this</code>和<code>that</code>段的基地址</li>
-<li>当我们编写编译器时，就会知道<code>this</code>的重要性</li>
-</ul>
-<p><img src="/post/83717699/image-20200922135814987.png" alt="pointer"></p>
-<ul>
-<li>通过访问<code>THIS</code>从而访问<code>pointer 0: this</code></li>
-<li>通过访问<code>THAT</code>从而访问<code>pointer 1: that</code></li>
-</ul>
-<h5 id="Summary"><a href="#Summary" class="headerlink" title="Summary:"></a>Summary:</h5><p><img src="/post/83717699/image-20200922135405740.png" alt="总结1" style="zoom:67%;"></p>
-<p><img src="/post/83717699/image-20200922135427724.png" alt="总结2" style="zoom:67%;"></p>
-<h3 id="实现"><a href="#实现" class="headerlink" title="[实现]"></a>[实现]</h3><h5 id="综合内存映射分析堆栈运算"><a href="#综合内存映射分析堆栈运算" class="headerlink" title="综合内存映射分析堆栈运算"></a><strong>综合内存映射分析堆栈运算</strong></h5><p>​        做好本章的项目，理解好<strong>内存映射(Memory Map)</strong>是关键，只有理解了内存映射才能知道去哪里取数据，将数据存储到哪里。</p>
-<p>​        综合来看，本章的大致思路就是：从<strong>RAM[1]~RAM[4]</strong>中找到<strong>基址</strong>，根据偏移量计算出地址，再去获取数据，并将数据放入堆栈中，在栈区中完成一定操作后，再将结果从堆栈中弹出，放到指定的内存单元（这里实际上还需要计算基址和偏移量）。不同的是<code>temp</code>段，它可以直接在<strong>RAM[5]</strong>上加上偏移量得到存储单元的地址。</p>
-<p>​        在整个操作过程中，如果需要使用除D寄存器和A寄存器之外的寄存器暂时存储结果的时候，就会使用到<strong>RAM[13]~RAM[15]</strong>的通用寄存器。</p>
-<p><strong><em>Review:</em></strong></p>
-<ol>
-<li><p><code>@X</code>的意义为把<code>X</code>存入A寄存器，M代表的是<code>Memory[A]</code>，即A映射的地址中所存的值。<br><code>A=M, M=D</code>两句意味着1. A更新为M寄存器存储的数据所指向的地址，2.将D寄存器存储的的数据存入<code>Memory[A]</code>，这是这一章中用得最多的逻辑语句。</p>
-</li>
-<li><p>在实现<code>eq</code>, <code>gt</code>, <code>lt</code>时，需要用汇编语言实现<code>if</code>分支，这里需要用到两个<code>lable</code>，一个<strong>有条件</strong><code>jump</code>，一个<strong>无条件</strong><code>jump</code>，代码实现为：</p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Compare R1=R2 set result in R3</span></span><br><span class="line">@SP</span><br><span class="line">AM=M<span class="number">-1</span></span><br><span class="line">D=M</span><br><span class="line">A=A<span class="number">-1</span></span><br><span class="line">D=M-D</span><br><span class="line">@RET_TRUE</span><br><span class="line">D;JEQ</span><br><span class="line">@SP         <span class="comment">// need to return False</span></span><br><span class="line">A=M<span class="number">-1</span></span><br><span class="line">M=<span class="number">0</span></span><br><span class="line">@CONTINUE</span><br><span class="line"><span class="number">0</span>;JMP</span><br><span class="line">(RET_TRUE)</span><br><span class="line">@SP        <span class="comment">// need to return True</span></span><br><span class="line">A=M<span class="number">-1</span></span><br><span class="line">M=<span class="number">-1</span></span><br><span class="line">(CONTINUE)</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol>
-<li><p><code>push segment i</code>的实现：<code>addr = segmentPointer+i, *SP = *addr, SP++</code></p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">@segmentPointer</span><br><span class="line">D=M</span><br><span class="line">@index</span><br><span class="line">A=D+A</span><br><span class="line">D=M</span><br><span class="line">@SP</span><br><span class="line">A=M</span><br><span class="line">M=D</span><br><span class="line">@SP</span><br><span class="line">M=M+<span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p><code>pop segment i</code>的实现：<code>addr = segmentPointer+i, SP--, *addr = *SP</code></p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">@segmentPointer</span><br><span class="line">D=M</span><br><span class="line">@index</span><br><span class="line">D=D+A</span><br><span class="line">@R13</span><br><span class="line">M=D</span><br><span class="line">@SP</span><br><span class="line">AM=M<span class="number">-1</span></span><br><span class="line">D=M</span><br><span class="line">@R13</span><br><span class="line">A=M</span><br><span class="line">M=D</span><br></pre></td></tr></table></figure>
-<p><code>push/pop temp i</code>的实现</p>
-<p>push: <code>addr = 5 + i, *SP = *addr, SP++</code></p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">@<span class="number">5</span>+index</span><br><span class="line">D=M</span><br><span class="line">@SP</span><br><span class="line">A=M</span><br><span class="line">M=D</span><br><span class="line">@SP</span><br><span class="line">M=M+<span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>pop:  <code>addr = 5 + i, SP--, *addr = *SP</code></p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">@SP</span><br><span class="line">AM=M<span class="number">-1</span></span><br><span class="line">D=M</span><br><span class="line">@<span class="number">5</span>+index</span><br><span class="line">M=D</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol>
-<li><p><code>push pointer 0/1</code>的实现：<code>*SP = THIS/THAT, SP++</code></p>
-<p><code>pop pointer 0/1</code>的实现：<code>SP--, THIS/THAT = *SP</code></p>
-<p>与temp类似</p>
-</li>
-<li><p><code>push/pop static i</code>的实现：<code>@vmName.index ...</code></p>
-<p>与temp类似</p>
-</li>
-<li><p><code>segment</code>和<code>pointer</code>,<code>static</code>,<code>temp</code>段的区别只有：<code>segment</code>段需要额外计算地址</p>
-<p>即<code>push/pop local 2</code>，需要计算<code>LCL+2</code>再进行<code>push/pop</code>操作</p>
-</li>
-</ol>
-<p><strong><em>Recommand:</em></strong></p>
-<ol>
-<li>按照书中推荐的实现步骤，依次实现5个.vm文件的转化</li>
-<li>对于每个步骤，先在VM Emulator中运行.vm文件和VME.tst测试文件，通过观察其每一步是如何实现的，深入理解VM语言中<code>push</code>，<code>pop</code>和各个参数的实际意义</li>
-<li>手写练习相关Hack汇编语言，对于每个<code>segment</code>段的转换，至少完成一个例子</li>
-<li>将转换过程用高级语言实现(Java/Python/…)，测试修改，抽象方法，代码复用</li>
-</ol>
-<p><img src="/post/83717699/image-20200922135207520.png" alt="建议实现步骤" style="zoom: 80%;"></p>
-<p><img src="/post/83717699/image-20200922135257496.png" alt="建议实现步骤2" style="zoom:80%;"></p>
-<p><strong><em>Tips:</em></strong></p>
-<ol>
-<li><p>第七章中的机器语言和第六章中的机器语言在结构上略有不同，这一章中的语言更加向高级语言靠拢，在有些地方显得“啰嗦”</p>
-<p><code>push constant 7</code>需要如此多的汇编语言实现，但是其中每一句话都是有意义的，所以一定要理解每一句VM语言究竟做了哪些事</p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">@<span class="number">7</span>          <span class="comment">// constant 7</span></span><br><span class="line">D=A         <span class="comment">// D=7</span></span><br><span class="line">@SP         <span class="comment">// A=栈顶指针=RAM[0]</span></span><br><span class="line">A=M         <span class="comment">// A=Memory[A], A更新为M存储的数据所指向的地址</span></span><br><span class="line">M=D         <span class="comment">// Memory[A]=D</span></span><br><span class="line">@SP         <span class="comment">// A=栈顶指针</span></span><br><span class="line">M=M+<span class="number">1</span>       <span class="comment">// 栈顶指针++</span></span><br></pre></td></tr></table></figure>
-<p><code>pop constant 7</code></p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">@<span class="number">7</span></span><br><span class="line">D=A</span><br><span class="line">@SP</span><br><span class="line">M=M<span class="number">-1</span></span><br><span class="line">A=M</span><br><span class="line">M=D</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol>
-<li><p>因为一个vm文件中可能会同时出现许多<code>eq</code>，<code>lt</code>这样的涉及<code>jump</code>的语句，如果每一个<code>lable</code>都相同的话，那么<code>lable</code>就会产生重复冲突，如：</p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">@Label</span><br><span class="line">...</span><br><span class="line">(Label)</span><br><span class="line">...</span><br><span class="line">@Label</span><br><span class="line">...</span><br><span class="line">(Label)</span><br></pre></td></tr></table></figure>
-<p>当机器到达第一个<code>@lable</code>点时，就会跳到最后一处<code>(lable)</code>。为了避免这种情况，需要给不同的<code>lable</code>依次加上编号，如<code>lable1</code>，<code>lable2</code>，这里可以使用定义全局变量来实现。</p>
-</li>
-</ol>
-<ol>
-<li>翻译<code>pop segment index</code>的过程中，首先需要获取<code>segment</code>中存储的地址，然后将<code>index</code>加在这个地址上，得到目标地址。最后把当前<code>SP</code>所指向的地址中的值弹入这个目标地址。这个过程是无法用机器语言直接实现的，因为当中涉及两次调用寄存器D。唯一的解决方案就是在翻译过程中用<code>index</code>控制循环语句，让其自动添加<code>index</code>次的<code>A=A+1</code>，这样的话就免去了多次调用D寄存器的困难。</li>
-</ol>
-<p><em>Parser.java</em></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 分析.vm文件，封装对输入代码的访问操作</span></span><br><span class="line"><span class="comment"> * 读取vm指令并解析，然后为它各个部分提供方便的访问入口</span></span><br><span class="line"><span class="comment"> * 移除代码中所有空格和注释</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parser</span></span>&#123;</span><br><span class="line">    <span class="comment">// variable: 文件扫描、当前指令、当前文件名</span></span><br><span class="line">    <span class="comment">// 算术指令的字符串数组</span></span><br><span class="line">    <span class="comment">// Paser模块基本函数：构造函数、更多指令、advance()、commandType()区分指令类型、返回指令第一个参数、返回指令第二个参数</span></span><br><span class="line">    <span class="comment">// 当前指令长度</span></span><br><span class="line">    <span class="comment">// 返回完整指令</span></span><br><span class="line">    <span class="comment">// 设置和获取文件名</span></span><br><span class="line">    <span class="comment">// 关闭资源</span></span><br><span class="line">    <span class="comment">// 判断是否为算术指令  be used in commandType()</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><em>CodeWriter.java</em></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CodeWriter</span></span>&#123;</span><br><span class="line">    <span class="comment">// PrintWriter对象、当前文件名、区分分支标签的数字</span></span><br><span class="line">    <span class="comment">// 构造函数(PrintWriter): 区分分支标签的数字置零</span></span><br><span class="line">    <span class="comment">// 设置翻译出来的的.vm文件的文件名(提取出文件名)</span></span><br><span class="line">    <span class="comment">// writeArithmetic(String command): 将给定的算术操作所对应的汇编写到输出文件</span></span><br><span class="line">    <span class="comment">// writePushAndPop(Parser.Command command, String segment, int index): </span></span><br><span class="line">    <span class="comment">//   1.constant: @idnex, D=A, 将D寄存器的值存储在SP所指向的内存单元, SP++</span></span><br><span class="line">    <span class="comment">//   2.local,argument,this,that: </span></span><br><span class="line">    <span class="comment">//     (1)push: (addr = segmentPointer+i, *SP = *addr, SP++)</span></span><br><span class="line">    <span class="comment">//             获取对应(segmentPointer+i)所指向的地址,M[SP]获取对应的值,SP++</span></span><br><span class="line">    <span class="comment">//     (2)pop: (addr = segmentPointer+i, SP--, *addr = *SP) 需要借助R13存储中间值</span></span><br><span class="line">    <span class="comment">//             获取对应(segmentPointer+i)所指向的地址,SP--,对应的内存单元获取M[SP]的值</span></span><br><span class="line">    <span class="comment">//   3.temp: </span></span><br><span class="line">    <span class="comment">//     (1)push: (*SP = 5+i, SP++)</span></span><br><span class="line">    <span class="comment">//     (2)pop: (SP--, 5+i = *SP)</span></span><br><span class="line">    <span class="comment">//   4.pointer: </span></span><br><span class="line">    <span class="comment">//     (1)push pointer 0/1: (*SP = THIS/THAT, SP++) 根据0/1决定THIS/THAT</span></span><br><span class="line">    <span class="comment">//     (2)pop  pointer 0/1: (SP--, THIS/THAT = *addr)</span></span><br><span class="line">    <span class="comment">//   5.static:</span></span><br><span class="line">    <span class="comment">//     (1)push: (*SP = fileName.index, SP++)</span></span><br><span class="line">    <span class="comment">//     (2)pop: (SP--, fileName.index = *SP)</span></span><br><span class="line">    <span class="comment">// segment: local,argument,this,that  </span></span><br><span class="line">    <span class="comment">//   void writeBasePush(String segmentPointer, int index)</span></span><br><span class="line">    <span class="comment">//   void writeBasePop(String segmentPointer, int index)</span></span><br><span class="line">    <span class="comment">// poiner, static, temp</span></span><br><span class="line">    <span class="comment">//   void writeMappedPush(String location)</span></span><br><span class="line">    <span class="comment">//   void writeMappedPop(String location)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><em>VMTranslator.java</em></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">VMTranslator</span></span>&#123;</span><br><span class="line">    <span class="comment">// 需要解析的.vm文件数组链表，处理无.vm文件的情况</span></span><br><span class="line">    <span class="comment">// getParser(File): 根据File文件对象创建Parser对象，与chap6类似</span></span><br><span class="line">    <span class="comment">// printCommandLineErrorAndExit(): 命令行错误处理</span></span><br><span class="line">    <span class="comment">// 判断命令行是否正确，错误则调用函数处理</span></span><br><span class="line">    <span class="comment">// 检查提供的命令行参数，以确定它是有效的文件或目录(1.不存在，2.文件，3.目录)</span></span><br><span class="line">    <span class="comment">// if 1.输出错误</span></span><br><span class="line">    <span class="comment">// else if 2.确定是.vm文件，获取Parser对象，并解析指令参数(路径+文件名)初始化Parser对象的文件名; 调用翻译函数</span></span><br><span class="line">    <span class="comment">// else if 3.将指令参数arg[0]映射路径下的所有文件转换成File对象，并用File[]数组存储; 遍历所有文件，找出.vm文件并根据File获取Parser，依据.vm文件File对象设置Paser对象文件名，设置输出文件名(绝对路径+&#x27;/&#x27;+文件名+&#x27;.asm&#x27;)，调用函数翻译成.asm文件，并把该文件加入到数组链表</span></span><br><span class="line">    <span class="comment">// 			if 若Parser对象的数组链表为空则输出错误并退出</span></span><br><span class="line">    <span class="comment">// else 4.错误处理</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// writeVM2ASM(String, Parser): 空建CideWriter对象，根据String构造PrintWriter对象，再由其构造CodeWriter对象，并从parser获取文件名设置CodeWriter对象的文件名。</span></span><br><span class="line">    <span class="comment">// 还有命令:向前，跳空白，parser长度为0下一循环，若parser的命令类型是&#x27;push&#x27;或&#x27;pop&#x27;则调用codewriter对象写入Push和Pop相应的ASM指令，算术指令调用相应的函数</span></span><br><span class="line">    <span class="comment">// finally 释放parser和codewriter资源</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Computer Architecture</category>
-      </categories>
-      <tags>
-        <tag>nand2tetris</tag>
-        <tag>VirtualMachine</tag>
-        <tag>vm code</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>nand2tetris C6-汇编编译器</title>
     <url>/post/e93fe37f/</url>
     <content><![CDATA[<h1 id="汇编编译器-Assembler"><a href="#汇编编译器-Assembler" class="headerlink" title="[汇编编译器 Assembler]"></a>[汇编编译器 Assembler]</h1><p>​        我们已经完成了计算机的<strong>硬件平台(hardware platform)</strong>，此后我们将集中探讨计算机的<strong>软件阶层体系(software hierarchy)</strong>，直到最后为简单的面向对象编程语言开发<strong>编译器</strong>和<strong>基本的操作系统</strong>为止。</p>
@@ -2487,6 +2330,163 @@ segment = \{lcoal, argument, this, that\}</script><p><strong><em>implement stati
         <tag>nand2tetris</tag>
         <tag>Assembly</tag>
         <tag>Hack汇编编译器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nand2tetris C7-虚拟机Ⅰ堆栈运算</title>
+    <url>/post/83717699/</url>
+    <content><![CDATA[<h1 id="虚拟机Ⅰ-堆栈运算-Stack-Arithmetic"><a href="#虚拟机Ⅰ-堆栈运算-Stack-Arithmetic" class="headerlink" title="[虚拟机Ⅰ: 堆栈运算 Stack Arithmetic]"></a>[虚拟机Ⅰ: 堆栈运算 Stack Arithmetic]</h1><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><h4 id="1-虚拟机范型"><a href="#1-虚拟机范型" class="headerlink" title="1.虚拟机范型"></a>1.虚拟机范型</h4><p>​        高级语言程序能够在计算机上运行之前，它必须被翻译成计算机的机器语言，即<strong>编译</strong>。如果每种高级语言被编译成对应于目标硬件平台的机器语言，那么我们必须维护多个版本的代码，这是一种无尽的折磨…</p>
+<p><img src="/post/83717699/image-20200911163424313.png" alt="pain" style="zoom:67%;"></p>
+<p>​        减少高级语言和机器语言<strong>依赖性</strong>的方法之一是将编译过程分为<strong>两个几乎独立的阶段</strong>。基本思想：中间代码运行在<strong>虚拟机(virtual Machine)</strong>上，而不是正式的硬件平台。</p>
+<p><img src="/post/83717699/image-20200911163242720.png" alt="virtualMachine instance"></p>
+<p>​        第一个阶段：高级程序被解析出来，其命令被翻译成中间结果。第二个阶段：这些中间结果被进一步翻译成目标硬件的机器语言。当然，两个编译阶段之间的接口<strong>(接口就是中间处理步骤的精确定义)</strong>必须仔细地进行设计。</p>
+<p>​        原来作用为一个独立程序的编译器被分成两个独立的程序。第一个程序，编译器(Compiler)，将高级代码翻译成中间VM指令；第二个程序将这个<strong>VM代码翻译成目标计算机硬件平台的机器语言</strong>。</p>
+<p>​        Java编译器也是<strong>两层(two-tiered)结构</strong>，它生成运行在JVM虚拟机上(也称为Java运行时环境，<strong>Java Runtime Enviroment</strong>)的byte-code语言。</p>
+<p>​        明确且正式的虚拟机语言概念有很多务实的优点。首先，仅需要<strong>替换虚拟机实现部分</strong>（有时候称为编译器的后端程序， backend）就能相对容易地<strong>得到不同硬件平台的编译器</strong>。因此，虚拟机在不同硬件平台之间的<strong>可移植性</strong>可以实现代码效率、硬件成本和程序开发难度之间的权衡。其次，很多语言的编译器能够<strong>共享VM后端程序</strong>，允许<strong>代码共享和语言互用性</strong>。比如，某种高级语言善于科学计算，而另一种在处理用户接口方面很突出。<strong>如果把两种语言编译到通用的VM层，那么通过使用约定的调用语法，其中一种语言的程序就能够很容易地调用另一种语言的程序</strong>。</p>
+<p>​        虚拟机方法的另一个优点是<strong>模块化</strong>。<strong>VM的每一个改善都会立即被所有构建于其上的编译器继承</strong>。同样地，每个安装有VM实现的数字设备都能够受益于现有软件的庞大基础。</p>
+<p>​        将高级语言翻译成中间代码的程序可以称为<strong>编译器前端程序</strong>，而将中间代码翻译成机器语言的程序可以称为<strong>编译器后端程序</strong>。</p>
+<p>​        比如<code>Java</code>，<code>Java</code>的源码经翻译后形成<code>Byte Code</code>文件，<code>Byte Code</code>文件是运行在<code>Java</code>虚拟机上的，而<code>Byte Code</code>文件经翻译后得到机器语言，机器语言运行在硬件平台上。因此，中间代码运行在虚拟机上，机器语言运行在硬件上。</p>
+<p>​        编译器的后端程序负责的是将中间代码翻译成机器语言，所以它与硬件平台的关系性非常大，如果我们需要运行在不同的硬件平台上，那么机器语言就会发生变化，因此后端程序就需要改变，而前端程序不需要改变，因而虚拟机可以使语言很方便的进行<strong>跨平台使用</strong>。</p>
+<p>​        在此虚拟机中，虚拟机语言共包含4种类型的指令：算术指令，内存访问指令，程序流程控制指令和子程序调用指令。</p>
+<p>​        </p>
+<h4 id="2-栈式计算机模型"><a href="#2-栈式计算机模型" class="headerlink" title="2.栈式计算机模型"></a>2.栈式计算机模型</h4><p>​        在VM操作中的操作数和结果应该驻留在哪里。也许“最干净利落”的方法是将其放在<strong>栈式(stack)</strong>数据结构。</p>
+<h5 id="栈式计算机模型的实现"><a href="#栈式计算机模型的实现" class="headerlink" title="栈式计算机模型的实现"></a>栈式计算机模型的实现</h5><p><img src="/post/83717699/image-20200913101004893.png" alt="stack machine inplementation" style="zoom:50%;"></p>
+<p><em>Logic</em></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">*sp = <span class="number">17</span>;</span><br><span class="line">sp++;</span><br></pre></td></tr></table></figure>
+<p><em>Hack assembly</em></p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">@<span class="number">17</span>;  <span class="comment">// A=17</span></span><br><span class="line">D=A;  <span class="comment">// D=17</span></span><br><span class="line"><span class="comment">// *SP=D</span></span><br><span class="line">@SP;  <span class="comment">// A = SP</span></span><br><span class="line">A=M;  <span class="comment">// A = Memory[SP]: indirect address</span></span><br><span class="line">M=D;  <span class="comment">// M = D,( M is (*SP) )</span></span><br><span class="line"><span class="comment">// SP++</span></span><br><span class="line">@SP;</span><br><span class="line">M=M+<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="from-VM-to-Assembly"><a href="#from-VM-to-Assembly" class="headerlink" title="[from VM to Assembly]"></a>[from VM to Assembly]</h3><p><strong><em>push &amp; pop</em> implementation:</strong></p>
+<p><img src="/post/83717699/image-20200923124849383.png" alt="push/pop" style="zoom:67%;"></p>
+<p><strong><em>stack</em> implementation</strong></p>
+<p><img src="/post/83717699/image-20200923125313183.png" alt="image-20200923125313183" style="zoom:67%;"></p>
+<p><strong><em>implement constant:</em></strong>no <code>pop</code></p>
+<p><img src="/post/83717699/image-20200913111011987.png" alt="implement constant" style="zoom:50%;"></p>
+<ul>
+<li>不允许存储任何东西到<code>constant</code>段</li>
+</ul>
+<p><strong>Implementing <em>local</em></strong></p>
+<p><img src="/post/83717699/image-20200913103134064.png" alt="local" style="zoom:50%;"></p>
+<p><em>logic</em>:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">addr = LCL + <span class="number">2</span>;</span><br><span class="line">SP--;</span><br><span class="line">*addr = *SP;</span><br></pre></td></tr></table></figure>
+<p><em>implement:</em></p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">@<span class="number">2</span>;</span><br><span class="line">D=A;</span><br><span class="line">@LCL;</span><br><span class="line">D=M+D;</span><br><span class="line">@addr;</span><br><span class="line">M=D;</span><br><span class="line"><span class="comment">// SP--, SP is a pointer</span></span><br><span class="line">@SP;</span><br><span class="line">A=M;</span><br><span class="line">M=M<span class="number">-1</span>;  <span class="comment">// SP--</span></span><br><span class="line">D=M;  <span class="comment">// D=SP</span></span><br><span class="line">@addr;</span><br><span class="line">A=M;  <span class="comment">// A=addr, M=*addr</span></span><br><span class="line">M=D;</span><br></pre></td></tr></table></figure>
+<h5 id="summary"><a href="#summary" class="headerlink" title="summary:"></a>summary:</h5><p>previous <em>Logic</em> is <code>pop local i</code>, and <code>push local i</code> is similiar.</p>
+<p><code>pop local i</code>is to<code>addr = LCL + i, SP--, *addr = *SP</code></p>
+<p><code>push local i</code> is to<code>addr = LCL + i, *SP = *addr, SP++</code></p>
+<p><img src="/post/83717699/image-20200913104413496.png" alt="summary" style="zoom:50%;"></p>
+<p><strong>implement <em>lcoal, argument, this, that</em></strong>:</p>
+<p><img src="/post/83717699/image-20200923151620070.png" alt="image-20200923151620070" style="zoom:67%;"></p>
+<ul>
+<li>将函数方法局部变量和参数变量映射到<code>local</code>和<code>argument</code>段</li>
+<li>将函数方法正在处理的对象属性字段和数组项(条目)映射到<code>this</code>和<code>that</code>段</li>
+</ul>
+<p><img src="/post/83717699/image-20200913144322327.png" alt="four segment" style="zoom: 80%;"></p>
+<p><code>local</code>, <code>argument</code>, <code>this</code> 和 <code>that</code>都是同样的实现，只需要将<code>segment</code>替换就可以得到另一种。</p>
+<script type="math/tex; mode=display">
+segment = \{lcoal, argument, this, that\}</script><p><strong><em>implement static</em></strong>:class level variable</p>
+<p><img src="/post/83717699/image-20200913150214722.png" alt="static-variable" style="zoom: 80%;"></p>
+<p>​    挑战：<code>static</code>变量应该对程序中的所有函数方法可见</p>
+<p>​    解决方法：将其存储在<code>global space</code>全局段中</p>
+<ul>
+<li>VM翻译器必须翻译每一个VM指向的<code>static i</code>(in the file <em>Foo.vm</em>)到Hack汇编程序的<code>Foo.i</code></li>
+<li>遵循Hack汇编的语法，Hack汇编编译器将会把这些映射到<code>RAM[16], ... , RAM[255]</code></li>
+</ul>
+<p><em>implement Memory segment:</em> <code>temp</code></p>
+<p><img src="/post/83717699/image-20200913162748968.png" alt="temp01" style="zoom: 67%;"></p>
+<ul>
+<li>有些时候，编译器需要用一些中间变量，我们的VM提供了8个类似的变量，存储在<code>temp</code>段</li>
+</ul>
+<p><img src="/post/83717699/image-20200913163030397.png" alt="temp02" style="zoom:67%;"></p>
+<p>✨✨<code>temp</code>: from VM code to Assembly pseudo code</p>
+<p>8个变量存储在<code>RAM[5]~RAM[12]</code></p>
+<p><strong><em>implement pointer 0/1</em></strong></p>
+<ul>
+<li>用于存储<code>this</code>和<code>that</code>段的基地址</li>
+<li>当我们编写编译器时，就会知道<code>this</code>的重要性</li>
+</ul>
+<p><img src="/post/83717699/image-20200922135814987.png" alt="pointer"></p>
+<ul>
+<li>通过访问<code>THIS</code>从而访问<code>pointer 0: this</code></li>
+<li>通过访问<code>THAT</code>从而访问<code>pointer 1: that</code></li>
+</ul>
+<h5 id="Summary"><a href="#Summary" class="headerlink" title="Summary:"></a>Summary:</h5><p><img src="/post/83717699/image-20200922135405740.png" alt="总结1" style="zoom:67%;"></p>
+<p><img src="/post/83717699/image-20200922135427724.png" alt="总结2" style="zoom:67%;"></p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="[实现]"></a>[实现]</h3><h5 id="综合内存映射分析堆栈运算"><a href="#综合内存映射分析堆栈运算" class="headerlink" title="综合内存映射分析堆栈运算"></a><strong>综合内存映射分析堆栈运算</strong></h5><p>​        做好本章的项目，理解好<strong>内存映射(Memory Map)</strong>是关键，只有理解了内存映射才能知道去哪里取数据，将数据存储到哪里。</p>
+<p>​        综合来看，本章的大致思路就是：从<strong>RAM[1]~RAM[4]</strong>中找到<strong>基址</strong>，根据偏移量计算出地址，再去获取数据，并将数据放入堆栈中，在栈区中完成一定操作后，再将结果从堆栈中弹出，放到指定的内存单元（这里实际上还需要计算基址和偏移量）。不同的是<code>temp</code>段，它可以直接在<strong>RAM[5]</strong>上加上偏移量得到存储单元的地址。</p>
+<p>​        在整个操作过程中，如果需要使用除D寄存器和A寄存器之外的寄存器暂时存储结果的时候，就会使用到<strong>RAM[13]~RAM[15]</strong>的通用寄存器。</p>
+<p><strong><em>Review:</em></strong></p>
+<ol>
+<li><p><code>@X</code>的意义为把<code>X</code>存入A寄存器，M代表的是<code>Memory[A]</code>，即A映射的地址中所存的值。<br><code>A=M, M=D</code>两句意味着1. A更新为M寄存器存储的数据所指向的地址，2.将D寄存器存储的的数据存入<code>Memory[A]</code>，这是这一章中用得最多的逻辑语句。</p>
+</li>
+<li><p>在实现<code>eq</code>, <code>gt</code>, <code>lt</code>时，需要用汇编语言实现<code>if</code>分支，这里需要用到两个<code>lable</code>，一个<strong>有条件</strong><code>jump</code>，一个<strong>无条件</strong><code>jump</code>，代码实现为：</p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Compare R1=R2 set result in R3</span></span><br><span class="line">@SP</span><br><span class="line">AM=M<span class="number">-1</span></span><br><span class="line">D=M</span><br><span class="line">A=A<span class="number">-1</span></span><br><span class="line">D=M-D</span><br><span class="line">@RET_TRUE</span><br><span class="line">D;JEQ</span><br><span class="line">@SP         <span class="comment">// need to return False</span></span><br><span class="line">A=M<span class="number">-1</span></span><br><span class="line">M=<span class="number">0</span></span><br><span class="line">@CONTINUE</span><br><span class="line"><span class="number">0</span>;JMP</span><br><span class="line">(RET_TRUE)</span><br><span class="line">@SP        <span class="comment">// need to return True</span></span><br><span class="line">A=M<span class="number">-1</span></span><br><span class="line">M=<span class="number">-1</span></span><br><span class="line">(CONTINUE)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p><code>push segment i</code>的实现：<code>addr = segmentPointer+i, *SP = *addr, SP++</code></p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">@segmentPointer</span><br><span class="line">D=M</span><br><span class="line">@index</span><br><span class="line">A=D+A</span><br><span class="line">D=M</span><br><span class="line">@SP</span><br><span class="line">A=M</span><br><span class="line">M=D</span><br><span class="line">@SP</span><br><span class="line">M=M+<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p><code>pop segment i</code>的实现：<code>addr = segmentPointer+i, SP--, *addr = *SP</code></p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">@segmentPointer</span><br><span class="line">D=M</span><br><span class="line">@index</span><br><span class="line">D=D+A</span><br><span class="line">@R13</span><br><span class="line">M=D</span><br><span class="line">@SP</span><br><span class="line">AM=M<span class="number">-1</span></span><br><span class="line">D=M</span><br><span class="line">@R13</span><br><span class="line">A=M</span><br><span class="line">M=D</span><br></pre></td></tr></table></figure>
+<p><code>push/pop temp i</code>的实现</p>
+<p>push: <code>addr = 5 + i, *SP = *addr, SP++</code></p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">@<span class="number">5</span>+index</span><br><span class="line">D=M</span><br><span class="line">@SP</span><br><span class="line">A=M</span><br><span class="line">M=D</span><br><span class="line">@SP</span><br><span class="line">M=M+<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>pop:  <code>addr = 5 + i, SP--, *addr = *SP</code></p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">@SP</span><br><span class="line">AM=M<span class="number">-1</span></span><br><span class="line">D=M</span><br><span class="line">@<span class="number">5</span>+index</span><br><span class="line">M=D</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p><code>push pointer 0/1</code>的实现：<code>*SP = THIS/THAT, SP++</code></p>
+<p><code>pop pointer 0/1</code>的实现：<code>SP--, THIS/THAT = *SP</code></p>
+<p>与temp类似</p>
+</li>
+<li><p><code>push/pop static i</code>的实现：<code>@vmName.index ...</code></p>
+<p>与temp类似</p>
+</li>
+<li><p><code>segment</code>和<code>pointer</code>,<code>static</code>,<code>temp</code>段的区别只有：<code>segment</code>段需要额外计算地址</p>
+<p>即<code>push/pop local 2</code>，需要计算<code>LCL+2</code>再进行<code>push/pop</code>操作</p>
+</li>
+</ol>
+<p><strong><em>Recommand:</em></strong></p>
+<ol>
+<li>按照书中推荐的实现步骤，依次实现5个.vm文件的转化</li>
+<li>对于每个步骤，先在VM Emulator中运行.vm文件和VME.tst测试文件，通过观察其每一步是如何实现的，深入理解VM语言中<code>push</code>，<code>pop</code>和各个参数的实际意义</li>
+<li>手写练习相关Hack汇编语言，对于每个<code>segment</code>段的转换，至少完成一个例子</li>
+<li>将转换过程用高级语言实现(Java/Python/…)，测试修改，抽象方法，代码复用</li>
+</ol>
+<p><img src="/post/83717699/image-20200922135207520.png" alt="建议实现步骤" style="zoom: 80%;"></p>
+<p><img src="/post/83717699/image-20200922135257496.png" alt="建议实现步骤2" style="zoom:80%;"></p>
+<p><strong><em>Tips:</em></strong></p>
+<ol>
+<li><p>第七章中的机器语言和第六章中的机器语言在结构上略有不同，这一章中的语言更加向高级语言靠拢，在有些地方显得“啰嗦”</p>
+<p><code>push constant 7</code>需要如此多的汇编语言实现，但是其中每一句话都是有意义的，所以一定要理解每一句VM语言究竟做了哪些事</p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">@<span class="number">7</span>          <span class="comment">// constant 7</span></span><br><span class="line">D=A         <span class="comment">// D=7</span></span><br><span class="line">@SP         <span class="comment">// A=栈顶指针=RAM[0]</span></span><br><span class="line">A=M         <span class="comment">// A=Memory[A], A更新为M存储的数据所指向的地址</span></span><br><span class="line">M=D         <span class="comment">// Memory[A]=D</span></span><br><span class="line">@SP         <span class="comment">// A=栈顶指针</span></span><br><span class="line">M=M+<span class="number">1</span>       <span class="comment">// 栈顶指针++</span></span><br></pre></td></tr></table></figure>
+<p><code>pop constant 7</code></p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">@<span class="number">7</span></span><br><span class="line">D=A</span><br><span class="line">@SP</span><br><span class="line">M=M<span class="number">-1</span></span><br><span class="line">A=M</span><br><span class="line">M=D</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>因为一个vm文件中可能会同时出现许多<code>eq</code>，<code>lt</code>这样的涉及<code>jump</code>的语句，如果每一个<code>lable</code>都相同的话，那么<code>lable</code>就会产生重复冲突，如：</p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">@Label</span><br><span class="line">...</span><br><span class="line">(Label)</span><br><span class="line">...</span><br><span class="line">@Label</span><br><span class="line">...</span><br><span class="line">(Label)</span><br></pre></td></tr></table></figure>
+<p>当机器到达第一个<code>@lable</code>点时，就会跳到最后一处<code>(lable)</code>。为了避免这种情况，需要给不同的<code>lable</code>依次加上编号，如<code>lable1</code>，<code>lable2</code>，这里可以使用定义全局变量来实现。</p>
+</li>
+</ol>
+<ol>
+<li>翻译<code>pop segment index</code>的过程中，首先需要获取<code>segment</code>中存储的地址，然后将<code>index</code>加在这个地址上，得到目标地址。最后把当前<code>SP</code>所指向的地址中的值弹入这个目标地址。这个过程是无法用机器语言直接实现的，因为当中涉及两次调用寄存器D。唯一的解决方案就是在翻译过程中用<code>index</code>控制循环语句，让其自动添加<code>index</code>次的<code>A=A+1</code>，这样的话就免去了多次调用D寄存器的困难。</li>
+</ol>
+<p><em>Parser.java</em></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 分析.vm文件，封装对输入代码的访问操作</span></span><br><span class="line"><span class="comment"> * 读取vm指令并解析，然后为它各个部分提供方便的访问入口</span></span><br><span class="line"><span class="comment"> * 移除代码中所有空格和注释</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parser</span></span>&#123;</span><br><span class="line">    <span class="comment">// variable: 文件扫描、当前指令、当前文件名</span></span><br><span class="line">    <span class="comment">// 算术指令的字符串数组</span></span><br><span class="line">    <span class="comment">// Paser模块基本函数：构造函数、更多指令、advance()、commandType()区分指令类型、返回指令第一个参数、返回指令第二个参数</span></span><br><span class="line">    <span class="comment">// 当前指令长度</span></span><br><span class="line">    <span class="comment">// 返回完整指令</span></span><br><span class="line">    <span class="comment">// 设置和获取文件名</span></span><br><span class="line">    <span class="comment">// 关闭资源</span></span><br><span class="line">    <span class="comment">// 判断是否为算术指令  be used in commandType()</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>CodeWriter.java</em></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CodeWriter</span></span>&#123;</span><br><span class="line">    <span class="comment">// PrintWriter对象、当前文件名、区分分支标签的数字</span></span><br><span class="line">    <span class="comment">// 构造函数(PrintWriter): 区分分支标签的数字置零</span></span><br><span class="line">    <span class="comment">// 设置翻译出来的的.vm文件的文件名(提取出文件名)</span></span><br><span class="line">    <span class="comment">// writeArithmetic(String command): 将给定的算术操作所对应的汇编写到输出文件</span></span><br><span class="line">    <span class="comment">// writePushAndPop(Parser.Command command, String segment, int index): </span></span><br><span class="line">    <span class="comment">//   1.constant: @idnex, D=A, 将D寄存器的值存储在SP所指向的内存单元, SP++</span></span><br><span class="line">    <span class="comment">//   2.local,argument,this,that: </span></span><br><span class="line">    <span class="comment">//     (1)push: (addr = segmentPointer+i, *SP = *addr, SP++)</span></span><br><span class="line">    <span class="comment">//             获取对应(segmentPointer+i)所指向的地址,M[SP]获取对应的值,SP++</span></span><br><span class="line">    <span class="comment">//     (2)pop: (addr = segmentPointer+i, SP--, *addr = *SP) 需要借助R13存储中间值</span></span><br><span class="line">    <span class="comment">//             获取对应(segmentPointer+i)所指向的地址,SP--,对应的内存单元获取M[SP]的值</span></span><br><span class="line">    <span class="comment">//   3.temp: </span></span><br><span class="line">    <span class="comment">//     (1)push: (*SP = 5+i, SP++)</span></span><br><span class="line">    <span class="comment">//     (2)pop: (SP--, 5+i = *SP)</span></span><br><span class="line">    <span class="comment">//   4.pointer: </span></span><br><span class="line">    <span class="comment">//     (1)push pointer 0/1: (*SP = THIS/THAT, SP++) 根据0/1决定THIS/THAT</span></span><br><span class="line">    <span class="comment">//     (2)pop  pointer 0/1: (SP--, THIS/THAT = *addr)</span></span><br><span class="line">    <span class="comment">//   5.static:</span></span><br><span class="line">    <span class="comment">//     (1)push: (*SP = fileName.index, SP++)</span></span><br><span class="line">    <span class="comment">//     (2)pop: (SP--, fileName.index = *SP)</span></span><br><span class="line">    <span class="comment">// segment: local,argument,this,that  </span></span><br><span class="line">    <span class="comment">//   void writeBasePush(String segmentPointer, int index)</span></span><br><span class="line">    <span class="comment">//   void writeBasePop(String segmentPointer, int index)</span></span><br><span class="line">    <span class="comment">// poiner, static, temp</span></span><br><span class="line">    <span class="comment">//   void writeMappedPush(String location)</span></span><br><span class="line">    <span class="comment">//   void writeMappedPop(String location)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>VMTranslator.java</em></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">VMTranslator</span></span>&#123;</span><br><span class="line">    <span class="comment">// 需要解析的.vm文件数组链表，处理无.vm文件的情况</span></span><br><span class="line">    <span class="comment">// getParser(File): 根据File文件对象创建Parser对象，与chap6类似</span></span><br><span class="line">    <span class="comment">// printCommandLineErrorAndExit(): 命令行错误处理</span></span><br><span class="line">    <span class="comment">// 判断命令行是否正确，错误则调用函数处理</span></span><br><span class="line">    <span class="comment">// 检查提供的命令行参数，以确定它是有效的文件或目录(1.不存在，2.文件，3.目录)</span></span><br><span class="line">    <span class="comment">// if 1.输出错误</span></span><br><span class="line">    <span class="comment">// else if 2.确定是.vm文件，获取Parser对象，并解析指令参数(路径+文件名)初始化Parser对象的文件名; 调用翻译函数</span></span><br><span class="line">    <span class="comment">// else if 3.将指令参数arg[0]映射路径下的所有文件转换成File对象，并用File[]数组存储; 遍历所有文件，找出.vm文件并根据File获取Parser，依据.vm文件File对象设置Paser对象文件名，设置输出文件名(绝对路径+&#x27;/&#x27;+文件名+&#x27;.asm&#x27;)，调用函数翻译成.asm文件，并把该文件加入到数组链表</span></span><br><span class="line">    <span class="comment">// 			if 若Parser对象的数组链表为空则输出错误并退出</span></span><br><span class="line">    <span class="comment">// else 4.错误处理</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// writeVM2ASM(String, Parser): 空建CideWriter对象，根据String构造PrintWriter对象，再由其构造CodeWriter对象，并从parser获取文件名设置CodeWriter对象的文件名。</span></span><br><span class="line">    <span class="comment">// 还有命令:向前，跳空白，parser长度为0下一循环，若parser的命令类型是&#x27;push&#x27;或&#x27;pop&#x27;则调用codewriter对象写入Push和Pop相应的ASM指令，算术指令调用相应的函数</span></span><br><span class="line">    <span class="comment">// finally 释放parser和codewriter资源</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Computer Architecture</category>
+      </categories>
+      <tags>
+        <tag>nand2tetris</tag>
+        <tag>VirtualMachine</tag>
+        <tag>vm code</tag>
       </tags>
   </entry>
 </search>
