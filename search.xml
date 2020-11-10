@@ -516,6 +516,35 @@ T(响应时间)=T(首次运行)-T(到达时间)</script><p>考虑一种情况：
       </tags>
   </entry>
   <entry>
+    <title>Spring Initializer快建项目</title>
+    <url>/post/8340e3af/</url>
+    <content><![CDATA[<h1 id="使用Spring-Initializer快速创建Spring-Boot项目"><a href="#使用Spring-Initializer快速创建Spring-Boot项目" class="headerlink" title="[使用Spring Initializer快速创建Spring Boot项目]"></a>[使用Spring Initializer快速创建Spring Boot项目]</h1><p>IDE都支持使用Spring的项目创建向导快速创建一个Spring Boot项目；</p>
+<p>选择我们需要的模块；向导会联网创建Spring Boot项目；</p>
+<p>需要联网</p>
+<h2 id="IDEA"><a href="#IDEA" class="headerlink" title="[IDEA]"></a>[IDEA]</h2><ol>
+<li><p>创建项目时选择Spring Initializr</p>
+<p><img src="/post/8340e3af/1573639771931.png" alt="idea01"></p>
+</li>
+<li><p>完善项目信息</p>
+<p><img src="/post/8340e3af/1573639923504.png" alt="idea02"></p>
+<p>出现 <strong>Artifact contains illegal characters</strong> 是因为<code>Artifact</code>中使用了大写，只能是全小写，单词之间用<code>-</code>分隔</p>
+</li>
+<li><p>选择需要的starter</p>
+<p><img src="/post/8340e3af/1573640773365.png" alt="idea03"></p>
+</li>
+<li><p>创建完成后 不要的文件可以删除</p>
+<p><img src="/post/8340e3af/1573641023432.png" alt="idea04"></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Spring Boot</category>
+      </categories>
+      <tags>
+        <tag>Spring Boot</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring Boot的自动配置原理</title>
     <url>/post/7fc7b961/</url>
     <content><![CDATA[<h1 id="自动配置原理"><a href="#自动配置原理" class="headerlink" title="[自动配置原理]"></a>[自动配置原理]</h1><p>配置文件到底能写什么？怎么写？自动配置原理；</p>
@@ -630,6 +659,41 @@ T(响应时间)=T(首次运行)-T(到达时间)</script><p>考虑一种情况：
       </categories>
       <tags>
         <tag>Spring Boot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Stack&amp;Heap</title>
+    <url>/post/e5494597/</url>
+    <content><![CDATA[<h1 id="栈（Stack）和堆（Heap）"><a href="#栈（Stack）和堆（Heap）" class="headerlink" title="栈（Stack）和堆（Heap）"></a>栈（Stack）和堆（Heap）</h1><p>​        目前来说我们知道怎么去声明一个基础类型的变量，比如int，float，等等。以及复杂数据类型数组和结构，声明它们的时候C会把这些变量放在栈上。<strong>每个线程都有一个栈，而程序通常只有一个堆</strong>。</p>
+<h3 id="栈（Stack）"><a href="#栈（Stack）" class="headerlink" title="栈（Stack）"></a>栈（Stack）</h3><p>  什么是栈？它是内存中一块特殊的区域，<strong>用于保存在函数中声明的零时变量</strong>（其中也包括<code>main()</code>函数）。栈是LIFO(Last in First Out 后进先出)的数据结构，进出操作是由CPU来管理和优化的。<strong>调用函数时就会使用栈。</strong>每当函数声明了一个变量，该变量就会被<strong>推入(Pushed)</strong>栈中。每当函数退出时，所有的变量都会被函数推出栈，并被<strong>释放掉(Free)</strong>。一旦变量被释放，该内存区域就可以被其他栈变量使用。<br>  使用栈的优势是它会为你管理内存，而不需要你手动去分配或者释放内存。更进一步说，由于CPU可以有效地管理栈内存，所以从栈中读写变量是很快的。<br>  理解栈的关键是需要知道函数什么时候退出，此时栈中所有的变量被推出，因此<strong>栈变量是局部的</strong>（也就是局部变量）。C中经常出现的一个错误就是，在函数返回以后去访问函数内部中栈变量。<br>  如果使用太多的栈空间会导致溢出，比如在使用递归的时候，该函数使用了太多的局部变量在递归过程中就有可能造成<strong>栈溢出</strong>。</p>
+<blockquote>
+<p>总结</p>
+<ul>
+<li>栈是LIFO数据结构；</li>
+<li>CPU管理内存，而不需要手动去管理。正是因为这个原因从栈中读写变量<strong>很快</strong>的；</li>
+<li>栈变量是局部的（也就是局部变量）；</li>
+<li>栈的容量会随着函数的Push和Pop变化；</li>
+</ul>
+</blockquote>
+<h3 id="堆（Heap）"><a href="#堆（Heap）" class="headerlink" title="堆（Heap）"></a>堆（Heap）</h3><p>  堆也是内存中一块特定区域，但是CPU并不会自动管理相关的操作，而且它的空间大小会有一定的浮动。在堆上分配内存的时候，在C中使用<code>malloc()</code>和<code>calloc()</code>函数。在不需要堆上这块内存之后，需要使用<code>free()</code>函数释放掉它。<strong>如果不释放的话就会造成内存泄漏</strong>，这块内存就会被闲置。<br>  和栈不同之处在于，<strong>堆内存数据的读写速度会比栈慢</strong>。</p>
+<h3 id="栈（Stack）和堆（Heap）的差异"><a href="#栈（Stack）和堆（Heap）的差异" class="headerlink" title="栈（Stack）和堆（Heap）的差异"></a>栈（Stack）和堆（Heap）的差异</h3><h4 id="配置堆栈大小"><a href="#配置堆栈大小" class="headerlink" title="配置堆栈大小"></a>配置堆栈大小</h4><p>  堆的大小在程序启动时分配，数值在不同操作系统中可能有所不同。<br>  在Cocoa中想要修改线程的栈大小的话，可以使用<code>NSThread</code>的实例方法<code>setStackSize:</code>，如果使用POSIX线程技术创建的线程的话，想要设置栈大小的话使用<code>pthread_attr_setstacksize</code>函数。</p>
+<blockquote>
+<p>⚠️如果要设置栈大小就必须要在创建线程之前完成。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 第一种</span></span><br><span class="line">NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(backgroudMethod:) object:nil];</span><br><span class="line">[thread setStackSize:<span class="number">1024</span>];</span><br><span class="line">[thread start];</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 第二种</span></span><br><span class="line"><span class="keyword">pthread_attr_t</span> attr;</span><br><span class="line"><span class="keyword">pthread_t</span> posix_tread_id;</span><br><span class="line"><span class="keyword">int</span> returnVal;</span><br><span class="line">returnVal = pthread_attr_init(&amp;attr);</span><br><span class="line">returnVal = pthread_attr_setstacksize(&amp;attr, <span class="number">1024</span>);  <span class="comment">// 在创建线程前设置堆栈大小</span></span><br><span class="line"><span class="keyword">char</span> *data;</span><br><span class="line">data = <span class="string">&quot;To ensure that a thread knows what work to do&quot;</span>;</span><br><span class="line"><span class="keyword">int</span> thread_error = pthread_create(&amp;posix_tread_id, &amp;attr, posix_thread_mainroutine, data);</span><br></pre></td></tr></table></figure>
+<h4 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h4><p>  栈是和线程相关联的，意思就是说当线程退出时，栈被回收。而堆通常是在启动程序时分配，当程序退出之后被回收。</p>
+<h3 id="什么时候使用栈什么时候使用堆"><a href="#什么时候使用栈什么时候使用堆" class="headerlink" title="什么时候使用栈什么时候使用堆"></a>什么时候使用栈什么时候使用堆</h3><ul>
+<li>需要申请较大内存空间（比如struct，array之类的），而且需要该变量存在较长时间，就是将该变量放在<strong>堆</strong>中；</li>
+<li>如果需要动态修改struct或者array的大小，将该变量放在<strong>堆</strong>上。使用<code>malloc()</code>，<code>calloc()</code>，<code>realloc()</code>和<code>free()</code>等函数来管理内存；</li>
+<li>如果使用相对较小的变量，并且只在函数中使用它们，此时该变量就存在于栈上。这样做会更快而且更简单。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>内存布局</category>
+      </categories>
+      <tags>
+        <tag>stack</tag>
+        <tag>heap</tag>
       </tags>
   </entry>
   <entry>
@@ -842,70 +906,6 @@ fruits: [苹果,桃子,香蕉]<figure class="highlight plain"><table><tr><td cla
       </categories>
       <tags>
         <tag>Spring Boot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring Initializer快建项目</title>
-    <url>/post/8340e3af/</url>
-    <content><![CDATA[<h1 id="使用Spring-Initializer快速创建Spring-Boot项目"><a href="#使用Spring-Initializer快速创建Spring-Boot项目" class="headerlink" title="[使用Spring Initializer快速创建Spring Boot项目]"></a>[使用Spring Initializer快速创建Spring Boot项目]</h1><p>IDE都支持使用Spring的项目创建向导快速创建一个Spring Boot项目；</p>
-<p>选择我们需要的模块；向导会联网创建Spring Boot项目；</p>
-<p>需要联网</p>
-<h2 id="IDEA"><a href="#IDEA" class="headerlink" title="[IDEA]"></a>[IDEA]</h2><ol>
-<li><p>创建项目时选择Spring Initializr</p>
-<p><img src="/post/8340e3af/1573639771931.png" alt="idea01"></p>
-</li>
-<li><p>完善项目信息</p>
-<p><img src="/post/8340e3af/1573639923504.png" alt="idea02"></p>
-<p>出现 <strong>Artifact contains illegal characters</strong> 是因为<code>Artifact</code>中使用了大写，只能是全小写，单词之间用<code>-</code>分隔</p>
-</li>
-<li><p>选择需要的starter</p>
-<p><img src="/post/8340e3af/1573640773365.png" alt="idea03"></p>
-</li>
-<li><p>创建完成后 不要的文件可以删除</p>
-<p><img src="/post/8340e3af/1573641023432.png" alt="idea04"></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Spring Boot</category>
-      </categories>
-      <tags>
-        <tag>Spring Boot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Stack&amp;Heap</title>
-    <url>/post/e5494597/</url>
-    <content><![CDATA[<h1 id="栈（Stack）和堆（Heap）"><a href="#栈（Stack）和堆（Heap）" class="headerlink" title="栈（Stack）和堆（Heap）"></a>栈（Stack）和堆（Heap）</h1><p>​        目前来说我们知道怎么去声明一个基础类型的变量，比如int，float，等等。以及复杂数据类型数组和结构，声明它们的时候C会把这些变量放在栈上。<strong>每个线程都有一个栈，而程序通常只有一个堆</strong>。</p>
-<h3 id="栈（Stack）"><a href="#栈（Stack）" class="headerlink" title="栈（Stack）"></a>栈（Stack）</h3><p>  什么是栈？它是内存中一块特殊的区域，<strong>用于保存在函数中声明的零时变量</strong>（其中也包括<code>main()</code>函数）。栈是LIFO(Last in First Out 后进先出)的数据结构，进出操作是由CPU来管理和优化的。<strong>调用函数时就会使用栈。</strong>每当函数声明了一个变量，该变量就会被<strong>推入(Pushed)</strong>栈中。每当函数退出时，所有的变量都会被函数推出栈，并被<strong>释放掉(Free)</strong>。一旦变量被释放，该内存区域就可以被其他栈变量使用。<br>  使用栈的优势是它会为你管理内存，而不需要你手动去分配或者释放内存。更进一步说，由于CPU可以有效地管理栈内存，所以从栈中读写变量是很快的。<br>  理解栈的关键是需要知道函数什么时候退出，此时栈中所有的变量被推出，因此<strong>栈变量是局部的</strong>（也就是局部变量）。C中经常出现的一个错误就是，在函数返回以后去访问函数内部中栈变量。<br>  如果使用太多的栈空间会导致溢出，比如在使用递归的时候，该函数使用了太多的局部变量在递归过程中就有可能造成<strong>栈溢出</strong>。</p>
-<blockquote>
-<p>总结</p>
-<ul>
-<li>栈是LIFO数据结构；</li>
-<li>CPU管理内存，而不需要手动去管理。正是因为这个原因从栈中读写变量<strong>很快</strong>的；</li>
-<li>栈变量是局部的（也就是局部变量）；</li>
-<li>栈的容量会随着函数的Push和Pop变化；</li>
-</ul>
-</blockquote>
-<h3 id="堆（Heap）"><a href="#堆（Heap）" class="headerlink" title="堆（Heap）"></a>堆（Heap）</h3><p>  堆也是内存中一块特定区域，但是CPU并不会自动管理相关的操作，而且它的空间大小会有一定的浮动。在堆上分配内存的时候，在C中使用<code>malloc()</code>和<code>calloc()</code>函数。在不需要堆上这块内存之后，需要使用<code>free()</code>函数释放掉它。<strong>如果不释放的话就会造成内存泄漏</strong>，这块内存就会被闲置。<br>  和栈不同之处在于，<strong>堆内存数据的读写速度会比栈慢</strong>。</p>
-<h3 id="栈（Stack）和堆（Heap）的差异"><a href="#栈（Stack）和堆（Heap）的差异" class="headerlink" title="栈（Stack）和堆（Heap）的差异"></a>栈（Stack）和堆（Heap）的差异</h3><h4 id="配置堆栈大小"><a href="#配置堆栈大小" class="headerlink" title="配置堆栈大小"></a>配置堆栈大小</h4><p>  堆的大小在程序启动时分配，数值在不同操作系统中可能有所不同。<br>  在Cocoa中想要修改线程的栈大小的话，可以使用<code>NSThread</code>的实例方法<code>setStackSize:</code>，如果使用POSIX线程技术创建的线程的话，想要设置栈大小的话使用<code>pthread_attr_setstacksize</code>函数。</p>
-<blockquote>
-<p>⚠️如果要设置栈大小就必须要在创建线程之前完成。</p>
-</blockquote>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 第一种</span></span><br><span class="line">NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(backgroudMethod:) object:nil];</span><br><span class="line">[thread setStackSize:<span class="number">1024</span>];</span><br><span class="line">[thread start];</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 第二种</span></span><br><span class="line"><span class="keyword">pthread_attr_t</span> attr;</span><br><span class="line"><span class="keyword">pthread_t</span> posix_tread_id;</span><br><span class="line"><span class="keyword">int</span> returnVal;</span><br><span class="line">returnVal = pthread_attr_init(&amp;attr);</span><br><span class="line">returnVal = pthread_attr_setstacksize(&amp;attr, <span class="number">1024</span>);  <span class="comment">// 在创建线程前设置堆栈大小</span></span><br><span class="line"><span class="keyword">char</span> *data;</span><br><span class="line">data = <span class="string">&quot;To ensure that a thread knows what work to do&quot;</span>;</span><br><span class="line"><span class="keyword">int</span> thread_error = pthread_create(&amp;posix_tread_id, &amp;attr, posix_thread_mainroutine, data);</span><br></pre></td></tr></table></figure>
-<h4 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h4><p>  栈是和线程相关联的，意思就是说当线程退出时，栈被回收。而堆通常是在启动程序时分配，当程序退出之后被回收。</p>
-<h3 id="什么时候使用栈什么时候使用堆"><a href="#什么时候使用栈什么时候使用堆" class="headerlink" title="什么时候使用栈什么时候使用堆"></a>什么时候使用栈什么时候使用堆</h3><ul>
-<li>需要申请较大内存空间（比如struct，array之类的），而且需要该变量存在较长时间，就是将该变量放在<strong>堆</strong>中；</li>
-<li>如果需要动态修改struct或者array的大小，将该变量放在<strong>堆</strong>上。使用<code>malloc()</code>，<code>calloc()</code>，<code>realloc()</code>和<code>free()</code>等函数来管理内存；</li>
-<li>如果使用相对较小的变量，并且只在函数中使用它们，此时该变量就存在于栈上。这样做会更快而且更简单。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>内存布局</category>
-      </categories>
-      <tags>
-        <tag>stack</tag>
-        <tag>heap</tag>
       </tags>
   </entry>
   <entry>
@@ -1176,78 +1176,6 @@ a~=~in·\overline{sel},~b~=~in·sel</script><h3 id="多位逻辑门"><a href="#�
       </tags>
   </entry>
   <entry>
-    <title>nand2tetris C3-时序逻辑</title>
-    <url>/post/5b81f62b/</url>
-    <content><![CDATA[<h1 id="时序逻辑-Sequential-Logic"><a href="#时序逻辑-Sequential-Logic" class="headerlink" title="[时序逻辑 Sequential Logic]"></a>[时序逻辑 Sequential Logic]</h1><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><p><strong>时钟(Clock)</strong>: 计算机里时间的流逝是用主时针(master clock)来表示的，它提供连续的<strong>交变信号序列</strong>。硬件实现通常基于<strong>振荡器(oscillator)</strong>，其在两个信号值<strong>0-1</strong>，或称<strong>“低电平-高电平(low-high, tick-tock)”</strong>之间交替变化。两个相邻的上升沿之间的时间间隙称为时钟的<strong>周期(cycle)</strong>，每个时钟周期模塑一个<strong>离散的时间单元</strong>。通过硬件电路，这个信号同时被传送到计算机平台的每个时序芯片中。</p>
-<p><strong>触发器(Flip-Flops)</strong>: 本书使用<strong>数据触发器(Data Flip-Flop, DFF或称D触发器)</strong>。实现基于时间的行为：</p>
-<script type="math/tex; mode=display">
-out(t) = in(t - 1)</script><p>t是当前时钟周期。换而言之，DFF能够简单的实现将前一个时间周期的输入值作为当前周期的输出值。</p>
-<p><code>out(t) = in(t - 1)</code>是所有计算机硬件维持自身状态的基础，二进制单元 -&gt; 寄存器 -&gt; 任意大的随机存取记忆单元(RAM) 都是如此.</p>
-<p><strong>寄存器(Registers)</strong>: 能够“储存”某一时刻的值，实现经典的存储行为：</p>
-<script type="math/tex; mode=display">
-out(t) = out(t - 1)</script><p>从另一个方面来说，DFF仅能够输出它前一时钟周期的输出，也就是<code>out(t) = in(t - 1)</code>。这提示了我们，可以通过DFF来实现寄存器，只需将后面的输出反馈到它的输入就可以了。</p>
-<p><img src="/post/5b81f62b/image-20200818162126362.png" alt="image-20200818162126362" style="zoom: 50%;"></p>
-<p>如此一来，在任何时刻<code>t</code>，这个设备的输出都会重现它在时刻<code>t-1</code>的值。</p>
-<p>如图3.1右，</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">load = 1, out(t) = in(t-1),  相当于wirte操作, 希望开始存储新值, 把值置于in输入口;</span><br><span class="line">load = 0, out(t) = out(t-1), 相当于read操作, 希望一直存储它的内部值直到新的指令到来</span><br></pre></td></tr></table></figure>
-<p><img src="/post/5b81f62b/image-20200818163142204.png" alt="image-20200818163142204" style="zoom: 50%;"></p>
-<p><strong>内存(Memories)</strong>: …… 随机存取内存(RAM, Random Acess Memory): 在RAM上能够随机访问被选择的字而不会受限于访问顺序。</p>
-<p><img src="/post/5b81f62b/image-20200818163246416.png" alt="image-20200818163246416" style="zoom: 50%;"></p>
-<p><strong>计数器(Counter)</strong>: 每经过一个时间周期计数器就增加1个单位，执行函数<code>out(t) = out(t-1) + c</code>，这里<code>c</code>就是1.</p>
-<h3 id="时间问题"><a href="#时间问题" class="headerlink" title="[时间问题]"></a>[时间问题]</h3><p>至此本章介绍的芯片都是时序芯片(sequential chip)。简单来说，时序芯片就是直接或间接地嵌入一个或多个DFF门的芯片。</p>
-<p>反馈回路：输出依赖于输入，而输入本身有依赖于输出，因此输出只依赖自身。</p>
-<p><img src="/post/5b81f62b/image-20200818171444271.png" alt="image-20200818171444271" style="zoom: 50%;"></p>
-<p>省略……</p>
-<h3 id="规范详述"><a href="#规范详述" class="headerlink" title="[规范详述]"></a>[规范详述]</h3><ul>
-<li><p>D触发器(DFFs)</p>
-</li>
-<li><p>寄存器 (基于DFFs)</p>
-</li>
-<li><p>存储块 (基于寄存器)</p>
-</li>
-<li><p>计数器芯片 (基于寄存器)</p>
-<p>太多细节，几乎都是必看的，建议看书；避免抄书，在此省略……</p>
-</li>
-</ul>
-<h3 id="实现硬件"><a href="#实现硬件" class="headerlink" title="[实现硬件]"></a>[实现硬件]</h3><p><strong>1Bit寄存器</strong>：</p>
-<ul>
-<li>If load[t] == 1 then out[t+1] = in[t]<ul>
-<li>else out does not change (out[t+1] = out[t])</li>
-</ul>
-</li>
-</ul>
-<p><img src="/post/5b81f62b/image-20200822231745454.png" alt="image-20200822231745454" style="zoom: 50%;"></p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">CHIP Bit &#123;</span><br><span class="line">    IN <span class="keyword">in</span>, load;</span><br><span class="line">    OUT out;</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// lastOut is equal to the last time out, Assigned by DFF<span class="string">&#x27;s lastOut</span></span><br><span class="line"><span class="string">    Mux(a=lastOut, b=in, sel=load, out=muxOut);</span></span><br><span class="line"><span class="string">    // cause the out is distinct(Only use once), so we can add out to copy the out</span></span><br><span class="line"><span class="string">    DFF(in=muxOut, out=lastOut, out=out);</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
-<p><strong>n-Bits寄存器</strong>：</p>
-<p>n个<strong>1Bit寄存器</strong>串联 和 <code>log(2)n</code>的address选择寄存器进行读写（取址执行的基础 ）。</p>
-<p><strong>n-Bits RAM(Random Access Memory)</strong>：</p>
-<p><img src="/post/5b81f62b/image-20200822234706201.png" alt="image-20200822234706201" style="zoom: 50%;"></p>
-<p>address用于寻址：根据<code>address = i</code>找出需要载入的<strong>1Bit寄存器</strong>，此时该寄存器设置<code>load = 1，in = M</code>，并在下一个时间周期<code>out = M</code>，实现<code>out(t) = in(t-1)</code></p>
-<p><img src="/post/5b81f62b/image-20200822235721818.png" alt="image-20200822235721818" style="zoom:50%;"></p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 16-bit register:</span></span><br><span class="line">CHIP Register &#123;</span><br><span class="line">    IN <span class="keyword">in</span>[<span class="number">16</span>], load;</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// No Mux16, because DFF only accept <span class="number">1</span> bit input &amp; output.</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">0</span>], load=load, out=out[<span class="number">0</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">1</span>], load=load, out=out[<span class="number">1</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">2</span>], load=load, out=out[<span class="number">2</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">3</span>], load=load, out=out[<span class="number">3</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">4</span>], load=load, out=out[<span class="number">4</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">5</span>], load=load, out=out[<span class="number">5</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">6</span>], load=load, out=out[<span class="number">6</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">7</span>], load=load, out=out[<span class="number">7</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">8</span>], load=load, out=out[<span class="number">8</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">9</span>], load=load, out=out[<span class="number">9</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">10</span>], load=load, out=out[<span class="number">10</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">11</span>], load=load, out=out[<span class="number">11</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">12</span>], load=load, out=out[<span class="number">12</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">13</span>], load=load, out=out[<span class="number">13</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">14</span>], load=load, out=out[<span class="number">14</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">15</span>], load=load, out=out[<span class="number">15</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>Memory of 8 registers, each 16 bit-wide.</strong></p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">CHIP RAM8 &#123;</span><br><span class="line">    IN <span class="keyword">in</span>[<span class="number">16</span>], load, address[<span class="number">3</span>];</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// <span class="keyword">in</span> accordance with address, locate which register to load</span><br><span class="line">    DMux8Way(<span class="keyword">in</span>=<span class="keyword">in</span>, sel=address, a=in0, b=in1, c=in2, d=in3, e=in4, f=in5, g=in6, h=in7);</span><br><span class="line"></span><br><span class="line">    Register(<span class="keyword">in</span>=in0, load=load, out=out0);</span><br><span class="line">    Register(<span class="keyword">in</span>=in1, load=load, out=out1);</span><br><span class="line">    Register(<span class="keyword">in</span>=in2, load=load, out=out2);</span><br><span class="line">    Register(<span class="keyword">in</span>=in3, load=load, out=out3);</span><br><span class="line">    Register(<span class="keyword">in</span>=in4, load=load, out=out4);</span><br><span class="line">    Register(<span class="keyword">in</span>=in5, load=load, out=out5);</span><br><span class="line">    Register(<span class="keyword">in</span>=in6, load=load, out=out6);</span><br><span class="line">    Register(<span class="keyword">in</span>=in7, load=load, out=out7);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// in accordance with address, decide which register should output</span></span><br><span class="line">    Mux8Way16(a=out0, b=out1, c=out2, d=out3, e=out4, f=out5, g=out6, h=out7, sel=address, out=out);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>Couters</strong></p>
-<p>三个基本功能：</p>
-<ul>
-<li>重置计数器</li>
-<li>计数器自增</li>
-<li>为计数器赋值</li>
-</ul>
-<p><img src="/post/5b81f62b/image-20200823000717282.png" alt="image-20200823000717282" style="zoom:50%;"></p>
-<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">CHIP PC &#123;</span><br><span class="line">    IN <span class="keyword">in</span>[<span class="number">16</span>],load,inc,reset;</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// Order cant change</span><br><span class="line">    <span class="comment">// inc</span></span><br><span class="line">    Mux16(a=lastOut, b=incOut, sel=inc, out=out1);</span><br><span class="line">    <span class="comment">// laod</span></span><br><span class="line">    Mux16(a=out1, b=<span class="keyword">in</span>, sel=load, out=out2);</span><br><span class="line">    <span class="comment">// reset</span></span><br><span class="line">    Mux16(a=out2, b=<span class="literal">false</span>, sel=reset, out=out3);</span><br><span class="line"></span><br><span class="line">    Register(<span class="keyword">in</span>=out3, load=<span class="literal">true</span>, out=lastOut, out=out);</span><br><span class="line">    Inc16(<span class="keyword">in</span>=lastOut, out=incOut);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Computer Architecture</category>
-      </categories>
-      <tags>
-        <tag>RAM</tag>
-        <tag>nand2tetris</tag>
-        <tag>HDL</tag>
-        <tag>Register</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>nand2tetris C2-布尔算法</title>
     <url>/post/c8f554f1/</url>
     <content><![CDATA[<h1 id="布尔算法运算-Boolean-Arithmetic"><a href="#布尔算法运算-Boolean-Arithmetic" class="headerlink" title="[布尔算法运算 Boolean Arithmetic]"></a>[布尔算法运算 Boolean Arithmetic]</h1><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><p>两个<code>n-</code>位数字二进制加法的计算机硬件可以由三位加法的逻辑门构建而成。（两个计算位加上一个进位）</p>
@@ -1352,6 +1280,78 @@ out(t) = out(t - 1)</script><p>从另一个方面来说，DFF仅能够输出它�
         <tag>nand2tetris</tag>
         <tag>HDL</tag>
         <tag>ALU</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nand2tetris C3-时序逻辑</title>
+    <url>/post/5b81f62b/</url>
+    <content><![CDATA[<h1 id="时序逻辑-Sequential-Logic"><a href="#时序逻辑-Sequential-Logic" class="headerlink" title="[时序逻辑 Sequential Logic]"></a>[时序逻辑 Sequential Logic]</h1><h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><p><strong>时钟(Clock)</strong>: 计算机里时间的流逝是用主时针(master clock)来表示的，它提供连续的<strong>交变信号序列</strong>。硬件实现通常基于<strong>振荡器(oscillator)</strong>，其在两个信号值<strong>0-1</strong>，或称<strong>“低电平-高电平(low-high, tick-tock)”</strong>之间交替变化。两个相邻的上升沿之间的时间间隙称为时钟的<strong>周期(cycle)</strong>，每个时钟周期模塑一个<strong>离散的时间单元</strong>。通过硬件电路，这个信号同时被传送到计算机平台的每个时序芯片中。</p>
+<p><strong>触发器(Flip-Flops)</strong>: 本书使用<strong>数据触发器(Data Flip-Flop, DFF或称D触发器)</strong>。实现基于时间的行为：</p>
+<script type="math/tex; mode=display">
+out(t) = in(t - 1)</script><p>t是当前时钟周期。换而言之，DFF能够简单的实现将前一个时间周期的输入值作为当前周期的输出值。</p>
+<p><code>out(t) = in(t - 1)</code>是所有计算机硬件维持自身状态的基础，二进制单元 -&gt; 寄存器 -&gt; 任意大的随机存取记忆单元(RAM) 都是如此.</p>
+<p><strong>寄存器(Registers)</strong>: 能够“储存”某一时刻的值，实现经典的存储行为：</p>
+<script type="math/tex; mode=display">
+out(t) = out(t - 1)</script><p>从另一个方面来说，DFF仅能够输出它前一时钟周期的输出，也就是<code>out(t) = in(t - 1)</code>。这提示了我们，可以通过DFF来实现寄存器，只需将后面的输出反馈到它的输入就可以了。</p>
+<p><img src="/post/5b81f62b/image-20200818162126362.png" alt="image-20200818162126362" style="zoom: 50%;"></p>
+<p>如此一来，在任何时刻<code>t</code>，这个设备的输出都会重现它在时刻<code>t-1</code>的值。</p>
+<p>如图3.1右，</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">load = 1, out(t) = in(t-1),  相当于wirte操作, 希望开始存储新值, 把值置于in输入口;</span><br><span class="line">load = 0, out(t) = out(t-1), 相当于read操作, 希望一直存储它的内部值直到新的指令到来</span><br></pre></td></tr></table></figure>
+<p><img src="/post/5b81f62b/image-20200818163142204.png" alt="image-20200818163142204" style="zoom: 50%;"></p>
+<p><strong>内存(Memories)</strong>: …… 随机存取内存(RAM, Random Acess Memory): 在RAM上能够随机访问被选择的字而不会受限于访问顺序。</p>
+<p><img src="/post/5b81f62b/image-20200818163246416.png" alt="image-20200818163246416" style="zoom: 50%;"></p>
+<p><strong>计数器(Counter)</strong>: 每经过一个时间周期计数器就增加1个单位，执行函数<code>out(t) = out(t-1) + c</code>，这里<code>c</code>就是1.</p>
+<h3 id="时间问题"><a href="#时间问题" class="headerlink" title="[时间问题]"></a>[时间问题]</h3><p>至此本章介绍的芯片都是时序芯片(sequential chip)。简单来说，时序芯片就是直接或间接地嵌入一个或多个DFF门的芯片。</p>
+<p>反馈回路：输出依赖于输入，而输入本身有依赖于输出，因此输出只依赖自身。</p>
+<p><img src="/post/5b81f62b/image-20200818171444271.png" alt="image-20200818171444271" style="zoom: 50%;"></p>
+<p>省略……</p>
+<h3 id="规范详述"><a href="#规范详述" class="headerlink" title="[规范详述]"></a>[规范详述]</h3><ul>
+<li><p>D触发器(DFFs)</p>
+</li>
+<li><p>寄存器 (基于DFFs)</p>
+</li>
+<li><p>存储块 (基于寄存器)</p>
+</li>
+<li><p>计数器芯片 (基于寄存器)</p>
+<p>太多细节，几乎都是必看的，建议看书；避免抄书，在此省略……</p>
+</li>
+</ul>
+<h3 id="实现硬件"><a href="#实现硬件" class="headerlink" title="[实现硬件]"></a>[实现硬件]</h3><p><strong>1Bit寄存器</strong>：</p>
+<ul>
+<li>If load[t] == 1 then out[t+1] = in[t]<ul>
+<li>else out does not change (out[t+1] = out[t])</li>
+</ul>
+</li>
+</ul>
+<p><img src="/post/5b81f62b/image-20200822231745454.png" alt="image-20200822231745454" style="zoom: 50%;"></p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">CHIP Bit &#123;</span><br><span class="line">    IN <span class="keyword">in</span>, load;</span><br><span class="line">    OUT out;</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// lastOut is equal to the last time out, Assigned by DFF<span class="string">&#x27;s lastOut</span></span><br><span class="line"><span class="string">    Mux(a=lastOut, b=in, sel=load, out=muxOut);</span></span><br><span class="line"><span class="string">    // cause the out is distinct(Only use once), so we can add out to copy the out</span></span><br><span class="line"><span class="string">    DFF(in=muxOut, out=lastOut, out=out);</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<p><strong>n-Bits寄存器</strong>：</p>
+<p>n个<strong>1Bit寄存器</strong>串联 和 <code>log(2)n</code>的address选择寄存器进行读写（取址执行的基础 ）。</p>
+<p><strong>n-Bits RAM(Random Access Memory)</strong>：</p>
+<p><img src="/post/5b81f62b/image-20200822234706201.png" alt="image-20200822234706201" style="zoom: 50%;"></p>
+<p>address用于寻址：根据<code>address = i</code>找出需要载入的<strong>1Bit寄存器</strong>，此时该寄存器设置<code>load = 1，in = M</code>，并在下一个时间周期<code>out = M</code>，实现<code>out(t) = in(t-1)</code></p>
+<p><img src="/post/5b81f62b/image-20200822235721818.png" alt="image-20200822235721818" style="zoom:50%;"></p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 16-bit register:</span></span><br><span class="line">CHIP Register &#123;</span><br><span class="line">    IN <span class="keyword">in</span>[<span class="number">16</span>], load;</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// No Mux16, because DFF only accept <span class="number">1</span> bit input &amp; output.</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">0</span>], load=load, out=out[<span class="number">0</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">1</span>], load=load, out=out[<span class="number">1</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">2</span>], load=load, out=out[<span class="number">2</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">3</span>], load=load, out=out[<span class="number">3</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">4</span>], load=load, out=out[<span class="number">4</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">5</span>], load=load, out=out[<span class="number">5</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">6</span>], load=load, out=out[<span class="number">6</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">7</span>], load=load, out=out[<span class="number">7</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">8</span>], load=load, out=out[<span class="number">8</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">9</span>], load=load, out=out[<span class="number">9</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">10</span>], load=load, out=out[<span class="number">10</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">11</span>], load=load, out=out[<span class="number">11</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">12</span>], load=load, out=out[<span class="number">12</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">13</span>], load=load, out=out[<span class="number">13</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">14</span>], load=load, out=out[<span class="number">14</span>]);</span><br><span class="line">    Bit(<span class="keyword">in</span>=<span class="keyword">in</span>[<span class="number">15</span>], load=load, out=out[<span class="number">15</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Memory of 8 registers, each 16 bit-wide.</strong></p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">CHIP RAM8 &#123;</span><br><span class="line">    IN <span class="keyword">in</span>[<span class="number">16</span>], load, address[<span class="number">3</span>];</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// <span class="keyword">in</span> accordance with address, locate which register to load</span><br><span class="line">    DMux8Way(<span class="keyword">in</span>=<span class="keyword">in</span>, sel=address, a=in0, b=in1, c=in2, d=in3, e=in4, f=in5, g=in6, h=in7);</span><br><span class="line"></span><br><span class="line">    Register(<span class="keyword">in</span>=in0, load=load, out=out0);</span><br><span class="line">    Register(<span class="keyword">in</span>=in1, load=load, out=out1);</span><br><span class="line">    Register(<span class="keyword">in</span>=in2, load=load, out=out2);</span><br><span class="line">    Register(<span class="keyword">in</span>=in3, load=load, out=out3);</span><br><span class="line">    Register(<span class="keyword">in</span>=in4, load=load, out=out4);</span><br><span class="line">    Register(<span class="keyword">in</span>=in5, load=load, out=out5);</span><br><span class="line">    Register(<span class="keyword">in</span>=in6, load=load, out=out6);</span><br><span class="line">    Register(<span class="keyword">in</span>=in7, load=load, out=out7);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// in accordance with address, decide which register should output</span></span><br><span class="line">    Mux8Way16(a=out0, b=out1, c=out2, d=out3, e=out4, f=out5, g=out6, h=out7, sel=address, out=out);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Couters</strong></p>
+<p>三个基本功能：</p>
+<ul>
+<li>重置计数器</li>
+<li>计数器自增</li>
+<li>为计数器赋值</li>
+</ul>
+<p><img src="/post/5b81f62b/image-20200823000717282.png" alt="image-20200823000717282" style="zoom:50%;"></p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">CHIP PC &#123;</span><br><span class="line">    IN <span class="keyword">in</span>[<span class="number">16</span>],load,inc,reset;</span><br><span class="line">    OUT out[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    PARTS:<span class="type"></span></span><br><span class="line"><span class="type">    </span>// Order cant change</span><br><span class="line">    <span class="comment">// inc</span></span><br><span class="line">    Mux16(a=lastOut, b=incOut, sel=inc, out=out1);</span><br><span class="line">    <span class="comment">// laod</span></span><br><span class="line">    Mux16(a=out1, b=<span class="keyword">in</span>, sel=load, out=out2);</span><br><span class="line">    <span class="comment">// reset</span></span><br><span class="line">    Mux16(a=out2, b=<span class="literal">false</span>, sel=reset, out=out3);</span><br><span class="line"></span><br><span class="line">    Register(<span class="keyword">in</span>=out3, load=<span class="literal">true</span>, out=lastOut, out=out);</span><br><span class="line">    Inc16(<span class="keyword">in</span>=lastOut, out=incOut);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Computer Architecture</category>
+      </categories>
+      <tags>
+        <tag>RAM</tag>
+        <tag>nand2tetris</tag>
+        <tag>HDL</tag>
+        <tag>Register</tag>
       </tags>
   </entry>
   <entry>
