@@ -179,6 +179,20 @@
 
   
   <url>
+    <loc>https://a1va.gitee.io/tags/process/</loc>
+    <lastmod>2020-11-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://a1va.gitee.io/tags/process-scheduling/</loc>
+    <lastmod>2020-11-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://a1va.gitee.io/tags/memory-layout/</loc>
     <lastmod>2020-11-10</lastmod>
     <changefreq>daily</changefreq>
@@ -194,20 +208,6 @@
   
   <url>
     <loc>https://a1va.gitee.io/tags/heap/</loc>
-    <lastmod>2020-11-10</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://a1va.gitee.io/tags/process/</loc>
-    <lastmod>2020-11-10</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://a1va.gitee.io/tags/process-scheduling/</loc>
     <lastmod>2020-11-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -298,14 +298,14 @@
   </url>
   
   <url>
-    <loc>https://a1va.gitee.io/tags/CPU/</loc>
+    <loc>https://a1va.gitee.io/tags/Hack%E6%B1%87%E7%BC%96%E7%BC%96%E8%AF%91%E5%99%A8/</loc>
     <lastmod>2020-11-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://a1va.gitee.io/tags/Hack%E6%B1%87%E7%BC%96%E7%BC%96%E8%AF%91%E5%99%A8/</loc>
+    <loc>https://a1va.gitee.io/tags/CPU/</loc>
     <lastmod>2020-11-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -314,14 +314,14 @@
 
   
   <url>
-    <loc>https://a1va.gitee.io/categories/%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/</loc>
+    <loc>https://a1va.gitee.io/categories/Operating-System/</loc>
     <lastmod>2020-11-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://a1va.gitee.io/categories/Operating-System/</loc>
+    <loc>https://a1va.gitee.io/categories/%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/</loc>
     <lastmod>2020-11-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
