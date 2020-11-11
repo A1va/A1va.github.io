@@ -99,6 +99,113 @@ T(响应时间)=T(首次运行)-T(到达时间)</script><p>考虑一种情况：
       </tags>
   </entry>
   <entry>
+    <title>Spring Boot入门</title>
+    <url>/post/a06b7d48/</url>
+    <content><![CDATA[<h1 id="Spring-Boot-入门"><a href="#Spring-Boot-入门" class="headerlink" title="[Spring Boot 入门]"></a>[Spring Boot 入门]</h1><p><a href="http://t.cn/AirXJZuO">百度百科</a></p>
+<p><strong>优点</strong></p>
+<blockquote>
+<ul>
+<li>快速创建独立运行的Spring项目以及与主流框架集成</li>
+<li>使用嵌入式的Servlet容器，应用无需打成WAR包</li>
+<li>starters自动依赖与版本控制</li>
+<li>大量的自动配置，简化开发，也可修改默认值</li>
+<li>无需配置XML，无代码生成，开箱即用</li>
+<li>准生产环境的运行时应用监控</li>
+<li>与云计算的天然集成</li>
+</ul>
+</blockquote>
+<h2 id="微服务"><a href="#微服务" class="headerlink" title="[微服务]"></a>[微服务]</h2><blockquote>
+<p>2014，martin fowler</p>
+<p>微服务：架构风格（服务微化）</p>
+<p>一个应用应该是一组小型服务；可以通过HTTP的方式进行互通；</p>
+<p>单体应用：ALL IN ONE</p>
+<p>微服务：每一个功能元素最终都是一个可独立替换和独立升级的软件单元；</p>
+<p><a href="https://martinfowler.com/articles/microservices.html#MicroservicesAndSoa">详细参照微服务文档</a></p>
+<p><a href="https://blog.csdn.net/qq_37788067/article/details/79250623">集群、分布式、微服务概念和区别</a></p>
+</blockquote>
+<h2 id="环境约束"><a href="#环境约束" class="headerlink" title="[环境约束]"></a>[环境约束]</h2><p>–jdk1.8：Spring Boot 推荐jdk1.7及以上；</p>
+<p>–maven3.x：maven 3.3以上版本；</p>
+<h2 id="Maven设置"><a href="#Maven设置" class="headerlink" title="[Maven设置]"></a>[Maven设置]</h2><p>给maven 的settings.xml配置文件的profiles标签添加：（设置使用的jdk版本）</p>
+<p>开发工具中的maven设置为自己配置的maven</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>jdk-1.8<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jdk</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">jdk</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.compilerVersion</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.compilerVersion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="创建一个maven工程"><a href="#创建一个maven工程" class="headerlink" title="[创建一个maven工程]"></a>[创建一个maven工程]</h2><ol>
+<li><p>导入spring boot相关的依赖</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">   </span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写一个主程序；启动Spring Boot应用</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> con.nolva.springboot;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * springBootApplication：标注一个主程序类，表示这个是一个Springboot应用</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldMainApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//启动</span></span><br><span class="line">        SpringApplication.run(HelloWorldMainApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写一个Controller</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.nolva.springboot.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * RestController：是spring4里的新注解，是<span class="doctag">@ResponseBody</span>和<span class="doctag">@Controller</span>的缩写。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;hello SpringBoot,this is my first Application&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行主程序Main方法测试</p>
+</li>
+<li><p>访问 <a href="http://localhost:8080/hello">localhost:8080/hello</a></p>
+</li>
+</ol>
+<h2 id="简化部署"><a href="#简化部署" class="headerlink" title="[简化部署]"></a>[简化部署]</h2><ol>
+<li><p>添加maven插件</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 这个插件，可以将应用打包成一个可执行的jar包；--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用mvn package进行打包</p>
+</li>
+<li><p>进入打包好的jar包所在目录</p>
+</li>
+<li><p>使用 <code>java -jar jar包名称</code> 运行</p>
+</li>
+</ol>
+<h2 id="Hello-World探究"><a href="#Hello-World探究" class="headerlink" title="[Hello World探究]"></a>[Hello World探究]</h2><h3 id="依赖"><a href="#依赖" class="headerlink" title="[依赖]"></a>[依赖]</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">  &lt;!--Hello World项目的父工程是org.springframework.boot--&gt;</span><br><span class="line">  &lt;parent&gt;</span><br><span class="line">      &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;2.2.1.RELEASE&lt;/version&gt;</span><br><span class="line">      &lt;relativePath/&gt;</span><br><span class="line">  &lt;/parent&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!--</span><br><span class="line">      org.springframework.boot他的父项目是spring-boot-dependencies</span><br><span class="line">      他来真正管理Spring Boot应用里面的所有依赖版本；</span><br><span class="line">      Spring Boot的版本仲裁中心；</span><br><span class="line">      以后我们导入依赖默认是不需要写版本；（没有在dependencies里面管理的依赖自然需要声明版本号）</span><br><span class="line">  --&gt;</span><br><span class="line">&lt;parent&gt;</span><br><span class="line">  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;spring-boot-dependencies&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;2.2.1.RELEASE&lt;/version&gt;</span><br><span class="line">  &lt;relativePath&gt;../../spring-boot-dependencies&lt;/relativePath&gt;</span><br><span class="line">&lt;/parent&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="启动器"><a href="#启动器" class="headerlink" title="[启动器]"></a>[启动器]</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>spring-boot-starter</strong>-<code>web</code>：</p>
+<p> spring-boot-starter：spring-boot场景启动器；帮我们导入了web模块正常运行所依赖的组件；</p>
+<p>Spring Boot将所有的功能场景都抽取出来，做成一个个的starters（启动器），只需要在项目里面引入这些starter相关场景的所有依赖都会导入进来。要用什么功能就导入什么场景的启动器</p>
+<h3 id="主程序类，主入口类"><a href="#主程序类，主入口类" class="headerlink" title="[主程序类，主入口类]"></a>[主程序类，主入口类]</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldMainApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//启动</span></span><br><span class="line">        SpringApplication.run(HelloWorldMainApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>@SpringBootApplication</code>: Spring Boot应用标注在某个类上说明这个类是SpringBoot的主配置类，SpringBoot就应该运行这个类的main方法来启动SpringBoot应用；</p>
+<p>看一下<code>@SpringBootApplication</code>这个注解类的源码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span>    <span class="comment">//可以给一个类型进行注解，比如类、接口、枚举</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span>    <span class="comment">//可以保留到程序运行的时候，它会被加载进入到 JVM 中</span></span><br><span class="line"><span class="meta">@Documented</span>    <span class="comment">//将注解中的元素包含到 Javadoc 中去。</span></span><br><span class="line"><span class="meta">@Inherited</span>    <span class="comment">//继承，比如A类上有该注解，B类继承A类，B类就也拥有该注解</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@SpringBootConfiguration</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">*创建一个配置类，在配置类上添加 @ComponentScan 注解。</span></span><br><span class="line"><span class="comment">*该注解默认会扫描该类所在的包下所有的配置类，相当于之前的 &lt;context:component-scan&gt;。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@ComponentScan(</span></span><br><span class="line"><span class="meta">    excludeFilters = &#123;@Filter(</span></span><br><span class="line"><span class="meta">    type = FilterType.CUSTOM,</span></span><br><span class="line"><span class="meta">    classes = &#123;TypeExcludeFilter.class&#125;</span></span><br><span class="line"><span class="meta">), @Filter(</span></span><br><span class="line"><span class="meta">    type = FilterType.CUSTOM,</span></span><br><span class="line"><span class="meta">    classes = &#123;AutoConfigurationExcludeFilter.class&#125;</span></span><br><span class="line"><span class="meta">)&#125;</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootApplication</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>@SpringBootConfiguration</code>：Spring Boot的配置类；标注在某个类上，表示这是一个Spring Boot的配置类；</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootConfiguration</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>@Configuration</code>：配置类上来标注这个注解；</p>
+<p>配置类 ——- 配置文件；配置类也是容器中的一个组件；@Component</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Configuration</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><code>@EnableAutoConfiguration</code>：开启自动配置功能；</p>
+<p>以前我们需要配置的东西，Spring Boot帮我们自动配置；@<strong>EnableAutoConfiguration</strong>告诉SpringBoot开启自动配置功能；这样自动配置才能生效；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Inherited</span><br><span class="line">@AutoConfigurationPackage</span><br><span class="line">@Import(&#123;AutoConfigurationImportSelector.class&#125;)</span><br><span class="line">public @interface EnableAutoConfiguration</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>@AutoConfigurationPackage</code>：自动配置包</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@Import(&#123;Registrar.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> AutoConfigurationPackage</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>@Import</code>：Spring的底层注解@Import，给容器中导入一个组件</p>
+<p>导入的组件由<code>org.springframework.boot.autoconfigure.AutoConfigurationPackages.Registrar</code>将主配置类（@SpringBootApplication标注的类）的所在包及下面所有子包里面的所有组件扫描到Spring容器；</p>
+<p><img src="/post/a06b7d48/1573637120233.png" alt="DEBUG"></p>
+<p>这里controller包是在主程序所在的包下，所以会被扫描到，我们在springboot包下创建一个test包，把主程序放在test包下，这样启动就只会去扫描test包下的内容而controller包就不会被扫描到，再访问开始的hello就是404</p>
+<p><img src="/post/a06b7d48/1573637728857.png" alt="DEBUG"></p>
+</li>
+</ul>
+</li>
+<li><p><code>@Import(&#123;AutoConfigurationImportSelector.class&#125;)</code></p>
+<p><code>AutoConfigurationImportSelector.class</code>将所有需要导入的组件以全类名的方式返回；这些组件就会被添加到容器中；会给容器中导入非常多的自动配置类（xxxAutoConfiguration）；就是给容器中导入这个场景需要的所有组件，并配置好这些组件；</p>
+<p>有了自动配置类，免去了我们手动编写配置注入功能组件等的工作；</p>
+<p><img src="/post/a06b7d48/1573638685562.png" alt="Configuration"></p>
+</li>
+</ul>
+</li>
+</ul>
+<p>Spring Boot在启动的时候从类路径下的META-INF/spring.factories中获取EnableAutoConfiguration指定的值，将这些值作为自动配置类导入到容器中，自动配置类就生效，帮我们进行自动配置工作；以前我们需要自己配置的东西，自动配置类都帮我们完成了；</p>
+]]></content>
+      <categories>
+        <category>Spring Boot</category>
+      </categories>
+      <tags>
+        <tag>Spring Boot</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C语言内存布局</title>
     <url>/post/908b7180/</url>
     <content><![CDATA[<h1 id="C语言程序的内存布局"><a href="#C语言程序的内存布局" class="headerlink" title="C语言程序的内存布局"></a>C语言程序的内存布局</h1><h3 id="内存布局"><a href="#内存布局" class="headerlink" title="内存布局"></a>内存布局</h3><ul>
@@ -145,42 +252,6 @@ T(响应时间)=T(首次运行)-T(到达时间)</script><p>考虑一种情况：
         <tag>memory layout</tag>
         <tag>stack</tag>
         <tag>heap</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Q&amp;A:RAM &amp; ROM &amp; Memory</title>
-    <url>/post/17d0af8c/</url>
-    <content><![CDATA[<h1 id="RAM为什么是随机存储？"><a href="#RAM为什么是随机存储？" class="headerlink" title="RAM为什么是随机存储？"></a>RAM为什么是随机存储？</h1><p>​        <strong>”随机“强调的是存取数据所花的时间与目标数据所在的物理位置无关</strong>。这是由RAM的结构决定的，RAM使用<strong>存储阵列</strong>来存储数据，只要给出<strong>行地址</strong>和<strong>列地址</strong>，就能<strong>确定目标数据</strong>，这一过程<strong>与目标数据所处的物理位置无关</strong>。</p>
-<p>​        与“随机存取“相对的，是<strong>“串行访问”</strong>，指<strong>存取数据所花的时间与目标数据所在的物理位置有关</strong>。串行访问里面又分为<strong>顺序存取</strong>和<strong>直接存取</strong>。<strong>顺序存取如磁带</strong>，要想访问一个某一存储单元，<strong>必须先访问该单元前面的单元</strong>，（所以就有了听歌时倒磁带的痛苦经历）。<strong>直接存取如磁盘</strong>，磁头可以直接定位到目标存储单元，<strong>不需访问该单元前面的单元</strong>。需要注意的是，即使是直接定位，定位磁头所花的时间也是不同的，比如磁头当前在磁道0，定位到磁道2和磁道10000的时间肯定不同，所以存取数据所花的时间与目标数所在的物理位置仍然有关。</p>
-<h1 id="明明可以往硬盘里写数据，为什么叫ROM呢？"><a href="#明明可以往硬盘里写数据，为什么叫ROM呢？" class="headerlink" title="明明可以往硬盘里写数据，为什么叫ROM呢？"></a>明明可以往硬盘里写数据，为什么叫ROM呢？</h1><p>​        首先，<strong>硬盘 ≠ ROM.</strong></p>
-<p>​        在符合冯.诺依曼架构的计算机中，只读储存器ROM是相对于随机存储器RAM而存在的，<strong>所有的预程序从ROM读出存储在RAM上，工作时程序均在RAM中运行</strong>，而不是在ROM上，所以我们叫它只读储存器，<strong>运行在RAM中的数据在断电前会保存在可多次擦写的外储存器上，外储存器才是硬盘</strong>。</p>
-<p>​        简而言之，对于计算机而言，从严格意义来讲<strong>ROM是用来存储输入输出系统</strong>，即<strong>BIOS</strong>，而<strong>硬盘叫外储存器，用来存放操作系统软件以及程序与数据</strong>。</p>
-<p>​        对于手机而言，设定的Linux内核会<strong>从磁盘中划分一部分储存空间作为ROM区，用于开机时读取到RAM的映像，而ROM区域和程序以及数据存储区域共用一个介质</strong>，所以厂家为了简单宣传，会把整个ROM大小作为外储存器大小去宣传，但这个和PC是有一定区别的。</p>
-<p>​        所以，<strong>这也从结构上顺便解释了为什么安卓手机抑或Linux系统不容易中毒的原因，因为系统作为ROM中的单纯映像，不授权的话是无法写入的</strong>，而Windows在外储存器以软件形式存在，且分界不明显，同时使用微内核结构桥接比较多，虽然方便更改系统配置但是对不熟悉者安全度低。</p>
-<h1 id="EEPROM是一种“只读存储器”，为什么要对其进行写操作？"><a href="#EEPROM是一种“只读存储器”，为什么要对其进行写操作？" class="headerlink" title="EEPROM是一种“只读存储器”，为什么要对其进行写操作？"></a>EEPROM是一种“只读存储器”，为什么要对其进行写操作？</h1><p>EEPROM的首字母缩写具有随着技术的发展而发展的历史。</p>
-<p><strong>ROM</strong>：只读存储器。写在工厂。</p>
-<p><strong>PROM</strong>：可编程只读存储器，但可由用户编程（一次）。真正的一次性可编程，永远可读的存储器。弄错了，就丢了芯片。</p>
-<p><strong>EPROM</strong>：可擦可编程只读存储器。可以写入多次，擦出需要使用紫外线照射。有点麻烦，但非常有用。</p>
-<p><strong>EEPROM</strong>：电可擦可编程只读存储器。可以写入多次，通过编程电压进行修改。</p>
-<p>​        所以，为什么在可写时将其称为eepROm？我怀疑，答案是，与<strong>RAM</strong>（随机存取存储器）不同，它在电源关闭时会保存其内容，因此，其行为更像<strong>ROM</strong>。</p>
-<p>​        后来推出的<strong>闪存(Flash Memory)</strong>技术，它是一种广义上的EEPROM，手机上的eMMC和UFS都属于闪存技术，因此闪存也被人们称为ROM。</p>
-<h1 id="「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？"><a href="#「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？" class="headerlink" title="「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？"></a>「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？</h1><p>​        在计算机专业领域，“内存”的全称是“内部储存器”，用于在运行时储存信息，CPU可以直接寻址，区别于永久保存数据、CPU仅通过硬件控制器读取数据的“外部储存器”。<strong>这两者是从计算机架构的角度说的</strong>。在通常语境下，“内存”只有主板上插的内存条一种，<strong>内存就成了“主板上的RAM”的代称</strong>。</p>
-<p>​        RAM是Random Access Memory，随机访问储存器，特点是断电失效，可以直接通过电流刷新数据。现在一般只有内存条（DRAM）和CPU缓存（SRAM）使用这类芯片。</p>
-<p>​        对应的ROM是Read-Only Memory，只读储存器，最开始的ROM真的是只读，不可写入，包括半导体ROM和CD-ROM，后来出现了紫外线擦除的EPROM，电擦除的EEPROM。</p>
-<p>​        <strong>RAM和ROM是从技术实现的角度说的</strong>。</p>
-<p>​        U盘、固态硬盘、手机固件使用的闪存芯片也是一种EEPROM，它依然是先擦除再写入，和RAM有原理上的区别。所以<strong>手机广告上的2G RAM + 16G ROM是正确的用法</strong>。（不要纠结flash到底是不是EEPROM了，它确实符合EEPROM定义，写入是通过电擦除-再写入实现的，不过EEPROM一般专指可以按字节擦除的那种，flash是按块擦除）</p>
-<p>​        智能手机的组成和电脑一样，所以<strong>依据部件功能继承了电脑的称呼</strong>。不过硬盘换成了闪存芯片，所以手机里履行硬盘职能的部件可以被称作“闪存”。</p>
-<p>​        内存和ROM混淆<strong>我认为</strong>来自于安卓系统（或者更早的塞班，我没用过），安卓文件管理器把手机空间分为“内部储存”和“SD卡”，这里的“内部储存”指的是ROM，但是也简称为“内存”。为了和这个“内存”做区别，RAM就变成了运行内存，“运存”。</p>
-<p>所以对应关系如下：<br><strong>电脑：内存－硬盘</strong><br><strong>手机：RAM－ROM</strong><br>　　　<strong>内存－闪存</strong><br>　　　<strong>运存－内存</strong></p>
-<p>​        至于把手机的“内存”又迁移回电脑上，指代硬盘，只能说误会久矣…</p>
-]]></content>
-      <categories>
-        <category>内存布局</category>
-      </categories>
-      <tags>
-        <tag>RAM</tag>
-        <tag>ROM</tag>
-        <tag>Memory</tag>
       </tags>
   </entry>
   <entry>
@@ -319,110 +390,39 @@ T(响应时间)=T(首次运行)-T(到达时间)</script><p>考虑一种情况：
       </tags>
   </entry>
   <entry>
-    <title>Spring Boot入门</title>
-    <url>/post/a06b7d48/</url>
-    <content><![CDATA[<h1 id="Spring-Boot-入门"><a href="#Spring-Boot-入门" class="headerlink" title="[Spring Boot 入门]"></a>[Spring Boot 入门]</h1><p><a href="http://t.cn/AirXJZuO">百度百科</a></p>
-<p><strong>优点</strong></p>
-<blockquote>
-<ul>
-<li>快速创建独立运行的Spring项目以及与主流框架集成</li>
-<li>使用嵌入式的Servlet容器，应用无需打成WAR包</li>
-<li>starters自动依赖与版本控制</li>
-<li>大量的自动配置，简化开发，也可修改默认值</li>
-<li>无需配置XML，无代码生成，开箱即用</li>
-<li>准生产环境的运行时应用监控</li>
-<li>与云计算的天然集成</li>
-</ul>
-</blockquote>
-<h2 id="微服务"><a href="#微服务" class="headerlink" title="[微服务]"></a>[微服务]</h2><blockquote>
-<p>2014，martin fowler</p>
-<p>微服务：架构风格（服务微化）</p>
-<p>一个应用应该是一组小型服务；可以通过HTTP的方式进行互通；</p>
-<p>单体应用：ALL IN ONE</p>
-<p>微服务：每一个功能元素最终都是一个可独立替换和独立升级的软件单元；</p>
-<p><a href="https://martinfowler.com/articles/microservices.html#MicroservicesAndSoa">详细参照微服务文档</a></p>
-<p><a href="https://blog.csdn.net/qq_37788067/article/details/79250623">集群、分布式、微服务概念和区别</a></p>
-</blockquote>
-<h2 id="环境约束"><a href="#环境约束" class="headerlink" title="[环境约束]"></a>[环境约束]</h2><p>–jdk1.8：Spring Boot 推荐jdk1.7及以上；</p>
-<p>–maven3.x：maven 3.3以上版本；</p>
-<h2 id="Maven设置"><a href="#Maven设置" class="headerlink" title="[Maven设置]"></a>[Maven设置]</h2><p>给maven 的settings.xml配置文件的profiles标签添加：（设置使用的jdk版本）</p>
-<p>开发工具中的maven设置为自己配置的maven</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>jdk-1.8<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jdk</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">jdk</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.compilerVersion</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.compilerVersion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="创建一个maven工程"><a href="#创建一个maven工程" class="headerlink" title="[创建一个maven工程]"></a>[创建一个maven工程]</h2><ol>
-<li><p>导入spring boot相关的依赖</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">   </span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编写一个主程序；启动Spring Boot应用</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> con.nolva.springboot;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * springBootApplication：标注一个主程序类，表示这个是一个Springboot应用</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldMainApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//启动</span></span><br><span class="line">        SpringApplication.run(HelloWorldMainApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编写一个Controller</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.nolva.springboot.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * RestController：是spring4里的新注解，是<span class="doctag">@ResponseBody</span>和<span class="doctag">@Controller</span>的缩写。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;hello SpringBoot,this is my first Application&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>运行主程序Main方法测试</p>
-</li>
-<li><p>访问 <a href="http://localhost:8080/hello">localhost:8080/hello</a></p>
-</li>
-</ol>
-<h2 id="简化部署"><a href="#简化部署" class="headerlink" title="[简化部署]"></a>[简化部署]</h2><ol>
-<li><p>添加maven插件</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 这个插件，可以将应用打包成一个可执行的jar包；--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用mvn package进行打包</p>
-</li>
-<li><p>进入打包好的jar包所在目录</p>
-</li>
-<li><p>使用 <code>java -jar jar包名称</code> 运行</p>
-</li>
-</ol>
-<h2 id="Hello-World探究"><a href="#Hello-World探究" class="headerlink" title="[Hello World探究]"></a>[Hello World探究]</h2><h3 id="依赖"><a href="#依赖" class="headerlink" title="[依赖]"></a>[依赖]</h3><figure class="highlight"><table><tr><td class="code"><pre><span class="line">  &lt;!--Hello World项目的父工程是org.springframework.boot--&gt;</span><br><span class="line">  &lt;parent&gt;</span><br><span class="line">      &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;2.2.1.RELEASE&lt;/version&gt;</span><br><span class="line">      &lt;relativePath/&gt;</span><br><span class="line">  &lt;/parent&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!--</span><br><span class="line">      org.springframework.boot他的父项目是spring-boot-dependencies</span><br><span class="line">      他来真正管理Spring Boot应用里面的所有依赖版本；</span><br><span class="line">      Spring Boot的版本仲裁中心；</span><br><span class="line">      以后我们导入依赖默认是不需要写版本；（没有在dependencies里面管理的依赖自然需要声明版本号）</span><br><span class="line">  --&gt;</span><br><span class="line">&lt;parent&gt;</span><br><span class="line">  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;spring-boot-dependencies&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;2.2.1.RELEASE&lt;/version&gt;</span><br><span class="line">  &lt;relativePath&gt;../../spring-boot-dependencies&lt;/relativePath&gt;</span><br><span class="line">&lt;/parent&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="启动器"><a href="#启动器" class="headerlink" title="[启动器]"></a>[启动器]</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><strong>spring-boot-starter</strong>-<code>web</code>：</p>
-<p> spring-boot-starter：spring-boot场景启动器；帮我们导入了web模块正常运行所依赖的组件；</p>
-<p>Spring Boot将所有的功能场景都抽取出来，做成一个个的starters（启动器），只需要在项目里面引入这些starter相关场景的所有依赖都会导入进来。要用什么功能就导入什么场景的启动器</p>
-<h3 id="主程序类，主入口类"><a href="#主程序类，主入口类" class="headerlink" title="[主程序类，主入口类]"></a>[主程序类，主入口类]</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldMainApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//启动</span></span><br><span class="line">        SpringApplication.run(HelloWorldMainApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>@SpringBootApplication</code>: Spring Boot应用标注在某个类上说明这个类是SpringBoot的主配置类，SpringBoot就应该运行这个类的main方法来启动SpringBoot应用；</p>
-<p>看一下<code>@SpringBootApplication</code>这个注解类的源码</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span>    <span class="comment">//可以给一个类型进行注解，比如类、接口、枚举</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span>    <span class="comment">//可以保留到程序运行的时候，它会被加载进入到 JVM 中</span></span><br><span class="line"><span class="meta">@Documented</span>    <span class="comment">//将注解中的元素包含到 Javadoc 中去。</span></span><br><span class="line"><span class="meta">@Inherited</span>    <span class="comment">//继承，比如A类上有该注解，B类继承A类，B类就也拥有该注解</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@SpringBootConfiguration</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">*创建一个配置类，在配置类上添加 @ComponentScan 注解。</span></span><br><span class="line"><span class="comment">*该注解默认会扫描该类所在的包下所有的配置类，相当于之前的 &lt;context:component-scan&gt;。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@ComponentScan(</span></span><br><span class="line"><span class="meta">    excludeFilters = &#123;@Filter(</span></span><br><span class="line"><span class="meta">    type = FilterType.CUSTOM,</span></span><br><span class="line"><span class="meta">    classes = &#123;TypeExcludeFilter.class&#125;</span></span><br><span class="line"><span class="meta">), @Filter(</span></span><br><span class="line"><span class="meta">    type = FilterType.CUSTOM,</span></span><br><span class="line"><span class="meta">    classes = &#123;AutoConfigurationExcludeFilter.class&#125;</span></span><br><span class="line"><span class="meta">)&#125;</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootApplication</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p><code>@SpringBootConfiguration</code>：Spring Boot的配置类；标注在某个类上，表示这是一个Spring Boot的配置类；</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootConfiguration</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p><code>@Configuration</code>：配置类上来标注这个注解；</p>
-<p>配置类 ——- 配置文件；配置类也是容器中的一个组件；@Component</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Configuration</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p><code>@EnableAutoConfiguration</code>：开启自动配置功能；</p>
-<p>以前我们需要配置的东西，Spring Boot帮我们自动配置；@<strong>EnableAutoConfiguration</strong>告诉SpringBoot开启自动配置功能；这样自动配置才能生效；</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Inherited</span><br><span class="line">@AutoConfigurationPackage</span><br><span class="line">@Import(&#123;AutoConfigurationImportSelector.class&#125;)</span><br><span class="line">public @interface EnableAutoConfiguration</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p><code>@AutoConfigurationPackage</code>：自动配置包</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@Import(&#123;Registrar.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> AutoConfigurationPackage</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p><code>@Import</code>：Spring的底层注解@Import，给容器中导入一个组件</p>
-<p>导入的组件由<code>org.springframework.boot.autoconfigure.AutoConfigurationPackages.Registrar</code>将主配置类（@SpringBootApplication标注的类）的所在包及下面所有子包里面的所有组件扫描到Spring容器；</p>
-<p><img src="/post/a06b7d48/1573637120233.png" alt="DEBUG"></p>
-<p>这里controller包是在主程序所在的包下，所以会被扫描到，我们在springboot包下创建一个test包，把主程序放在test包下，这样启动就只会去扫描test包下的内容而controller包就不会被扫描到，再访问开始的hello就是404</p>
-<p><img src="/post/a06b7d48/1573637728857.png" alt="DEBUG"></p>
-</li>
-</ul>
-</li>
-<li><p><code>@Import(&#123;AutoConfigurationImportSelector.class&#125;)</code></p>
-<p><code>AutoConfigurationImportSelector.class</code>将所有需要导入的组件以全类名的方式返回；这些组件就会被添加到容器中；会给容器中导入非常多的自动配置类（xxxAutoConfiguration）；就是给容器中导入这个场景需要的所有组件，并配置好这些组件；</p>
-<p>有了自动配置类，免去了我们手动编写配置注入功能组件等的工作；</p>
-<p><img src="/post/a06b7d48/1573638685562.png" alt="Configuration"></p>
-</li>
-</ul>
-</li>
-</ul>
-<p>Spring Boot在启动的时候从类路径下的META-INF/spring.factories中获取EnableAutoConfiguration指定的值，将这些值作为自动配置类导入到容器中，自动配置类就生效，帮我们进行自动配置工作；以前我们需要自己配置的东西，自动配置类都帮我们完成了；</p>
+    <title>Q&amp;A:RAM &amp; ROM &amp; Memory</title>
+    <url>/post/17d0af8c/</url>
+    <content><![CDATA[<h1 id="RAM为什么是随机存储？"><a href="#RAM为什么是随机存储？" class="headerlink" title="RAM为什么是随机存储？"></a>RAM为什么是随机存储？</h1><p>​        <strong>”随机“强调的是存取数据所花的时间与目标数据所在的物理位置无关</strong>。这是由RAM的结构决定的，RAM使用<strong>存储阵列</strong>来存储数据，只要给出<strong>行地址</strong>和<strong>列地址</strong>，就能<strong>确定目标数据</strong>，这一过程<strong>与目标数据所处的物理位置无关</strong>。</p>
+<p>​        与“随机存取“相对的，是<strong>“串行访问”</strong>，指<strong>存取数据所花的时间与目标数据所在的物理位置有关</strong>。串行访问里面又分为<strong>顺序存取</strong>和<strong>直接存取</strong>。<strong>顺序存取如磁带</strong>，要想访问一个某一存储单元，<strong>必须先访问该单元前面的单元</strong>，（所以就有了听歌时倒磁带的痛苦经历）。<strong>直接存取如磁盘</strong>，磁头可以直接定位到目标存储单元，<strong>不需访问该单元前面的单元</strong>。需要注意的是，即使是直接定位，定位磁头所花的时间也是不同的，比如磁头当前在磁道0，定位到磁道2和磁道10000的时间肯定不同，所以存取数据所花的时间与目标数所在的物理位置仍然有关。</p>
+<h1 id="明明可以往硬盘里写数据，为什么叫ROM呢？"><a href="#明明可以往硬盘里写数据，为什么叫ROM呢？" class="headerlink" title="明明可以往硬盘里写数据，为什么叫ROM呢？"></a>明明可以往硬盘里写数据，为什么叫ROM呢？</h1><p>​        首先，<strong>硬盘 ≠ ROM.</strong></p>
+<p>​        在符合冯.诺依曼架构的计算机中，只读储存器ROM是相对于随机存储器RAM而存在的，<strong>所有的预程序从ROM读出存储在RAM上，工作时程序均在RAM中运行</strong>，而不是在ROM上，所以我们叫它只读储存器，<strong>运行在RAM中的数据在断电前会保存在可多次擦写的外储存器上，外储存器才是硬盘</strong>。</p>
+<p>​        简而言之，对于计算机而言，从严格意义来讲<strong>ROM是用来存储输入输出系统</strong>，即<strong>BIOS</strong>，而<strong>硬盘叫外储存器，用来存放操作系统软件以及程序与数据</strong>。</p>
+<p>​        对于手机而言，设定的Linux内核会<strong>从磁盘中划分一部分储存空间作为ROM区，用于开机时读取到RAM的映像，而ROM区域和程序以及数据存储区域共用一个介质</strong>，所以厂家为了简单宣传，会把整个ROM大小作为外储存器大小去宣传，但这个和PC是有一定区别的。</p>
+<p>​        所以，<strong>这也从结构上顺便解释了为什么安卓手机抑或Linux系统不容易中毒的原因，因为系统作为ROM中的单纯映像，不授权的话是无法写入的</strong>，而Windows在外储存器以软件形式存在，且分界不明显，同时使用微内核结构桥接比较多，虽然方便更改系统配置但是对不熟悉者安全度低。</p>
+<h1 id="EEPROM是一种“只读存储器”，为什么要对其进行写操作？"><a href="#EEPROM是一种“只读存储器”，为什么要对其进行写操作？" class="headerlink" title="EEPROM是一种“只读存储器”，为什么要对其进行写操作？"></a>EEPROM是一种“只读存储器”，为什么要对其进行写操作？</h1><p>EEPROM的首字母缩写具有随着技术的发展而发展的历史。</p>
+<p><strong>ROM</strong>：只读存储器。写在工厂。</p>
+<p><strong>PROM</strong>：可编程只读存储器，但可由用户编程（一次）。真正的一次性可编程，永远可读的存储器。弄错了，就丢了芯片。</p>
+<p><strong>EPROM</strong>：可擦可编程只读存储器。可以写入多次，擦出需要使用紫外线照射。有点麻烦，但非常有用。</p>
+<p><strong>EEPROM</strong>：电可擦可编程只读存储器。可以写入多次，通过编程电压进行修改。</p>
+<p>​        所以，为什么在可写时将其称为eepROm？我怀疑，答案是，与<strong>RAM</strong>（随机存取存储器）不同，它在电源关闭时会保存其内容，因此，其行为更像<strong>ROM</strong>。</p>
+<p>​        后来推出的<strong>闪存(Flash Memory)</strong>技术，它是一种广义上的EEPROM，手机上的eMMC和UFS都属于闪存技术，因此闪存也被人们称为ROM。</p>
+<h1 id="「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？"><a href="#「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？" class="headerlink" title="「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？"></a>「内存」这个名字误导性太强，为什么没有一个更精准上口的叫法？</h1><p>​        在计算机专业领域，“内存”的全称是“内部储存器”，用于在运行时储存信息，CPU可以直接寻址，区别于永久保存数据、CPU仅通过硬件控制器读取数据的“外部储存器”。<strong>这两者是从计算机架构的角度说的</strong>。在通常语境下，“内存”只有主板上插的内存条一种，<strong>内存就成了“主板上的RAM”的代称</strong>。</p>
+<p>​        RAM是Random Access Memory，随机访问储存器，特点是断电失效，可以直接通过电流刷新数据。现在一般只有内存条（DRAM）和CPU缓存（SRAM）使用这类芯片。</p>
+<p>​        对应的ROM是Read-Only Memory，只读储存器，最开始的ROM真的是只读，不可写入，包括半导体ROM和CD-ROM，后来出现了紫外线擦除的EPROM，电擦除的EEPROM。</p>
+<p>​        <strong>RAM和ROM是从技术实现的角度说的</strong>。</p>
+<p>​        U盘、固态硬盘、手机固件使用的闪存芯片也是一种EEPROM，它依然是先擦除再写入，和RAM有原理上的区别。所以<strong>手机广告上的2G RAM + 16G ROM是正确的用法</strong>。（不要纠结flash到底是不是EEPROM了，它确实符合EEPROM定义，写入是通过电擦除-再写入实现的，不过EEPROM一般专指可以按字节擦除的那种，flash是按块擦除）</p>
+<p>​        智能手机的组成和电脑一样，所以<strong>依据部件功能继承了电脑的称呼</strong>。不过硬盘换成了闪存芯片，所以手机里履行硬盘职能的部件可以被称作“闪存”。</p>
+<p>​        内存和ROM混淆<strong>我认为</strong>来自于安卓系统（或者更早的塞班，我没用过），安卓文件管理器把手机空间分为“内部储存”和“SD卡”，这里的“内部储存”指的是ROM，但是也简称为“内存”。为了和这个“内存”做区别，RAM就变成了运行内存，“运存”。</p>
+<p>所以对应关系如下：<br><strong>电脑：内存－硬盘</strong><br><strong>手机：RAM－ROM</strong><br>　　　<strong>内存－闪存</strong><br>　　　<strong>运存－内存</strong></p>
+<p>​        至于把手机的“内存”又迁移回电脑上，指代硬盘，只能说误会久矣…</p>
 ]]></content>
       <categories>
-        <category>Spring Boot</category>
+        <category>内存布局</category>
       </categories>
       <tags>
-        <tag>Spring Boot</tag>
+        <tag>RAM</tag>
+        <tag>ROM</tag>
+        <tag>Memory</tag>
       </tags>
   </entry>
   <entry>
@@ -624,6 +624,35 @@ T(响应时间)=T(首次运行)-T(到达时间)</script><p>考虑一种情况：
 <li><code>Positive matches</code> ：（自动配置类启用的）</li>
 <li><code>Negative matches</code>：（没有启动，没有匹配成功的自动配置类）</li>
 </ul>
+]]></content>
+      <categories>
+        <category>Spring Boot</category>
+      </categories>
+      <tags>
+        <tag>Spring Boot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring Initializer快建项目</title>
+    <url>/post/8340e3af/</url>
+    <content><![CDATA[<h1 id="使用Spring-Initializer快速创建Spring-Boot项目"><a href="#使用Spring-Initializer快速创建Spring-Boot项目" class="headerlink" title="[使用Spring Initializer快速创建Spring Boot项目]"></a>[使用Spring Initializer快速创建Spring Boot项目]</h1><p>IDE都支持使用Spring的项目创建向导快速创建一个Spring Boot项目；</p>
+<p>选择我们需要的模块；向导会联网创建Spring Boot项目；</p>
+<p>需要联网</p>
+<h2 id="IDEA"><a href="#IDEA" class="headerlink" title="[IDEA]"></a>[IDEA]</h2><ol>
+<li><p>创建项目时选择Spring Initializr</p>
+<p><img src="/post/8340e3af/1573639771931.png" alt="idea01"></p>
+</li>
+<li><p>完善项目信息</p>
+<p><img src="/post/8340e3af/1573639923504.png" alt="idea02"></p>
+<p>出现 <strong>Artifact contains illegal characters</strong> 是因为<code>Artifact</code>中使用了大写，只能是全小写，单词之间用<code>-</code>分隔</p>
+</li>
+<li><p>选择需要的starter</p>
+<p><img src="/post/8340e3af/1573640773365.png" alt="idea03"></p>
+</li>
+<li><p>创建完成后 不要的文件可以删除</p>
+<p><img src="/post/8340e3af/1573641023432.png" alt="idea04"></p>
+</li>
+</ol>
 ]]></content>
       <categories>
         <category>Spring Boot</category>
@@ -836,35 +865,6 @@ fruits: [苹果,桃子,香蕉]<figure class="highlight plain"><table><tr><td cla
 <p>所有支持的配置加载来源：</p>
 <p><a href="https://docs.spring.io/spring-boot/docs/2.2.1.RELEASE/reference/htmlsingle/#boot-features-external-config">参考官方文档</a></p>
 <p><img src="/post/99fd0336/1573735371567.png" alt="1573735371567"></p>
-]]></content>
-      <categories>
-        <category>Spring Boot</category>
-      </categories>
-      <tags>
-        <tag>Spring Boot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring Initializer快建项目</title>
-    <url>/post/8340e3af/</url>
-    <content><![CDATA[<h1 id="使用Spring-Initializer快速创建Spring-Boot项目"><a href="#使用Spring-Initializer快速创建Spring-Boot项目" class="headerlink" title="[使用Spring Initializer快速创建Spring Boot项目]"></a>[使用Spring Initializer快速创建Spring Boot项目]</h1><p>IDE都支持使用Spring的项目创建向导快速创建一个Spring Boot项目；</p>
-<p>选择我们需要的模块；向导会联网创建Spring Boot项目；</p>
-<p>需要联网</p>
-<h2 id="IDEA"><a href="#IDEA" class="headerlink" title="[IDEA]"></a>[IDEA]</h2><ol>
-<li><p>创建项目时选择Spring Initializr</p>
-<p><img src="/post/8340e3af/1573639771931.png" alt="idea01"></p>
-</li>
-<li><p>完善项目信息</p>
-<p><img src="/post/8340e3af/1573639923504.png" alt="idea02"></p>
-<p>出现 <strong>Artifact contains illegal characters</strong> 是因为<code>Artifact</code>中使用了大写，只能是全小写，单词之间用<code>-</code>分隔</p>
-</li>
-<li><p>选择需要的starter</p>
-<p><img src="/post/8340e3af/1573640773365.png" alt="idea03"></p>
-</li>
-<li><p>创建完成后 不要的文件可以删除</p>
-<p><img src="/post/8340e3af/1573641023432.png" alt="idea04"></p>
-</li>
-</ol>
 ]]></content>
       <categories>
         <category>Spring Boot</category>
@@ -1849,6 +1849,294 @@ hexo-generator-index從 2.0.0 開始，已經支持文章置頂功能。
       </tags>
   </entry>
   <entry>
+    <title>nand2tetris C5-计算机体系结构</title>
+    <url>/post/1404dacc/</url>
+    <content><![CDATA[<h1 id="计算机体系结构-Computer-Architecture"><a href="#计算机体系结构-Computer-Architecture" class="headerlink" title="[计算机体系结构 Computer Architecture]"></a>[计算机体系结构 Computer Architecture]</h1><p>本章涵盖“硬件”部分中最难啃的内容。将第1~3章构建的所有芯片整合并集成一台通用计算机Hack。</p>
+<p>Hack优点：</p>
+<ol>
+<li>通过前面构建的芯片可以几小时构建完成。</li>
+<li>Hack计算机的体系结构足以描述任何数字计算机的关键操作原理和硬件组成。</li>
+</ol>
+<p><strong>This chapter is more Complicated than previous.</strong></p>
+<h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><h4 id="1-存储程序概念"><a href="#1-存储程序概念" class="headerlink" title="1. 存储程序概念"></a>1. 存储程序概念</h4><p>​        一个由有限硬件组件构成的计算机却可以执行无限的任务队列，其实都是<strong>“存储程序(stored program)”</strong>概念的硕果。计算机基于固定的硬件平台，能够执行固定的指令集。同时，这些指令能够被当成构建模块，组成任意的程序。而且，这些程序的逻辑被存储到计算机的<strong>存储设备(memory)</strong>里，跟数据一样，成为所谓的<strong>“软件(software)”</strong>。</p>
+<h4 id="2-冯·诺伊曼结构"><a href="#2-冯·诺伊曼结构" class="headerlink" title="2.冯·诺伊曼结构"></a>2.冯·诺伊曼结构</h4><p>​        存储系统概念最著名的是<strong>通用图灵机(1936)</strong>和<strong>冯·诺伊曼机(1945)</strong>。</p>
+<p>​        图灵机描述虚拟的简单计算机的抽象机，主要用来分分析计算机的逻辑结构。相比之下，冯·诺伊曼机是实际应用型的体系结构，是今天所有计算机结构的基础。</p>
+<p><img src="/post/1404dacc/image-20200830133841248.png" alt="冯·诺伊曼机"></p>
+<p>​        冯·诺伊曼体系结构的基础是一个<strong>中央处理单元(CPU, Central Processing Unit)</strong>，它与<strong>记忆设备(memory device)</strong>即<strong>广义的内存</strong>进行交互，负责从<strong>输入设备(input device)</strong>接收数据，向<strong>输出设备(output device)</strong>发送数据。体系结构的核心是存储程序的概念：计算机内存不仅存储着要进行操作的数据，还存储着指示计算机运行的指令。</p>
+<p>​        广义的内存代表任何具有存储功能的设备和组件。</p>
+<p><img src="/post/1404dacc/image-20200901111929066.png" alt="DataBus、AddressBus、ControlBus"></p>
+<p>​        Data、Address、Control这三部分的每一段信息都由电线实现，通过一组公共总线。公共电线分别有数据总线、地址总线、控制总线。</p>
+<p>​        首先是数据总线和<code>ALU</code>的交互，输入数据进行算术运算或逻辑运算，得出结果再输出到数据总线，然后到<strong>内存(memory)</strong>或<strong>寄存器(registers)</strong>。</p>
+<p>​        控制总线。<code>ALU</code>需要知道它每次运行的是什么操作，所以它必须从控制总线中重新获取信息，指定它所要进行的操作类型。通过条件分支或循环条件决定下一个指令是什么？这种控制通过控制位(sel)实现, 所以我们需要从<code>ALU</code>中获取控制信息反馈到控制系统的其他部分。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">————</th>
+<th style="text-align:center">CPU中的ALU</th>
+<th style="text-align:center">CPU中的Registers</th>
+<th style="text-align:center">内存Memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">数据总线</td>
+<td style="text-align:center">往<code>ALU</code>输入数据进行算术运算 / 逻辑运算，<code>ALU</code>输出运算结果，再反馈到其它</td>
+<td style="text-align:center">读写</td>
+<td style="text-align:center">读写</td>
+</tr>
+<tr>
+<td style="text-align:center">地址总线</td>
+<td style="text-align:center">————</td>
+<td style="text-align:center">间接寻址到RAM或者跳到一个ROM地址</td>
+<td style="text-align:center">下图一和图二</td>
+</tr>
+<tr>
+<td style="text-align:center">控制总线</td>
+<td style="text-align:center">往<code>ALU</code>输入控制位(sel)决定<code>ALU</code>将要进行的运算操作类型；通过条件分支或循环条件决定下一个指令，获取控制信息反馈到控制系统的其他部分。</td>
+<td style="text-align:center">反馈到控制系统的其他部分</td>
+<td style="text-align:center">反馈到控制系统的其他部分</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src="/post/1404dacc/image-20200901145605717.png" alt="dataMemory"></p>
+<p>​        根据地址得到需要操作的数据块，并对其进行读写操作。</p>
+<p><img src="/post/1404dacc/image-20200901145738663.png" alt="programMemory"></p>
+<p>​        需要将下一个程序指令的地址输入到<strong>程序内存</strong>，因为这是我们使用程序指令的地方，放置地址后，从那里得到指令，也可能是数字。程序内存中的指令告诉系统的其他部分该做什么，所以我们需要从下一个指令中获取信息，也即从程序内存的数据输出，并将其输入到控制总线。</p>
+<h4 id="3-内存"><a href="#3-内存" class="headerlink" title="3. 内存"></a>3. 内存</h4><p>​        冯·诺伊曼机的内存中存有两种类型的信息：<strong>数据项(data items)</strong> 和 <strong>程序指令(programing instructioins)</strong>。采用不同方式处理两种信息，并被分别存储到不同的内存区，尽管功能不同，但都以二进制数形式存储在具有通用结构的<strong>随机存取器(RAM)</strong>。一个单独的字（一个数据项或者一条指令）通过它的地址指定。</p>
+<ul>
+<li>数据内存        高级程序操纵的抽象组件，例如变量、数组和对象。这些数据抽象被翻译成机器语言后，变成一连串的二进制数，存储在数据内存。通过指定的地址进行读写操作。</li>
+<li>指令内存        高级指令 如上类似处理，并被存储在指令内存。计算机每一步操作，CPU从指令中取出一个字，对其进行解码，从而执行指定的指令，然后计算下一条将要执行的指令。<ul>
+<li>指令内存中的指令格式遵守机器语言的规则。</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-中央处理器"><a href="#4-中央处理器" class="headerlink" title="4. 中央处理器"></a>4. 中央处理器</h4><p>​        CPU是计算机体系的核心，负责执行已被加载到指令内存的指令。CPU通过使用三个主要的硬件执行指令：<strong>算术逻辑单元(ALU, Arithmetic-Logic Unit)</strong>，一组<strong>寄存器(registers)</strong>和<strong>控制单元(control unit)</strong>。</p>
+<ul>
+<li><strong>算术逻辑单元（ALU）</strong>        ALU 负责执行计算机中所有底层的算术操作和逻辑操作。</li>
+<li><strong>寄存器（Registers）</strong>          CPU 的设计是为了能够快速地执行简单计算。与运算相关的数据暂存到高速寄存器，远比从内存搬进搬出快得多。</li>
+<li><strong>控制单元（Control Unit）</strong> 计算机指令用二进制数表示，通常具有16、32或64位宽。在指令可被执行之前，要对其进行解码，指令包含的信息向不同的硬件（ALU，寄存器，内存）发送信号，指使它们如何执行指令。指令解码过程是通过某些<strong>控制单元</strong>完成的。这些控制单元还负责决定下一条读取和执行哪一条指令。</li>
+</ul>
+<h4 id="5-寄存器"><a href="#5-寄存器" class="headerlink" title="5. 寄存器"></a>5. 寄存器</h4><p>​        内存访问是很慢的过程。当<code>CPU</code>被指示去取内存中地址<code>j</code>的内容时，会连续发生以下操作：</p>
+<p>​            (a)  <code>j</code>从<code>CPU</code>传到<code>RAM</code>;</p>
+<p>​            (b)  <code>RAM</code>的<strong>直接访问逻辑(direct-access logic)</strong>选中地址为<code>j</code>的寄存器;</p>
+<p>​            (c)  <code>RAM[j]</code>的内容传回到<code>CPU</code>;</p>
+<p>​        寄存器也能提供同样的数据访问功能， 但没有开会的数据传递和寻址开销。</p>
+<ul>
+<li><p>寄存器位于<code>CPU</code>内部，所以对它们的访问几乎可以瞬间完成</p>
+</li>
+<li><p>与数百万个内存单元相比，寄存器数量非常少，机器语言指令可以使用短短几个位就能指定要操作的寄存器在什么位置，指令格式也会更短。</p>
+<p>​    </p>
+<p>不同的目的，不同的<code>CPU</code>采用不同数量、不同类型的寄存器。</p>
+</li>
+<li><p><strong>数据寄存器(Data registers)</strong>        为<code>CPU</code>提供短期记忆(memory)服务。例如计算<code>(a+b)*c</code>，必须先计算<code>(a+b)</code>的值并储存，可以暂存<code>(a+b)</code>到数据寄存器。</p>
+</li>
+<li><p><strong>寻址寄存器(Addressing registers)</strong>   为了进行读写，<code>CPU</code>必须连续访问内存中的数据。这样我们必须确定被访问的<strong>内存字(word)</strong>所在的内存地址。由上条指令得出的地址，地址会被存储在<strong>寻址寄存器</strong>。</p>
+</li>
+<li><p><strong>程序计数寄存器(Program counter register)</strong>  执行程序时，<code>CPU</code>必须总是知道下一条指令在指令内存中的地址，地址保存在<strong>程序计数寄存器(PC, Program Counter)</strong>中。<code>CPU</code>通过两种方式更新<code>PC</code>的内容：</p>
+<ul>
+<li>如果当前指令存在需要执行的<code>goto n</code>命令，则<code>CPU</code>将<code>PC</code>置为<code>n</code>；</li>
+<li>否则，<code>PC</code>增1以便指针指向程序中的下一条指令。</li>
+</ul>
+</li>
+</ul>
+<h4 id="6-输入输出"><a href="#6-输入输出" class="headerlink" title="6.输入输出"></a>6.输入输出</h4><p>​        计算机使用一组<strong>输入输出(I/O)设备</strong>来与其外部环境进行交互。<strong>不考虑</strong>设备本身的构造，每个设备代表一块独立的机器，需要相关的工程知识；CSer设计不同方案将不同外设的<strong>物理细节封装</strong>，让计算机以相同的方式对它们进行操作，其中最简单的实现技巧之一就是<strong>I/O映像(memory-mapped I/O)</strong>。</p>
+<p>​        I/O映像的基本思想是：创建I/O设备的二进制仿真，使其对于<code>CPU</code>而言，“看上去”就像普通的内存段。</p>
+<h3 id="Hack-硬件平台规范详述"><a href="#Hack-硬件平台规范详述" class="headerlink" title="Hack 硬件平台规范详述"></a>Hack 硬件平台规范详述</h3><h4 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h4><p>​        Hack平台是16-位冯·诺伊曼机，一个<code>CPU</code>、两个独立的内存模块（指令内存和数据内存）和两个内存映像I/O设备（屏幕和键盘）。</p>
+<p>​        Hack计算机执行位于指令内存中的程序。指令内存是只读设备，可以用ROM芯片实现。加载新的程序意味着要替换整个ROM芯片。HACK平台的硬件仿真器提供了<strong>加载文本文件</strong>的方法，文本文件包含用<strong>Hack机器语言</strong>编写的程序（从新在开始，<strong>分别用RAM和ROM来指代Hack的数据内存和指令内存</strong>）。因此两个独立的内存模块为：RAM和ROM。</p>
+<p>​        Hack的CPU由<strong>ALU</strong>和三个分别称为<strong>数据寄存器(D, data regiter)</strong>、<strong>地址寄存器(A, address register)</strong>、<strong>程序计数器(PC, program counter)</strong>的寄存器组成。</p>
+<p><img src="/post/1404dacc/image-20200902144121386.png" alt="The Hack Computer"></p>
+<p>……省略约3000字，请仔细看书🤣</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="[实现]"></a>[实现]</h3><ul>
+<li><strong>Memory</strong>：内存，包括数据内存和指令内存，屏幕内存映像和键盘内存映像</li>
+<li><strong>CPU</strong>：包含A寄存器，D寄存器，ALU，PC程序计数器</li>
+<li><strong>Computer</strong>：完整的一个计算机平台。运行在仿真平台上</li>
+</ul>
+<h4 id="Memory："><a href="#Memory：" class="headerlink" title="Memory："></a>Memory：</h4><p>输入管脚：<code>in[16]</code>, <code>load</code>,<code>address[15]</code><br>输出管脚：<code>out[16]</code><br>Memory芯片主要由三个底层芯片构建：RAM16K，Screen，KeyBoard。同时我们必须通过这三个底层芯片来实现一个统一的逻辑地址空间，这个空间从地址0到24567。</p>
+<ul>
+<li>构建这个连续的地址空间的方法我们可以参考之前第三章由小RAM构建大RAM的方法。</li>
+<li>内存的功能首先能够根据<code>address</code>选定需要进行操作的单元。</li>
+<li>然后将<code>load</code>信号给指定的内存单元。根据<code>load</code>信号判断是进行写入还是继续保持。</li>
+<li>下面进行地址连线：（注意此地址只有15位 -&gt; address[15]）<ul>
+<li>RAM16K:  (0~16383) -&gt; (<strong>0</strong>00 0000 0000 0000) ~ ‭(<strong>0</strong>11 1111 1111 1111‬)</li>
+<li>Screen:  (16384~24575) -&gt; (<strong>10</strong>0 0000 0000 0000) ~ ‭(<strong>10</strong>1 1111 1111 1111‬)</li>
+<li>Keyboard: 24576 -&gt; (<strong>11</strong>0 0000 0000 0000)</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><p>首先根据地址进行判断<strong>(00, 01, 10, 11)</strong>，应该将控制信号发送给<code>RAM</code>, <code>Screen</code>, <code>Keyboard</code>中的哪个地址空间。可以使用 <code>DMux</code>解复用 实现‬（将一个地址分发到不同的芯片）。</p>
+<ol>
+<li>由地址的第15位选择输出，区分出 <strong>RAM(0)</strong> 和 <strong>内存映射区(1)</strong>, 实际输出还是load = (0/1).</li>
+<li>再由 <strong>内存映射区(1)</strong> 对应地址的第14位进行选择，区分出 <strong>Screen(0)</strong> 和 <strong>Keyboard(1)</strong>, 实际输出还是load = (0/1)</li>
+</ol>
+<ul>
+<li>由于所给出的地址空间不会超过<code>110 0000 0000 0000</code>‬，所以我们只需要进行一次判断就可以了，而不用考虑后面13位的判断。</li>
+</ul>
+</li>
+<li><p>然后将输入数据<code>in</code>，由<code>上个步骤</code>得出的<strong>控制信号</strong>和<strong>片内选择地址(RAM: 0~14bit, Screen: 0~13bit, Keboard: 1bit)</strong>给对应的芯片处理即可。Screen和Keyboard芯片都是内置好的，因此直接调用接口即可。</p>
+</li>
+</ol>
+<h4 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h4><p>输入管脚：<code>inM[16]</code>, <code>instruction[16]</code>, <code>reset</code><br>输出管脚：<code>outM[16]</code>, <code>writeM</code>, <code>addressM[15]</code>, <code>pc[15]</code><br>CPU实现的一种推荐方案：</p>
+<p><img src="/post/1404dacc/image-20200903101409828.png" alt="CPU-inplement"></p>
+<ol>
+<li>ALU</li>
+<li>三个寄存器：A-Register、D-Register、PC</li>
+<li>两个Mux（多路复用器）</li>
+<li>利用输入的指令的规范逻辑完善<code>c</code>标签（不同芯片的控制位）的逻辑，即可实现CPU</li>
+</ol>
+<p><img src="/post/1404dacc/image-20200903155249111.png" alt="decode"></p>
+<p>​        对指令解码的逻辑，对MSB(0/1)进行区分A-指令和C-指令，提取出另外的15-bit。A-指令保存在<code>A Register</code>，C-指令还需继续解码。</p>
+<p><img src="/post/1404dacc/image-20200903161122686.png" alt="ALU-input"></p>
+<p>​    ALU的数据输入：D-register、A-register/M-register</p>
+<p>​    ALU根据<code>comp</code>域 <strong>控制</strong>输入<strong>执行</strong>哪一个运算函数。</p>
+<p><img src="/post/1404dacc/image-20200903161304535.png" alt="ALU-output"></p>
+<p>​    ALU数据输出：D-register，A-register，M-register</p>
+<p>​    ALU根据<code>dest</code>域 <strong>控制</strong>输出<strong>写入</strong>哪些寄存器</p>
+<p><img src="/post/1404dacc/image-20200903161840894.png" alt="reset"></p>
+<p>​    计算机已经载入了程序，当按下<code>reset</code>，程序开始运行，重启也可。<strong>(PC=0)</strong></p>
+<p><img src="/post/1404dacc/image-20200903162246778.png" alt="jump-control"></p>
+<p>​    PC概念：总是发送下一个指令的地址；由指令的<code>jump</code>域控制PC的输出</p>
+<ul>
+<li>开始/重启程序的执行，<code>reset = 1, PC = 0</code></li>
+<li>程序不跳转，<code>jump = (000), PC++</code></li>
+<li>程序无条件跳转，<code>jump = (111), PC = A</code></li>
+<li>程序有条件跳转（判断条件是否满足再跳转），<code>jump = 1~3个1, PC = A</code></li>
+</ul>
+<p><img src="/post/1404dacc/image-20200903163053983.png" alt="jump-implement"></p>
+<p>​    PC的实现：</p>
+<ul>
+<li><code>reset</code>是否为1？</li>
+<li><code>load</code>由<code>jump</code>域的3-bits和<strong>ALU的控制输出(ZR、NG)</strong>决定</li>
+<li><code>load = 1, PC = A; load = 0, PC++</code></li>
+</ul>
+<p><img src="/post/1404dacc/image-20200903163656399.png" alt="ZR-NG"></p>
+<p>​    <strong>ALU的控制输出(ZR、NG)</strong>: 输出是0时，<code>ZR = 1</code>、输出是负数时，<code>NG = 1</code></p>
+<h5 id="指令格式"><a href="#指令格式" class="headerlink" title="指令格式"></a>指令格式</h5><p>对指令进行<strong>解码</strong>，需要回顾一下第四章规范的指令格式：<br><strong>A-指令</strong>：</p>
+<script type="math/tex; mode=display">
+0vvv~~vvvv~~vvvv~~vvvv</script><p><code>MSB</code>: 0，其余15位表示地址值，存入<code>A Register</code>.</p>
+<p> <strong>C-指令</strong>：</p>
+<script type="math/tex; mode=display">
+111a~~c_1c_2c_3c_4~~c_5c_6d_1d_2~~d_3j_1j_2j_3</script><ul>
+<li><p><code>MSB</code>: 1，紧接着的两位无意义；</p>
+</li>
+<li><p><code>a</code>位域：控制与<code>D Register</code>进行计算的是<code>A Register</code>还是<code>M Register</code>；</p>
+</li>
+<li><code>comp</code>域：控制运算操作和逻辑操作，具体参考图4.3；</li>
+<li><code>dest</code>域：控制目标存储位置，$d_1$控制是否将ALU的计算结果存入<code>A Register</code>中，$d_2$控制是否存入<code>D Register</code>中，$d_3$控制是否存入<code>M Register</code>中;</li>
+<li><code>jump</code>域：控制（有条件/无条件）跳转。</li>
+</ul>
+<h5 id="解码指令"><a href="#解码指令" class="headerlink" title="解码指令"></a>解码指令</h5><p>​        如果是A-指令，那么无论如何都要将地址加载到A寄存器中；如果是C-指令，则需要考虑$d_1$，是否(1/0)需要将ALU的计算结果保存在A寄存器中。</p>
+<p><img src="/post/1404dacc/image-20200903110412596.png" alt="A-Instruction"></p>
+<p>​        不妨暂时将第一个Mux的控制位记为$c_m$，将A寄存器的控制位记作$c_a$。</p>
+<p>​        $c_m$用于区分<strong>A-</strong>指令<strong>(0-vvv)</strong>和<strong>C-</strong>指令<strong>(111-)</strong>；$c_a$用于控制是否写入<code>A Register</code>.</p>
+<p>那么我们可以得到真值表：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th style="text-align:center">Instruction[15]</th>
+<th style="text-align:center">$d_1$</th>
+<th style="text-align:center">$c_m$</th>
+<th style="text-align:center">$c_a$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A-instruction</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td>A-instruction</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td>C-instruction</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td>C-instruction</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>由真值表我们可以得到控制位$c_m$和$c_a$的公式：</p>
+<script type="math/tex; mode=display">
+c_m~=~\overline{Instruction[15]},~c_a~=~\overline{Instruction[15]·\overline{d_1}}~=~Or(\overline{Instruction[15]}, d_1)</script><p>对于A-指令以上的工作就已经足够了。而对于C-指令我们还需要做其他的工作。</p>
+<h5 id="C-指令的解码"><a href="#C-指令的解码" class="headerlink" title="C-指令的解码"></a>C-指令的解码</h5><p>​        C指令的$d_1$位已经被解析完了，接下来从左向右开始解码。</p>
+<ul>
+<li><strong><em>a</em></strong>是控制选择<strong>A/M</strong>的控制位，所以它应该在第二个Mux，注意要与<code>MSB</code><strong>取与</strong>操作，确保为C-指令。</li>
+</ul>
+<p><img src="/post/1404dacc/image-20200903153107852.png" alt="A/M-Register"></p>
+<ul>
+<li>$d_2$是控制计算结果是否保存在<code>D Register</code>中的，所以它与<code>MSB</code><strong>取与</strong>操作后，作为控制信号给<code>D Register</code>；</li>
+</ul>
+<p><img src="/post/1404dacc/image-20200903154017004.png" alt="DRegister-C"></p>
+<ul>
+<li>$c_1$, $c_6$是控制ALU的运算函数的，所以它们应该作为ALU的控制位，<code>comp</code>域对应ALU的运算函数。</li>
+</ul>
+<p><img src="/post/1404dacc/image-20200903153824368.png" alt="ALU-c"></p>
+<ul>
+<li>$d_3$是控制计算结果是否保存在<code>M Register</code>中的，所以它作为输出与<code>MSB</code><strong>取与</strong>操作后，输出给writeM；</li>
+</ul>
+<p><img src="/post/1404dacc/image-20200903154052424.png" alt="MRegister-C"></p>
+<ul>
+<li>$j_1$, $j_2$, $j_3$是控制跳转的，总体上来看，只有两种现象，一种是顺序执行，即PC+1；另一种是跳转到地址为<code>A Register</code>中的地址单元。根据课本给出的编码：</li>
+</ul>
+<p><img src="/post/1404dacc/image-20200903154135073.png" alt="jump-region"></p>
+<p>​        究竟是否需要跳转，要根据ALU的计算结果进行判断。</p>
+<p>​        ALU有两个<strong>控制</strong>输出信号：$zr$（当计算结果等于0时为1）对应 $j_1$，$ng$（当计算结果小于0时为1）对应 $j_2$；所以我们可以推出：$\overline{ng + zr}$（当计算结果大于0时为1）对应 $j_3$</p>
+<p>​        结合<code>jump</code>域和ALU的输出结果，可以得到如下真值表：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">$(j_1\&amp;ng) Or (j_2\&amp;zr) Or (j3 \&amp; \overline{ng+zr})$</th>
+<th style="text-align:center">load</th>
+<th style="text-align:center">inc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+]]></content>
+      <categories>
+        <category>Computer Architecture</category>
+      </categories>
+      <tags>
+        <tag>Memory</tag>
+        <tag>nand2tetris</tag>
+        <tag>HDL</tag>
+        <tag>CPU</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>nand2tetris C6-汇编编译器</title>
     <url>/post/e93fe37f/</url>
     <content><![CDATA[<h1 id="汇编编译器-Assembler"><a href="#汇编编译器-Assembler" class="headerlink" title="[汇编编译器 Assembler]"></a>[汇编编译器 Assembler]</h1><p>​        我们已经完成了计算机的<strong>硬件平台(hardware platform)</strong>，此后我们将集中探讨计算机的<strong>软件阶层体系(software hierarchy)</strong>，直到最后为简单的面向对象编程语言开发<strong>编译器</strong>和<strong>基本的操作系统</strong>为止。</p>
@@ -2042,294 +2330,6 @@ hexo-generator-index從 2.0.0 開始，已經支持文章置頂功能。
         <tag>nand2tetris</tag>
         <tag>Assembly</tag>
         <tag>Hack汇编编译器</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>nand2tetris C5-计算机体系结构</title>
-    <url>/post/1404dacc/</url>
-    <content><![CDATA[<h1 id="计算机体系结构-Computer-Architecture"><a href="#计算机体系结构-Computer-Architecture" class="headerlink" title="[计算机体系结构 Computer Architecture]"></a>[计算机体系结构 Computer Architecture]</h1><p>本章涵盖“硬件”部分中最难啃的内容。将第1~3章构建的所有芯片整合并集成一台通用计算机Hack。</p>
-<p>Hack优点：</p>
-<ol>
-<li>通过前面构建的芯片可以几小时构建完成。</li>
-<li>Hack计算机的体系结构足以描述任何数字计算机的关键操作原理和硬件组成。</li>
-</ol>
-<p><strong>This chapter is more Complicated than previous.</strong></p>
-<h3 id="背景知识"><a href="#背景知识" class="headerlink" title="[背景知识]"></a>[背景知识]</h3><h4 id="1-存储程序概念"><a href="#1-存储程序概念" class="headerlink" title="1. 存储程序概念"></a>1. 存储程序概念</h4><p>​        一个由有限硬件组件构成的计算机却可以执行无限的任务队列，其实都是<strong>“存储程序(stored program)”</strong>概念的硕果。计算机基于固定的硬件平台，能够执行固定的指令集。同时，这些指令能够被当成构建模块，组成任意的程序。而且，这些程序的逻辑被存储到计算机的<strong>存储设备(memory)</strong>里，跟数据一样，成为所谓的<strong>“软件(software)”</strong>。</p>
-<h4 id="2-冯·诺伊曼结构"><a href="#2-冯·诺伊曼结构" class="headerlink" title="2.冯·诺伊曼结构"></a>2.冯·诺伊曼结构</h4><p>​        存储系统概念最著名的是<strong>通用图灵机(1936)</strong>和<strong>冯·诺伊曼机(1945)</strong>。</p>
-<p>​        图灵机描述虚拟的简单计算机的抽象机，主要用来分分析计算机的逻辑结构。相比之下，冯·诺伊曼机是实际应用型的体系结构，是今天所有计算机结构的基础。</p>
-<p><img src="/post/1404dacc/image-20200830133841248.png" alt="冯·诺伊曼机"></p>
-<p>​        冯·诺伊曼体系结构的基础是一个<strong>中央处理单元(CPU, Central Processing Unit)</strong>，它与<strong>记忆设备(memory device)</strong>即<strong>广义的内存</strong>进行交互，负责从<strong>输入设备(input device)</strong>接收数据，向<strong>输出设备(output device)</strong>发送数据。体系结构的核心是存储程序的概念：计算机内存不仅存储着要进行操作的数据，还存储着指示计算机运行的指令。</p>
-<p>​        广义的内存代表任何具有存储功能的设备和组件。</p>
-<p><img src="/post/1404dacc/image-20200901111929066.png" alt="DataBus、AddressBus、ControlBus"></p>
-<p>​        Data、Address、Control这三部分的每一段信息都由电线实现，通过一组公共总线。公共电线分别有数据总线、地址总线、控制总线。</p>
-<p>​        首先是数据总线和<code>ALU</code>的交互，输入数据进行算术运算或逻辑运算，得出结果再输出到数据总线，然后到<strong>内存(memory)</strong>或<strong>寄存器(registers)</strong>。</p>
-<p>​        控制总线。<code>ALU</code>需要知道它每次运行的是什么操作，所以它必须从控制总线中重新获取信息，指定它所要进行的操作类型。通过条件分支或循环条件决定下一个指令是什么？这种控制通过控制位(sel)实现, 所以我们需要从<code>ALU</code>中获取控制信息反馈到控制系统的其他部分。</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">————</th>
-<th style="text-align:center">CPU中的ALU</th>
-<th style="text-align:center">CPU中的Registers</th>
-<th style="text-align:center">内存Memory</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">数据总线</td>
-<td style="text-align:center">往<code>ALU</code>输入数据进行算术运算 / 逻辑运算，<code>ALU</code>输出运算结果，再反馈到其它</td>
-<td style="text-align:center">读写</td>
-<td style="text-align:center">读写</td>
-</tr>
-<tr>
-<td style="text-align:center">地址总线</td>
-<td style="text-align:center">————</td>
-<td style="text-align:center">间接寻址到RAM或者跳到一个ROM地址</td>
-<td style="text-align:center">下图一和图二</td>
-</tr>
-<tr>
-<td style="text-align:center">控制总线</td>
-<td style="text-align:center">往<code>ALU</code>输入控制位(sel)决定<code>ALU</code>将要进行的运算操作类型；通过条件分支或循环条件决定下一个指令，获取控制信息反馈到控制系统的其他部分。</td>
-<td style="text-align:center">反馈到控制系统的其他部分</td>
-<td style="text-align:center">反馈到控制系统的其他部分</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p><img src="/post/1404dacc/image-20200901145605717.png" alt="dataMemory"></p>
-<p>​        根据地址得到需要操作的数据块，并对其进行读写操作。</p>
-<p><img src="/post/1404dacc/image-20200901145738663.png" alt="programMemory"></p>
-<p>​        需要将下一个程序指令的地址输入到<strong>程序内存</strong>，因为这是我们使用程序指令的地方，放置地址后，从那里得到指令，也可能是数字。程序内存中的指令告诉系统的其他部分该做什么，所以我们需要从下一个指令中获取信息，也即从程序内存的数据输出，并将其输入到控制总线。</p>
-<h4 id="3-内存"><a href="#3-内存" class="headerlink" title="3. 内存"></a>3. 内存</h4><p>​        冯·诺伊曼机的内存中存有两种类型的信息：<strong>数据项(data items)</strong> 和 <strong>程序指令(programing instructioins)</strong>。采用不同方式处理两种信息，并被分别存储到不同的内存区，尽管功能不同，但都以二进制数形式存储在具有通用结构的<strong>随机存取器(RAM)</strong>。一个单独的字（一个数据项或者一条指令）通过它的地址指定。</p>
-<ul>
-<li>数据内存        高级程序操纵的抽象组件，例如变量、数组和对象。这些数据抽象被翻译成机器语言后，变成一连串的二进制数，存储在数据内存。通过指定的地址进行读写操作。</li>
-<li>指令内存        高级指令 如上类似处理，并被存储在指令内存。计算机每一步操作，CPU从指令中取出一个字，对其进行解码，从而执行指定的指令，然后计算下一条将要执行的指令。<ul>
-<li>指令内存中的指令格式遵守机器语言的规则。</li>
-</ul>
-</li>
-</ul>
-<h4 id="4-中央处理器"><a href="#4-中央处理器" class="headerlink" title="4. 中央处理器"></a>4. 中央处理器</h4><p>​        CPU是计算机体系的核心，负责执行已被加载到指令内存的指令。CPU通过使用三个主要的硬件执行指令：<strong>算术逻辑单元(ALU, Arithmetic-Logic Unit)</strong>，一组<strong>寄存器(registers)</strong>和<strong>控制单元(control unit)</strong>。</p>
-<ul>
-<li><strong>算术逻辑单元（ALU）</strong>        ALU 负责执行计算机中所有底层的算术操作和逻辑操作。</li>
-<li><strong>寄存器（Registers）</strong>          CPU 的设计是为了能够快速地执行简单计算。与运算相关的数据暂存到高速寄存器，远比从内存搬进搬出快得多。</li>
-<li><strong>控制单元（Control Unit）</strong> 计算机指令用二进制数表示，通常具有16、32或64位宽。在指令可被执行之前，要对其进行解码，指令包含的信息向不同的硬件（ALU，寄存器，内存）发送信号，指使它们如何执行指令。指令解码过程是通过某些<strong>控制单元</strong>完成的。这些控制单元还负责决定下一条读取和执行哪一条指令。</li>
-</ul>
-<h4 id="5-寄存器"><a href="#5-寄存器" class="headerlink" title="5. 寄存器"></a>5. 寄存器</h4><p>​        内存访问是很慢的过程。当<code>CPU</code>被指示去取内存中地址<code>j</code>的内容时，会连续发生以下操作：</p>
-<p>​            (a)  <code>j</code>从<code>CPU</code>传到<code>RAM</code>;</p>
-<p>​            (b)  <code>RAM</code>的<strong>直接访问逻辑(direct-access logic)</strong>选中地址为<code>j</code>的寄存器;</p>
-<p>​            (c)  <code>RAM[j]</code>的内容传回到<code>CPU</code>;</p>
-<p>​        寄存器也能提供同样的数据访问功能， 但没有开会的数据传递和寻址开销。</p>
-<ul>
-<li><p>寄存器位于<code>CPU</code>内部，所以对它们的访问几乎可以瞬间完成</p>
-</li>
-<li><p>与数百万个内存单元相比，寄存器数量非常少，机器语言指令可以使用短短几个位就能指定要操作的寄存器在什么位置，指令格式也会更短。</p>
-<p>​    </p>
-<p>不同的目的，不同的<code>CPU</code>采用不同数量、不同类型的寄存器。</p>
-</li>
-<li><p><strong>数据寄存器(Data registers)</strong>        为<code>CPU</code>提供短期记忆(memory)服务。例如计算<code>(a+b)*c</code>，必须先计算<code>(a+b)</code>的值并储存，可以暂存<code>(a+b)</code>到数据寄存器。</p>
-</li>
-<li><p><strong>寻址寄存器(Addressing registers)</strong>   为了进行读写，<code>CPU</code>必须连续访问内存中的数据。这样我们必须确定被访问的<strong>内存字(word)</strong>所在的内存地址。由上条指令得出的地址，地址会被存储在<strong>寻址寄存器</strong>。</p>
-</li>
-<li><p><strong>程序计数寄存器(Program counter register)</strong>  执行程序时，<code>CPU</code>必须总是知道下一条指令在指令内存中的地址，地址保存在<strong>程序计数寄存器(PC, Program Counter)</strong>中。<code>CPU</code>通过两种方式更新<code>PC</code>的内容：</p>
-<ul>
-<li>如果当前指令存在需要执行的<code>goto n</code>命令，则<code>CPU</code>将<code>PC</code>置为<code>n</code>；</li>
-<li>否则，<code>PC</code>增1以便指针指向程序中的下一条指令。</li>
-</ul>
-</li>
-</ul>
-<h4 id="6-输入输出"><a href="#6-输入输出" class="headerlink" title="6.输入输出"></a>6.输入输出</h4><p>​        计算机使用一组<strong>输入输出(I/O)设备</strong>来与其外部环境进行交互。<strong>不考虑</strong>设备本身的构造，每个设备代表一块独立的机器，需要相关的工程知识；CSer设计不同方案将不同外设的<strong>物理细节封装</strong>，让计算机以相同的方式对它们进行操作，其中最简单的实现技巧之一就是<strong>I/O映像(memory-mapped I/O)</strong>。</p>
-<p>​        I/O映像的基本思想是：创建I/O设备的二进制仿真，使其对于<code>CPU</code>而言，“看上去”就像普通的内存段。</p>
-<h3 id="Hack-硬件平台规范详述"><a href="#Hack-硬件平台规范详述" class="headerlink" title="Hack 硬件平台规范详述"></a>Hack 硬件平台规范详述</h3><h4 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h4><p>​        Hack平台是16-位冯·诺伊曼机，一个<code>CPU</code>、两个独立的内存模块（指令内存和数据内存）和两个内存映像I/O设备（屏幕和键盘）。</p>
-<p>​        Hack计算机执行位于指令内存中的程序。指令内存是只读设备，可以用ROM芯片实现。加载新的程序意味着要替换整个ROM芯片。HACK平台的硬件仿真器提供了<strong>加载文本文件</strong>的方法，文本文件包含用<strong>Hack机器语言</strong>编写的程序（从新在开始，<strong>分别用RAM和ROM来指代Hack的数据内存和指令内存</strong>）。因此两个独立的内存模块为：RAM和ROM。</p>
-<p>​        Hack的CPU由<strong>ALU</strong>和三个分别称为<strong>数据寄存器(D, data regiter)</strong>、<strong>地址寄存器(A, address register)</strong>、<strong>程序计数器(PC, program counter)</strong>的寄存器组成。</p>
-<p><img src="/post/1404dacc/image-20200902144121386.png" alt="The Hack Computer"></p>
-<p>……省略约3000字，请仔细看书🤣</p>
-<h3 id="实现"><a href="#实现" class="headerlink" title="[实现]"></a>[实现]</h3><ul>
-<li><strong>Memory</strong>：内存，包括数据内存和指令内存，屏幕内存映像和键盘内存映像</li>
-<li><strong>CPU</strong>：包含A寄存器，D寄存器，ALU，PC程序计数器</li>
-<li><strong>Computer</strong>：完整的一个计算机平台。运行在仿真平台上</li>
-</ul>
-<h4 id="Memory："><a href="#Memory：" class="headerlink" title="Memory："></a>Memory：</h4><p>输入管脚：<code>in[16]</code>, <code>load</code>,<code>address[15]</code><br>输出管脚：<code>out[16]</code><br>Memory芯片主要由三个底层芯片构建：RAM16K，Screen，KeyBoard。同时我们必须通过这三个底层芯片来实现一个统一的逻辑地址空间，这个空间从地址0到24567。</p>
-<ul>
-<li>构建这个连续的地址空间的方法我们可以参考之前第三章由小RAM构建大RAM的方法。</li>
-<li>内存的功能首先能够根据<code>address</code>选定需要进行操作的单元。</li>
-<li>然后将<code>load</code>信号给指定的内存单元。根据<code>load</code>信号判断是进行写入还是继续保持。</li>
-<li>下面进行地址连线：（注意此地址只有15位 -&gt; address[15]）<ul>
-<li>RAM16K:  (0~16383) -&gt; (<strong>0</strong>00 0000 0000 0000) ~ ‭(<strong>0</strong>11 1111 1111 1111‬)</li>
-<li>Screen:  (16384~24575) -&gt; (<strong>10</strong>0 0000 0000 0000) ~ ‭(<strong>10</strong>1 1111 1111 1111‬)</li>
-<li>Keyboard: 24576 -&gt; (<strong>11</strong>0 0000 0000 0000)</li>
-</ul>
-</li>
-</ul>
-<ol>
-<li><p>首先根据地址进行判断<strong>(00, 01, 10, 11)</strong>，应该将控制信号发送给<code>RAM</code>, <code>Screen</code>, <code>Keyboard</code>中的哪个地址空间。可以使用 <code>DMux</code>解复用 实现‬（将一个地址分发到不同的芯片）。</p>
-<ol>
-<li>由地址的第15位选择输出，区分出 <strong>RAM(0)</strong> 和 <strong>内存映射区(1)</strong>, 实际输出还是load = (0/1).</li>
-<li>再由 <strong>内存映射区(1)</strong> 对应地址的第14位进行选择，区分出 <strong>Screen(0)</strong> 和 <strong>Keyboard(1)</strong>, 实际输出还是load = (0/1)</li>
-</ol>
-<ul>
-<li>由于所给出的地址空间不会超过<code>110 0000 0000 0000</code>‬，所以我们只需要进行一次判断就可以了，而不用考虑后面13位的判断。</li>
-</ul>
-</li>
-<li><p>然后将输入数据<code>in</code>，由<code>上个步骤</code>得出的<strong>控制信号</strong>和<strong>片内选择地址(RAM: 0~14bit, Screen: 0~13bit, Keboard: 1bit)</strong>给对应的芯片处理即可。Screen和Keyboard芯片都是内置好的，因此直接调用接口即可。</p>
-</li>
-</ol>
-<h4 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h4><p>输入管脚：<code>inM[16]</code>, <code>instruction[16]</code>, <code>reset</code><br>输出管脚：<code>outM[16]</code>, <code>writeM</code>, <code>addressM[15]</code>, <code>pc[15]</code><br>CPU实现的一种推荐方案：</p>
-<p><img src="/post/1404dacc/image-20200903101409828.png" alt="CPU-inplement"></p>
-<ol>
-<li>ALU</li>
-<li>三个寄存器：A-Register、D-Register、PC</li>
-<li>两个Mux（多路复用器）</li>
-<li>利用输入的指令的规范逻辑完善<code>c</code>标签（不同芯片的控制位）的逻辑，即可实现CPU</li>
-</ol>
-<p><img src="/post/1404dacc/image-20200903155249111.png" alt="decode"></p>
-<p>​        对指令解码的逻辑，对MSB(0/1)进行区分A-指令和C-指令，提取出另外的15-bit。A-指令保存在<code>A Register</code>，C-指令还需继续解码。</p>
-<p><img src="/post/1404dacc/image-20200903161122686.png" alt="ALU-input"></p>
-<p>​    ALU的数据输入：D-register、A-register/M-register</p>
-<p>​    ALU根据<code>comp</code>域 <strong>控制</strong>输入<strong>执行</strong>哪一个运算函数。</p>
-<p><img src="/post/1404dacc/image-20200903161304535.png" alt="ALU-output"></p>
-<p>​    ALU数据输出：D-register，A-register，M-register</p>
-<p>​    ALU根据<code>dest</code>域 <strong>控制</strong>输出<strong>写入</strong>哪些寄存器</p>
-<p><img src="/post/1404dacc/image-20200903161840894.png" alt="reset"></p>
-<p>​    计算机已经载入了程序，当按下<code>reset</code>，程序开始运行，重启也可。<strong>(PC=0)</strong></p>
-<p><img src="/post/1404dacc/image-20200903162246778.png" alt="jump-control"></p>
-<p>​    PC概念：总是发送下一个指令的地址；由指令的<code>jump</code>域控制PC的输出</p>
-<ul>
-<li>开始/重启程序的执行，<code>reset = 1, PC = 0</code></li>
-<li>程序不跳转，<code>jump = (000), PC++</code></li>
-<li>程序无条件跳转，<code>jump = (111), PC = A</code></li>
-<li>程序有条件跳转（判断条件是否满足再跳转），<code>jump = 1~3个1, PC = A</code></li>
-</ul>
-<p><img src="/post/1404dacc/image-20200903163053983.png" alt="jump-implement"></p>
-<p>​    PC的实现：</p>
-<ul>
-<li><code>reset</code>是否为1？</li>
-<li><code>load</code>由<code>jump</code>域的3-bits和<strong>ALU的控制输出(ZR、NG)</strong>决定</li>
-<li><code>load = 1, PC = A; load = 0, PC++</code></li>
-</ul>
-<p><img src="/post/1404dacc/image-20200903163656399.png" alt="ZR-NG"></p>
-<p>​    <strong>ALU的控制输出(ZR、NG)</strong>: 输出是0时，<code>ZR = 1</code>、输出是负数时，<code>NG = 1</code></p>
-<h5 id="指令格式"><a href="#指令格式" class="headerlink" title="指令格式"></a>指令格式</h5><p>对指令进行<strong>解码</strong>，需要回顾一下第四章规范的指令格式：<br><strong>A-指令</strong>：</p>
-<script type="math/tex; mode=display">
-0vvv~~vvvv~~vvvv~~vvvv</script><p><code>MSB</code>: 0，其余15位表示地址值，存入<code>A Register</code>.</p>
-<p> <strong>C-指令</strong>：</p>
-<script type="math/tex; mode=display">
-111a~~c_1c_2c_3c_4~~c_5c_6d_1d_2~~d_3j_1j_2j_3</script><ul>
-<li><p><code>MSB</code>: 1，紧接着的两位无意义；</p>
-</li>
-<li><p><code>a</code>位域：控制与<code>D Register</code>进行计算的是<code>A Register</code>还是<code>M Register</code>；</p>
-</li>
-<li><code>comp</code>域：控制运算操作和逻辑操作，具体参考图4.3；</li>
-<li><code>dest</code>域：控制目标存储位置，<strong>d~1~</strong>控制是否将ALU的计算结果存入<code>A Register</code>中，<strong>d~2~</strong>控制是否存入<code>D Register</code>中，<strong>d~3~</strong>控制是否存入<code>M Register</code>中;</li>
-<li><code>jump</code>域：控制（有条件/无条件）跳转。</li>
-</ul>
-<h5 id="解码指令"><a href="#解码指令" class="headerlink" title="解码指令"></a>解码指令</h5><p>​        如果是A-指令，那么无论如何都要将地址加载到A寄存器中；如果是C-指令，则需要考虑<strong>d~1~</strong>，是否(1/0)需要将ALU的计算结果保存在A寄存器中。</p>
-<p><img src="/post/1404dacc/image-20200903110412596.png" alt="A-Instruction"></p>
-<p>​        不妨暂时将第一个Mux的控制位记为<strong>c~m~</strong>，将A寄存器的控制位记作<strong>c~a~</strong>。</p>
-<p>​        <strong>c~m~</strong>用于区分<strong>A</strong>-指令<strong>(0-vvv)</strong>和<strong>C</strong>-指令<strong>(111-)</strong>；<strong>c~a~</strong>用于控制是否写入<code>A Register</code>.</p>
-<p>那么我们可以得到真值表：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Instruction</th>
-<th style="text-align:center">Instruction[15]</th>
-<th style="text-align:center">d~1~</th>
-<th style="text-align:center">c~m~</th>
-<th style="text-align:center">c~a~</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>A-instruction</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1</td>
-</tr>
-<tr>
-<td>A-instruction</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1</td>
-</tr>
-<tr>
-<td>C-instruction</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-</tr>
-<tr>
-<td>C-instruction</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>由真值表我们可以得到控制位<strong>c~m~</strong>和<strong>c~a~</strong>的公式：</p>
-<script type="math/tex; mode=display">
-c_m~=~\overline{Instruction[15]},~c_a~=~\overline{Instruction[15]·\overline{d_1}}~=~Or(\overline{Instruction[15]}, d1)</script><p>对于A-指令以上的工作就已经足够了。而对于C-指令我们还需要做其他的工作。</p>
-<h5 id="C-指令的解码"><a href="#C-指令的解码" class="headerlink" title="C-指令的解码"></a>C-指令的解码</h5><p>​        C指令的d~1~位已经被解析完了，接下来从左向右开始解码。</p>
-<ul>
-<li><strong><em>a</em></strong>是控制选择<strong>A/M</strong>的控制位，所以它应该在第二个Mux，注意要与<code>MSB</code><strong>取与</strong>操作，确保为C-指令。</li>
-</ul>
-<p><img src="/post/1404dacc/image-20200903153107852.png" alt="A/M-Register"></p>
-<ul>
-<li><strong>d~2~</strong>是控制计算结果是否保存在<code>D Register</code>中的，所以它与<code>MSB</code><strong>取与</strong>操作后，作为控制信号给<code>D Register</code>；</li>
-</ul>
-<p><img src="/post/1404dacc/image-20200903154017004.png" alt="DRegister-C"></p>
-<ul>
-<li><strong>c~1~~c~6~</strong>是控制ALU的运算函数的，所以它们应该作为ALU的控制位，<code>comp</code>域对应ALU的运算函数。</li>
-</ul>
-<p><img src="/post/1404dacc/image-20200903153824368.png" alt="ALU-c"></p>
-<ul>
-<li><strong>d~3~</strong>是控制计算结果是否保存在<code>M Register</code>中的，所以它作为输出与<code>MSB</code><strong>取与</strong>操作后，输出给writeM；</li>
-</ul>
-<p><img src="/post/1404dacc/image-20200903154052424.png" alt="MRegister-C"></p>
-<ul>
-<li><strong><em>j</em>~1~, <em>j</em>~2~, <em>j</em>~3~</strong>是控制跳转的，总体上来看，只有两种现象，一种是顺序执行，即PC+1；另一种是跳转到地址为<code>A Register</code>中的地址单元。根据课本给出的编码：</li>
-</ul>
-<p><img src="/post/1404dacc/image-20200903154135073.png" alt="jump-region"></p>
-<p>​        究竟是否需要跳转，要根据ALU的计算结果进行判断。</p>
-<p>​        ALU有两个<strong>控制</strong>输出信号：<strong>zr</strong>（当计算结果等于0时为1）对应 <strong>j~1~</strong>，<strong>ng</strong>（当计算结果小于0时为1）对应 <strong>j~2~</strong>；所以我们可以推出：$\overline{ng~+~zr}$（当计算结果大于0时为1）对应 <strong>j~3~</strong></p>
-<p>​        结合<code>jump</code>域和ALU的输出结果，可以得到如下真值表：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">(j~1~&amp;ng) Or (j~2~&amp;zr) Or (j~3~&amp; $\overline{ng~+~zr}$)</th>
-<th style="text-align:center">load</th>
-<th style="text-align:center">inc</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-</tr>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-</tr>
-</tbody>
-</table>
-</div>
-]]></content>
-      <categories>
-        <category>Computer Architecture</category>
-      </categories>
-      <tags>
-        <tag>Memory</tag>
-        <tag>nand2tetris</tag>
-        <tag>HDL</tag>
-        <tag>CPU</tag>
       </tags>
   </entry>
   <entry>
