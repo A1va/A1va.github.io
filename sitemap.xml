@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://a1va.gitee.io/post/fe1a6b20/</loc>
+    
+    <lastmod>2020-11-12</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://a1va.gitee.io/post/83717699/</loc>
     
     <lastmod>2020-11-12</lastmod>
@@ -87,13 +94,6 @@
   
   <url>
     <loc>https://a1va.gitee.io/post/e5494597/</loc>
-    
-    <lastmod>2020-11-12</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://a1va.gitee.io/post/fe1a6b20/</loc>
     
     <lastmod>2020-11-12</lastmod>
     
@@ -200,27 +200,6 @@
   </url>
   
   <url>
-    <loc>https://a1va.gitee.io/tags/OSTEP/</loc>
-    <lastmod>2020-11-12</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://a1va.gitee.io/tags/process/</loc>
-    <lastmod>2020-11-12</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://a1va.gitee.io/tags/process-scheduling/</loc>
-    <lastmod>2020-11-12</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://a1va.gitee.io/tags/RAM/</loc>
     <lastmod>2020-11-12</lastmod>
     <changefreq>daily</changefreq>
@@ -291,6 +270,27 @@
   </url>
   
   <url>
+    <loc>https://a1va.gitee.io/tags/OSTEP/</loc>
+    <lastmod>2020-11-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://a1va.gitee.io/tags/process/</loc>
+    <lastmod>2020-11-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://a1va.gitee.io/tags/process-scheduling/</loc>
+    <lastmod>2020-11-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://a1va.gitee.io/tags/%E7%8E%8B%E7%88%BD/</loc>
     <lastmod>2020-11-12</lastmod>
     <changefreq>daily</changefreq>
@@ -335,13 +335,6 @@
   </url>
   
   <url>
-    <loc>https://a1va.gitee.io/categories/Operating-System/</loc>
-    <lastmod>2020-11-12</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://a1va.gitee.io/categories/Spring-Boot/</loc>
     <lastmod>2020-11-12</lastmod>
     <changefreq>daily</changefreq>
@@ -350,6 +343,13 @@
   
   <url>
     <loc>https://a1va.gitee.io/categories/Computer-Architecture/</loc>
+    <lastmod>2020-11-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://a1va.gitee.io/categories/Operating-System/</loc>
     <lastmod>2020-11-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

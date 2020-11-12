@@ -50,105 +50,6 @@
       </tags>
   </entry>
   <entry>
-    <title>进程调度Ⅰ</title>
-    <url>/post/fe1a6b20/</url>
-    <content><![CDATA[<h1 id="进程调度"><a href="#进程调度" class="headerlink" title="[进程调度]"></a>[进程调度]</h1><h3 id="1-工作负载假设"><a href="#1-工作负载假设" class="headerlink" title="1. 工作负载假设"></a>1. 工作负载假设</h3><p>对操作系统中运行的进程（有时也叫工作任务）做出如下的假设：</p>
-<ol>
-<li>每个工作运行相同的时间。</li>
-<li>所有工作同时到达。</li>
-<li>一旦开始，每个工作保持运行直到完成。</li>
-<li>所有工作只使用CPU（即它们不执行IO操作）。</li>
-<li>每个工作的运行时间是已知的。</li>
-</ol>
-<h3 id="2-调度指标"><a href="#2-调度指标" class="headerlink" title="2. 调度指标"></a>2. 调度指标</h3><p>调度指标：周转时间。</p>
-<script type="math/tex; mode=display">
-T(周转时间)=T(完成时间)-T(到达时间)</script><p>周转时间是一个性能指标，另一个指标是公平。性能和公平在调度系统往往是矛盾的。</p>
-<h3 id="3-FIFO-FCFS"><a href="#3-FIFO-FCFS" class="headerlink" title="3. FIFO / FCFS"></a>3. FIFO / FCFS</h3><p>First In First Out / First Come First Served.</p>
-<p>这是最基本的调度算法。</p>
-<p>但是在护航效应（一些耗时较少的潜在资源消费者排在重量级的资源消费者之后）。我们可以看到，在此放宽了第一个假设：每个工作<strong>运行相同的时间</strong>。</p>
-<h3 id="4-SJF"><a href="#4-SJF" class="headerlink" title="4. SJF"></a>4. SJF</h3><p>Shortest Job First.</p>
-<p>这个简单的调度算法解决了上面的问题，先运行最短的任务，然后是次短的任务，如此下去。</p>
-<p>考虑到<strong>所有工作同时到达</strong>的假设，可证SJF确实是一个最优的调度算法。</p>
-<p>然而，这个假设是不切实际的。</p>
-<p>现在再放宽假设2：<strong>所有工作同时到达</strong>，来考虑更切合实际的情况。例如：用时长的任务先达，用时短的任务随后到达，此时我们的周转时间依然堪忧。</p>
-<h3 id="5-STCF"><a href="#5-STCF" class="headerlink" title="5. STCF"></a>5. STCF</h3><p>Shortest Time-to-Completion First.</p>
-<p>为了解决这个问题，需要放宽假设条件3：每个工作<strong>保持运行直到完成</strong>。这意味着，调度程序可以<strong>抢占（preempt）</strong>进程/工作。SJF是一种非抢占式调度程序，因而存在上述的问题。</p>
-<p>STCF只是向SJF添加抢占。每当新工作进入系统，他就会确定剩余工作和新工作中，谁的剩余时间少，然后调度该工作。</p>
-<p>显然，STCF的周转时间符合我们的预期。</p>
-<p>此时我们已经放宽了3个假设条件，接下来，我们考虑新的度量指标。</p>
-<h3 id="6-新度量指标：响应时间"><a href="#6-新度量指标：响应时间" class="headerlink" title="6. 新度量指标：响应时间"></a>6. 新度量指标：响应时间</h3><p>对于早期的批处理系统STCF是一个很好的策略，但是现在，用户会坐在终端前，同时要求系统的交互性好。催生了新的度量标准：响应时间。</p>
-<script type="math/tex; mode=display">
-T(响应时间)=T(首次运行)-T(到达时间)</script><p>考虑一种情况：A先到达，B和C在时间10到达（ABC运行时间均为10）。如果恰好用户交互进程是C，那么我们不得不等待10s才能得到系统的回应。（前面的调度算法都并不是很好）</p>
-<p>因此，如何构建对响应时间敏感的调度程序？</p>
-<h3 id="7-RR"><a href="#7-RR" class="headerlink" title="7. RR"></a>7. RR</h3><p>Round-Robin.</p>
-<p>RR在一个时间片（time slice，又是称为调度量子，schedule quantum）内运行一个工作，然后切换到运行队列中的下一个任务，而不是运行一个任务到结束，它反复执行，直到所有任务完成。时间片长度必须是时钟中断周期的倍速。</p>
-<p>时间长度对于RR是至关重要的。越短，RR在响应时间上表现越好，然而，时间片太短也有问题：突然上下文切换的成本将影响整体性能。</p>
-<p>系统设计者需要衡量时间片的长度，足够长方便<strong>摊销（amortize）</strong>上下文切换成本，又不致使系统响应不及时。</p>
-<blockquote>
-<p>当某些操作有固定成本时，通常会使用摊销技术（amortization）。通过减少成本的频度（执行较少次的操作），系统的总成本就会降低。<br>         例如：时间片:10ms，上下文切换成本:1ms，浪费时间10%；为了摊销，时间片增加到100ms，浪费时间仅有1%。</p>
-</blockquote>
-<p>然而，问题又来了，如果周转时间是我们的指标，RR将会是最糟糕的调度算法之一。甚至比FIFO更差（单从运行时间看，增加了频繁地上下文切换）。</p>
-<p>我们学习了两种调度程序。第一种类型（SIF、STCF）优化周转时间，但对响应时间不利；第二种类型（RR）优化响应时间，但对周转时间不利。</p>
-<p>接下来我们还要放宽假设4和5。（希望你没有忘记是什么）</p>
-<h3 id="8-结合I-O"><a href="#8-结合I-O" class="headerlink" title="8. 结合I/O"></a>8. 结合I/O</h3><p>首先，放宽假设4：所有工作只使用CPU（即它们不执行IO操作）。</p>
-<p>让我们来看一种情况，A和B都需要50ms的CPU时间，但是A运行10ms需要I/O操作（I/O占时10ms），B只使用CPU。</p>
-<p>将周转时间当作指标，无论哪种算法效果都不好。</p>
-<p>一种常见的方法是，将进程的每个I/O子工作视为一个独立的工作。这样做可以实现<strong>重叠（overlap）</strong>，一个进程在等待另一个进程的I/O完成时使用CPU，系统因此得到更好的利用。</p>
-<p><img src="/post/fe1a6b20/image-20201109165657861.png" alt="image-20201109165657861" style="zoom: 80%;"></p>
-<p>当这些交互式工作正在执行I/O时，其他密集型工作将运行，从而更好地利用CPU。</p>
-<h3 id="9-无法预知"><a href="#9-无法预知" class="headerlink" title="9. 无法预知"></a>9. 无法预知</h3><p>来到最后的假设：每个工作的运行时间是已知的。</p>
-<p>事实上，操作系统通常对每个工作的长度知之甚少。下一章我们将看到如果通过构建一个调度程序，利用最近的历史预测未来。</p>
-<h2 id="homework"><a href="#homework" class="headerlink" title="[homework]"></a>[homework]</h2><ol>
-<li><p>使用SJF和FIFO调度程序运行长度为200的3个工作时，计算响应时间和周转时间。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ./scheduler.py -p SJF -l 200,200,200 -c</span><br><span class="line">response time: 0, 200, 400</span><br><span class="line">turnaround time: 200, 400, 600</span><br><span class="line"></span><br><span class="line">$ ./scheduler.py -p FIFO -l 200,200,200 -c</span><br><span class="line">response time: 0, 200, 400</span><br><span class="line">turnaround time: 200, 400, 600</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol>
-<li><p>现在执行相同的操作，但是要使用不同长度的工作：300、200和100。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ./scheduler.py -p SJF -l 300,200,100 -c</span><br><span class="line">response time: 0, 100, 300</span><br><span class="line">turnaround time: 100, 300, 600</span><br><span class="line"></span><br><span class="line">$ ./scheduler.py -p FIFO -l 300,200,100 -c</span><br><span class="line">response time: 0, 300,500</span><br><span class="line">turnaround time: 300, 500, 600</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol>
-<li><p>现在执行相同操作，但采用RR调度程序，时间片1。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ./scheduler.py -p RR -q 1 -l 300,200,100 -c</span><br><span class="line">response time: 0, 1, 2</span><br><span class="line">turnaround time: 600, 500, 300</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol>
-<li><p>对于什么类型的工作负载，SJF提供与FIFO相同的<strong>周转时间</strong>？</p>
-<p>工作按时间长度升序排列（即短工作排前）。</p>
-</li>
-</ol>
-<ol>
-<li><p>对于什么类型的工作负载和量子长度，SJF与RR相同的<strong>响应时间</strong>？</p>
-<p>只有一个工作在运行，在下个工作到来之前已经完成；</p>
-<p>或者工作长度最长的工作最多只需要一个量子长度就能完成的工作负载。</p>
-</li>
-</ol>
-<ol>
-<li><p>随着工作长度的增加，SJF的响应时间会怎样？您能使用模拟程序来展示趋势吗？</p>
-<p>响应时间随工作长度线性递增。可以使用bash脚本和模拟程序来证明这一点。运行脚本:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">START_LEN=100</span><br><span class="line">LEN_INCREMENT=100</span><br><span class="line">END_LEN=1000</span><br><span class="line"><span class="keyword">for</span> l <span class="keyword">in</span> $(seq <span class="variable">$START_LEN</span> <span class="variable">$LEN_INCREMENT</span> <span class="variable">$END_LEN</span>); <span class="keyword">do</span></span><br><span class="line">    AVG_RESP=$(./scheduler.py -p SJF -l <span class="variable">$l</span>,<span class="variable">$l</span>,<span class="variable">$l</span> -c | \</span><br><span class="line">               grep --o <span class="string">&quot;Average -- Response: [0-9.]*&quot;</span> | \</span><br><span class="line">               grep --o [0-9.]*$);</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Average response time for 3 jobs of length <span class="variable">$l</span>: <span class="variable">$AVG_RESP</span>&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-<p>输出:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Average response time <span class="keyword">for</span> 3 <span class="built_in">jobs</span> of length 100: 100.00</span><br><span class="line">Average response time <span class="keyword">for</span> 3 <span class="built_in">jobs</span> of length 200: 200.00</span><br><span class="line">Average response time <span class="keyword">for</span> 3 <span class="built_in">jobs</span> of length 300: 300.00</span><br><span class="line">Average response time <span class="keyword">for</span> 3 <span class="built_in">jobs</span> of length 400: 400.00</span><br><span class="line">Average response time <span class="keyword">for</span> 3 <span class="built_in">jobs</span> of length 500: 500.00</span><br><span class="line">Average response time <span class="keyword">for</span> 3 <span class="built_in">jobs</span> of length 600: 600.00</span><br><span class="line">Average response time <span class="keyword">for</span> 3 <span class="built_in">jobs</span> of length 700: 700.00</span><br><span class="line">Average response time <span class="keyword">for</span> 3 <span class="built_in">jobs</span> of length 800: 800.00</span><br><span class="line">Average response time <span class="keyword">for</span> 3 <span class="built_in">jobs</span> of length 900: 900.00</span><br><span class="line">Average response time <span class="keyword">for</span> 3 <span class="built_in">jobs</span> of length 1000: 1000.00</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol>
-<li><p>随着量子长度的增加，RR的响应时间会怎样？你能写出一个方程，计算给定工作时，最坏情况的响应时间吗？</p>
-<p>响应时间随量子长度线性递增。</p>
-<p>最坏情况：量子长度为<code>SQ</code>，并且每个作业至少需要花费时间<code>SQ</code>才能完成。此时，平均响应时间为<code>SQ(N-1)/2</code>，而安排最后一个作业所需的时间为<code>SQ(N-1)</code>。</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Operating System</category>
-      </categories>
-      <tags>
-        <tag>OSTEP</tag>
-        <tag>process</tag>
-        <tag>process scheduling</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Q&amp;A:RAM &amp; ROM &amp; Memory</title>
     <url>/post/17d0af8c/</url>
     <content><![CDATA[<h1 id="RAM为什么是随机存储？"><a href="#RAM为什么是随机存储？" class="headerlink" title="RAM为什么是随机存储？"></a>RAM为什么是随机存储？</h1><p>​        <strong>”随机“强调的是存取数据所花的时间与目标数据所在的物理位置无关</strong>。这是由RAM的结构决定的，RAM使用<strong>存储阵列</strong>来存储数据，只要给出<strong>行地址</strong>和<strong>列地址</strong>，就能<strong>确定目标数据</strong>，这一过程<strong>与目标数据所处的物理位置无关</strong>。</p>
@@ -1445,6 +1346,105 @@ out(t) = out(t - 1)</script><p>从另一个方面来说，DFF仅能够输出它�
         <tag>nand2tetris</tag>
         <tag>VirtualMachine</tag>
         <tag>vm code</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>进程调度Ⅰ</title>
+    <url>/post/fe1a6b20/</url>
+    <content><![CDATA[<h1 id="进程调度"><a href="#进程调度" class="headerlink" title="[进程调度]"></a>[进程调度]</h1><h3 id="1-工作负载假设"><a href="#1-工作负载假设" class="headerlink" title="1. 工作负载假设"></a>1. 工作负载假设</h3><p>对操作系统中运行的进程（有时也叫工作任务）做出如下的假设：</p>
+<ol>
+<li>每个工作运行相同的时间。</li>
+<li>所有工作同时到达。</li>
+<li>一旦开始，每个工作保持运行直到完成。</li>
+<li>所有工作只使用CPU（即它们不执行IO操作）。</li>
+<li>每个工作的运行时间是已知的。</li>
+</ol>
+<h3 id="2-调度指标"><a href="#2-调度指标" class="headerlink" title="2. 调度指标"></a>2. 调度指标</h3><p>调度指标：周转时间。</p>
+<script type="math/tex; mode=display">
+T(周转时间)=T(完成时间)-T(到达时间)</script><p>周转时间是一个性能指标，另一个指标是公平。性能和公平在调度系统往往是矛盾的。</p>
+<h3 id="3-FIFO-FCFS"><a href="#3-FIFO-FCFS" class="headerlink" title="3. FIFO / FCFS"></a>3. FIFO / FCFS</h3><p>First In First Out / First Come First Served.</p>
+<p>这是最基本的调度算法。</p>
+<p>但是在护航效应（一些耗时较少的潜在资源消费者排在重量级的资源消费者之后）。我们可以看到，在此放宽了第一个假设：每个工作<strong>运行相同的时间</strong>。</p>
+<h3 id="4-SJF"><a href="#4-SJF" class="headerlink" title="4. SJF"></a>4. SJF</h3><p>Shortest Job First.</p>
+<p>这个简单的调度算法解决了上面的问题，先运行最短的任务，然后是次短的任务，如此下去。</p>
+<p>考虑到<strong>所有工作同时到达</strong>的假设，可证SJF确实是一个最优的调度算法。</p>
+<p>然而，这个假设是不切实际的。</p>
+<p>现在再放宽假设2：<strong>所有工作同时到达</strong>，来考虑更切合实际的情况。例如：用时长的任务先达，用时短的任务随后到达，此时我们的周转时间依然堪忧。</p>
+<h3 id="5-STCF"><a href="#5-STCF" class="headerlink" title="5. STCF"></a>5. STCF</h3><p>Shortest Time-to-Completion First.</p>
+<p>为了解决这个问题，需要放宽假设条件3：每个工作<strong>保持运行直到完成</strong>。这意味着，调度程序可以<strong>抢占（preempt）</strong>进程/工作。SJF是一种非抢占式调度程序，因而存在上述的问题。</p>
+<p>STCF只是向SJF添加抢占。每当新工作进入系统，他就会确定剩余工作和新工作中，谁的剩余时间少，然后调度该工作。</p>
+<p>显然，STCF的周转时间符合我们的预期。</p>
+<p>此时我们已经放宽了3个假设条件，接下来，我们考虑新的度量指标。</p>
+<h3 id="6-新度量指标：响应时间"><a href="#6-新度量指标：响应时间" class="headerlink" title="6. 新度量指标：响应时间"></a>6. 新度量指标：响应时间</h3><p>对于早期的批处理系统STCF是一个很好的策略，但是现在，用户会坐在终端前，同时要求系统的交互性好。催生了新的度量标准：响应时间。</p>
+<script type="math/tex; mode=display">
+T(响应时间)=T(首次运行)-T(到达时间)</script><p>考虑一种情况：A先到达，B和C在时间10到达（ABC运行时间均为10）。如果恰好用户交互进程是C，那么我们不得不等待10s才能得到系统的回应。（前面的调度算法都并不是很好）</p>
+<p>因此，如何构建对响应时间敏感的调度程序？</p>
+<h3 id="7-RR"><a href="#7-RR" class="headerlink" title="7. RR"></a>7. RR</h3><p>Round-Robin.</p>
+<p>RR在一个时间片（time slice，又是称为调度量子，schedule quantum）内运行一个工作，然后切换到运行队列中的下一个任务，而不是运行一个任务到结束，它反复执行，直到所有任务完成。时间片长度必须是时钟中断周期的倍速。</p>
+<p>时间长度对于RR是至关重要的。越短，RR在响应时间上表现越好，然而，时间片太短也有问题：突然上下文切换的成本将影响整体性能。</p>
+<p>系统设计者需要衡量时间片的长度，足够长方便<strong>摊销（amortize）</strong>上下文切换成本，又不致使系统响应不及时。</p>
+<blockquote>
+<p>当某些操作有固定成本时，通常会使用摊销技术（amortization）。通过减少成本的频度（执行较少次的操作），系统的总成本就会降低。<br>         例如：时间片:10ms，上下文切换成本:1ms，浪费时间10%；为了摊销，时间片增加到100ms，浪费时间仅有1%。</p>
+</blockquote>
+<p>然而，问题又来了，如果周转时间是我们的指标，RR将会是最糟糕的调度算法之一。甚至比FIFO更差（单从运行时间看，增加了频繁地上下文切换）。</p>
+<p>我们学习了两种调度程序。第一种类型（SIF、STCF）优化周转时间，但对响应时间不利；第二种类型（RR）优化响应时间，但对周转时间不利。</p>
+<p>接下来我们还要放宽假设4和5。（希望你没有忘记是什么）</p>
+<h3 id="8-结合I-O"><a href="#8-结合I-O" class="headerlink" title="8. 结合I/O"></a>8. 结合I/O</h3><p>首先，放宽假设4：所有工作只使用CPU（即它们不执行IO操作）。</p>
+<p>让我们来看一种情况，A和B都需要50ms的CPU时间，但是A运行10ms需要I/O操作（I/O占时10ms），B只使用CPU。</p>
+<p>将周转时间当作指标，无论哪种算法效果都不好。</p>
+<p>一种常见的方法是，将进程的每个I/O子工作视为一个独立的工作。这样做可以实现<strong>重叠（overlap）</strong>，一个进程在等待另一个进程的I/O完成时使用CPU，系统因此得到更好的利用。</p>
+<p><img src="/post/fe1a6b20/image-20201109165657861.png" alt="image-20201109165657861" style="zoom: 80%;"></p>
+<p>当这些交互式工作正在执行I/O时，其他密集型工作将运行，从而更好地利用CPU。</p>
+<h3 id="9-无法预知"><a href="#9-无法预知" class="headerlink" title="9. 无法预知"></a>9. 无法预知</h3><p>来到最后的假设：每个工作的运行时间是已知的。</p>
+<p>事实上，操作系统通常对每个工作的长度知之甚少。下一章我们将看到如果通过构建一个调度程序，利用最近的历史预测未来。</p>
+<h2 id="homework"><a href="#homework" class="headerlink" title="[homework]"></a>[homework]</h2><ol>
+<li><p>使用SJF和FIFO调度程序运行长度为200的3个工作时，计算响应时间和周转时间。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ./scheduler.py -p SJF -l 200,200,200 -c</span><br><span class="line">response time: 0, 200, 400</span><br><span class="line">turnaround time: 200, 400, 600</span><br><span class="line"></span><br><span class="line">$ ./scheduler.py -p FIFO -l 200,200,200 -c</span><br><span class="line">response time: 0, 200, 400</span><br><span class="line">turnaround time: 200, 400, 600</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>现在执行相同的操作，但是要使用不同长度的工作：300、200和100。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ./scheduler.py -p SJF -l 300,200,100 -c</span><br><span class="line">response time: 0, 100, 300</span><br><span class="line">turnaround time: 100, 300, 600</span><br><span class="line"></span><br><span class="line">$ ./scheduler.py -p FIFO -l 300,200,100 -c</span><br><span class="line">response time: 0, 300,500</span><br><span class="line">turnaround time: 300, 500, 600</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>现在执行相同操作，但采用RR调度程序，时间片1。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ./scheduler.py -p RR -q 1 -l 300,200,100 -c</span><br><span class="line">response time: 0, 1, 2</span><br><span class="line">turnaround time: 600, 500, 300</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>对于什么类型的工作负载，SJF提供与FIFO相同的<strong>周转时间</strong>？</p>
+<p>工作按时间长度升序排列（即短工作排前）。</p>
+</li>
+</ol>
+<ol>
+<li><p>对于什么类型的工作负载和量子长度，SJF与RR相同的<strong>响应时间</strong>？</p>
+<p>只有一个工作在运行，在下个工作到来之前已经完成；</p>
+<p>或者工作长度最长的工作最多只需要一个量子长度就能完成的工作负载。</p>
+</li>
+</ol>
+<ol>
+<li><p>随着工作长度的增加，SJF的响应时间会怎样？您能使用模拟程序来展示趋势吗？</p>
+<p>响应时间随工作长度线性递增。可以使用bash脚本和模拟程序来证明这一点。运行脚本:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">START_LEN=100</span><br><span class="line">LEN_INCREMENT=100</span><br><span class="line">END_LEN=1000</span><br><span class="line"><span class="keyword">for</span> l <span class="keyword">in</span> $(seq <span class="variable">$START_LEN</span> <span class="variable">$LEN_INCREMENT</span> <span class="variable">$END_LEN</span>); <span class="keyword">do</span></span><br><span class="line">    AVG_RESP=$(./scheduler.py -p SJF -l <span class="variable">$l</span>,<span class="variable">$l</span>,<span class="variable">$l</span> -c | \</span><br><span class="line">               grep --o <span class="string">&quot;Average -- Response: [0-9.]*&quot;</span> | \</span><br><span class="line">               grep --o [0-9.]*$);</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Average response time for 3 jobs of length <span class="variable">$l</span>: <span class="variable">$AVG_RESP</span>&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>输出:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Average response time <span class="keyword">for</span> 3 <span class="built_in">jobs</span> of length 100: 100.00</span><br><span class="line">Average response time <span class="keyword">for</span> 3 <span class="built_in">jobs</span> of length 200: 200.00</span><br><span class="line">Average response time <span class="keyword">for</span> 3 <span class="built_in">jobs</span> of length 300: 300.00</span><br><span class="line">Average response time <span class="keyword">for</span> 3 <span class="built_in">jobs</span> of length 400: 400.00</span><br><span class="line">Average response time <span class="keyword">for</span> 3 <span class="built_in">jobs</span> of length 500: 500.00</span><br><span class="line">Average response time <span class="keyword">for</span> 3 <span class="built_in">jobs</span> of length 600: 600.00</span><br><span class="line">Average response time <span class="keyword">for</span> 3 <span class="built_in">jobs</span> of length 700: 700.00</span><br><span class="line">Average response time <span class="keyword">for</span> 3 <span class="built_in">jobs</span> of length 800: 800.00</span><br><span class="line">Average response time <span class="keyword">for</span> 3 <span class="built_in">jobs</span> of length 900: 900.00</span><br><span class="line">Average response time <span class="keyword">for</span> 3 <span class="built_in">jobs</span> of length 1000: 1000.00</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>随着量子长度的增加，RR的响应时间会怎样？你能写出一个方程，计算给定工作时，最坏情况的响应时间吗？</p>
+<p>响应时间随量子长度线性递增。</p>
+<p>最坏情况：量子长度为<code>SQ</code>，并且每个作业至少需要花费时间<code>SQ</code>才能完成。此时，平均响应时间为<code>SQ(N-1)/2</code>，而安排最后一个作业所需的时间为<code>SQ(N-1)</code>。</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Operating System</category>
+      </categories>
+      <tags>
+        <tag>OSTEP</tag>
+        <tag>process</tag>
+        <tag>process scheduling</tag>
       </tags>
   </entry>
   <entry>
