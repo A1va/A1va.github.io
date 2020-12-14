@@ -1,0 +1,195 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Alva - 青春也不过只有这些日子</title><meta name="author" content="Alva"><meta name="copyright" content="Alva"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="Concentrate on Computer Architecture, Operating System, Assembly">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Alva">
+<meta property="og:url" content="https://a1va.gitee.io/page/3/index.html">
+<meta property="og:site_name" content="Alva">
+<meta property="og:description" content="Concentrate on Computer Architecture, Operating System, Assembly">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/A1va/A1va.github.io@1.0/img/avatar.png">
+<meta property="article:author" content="Alva">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/A1va/A1va.github.io@1.0/img/avatar.png"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/A1va/A1va.github.io@1.0/img/favicon.ico"><link rel="canonical" href="https://a1va.gitee.io/page/3/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><meta name="google-site-verification" content="El4_ybdouSxfugS-mn6ianXIfL6DKjyTdyWIXKCs8ww"/><meta name="baidu-site-verification" content="code-q1vRuOFMVW"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.2.0',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":100,"languages":{"author":"作者: Alva","link":"链接: ","source":"来源: Alva","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isSidebar: false,
+  postUpdate: '2020-12-14 16:21:48'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {
+  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }
+})()</script><link rel="stylesheet" href="/css/customize.css"><meta name="generator" content="Hexo 5.2.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/A1va/A1va.github.io@1.0/img/avatar.png" onerror="onerror=null;src='https://cdn.jsdelivr.net/gh/A1va/A1va.github.io@1.0/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">23</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">21</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">6</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg"></div><header class="full_page" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/A1va/A1va.github.io@1.0/img/back.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Alva</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="site-info"><h1 id="site-title">Alva</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/A1va" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:2858007637@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout_page" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/post/17d0af8c/" title="Q&amp;A:RAM &amp; ROM &amp; Memory">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/A1va/A1va.github.io@1.0/img/404.jpg'" alt="Q&amp;A:RAM &amp; ROM &amp; Memory"></a></div><div class="recent-post-info"><a class="article-title" href="/post/17d0af8c/" title="Q&amp;A:RAM &amp; ROM &amp; Memory">Q&amp;A:RAM &amp; ROM &amp; Memory</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-10-23T13:54:14.000Z" title="发表于 2020-10-23 21:54:14">2020-10-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/">内存布局</a></span></div><div class="content">RAM为什么是随机存储？​        ”随机“强调的是存取数据所花的时间与目标数据所在的物理位置无关。这是由RAM的结构决定的，RAM使用存储阵列来存储数据，只要给出行地址和列地址，就能确定目标数据，这一过程与目标数据所处的物理位置无关。
+​        与“随机存取“相对的，是“串行访问”，指存取数据所花的时间与目标数据所在的物理位置有关。串行访问里面又分为顺序存取和直接存取。顺序存取如磁带，要想访问一个某一存储单元，必须先访问该单元前面的单元，（所以就有了听歌时倒磁带的痛苦经历）。直接存取如磁盘，磁头可以直接定位到目标存储单元，不需访问该单元前面的单元。需要注意的是，即使是直接定位，定位磁头所花的时间也是不同的，比如磁头当前在磁道0，定位到磁道2和磁道10000的时间肯定不同，所以存取数据所花的时间与目标数所在的物理位置仍然有关。
+明明可以往硬盘里写数据，为什么叫ROM呢？​        首先，硬盘 ≠ ROM.
+​        在符合冯.诺依曼架构的计算机中，只读储存器ROM是相对于随机存储器RAM而存在的，所有的预程序从ROM读出存储在RAM上，工作时程序均在RAM中 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/post/e5494597/" title="Stack&amp;Heap">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/A1va/A1va.github.io@1.0/img/404.jpg'" alt="Stack&amp;Heap"></a></div><div class="recent-post-info"><a class="article-title" href="/post/e5494597/" title="Stack&amp;Heap">Stack&amp;Heap</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-10-23T13:51:53.000Z" title="发表于 2020-10-23 21:51:53">2020-10-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/">内存布局</a></span></div><div class="content">栈（Stack）和堆（Heap）​        目前来说我们知道怎么去声明一个基础类型的变量，比如int，float，等等。以及复杂数据类型数组和结构，声明它们的时候C会把这些变量放在栈上。每个线程都有一个栈，而程序通常只有一个堆。
+栈（Stack）  什么是栈？它是内存中一块特殊的区域，用于保存在函数中声明的零时变量（其中也包括main()函数）。栈是LIFO(Last in First Out 后进先出)的数据结构，进出操作是由CPU来管理和优化的。调用函数时就会使用栈。每当函数声明了一个变量，该变量就会被推入(Pushed)栈中。每当函数退出时，所有的变量都会被函数推出栈，并被释放掉(Free)。一旦变量被释放，该内存区域就可以被其他栈变量使用。  使用栈的优势是它会为你管理内存，而不需要你手动去分配或者释放内存。更进一步说，由于CPU可以有效地管理栈内存，所以从栈中读写变量是很快的。  理解栈的关键是需要知道函数什么时候退出，此时栈中所有的变量被推出，因此栈变量是局部的（也就是局部变量）。C中经常出现的一个错误就是，在函数返回以后去访问函数内部中栈变量。  如果使用太多的栈空 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/post/908b7180/" title="C语言内存布局">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/A1va/A1va.github.io@1.0/img/404.jpg'" alt="C语言内存布局"></a></div><div class="recent-post-info"><a class="article-title" href="/post/908b7180/" title="C语言内存布局">C语言内存布局</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-10-23T13:46:06.000Z" title="发表于 2020-10-23 21:46:06">2020-10-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/">内存布局</a></span></div><div class="content">C语言程序的内存布局内存布局
+在我们的计算机内存中，需要为程序存储的不同类型的数据分为不同的部分：
+
+
+机器码部分是我们的已编译程序的二进制代码。当我们运行程序时，该代码将被加载到内存的“顶部”。
+全局变量是我们在程序中声明的全局变量或整个程序可以访问的其他共享变量。
+堆部分是一个空区域，malloc可以从中获取可用内存，供程序使用。Dynamic Memory动态申请的内存将存放在堆。
+栈部分由程序中的函数调用时使用。function任何函数和Local Variables本地变量 都将存放在栈，函数体内再进行函数调用将会在原本的栈区之上再叠一层，因为每个函数都有自己的主存区域。
+例如，我们的main函数位于栈的最底部，而main调用的其他函数一层一层往上堆叠。
+
+
+❌交换函数：交换的只是传入的变量的副本。
+123456void swap(int a, int b)&#123;    int tmp = a;    a = b;    b = tmp;&#125;
+
+例如，我们的main函数位于栈区的最底部，并且具有局部变量x和y。 调用交换函数时，它具有自己的存储框架或内存片，位于 ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/A1va/A1va.github.io@1.0/img/avatar.png" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/A1va/A1va.github.io@1.0/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Alva</div><div class="author-info__description">Concentrate on Computer Architecture, Operating System, Assembly</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length_num">23</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length_num">21</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length_num">6</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/A1va"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/A1va" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:2858007637@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="sticky_layout"><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">Keep on learning MIT6.S081</div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/f04d0d64/" title="指针教学3 函数回传形式为void pointer"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/A1va/A1va.github.io@1.0/img/404.jpg'" alt="指针教学3 函数回传形式为void pointer"/></a><div class="content"><a class="title" href="/post/f04d0d64/" title="指针教学3 函数回传形式为void pointer">指针教学3 函数回传形式为void pointer</a><time datetime="2020-12-14T08:20:05.000Z" title="发表于 2020-12-14 16:20:05">2020-12-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/604e1e28/" title="指针教学2 函数的参数形式为void pointer"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/A1va/A1va.github.io@1.0/img/404.jpg'" alt="指针教学2 函数的参数形式为void pointer"/></a><div class="content"><a class="title" href="/post/604e1e28/" title="指针教学2 函数的参数形式为void pointer">指针教学2 函数的参数形式为void pointer</a><time datetime="2020-12-14T08:19:25.000Z" title="发表于 2020-12-14 16:19:25">2020-12-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/a4135347/" title="指针教学1 void pointer"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/A1va/A1va.github.io@1.0/img/404.jpg'" alt="指针教学1 void pointer"/></a><div class="content"><a class="title" href="/post/a4135347/" title="指针教学1 void pointer">指针教学1 void pointer</a><time datetime="2020-12-14T08:18:16.000Z" title="发表于 2020-12-14 16:18:16">2020-12-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/fe1a6b20/" title="进程调度Ⅰ"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/A1va/A1va.github.io@1.0/img/404.jpg'" alt="进程调度Ⅰ"/></a><div class="content"><a class="title" href="/post/fe1a6b20/" title="进程调度Ⅰ">进程调度Ⅰ</a><time datetime="2020-11-09T09:00:33.000Z" title="发表于 2020-11-09 17:00:33">2020-11-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/a06b7d48/" title="Spring Boot入门"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/A1va/A1va.github.io@1.0/img/404.jpg'" alt="Spring Boot入门"/></a><div class="content"><a class="title" href="/post/a06b7d48/" title="Spring Boot入门">Spring Boot入门</a><time datetime="2020-10-26T07:19:48.000Z" title="发表于 2020-10-26 15:19:48">2020-10-26</time></div></div></div></div></div><div class="card-widget card-categories"><div class="card-content"><div class="item-headline"><i class="fas fa-folder-open"></i><span>分类</span></div><ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Assembly/"><span class="card-category-list-name">Assembly</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Computer-Architecture/"><span class="card-category-list-name">Computer Architecture</span><span class="card-category-list-count">8</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Operating-System/"><span class="card-category-list-name">Operating System</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Spring-Boot/"><span class="card-category-list-name">Spring Boot</span><span class="card-category-list-count">7</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/"><span class="card-category-list-name">内存布局</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%8C%87%E9%92%88/"><span class="card-category-list-name">指针</span><span class="card-category-list-count">3</span></a></li>
+            
+            </ul></div></div><div class="card-widget card-tags"><div class="card-content"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/ALU/" style="font-size: 1.1em; color: #999">ALU</a> <a href="/tags/Assembly/" style="font-size: 1.26em; color: #999fa8">Assembly</a> <a href="/tags/CPU/" style="font-size: 1.1em; color: #999">CPU</a> <a href="/tags/C%E8%AF%AD%E8%A8%80/" style="font-size: 1.1em; color: #999">C语言</a> <a href="/tags/HDL/" style="font-size: 1.34em; color: #99a3b0">HDL</a> <a href="/tags/Hack%E6%B1%87%E7%BC%96%E7%BC%96%E8%AF%91%E5%99%A8/" style="font-size: 1.1em; color: #999">Hack汇编编译器</a> <a href="/tags/Memory/" style="font-size: 1.18em; color: #999ca1">Memory</a> <a href="/tags/OSTEP/" style="font-size: 1.1em; color: #999">OSTEP</a> <a href="/tags/RAM/" style="font-size: 1.18em; color: #999ca1">RAM</a> <a href="/tags/ROM/" style="font-size: 1.1em; color: #999">ROM</a> <a href="/tags/Register/" style="font-size: 1.1em; color: #999">Register</a> <a href="/tags/Spring-Boot/" style="font-size: 1.42em; color: #99a6b7">Spring Boot</a> <a href="/tags/VirtualMachine/" style="font-size: 1.18em; color: #999ca1">VirtualMachine</a> <a href="/tags/heap/" style="font-size: 1.18em; color: #999ca1">heap</a> <a href="/tags/memory-layout/" style="font-size: 1.1em; color: #999">memory layout</a> <a href="/tags/nand2tetris/" style="font-size: 1.5em; color: #99a9bf">nand2tetris</a> <a href="/tags/process/" style="font-size: 1.1em; color: #999">process</a> <a href="/tags/process-scheduling/" style="font-size: 1.1em; color: #999">process scheduling</a> <a href="/tags/stack/" style="font-size: 1.18em; color: #999ca1">stack</a> <a href="/tags/vm-code/" style="font-size: 1.18em; color: #999ca1">vm code</a> <a href="/tags/%E7%8E%8B%E7%88%BD/" style="font-size: 1.1em; color: #999">王爽</a></div></div></div><div class="card-widget card-archives"><div class="card-content"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/12/"><span class="card-archive-list-date">十二月 2020</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/11/"><span class="card-archive-list-date">十一月 2020</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/10/"><span class="card-archive-list-date">十月 2020</span><span class="card-archive-list-count">19</span></a></li></ul></div></div><div class="card-widget card-webinfo"><div class="card-content"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">23</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">42.8k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2020-12-14T08:21:48.450Z"></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 By Alva</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">簡</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function subtitleType () {
+  if (true) { 
+    var typed = new Typed("#subtitle", {
+      strings: "青春也不过只有这些日子,爱你所爱&#44;行你所行&#59;听从你心&#44;无问西东".split(","),
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50
+    })
+  } else {
+    document.getElementById("subtitle").innerHTML = '青春也不过只有这些日子'
+  }
+}
+
+if (true) {
+  if (typeof Typed === 'function') subtitleType()
+  else $.getScript('https://cdn.jsdelivr.net/npm/typed.js/lib/typed.min.js', subtitleType)
+} else {
+  subtitleType()
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/js/customize.js"></script><script>(function(){
+  const bp = document.createElement('script');
+  const curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https'){
+  bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  bp.dataset.pjax = ''
+  const s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})()</script></div></body></html>
