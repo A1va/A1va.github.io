@@ -16,24 +16,24 @@
 // });
 
 // 页脚养鱼
-fish();
-function fish() {
-    return (
-      $("#footer-wrap").css({
-          position: "absolute",
-          "text-align": "center",
-          top: 0,
-          right: 0,
-          left: 0,
-          bottom: 0,
-      }),
-        $("footer").append(
-          '<div class="container" id="jsi-flying-fish-container"></div>'
-        ),
-        // 此处修改导入的 fish.js 文件
-        $("body").append(
-          '<script src="/js/fish.js"></script>'
-        ),
-        this
-    );
-}
+// fish();
+// function fish() {
+//     return (
+//       $("#footer-wrap").css({
+//           position: "absolute",
+//           "text-align": "center",
+//           top: 0,
+//           right: 0,
+//           left: 0,
+//           bottom: 0,
+//       }),
+//         $("footer").append(
+//           '<div class="container" id="jsi-flying-fish-container"></div>'
+//         ),
+//         // 此处修改导入的 fish.js 文件
+//         $("body").append(
+//           '<script src="/js/fish.js"></script>'
+//         ),
+//         this
+//     );
+// }
